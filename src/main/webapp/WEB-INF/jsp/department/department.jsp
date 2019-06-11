@@ -155,6 +155,12 @@
             </a>
           </li>
 
+          <li data-name="home" class="layui-nav-item">
+            <a lay-href="schedule/index?name=结算类别管理" lay-tips="主页" lay-direction="2">
+              <i class="layui-icon layui-icon-home"></i>
+              <cite>医生排班管理</cite>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
