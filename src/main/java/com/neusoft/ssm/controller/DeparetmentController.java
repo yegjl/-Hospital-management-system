@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @Controller
 @RequestMapping("department")
@@ -74,7 +73,7 @@ public class DeparetmentController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal((int)pageInfo.getTotal());
-            // TODO: 2019/5/30 将list转为JSON格式传至前端
+            // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {
             e.printStackTrace();

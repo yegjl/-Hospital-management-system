@@ -2,7 +2,6 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.ssm.bean.Department;
 import com.neusoft.ssm.bean.User;
 import com.neusoft.ssm.bean.UserDemo;
 import com.neusoft.ssm.dto.ResultDTO;
@@ -136,7 +135,7 @@ public class UserManage {
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal((int)pageInfo.getTotal());
-            // TODO: 2019/5/30 将list转为JSON格式传至前端
+            // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list1));
         } catch (Exception e) {
             e.printStackTrace();

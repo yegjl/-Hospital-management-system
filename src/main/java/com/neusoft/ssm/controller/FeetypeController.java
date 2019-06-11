@@ -2,7 +2,6 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.ssm.bean.Department;
 import com.neusoft.ssm.bean.Feetype;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.FeetypeService;
@@ -39,7 +38,7 @@ public class FeetypeController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal((int)pageInfo.getTotal());
-            // TODO: 2019/5/30 将list转为JSON格式传至前端
+            // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +92,7 @@ public class FeetypeController {
         int issucess = feetypeService.update(record);
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
-            //TODO:将更新改为用ID查找，改完的输入框的值作为新值传入
+            //将更新改为用ID查找，改完的输入框的值作为新值传入
             resultDTO.setData(issucess);
         } catch (Exception e) {
             e.printStackTrace();

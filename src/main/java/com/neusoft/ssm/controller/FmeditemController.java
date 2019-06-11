@@ -73,7 +73,7 @@ public class FmeditemController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal((int)pageInfo.getTotal());
-            // TODO: 2019/5/30 将list转为JSON格式传至前端
+            // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {
             e.printStackTrace();

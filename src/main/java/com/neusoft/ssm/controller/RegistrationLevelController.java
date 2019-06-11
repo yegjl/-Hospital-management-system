@@ -1,7 +1,5 @@
 package com.neusoft.ssm.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.Registrationlevel;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.RegistrationLevelService;
@@ -23,7 +21,7 @@ public class RegistrationLevelController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    //todo:registrationService
+    //registrationService
      RegistrationLevelService registrationLevelService;
 
     @RequestMapping(value = "/index")
@@ -48,7 +46,7 @@ public class RegistrationLevelController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal(list.size());
-            // TODO: 2019/5/30 将list转为JSON格式传至前端
+            // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {
             e.printStackTrace();
