@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
   String path = request.getContextPath();
@@ -145,6 +145,13 @@
             <a lay-href="fee/index?name=结算类别管理" lay-tips="主页" lay-direction="2">
               <i class="layui-icon layui-icon-home"></i>
               <cite>结算类别管理</cite>
+            </a>
+          </li>
+
+          <li data-name="home" class="layui-nav-item">
+            <a lay-href="fmedItem/index?name=非药品收费项目" lay-tips="主页" lay-direction="2">
+              <i class="layui-icon layui-icon-home"></i>
+              <cite>非药品收费项目管理</cite>
             </a>
           </li>
 
