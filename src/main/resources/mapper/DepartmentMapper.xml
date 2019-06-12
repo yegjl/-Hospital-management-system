@@ -239,4 +239,10 @@
     select * from department order by id
   </select>
 
+    <select id="findNameById" parameterType="java.lang.Long" resultType="java.lang.String">
+        select DeptName
+        from department
+        where id = #{id}
+    </select>
+
 </mapper>

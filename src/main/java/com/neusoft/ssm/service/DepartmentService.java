@@ -18,4 +18,6 @@ public interface DepartmentService {
     int updateByPrimaryKeySelective(Department record);
     List<Department> getSearchDept(String keyword,String CgID);
     String getNameById(Integer id);
+
+    String findNameById(Long id);
 }
