@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.IcdDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Icd">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ICDSecondName" jdbcType="VARCHAR" property="icdsecondname" />
+    <result column="ICDFirstName" jdbcType="VARCHAR" property="icdfirstname" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="ICDid" jdbcType="VARCHAR" property="icdid" />
+    <result column="f6" jdbcType="VARCHAR" property="f6" />
+    <result column="f7" jdbcType="VARCHAR" property="f7" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ICDSecondName, ICDFirstName, area, ICDid, f6, f7
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.IcdExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from icd
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from icd
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from icd
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.IcdExample">
+    delete from icd
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Icd" useGeneratedKeys="true">
+    insert into icd (ICDSecondName, ICDFirstName, area, 
+      ICDid, f6, f7)
+    values (#{icdsecondname,jdbcType=VARCHAR}, #{icdfirstname,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{icdid,jdbcType=VARCHAR}, #{f6,jdbcType=VARCHAR}, #{f7,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Icd" useGeneratedKeys="true">
+    insert into icd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="icdsecondname != null">
+        ICDSecondName,
+      </if>
+      <if test="icdfirstname != null">
+        ICDFirstName,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="icdid != null">
+        ICDid,
+      </if>
+      <if test="f6 != null">
+        f6,
+      </if>
+      <if test="f7 != null">
+        f7,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="icdsecondname != null">
+        #{icdsecondname,jdbcType=VARCHAR},
+      </if>
+      <if test="icdfirstname != null">
+        #{icdfirstname,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="icdid != null">
+        #{icdid,jdbcType=VARCHAR},
+      </if>
+      <if test="f6 != null">
+        #{f6,jdbcType=VARCHAR},
+      </if>
+      <if test="f7 != null">
+        #{f7,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.IcdExample" resultType="java.lang.Long">
+    select count(*) from icd
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update icd
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.icdsecondname != null">
+        ICDSecondName = #{record.icdsecondname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icdfirstname != null">
+        ICDFirstName = #{record.icdfirstname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icdid != null">
+        ICDid = #{record.icdid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.f6 != null">
+        f6 = #{record.f6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.f7 != null">
+        f7 = #{record.f7,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update icd
+    set id = #{record.id,jdbcType=INTEGER},
+      ICDSecondName = #{record.icdsecondname,jdbcType=VARCHAR},
+      ICDFirstName = #{record.icdfirstname,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      ICDid = #{record.icdid,jdbcType=VARCHAR},
+      f6 = #{record.f6,jdbcType=VARCHAR},
+      f7 = #{record.f7,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Icd">
+    update icd
+    <set>
+      <if test="icdsecondname != null">
+        ICDSecondName = #{icdsecondname,jdbcType=VARCHAR},
+      </if>
+      <if test="icdfirstname != null">
+        ICDFirstName = #{icdfirstname,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="icdid != null">
+        ICDid = #{icdid,jdbcType=VARCHAR},
+      </if>
+      <if test="f6 != null">
+        f6 = #{f6,jdbcType=VARCHAR},
+      </if>
+      <if test="f7 != null">
+        f7 = #{f7,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Icd">
+    update icd
+    set ICDSecondName = #{icdsecondname,jdbcType=VARCHAR},
+      ICDFirstName = #{icdfirstname,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      ICDid = #{icdid,jdbcType=VARCHAR},
+      f6 = #{f6,jdbcType=VARCHAR},
+      f7 = #{f7,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectFirstName" resultType="java.util.HashMap">
+    select distinct ICDFirstName,ICDid from icd
+  </select>
+  <select id="selectSecondName" resultMap="BaseResultMap">
+    select ICDSecondName,id from icd where ICDid=#{icdid}
+  </select>
+</mapper>

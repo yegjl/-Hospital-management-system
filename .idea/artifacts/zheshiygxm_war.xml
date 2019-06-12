@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zheshiygxm:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zheshiygxm</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="jiami.war">
+      <element id="artifact" artifact-name="zheshiygxm:war exploded" />
+    </root>
+  </artifact>
+</component>

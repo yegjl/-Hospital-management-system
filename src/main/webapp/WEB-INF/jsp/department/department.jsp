@@ -155,6 +155,15 @@
             </a>
           </li>
 
+          <li data-name="home" class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;" lay-tips="主页" lay-direction="2">
+              <i class="layui-icon layui-icon-home"></i>
+              <cite>诊断目录管理</cite>
+            </a>
+
+            <dl id="icdfirstnames" class="layui-nav-child"></dl>
+          </li>
+
           <li data-name="home" class="layui-nav-item">
             <a lay-href="schedule/index?name=结算类别管理" lay-tips="主页" lay-direction="2">
               <i class="layui-icon layui-icon-home"></i>
@@ -216,6 +225,24 @@
           $("#cgNames").empty();
           for (var id in cgNames) {
            $("#cgNames").append("<dd data-name='console'><a lay-href='department/index?name="+cgNames[id]+"&id="+id+"'>" + cgNames[id] + "</a> </dd>");
+          }
+        }
+      },
+      error: function (result) {
+        alert(result.msg);
+      }
+    });
+    var icdfirstnames = null;
+    $.ajax({
+      type: "POST",//方法类型
+      url: "icd/firstname",//url
+      async: false,
+      success: function (result) {
+        if (result.status == 0) {
+          icdfirstnames = result.data;
+          $("#icdfirstnames").empty();
+          for (var icdid in icdfirstnames) {
+            $("#icdfirstnames").append("<dd data-name='console'><a lay-href='icd/index?icdid=" + icdid +"&icdfirstname="+icdfirstnames[icdid]+ "'>" + icdfirstnames[icdid] + "</a></dd>");
           }
         }
       },
