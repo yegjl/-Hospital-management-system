@@ -20,4 +20,6 @@ public interface DepartmentService {
     String getNameById(Integer id);
 
     String findNameById(Long id);
+
+    List<Department> findByDeptType(String DeptType);
 }

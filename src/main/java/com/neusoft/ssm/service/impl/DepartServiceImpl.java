@@ -179,4 +179,9 @@ public class DepartServiceImpl implements DepartmentService {
     public String findNameById(Long id) {
         return departmentMapper.findNameById(id);
     }
+
+    @Override
+    public List<Department> findByDeptType(String DeptType) {
+        return departmentMapper.findByDeptType(DeptType);
+    }
 }

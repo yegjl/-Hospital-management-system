@@ -43,7 +43,10 @@ public class UserManage {
 
     @RequestMapping(value = "/addUI")
     public String index02(Model model,String id,String name) {
-        model.addAttribute("departments", departmentService.findAll());
+        if(id.equals("02"))
+        model.addAttribute("departments", departmentService.findByDeptType("1"));
+        if(id.equals("03"))
+            model.addAttribute("departments", departmentService.findByDeptType("2"));
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         return "user_manage/Outpatient_Department/add_Outpatient_Department";
@@ -57,7 +60,10 @@ public class UserManage {
 
     @RequestMapping(value = "/addUI1")
     public String index04(Model model,String id,String name) {
-        model.addAttribute("departments", departmentService.findAll());
+        if(id.equals("05"))
+            model.addAttribute("departments", departmentService.findByDeptType("3"));
+        else
+            model.addAttribute("departments", departmentService.findAll());
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         return "user_manage/Register/add_Register";

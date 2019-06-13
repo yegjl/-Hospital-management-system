@@ -149,19 +149,19 @@
           </li>
 
           <li data-name="home" class="layui-nav-item">
-            <a lay-href="fmedItem/index?name=非药品收费项目" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
-              <cite>非药品收费项目管理</cite>
-            </a>
-          </li>
-
-          <li data-name="home" class="layui-nav-item layui-nav-itemed">
             <a href="javascript:;" lay-tips="主页" lay-direction="2">
               <i class="layui-icon layui-icon-home"></i>
               <cite>诊断目录管理</cite>
             </a>
 
             <dl id="icdfirstnames" class="layui-nav-child"></dl>
+          </li>
+
+          <li data-name="home" class="layui-nav-item">
+            <a lay-href="fmedItem/index?name=非药品收费项目" lay-tips="主页" lay-direction="2">
+              <i class="layui-icon layui-icon-home"></i>
+              <cite>非药品收费项目管理</cite>
+            </a>
           </li>
 
           <li data-name="home" class="layui-nav-item">

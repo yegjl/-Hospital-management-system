@@ -90,12 +90,10 @@
             <p style="margin: auto;">是否参与排班：</p>
               </div>
               <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-               <select name="ifwork" lay-verify="required" lay-search>
+               <select name="ifwork" id="ifwork" lay-verify="required" lay-search>
                       <option value="">请选择是与否</option>
                       <option value="01">是</option>
                       <option value="02">否</option>
-                     
-                    
                     </select>
           </div>
           <br>
@@ -145,5 +143,20 @@
     });
   });
   </script>
+
+<%--<script>--%>
+<%--    window.onload=function() {--%>
+<%--        var type = "${id}";--%>
+<%--        if (type==02) {--%>
+<%--            $("#ifwork").empty();--%>
+<%--            $("#ifwork").append(" <option value=''>请选择是与否</option>");--%>
+<%--        }--%>
+<%--        if (type==03) {--%>
+<%--            $("#ifwork").empty();--%>
+<%--            $("#ifwork").append(" <option value=''>请选择是与否</option>  <option value='02'>否</option>");--%>
+<%--        }--%>
+<%--    }--%>
+<%--    </script>--%>
+
 </body>
 </html>

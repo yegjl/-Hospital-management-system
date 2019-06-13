@@ -245,4 +245,8 @@
         where id = #{id}
     </select>
 
+  <select id="findByDeptType" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Department">
+    select * from department
+    where DeptType=#{deptType}
+  </select>
 </mapper>

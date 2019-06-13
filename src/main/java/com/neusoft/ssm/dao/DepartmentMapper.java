@@ -45,4 +45,6 @@ public interface DepartmentMapper {
     String getNameById(Integer id);
 
     String findNameById(@Param("id") Long id);
+
+    List<Department> findByDeptType(String deptType);
 }
