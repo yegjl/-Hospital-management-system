@@ -193,7 +193,7 @@
                                     layer.msg(res.message)
                                 }
                                 layer.closeAll();
-                                parent.layui.table.reload('test-table-reload', {page: {curr: 1}});
+                                layui.table.reload('test-table-reload', {page: {curr: 1}});
                             },
                             error: function () {
                                 alert("出现错误");
@@ -249,13 +249,14 @@
                                     layer.msg(res.message)
                                 }
                                 layer.closeAll();
+                                layui.table.reload('test-table-reload', {page: {curr: 1}});
                             },
                             error: function () {
                                 alert("出现错误");
                                 return false;
                             }
                         }) //ajax结束
-                        layer.closeAll();
+
                         $(".layui-laypage-btn")[0].click();
                     }
                     , btn2: function () {
@@ -314,7 +315,7 @@
 
                         // 此处填充方法
                         layer.closeAll();
-                        parent.layui.table.reload('test-table-reload', {page: {curr: 1}});
+                        layui.table.reload('test-table-reload', {page: {curr: 1}});
                     }
                     , btn2: function () {
                         layer.closeAll();

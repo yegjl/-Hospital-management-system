@@ -218,7 +218,6 @@
                                     return false;
                                 }
                             }) //ajax结束
-                            layer.closeAll();
                             $(".layui-laypage-btn")[0].click();
                         }
                         ,btn2:function(){
@@ -274,10 +273,6 @@
                                     return false;
                                 }
                             })
-
-                            // 此处填充方法
-                            layer.closeAll();
-                            layui.table.reload('test-table-reload');
                         }
                         ,btn2:function(){
                             layer.closeAll();
