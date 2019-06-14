@@ -69,8 +69,11 @@ public class UserController {
     }
 
     //身份验证跳转
+//    @RequestMapping(value = "/index01")
+//    public String index01() { return "department/department"; }
+//测试第五部分（门诊医生工作站）业务
     @RequestMapping(value = "/index01")
-    public String index01() { return "department/department"; }
+    public String index01() { return "fifthpart/ODW_index"; }
 
     @RequestMapping(value = "/index02")
     public String index02() { return  "login/index02"; }
