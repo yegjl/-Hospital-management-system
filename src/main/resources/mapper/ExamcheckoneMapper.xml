@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.ExamcheckoneMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Examcheckone" >
+    <constructor >
+      <arg column="mark" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="doctorId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="medicalRecordId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="ItemCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ItemName" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mark, doctorId, medicalRecordId, status, ItemCode, ItemName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neusoft.ssm.bean.ExamcheckoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examcheckone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.ExamcheckoneExample" >
+    delete from examcheckone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.neusoft.ssm.bean.Examcheckone" >
+    insert into examcheckone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="doctorid != null" >
+        doctorId,
+      </if>
+      <if test="medicalrecordid != null" >
+        medicalRecordId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="itemcode != null" >
+        ItemCode,
+      </if>
+      <if test="itemname != null" >
+        ItemName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mark != null" >
+        #{mark,jdbcType=CHAR},
+      </if>
+      <if test="doctorid != null" >
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalrecordid != null" >
+        #{medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="itemcode != null" >
+        #{itemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.ExamcheckoneExample" resultType="java.lang.Integer" >
+    select count(*) from examcheckone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examcheckone
+    <set >
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=CHAR},
+      </if>
+      <if test="record.doctorid != null" >
+        doctorId = #{record.doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalrecordid != null" >
+        medicalRecordId = #{record.medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.itemcode != null" >
+        ItemCode = #{record.itemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemname != null" >
+        ItemName = #{record.itemname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examcheckone
+    set mark = #{record.mark,jdbcType=CHAR},
+      doctorId = #{record.doctorid,jdbcType=INTEGER},
+      medicalRecordId = #{record.medicalrecordid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      ItemCode = #{record.itemcode,jdbcType=VARCHAR},
+      ItemName = #{record.itemname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <select id="getPro" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.Examcheckone">
+    select * from examcheckone
+    where doctorId=#{param1}
+    and medicalRecordId=#{param2}
+  </select>
+</mapper>

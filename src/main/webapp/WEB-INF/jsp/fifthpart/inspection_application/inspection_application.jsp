@@ -283,7 +283,7 @@
 
       table.render({
         elem: '#test-table-simple1',
-        url: layui.setter.base + 'json/table/user.js',
+         url: layui.setter.base + 'json/table/user.js',
         cellMinWidth: 80 //全局定义常规单元格的最小宽度
           ,
         cols: [
@@ -351,23 +351,34 @@
 
       table.render({
         elem: '#test-table-cellEdit-middle',
-        url: layui.setter.base + 'json/table/demo.js',
+        // url: layui.setter.base + 'json/table/demo.js',
+        url: 'fifthpart/findpro?doctorid=5&medicalid=5',
+        method:'get',
+        parseData:function (res) {
+          //TODO:解析JSON对象
+          return {
+            "code":res.status,
+            "msg":res.message,
+            "count":res.total,
+            "data":res.data
+          }
+        },
         cols: [
           [{
             type: 'checkbox'
           }, {
-            field: 'id',
-            title: '项目ID',
+            field: 'itemcode',
+            title: '项目编码',
             width: 180,
             sort: true
           }, {
-            field: 'username',
+            field: 'itemname',
             title: '项目名称',
             width: 180,
             // sort: true,
             edit: 'text.jsp'
           }, {
-            field: 'email',
+            field: 'status',
             title: '项目状态',
             edit: 'text.jsp',
             minWidth: 180

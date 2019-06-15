@@ -61,7 +61,7 @@
              -->
             <!--            <property name="rootInterface" value=""/>-->
         </javaClientGenerator>
-        <table tableName="user" schema="hospital">
+        <table tableName="examcheckone" schema="hospital">
             <!-- optional   , only for mybatis3 runtime
                  自动生成的键值（identity,或者序列值）
                如果指定此元素，MBG将会生成<selectKey>元素，然后将此元素插入到SQL Map的<insert> 元素之中
@@ -82,7 +82,7 @@ This is a database independent method of obtaining the value from identity colum
 element will be placed after the insert (for an identity column). If false, then the generated <selectKey> will be placed before
  the insert (typically for a sequence).
             -->
-            <generatedKey column="id" sqlStatement="Mysql"/>
+            <generatedKey column="fmeditemId" sqlStatement="Mysql"/>
             <!--            <generatedKey column="id" sqlStatement="select SEQ_ID.nextval from dual"/>-->
             <!-- optional.
                     列的命名规则：
