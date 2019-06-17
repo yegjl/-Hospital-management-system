@@ -185,4 +185,45 @@
     where doctorId=#{param1}
     and medicalRecordId=#{param2}
   </select>
+
+    <delete id="deleteByExamId" parameterType="java.lang.Integer">
+        delete from examcheck_info
+        where examcheckId = #{param2}
+        and fmeditemId = #{param1}
+    </delete>
+
+    <delete id="deleteUnsave" >
+        delete from examcheck_info
+        where status = '0'
+    </delete>
+
+  <select id="findIdByCode" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select id from fmeditem
+    where ItemCode=#{param1}
+  </select>
+
+  <update id="saveByExamId" parameterType="java.lang.Integer" >
+    update examcheck_info
+    set status = 1
+    where examcheckId = #{param2}
+      and fmeditemId = #{param1}
+  </update>
+
+  <update id="openByExamId" parameterType="java.lang.Integer" >
+    update examcheck_info
+    set status = 2
+    where examcheckId = #{param2}
+      and fmeditemId = #{param1}
+  </update>
+
+  <update id="cancelByExamId" parameterType="java.lang.Integer" >
+    update examcheck_info
+    set status = 3
+    where examcheckId = #{param2}
+      and fmeditemId = #{param1}
+  </update>
+
+    <select id="findByExamType" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Fmeditem">
+        select * from fmeditem where RecordType=#{id}
+    </select>
 </mapper>

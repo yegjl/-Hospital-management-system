@@ -332,11 +332,6 @@
           });
         }
 
-
-
-
-
-
       };
 
       $('#LAY-component-layer-special-demo .layadmin-layer-demo .layui-btn').on('click', function () {

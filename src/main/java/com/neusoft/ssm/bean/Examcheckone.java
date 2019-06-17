@@ -13,6 +13,36 @@ public class Examcheckone {
 
     private String itemname;
 
+    private Integer examcheckid;
+
+    private String goal;
+
+    private String require;
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
+    public String getRequire() {
+        return require;
+    }
+
+    public void setRequire(String require) {
+        this.require = require;
+    }
+
+    public Integer getExamcheckid() {
+        return examcheckid;
+    }
+
+    public void setExamcheckid(Integer examcheckid) {
+        this.examcheckid = examcheckid;
+    }
+
     public Examcheckone(String mark, Integer doctorid, Integer medicalrecordid, String status, String itemcode, String itemname) {
         this.mark = mark;
         this.doctorid = doctorid;
