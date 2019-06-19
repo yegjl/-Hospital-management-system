@@ -1,7 +1,6 @@
 package com.neusoft.ssm.service.impl;
 
-import com.neusoft.ssm.bean.Examcheckone;
-import com.neusoft.ssm.bean.Fmeditem;
+import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dao.ExamcheckoneMapper;
 import com.neusoft.ssm.service.ExamcheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +53,35 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     public List<Fmeditem> findByExamType(String id) {
         return examcheckoneMapper.findByExamType(id);
     }
+
+    @Override
+    public Fmeditem findProByName(String name, String id) {
+        return examcheckoneMapper.findProByName(name,id);
+    }
+
+    @Override
+    public int addInfo(ExamcheckInfo examcheckInfo) {
+        return examcheckoneMapper.addInfo(examcheckInfo);
+    }
+
+    @Override
+    public int getCount(Integer doctorid, Integer medicalid) {
+        return examcheckoneMapper.getCount(doctorid,medicalid);
+    }
+
+    @Override
+    public int addExam(Examcheck examcheck) {
+        return examcheckoneMapper.addExam(examcheck);
+    }
+
+    @Override
+    public Integer getExamId(Integer doctorid, Integer medicalid) {
+        return examcheckoneMapper.getExamId(doctorid,medicalid);
+    }
+
+    @Override
+    public int addMuban(ExamcheckSet examcheckSet) {
+        return examcheckoneMapper.addMuban(examcheckSet);
+    }
+
 }

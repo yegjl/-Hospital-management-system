@@ -19,7 +19,7 @@
 </head>
 
 <body>
-
+<form id="add"  role="form">
     <div class="layui-fluid" id="html1">
         <div class="layui-row layui-col-space15">
             <div class="layui-card layui-form" lay-filter="component-form-element">
@@ -31,7 +31,7 @@
                                 <p style="margin: auto;font-size: 150%">组合编码：</p>
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" id="" autocomplete="off">
+                                <input class="layui-input" name="setcode" autocomplete="off">
                             </div>
                         </div>
 
@@ -44,7 +44,7 @@
 
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" id="" autocomplete="off">
+                                <input class="layui-input" name="setname" autocomplete="off">
                             </div>
                         </div>
 
@@ -99,22 +99,23 @@
 
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <select name="week" lay-verify="required" lay-search>
+                                <select name="limits" lay-verify="required" lay-search>
                                     <option value="">请选择项目</option>
-                                    <option value="01">项目一</option>
-                                    <option value="02">项目二</option>
+                                    <option value="0">全院</option>
+                                    <option value="1">科室</option>
+                                    <option value="2">个人</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                             <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
-                                <p style="margin: auto;font-size: 150%;">适用范围：</p>
+                                <p style="margin: auto;font-size: 150%;">临床印象：</p>
 
                             </div>
                             <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
                                 <div class="layui-input-block" style="margin-left: 10%">
-                                    <textarea name="other" placeholder="" class="layui-textarea"
+                                    <textarea name="impression" placeholder="" class="layui-textarea"
                                         style="min-height: 50px"></textarea>
                                 </div>
                             </div>
@@ -127,7 +128,7 @@
                             </div>
                             <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
                                 <div class="layui-input-block" style="margin-left: 10%">
-                                    <textarea name="other" placeholder="" class="layui-textarea"
+                                    <textarea name="diagnosis" placeholder="" class="layui-textarea"
                                         style="min-height: 50px"></textarea>
                                 </div>
                             </div>
@@ -140,7 +141,7 @@
                             </div>
                             <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
                                 <div class="layui-input-block" style="margin-left: 10%">
-                                    <textarea name="other" placeholder="" class="layui-textarea"
+                                    <textarea name="requirement" placeholder="" class="layui-textarea"
                                         style="min-height: 50px"></textarea>
                                 </div>
                             </div>
@@ -219,7 +220,7 @@
         </div>
 
     </div>
-
+</form>
 
 
 
@@ -256,10 +257,17 @@
         }).use(['index', 'table'], function () {
             var admin = layui.admin,
                 table = layui.table;
-
+            var table1 = parent.layui.table;
+            var tabledata = table1.checkStatus('test-table-cellEdit-middle').data;
+            var myData = [];
+            for (var i = 0; i < tabledata.length; i++) {
+                var data1={itemcode:tabledata[i].itemcode,itemname:tabledata[i].itemname,requirement:tabledata[i].requirement};
+                myData.push(data1);
+            }
+            JSON.stringify(myData);
             table.render({
                 elem: '#test-table-toolbar',
-                url: layui.setter.base + 'json/table/demo.js',
+                // url: layui.setter.base + 'json/table/demo.js',
                 // toolbar: '#test-table-toolbar-toolbarDemo',
                 title: '项目数据表',
                 width: 475,
@@ -268,17 +276,24 @@
                         type: 'checkbox',
                         fixed: 'left'
                     }, {
-                        field: 'name',
+                            field: 'itemcode',
+                            title: '项目编码',
+                            width: 200,
+                            edit: 'text',
+                            sort: true
+                        }, {
+                        field: 'itemname',
                         title: '项目名称',
                         width: 200,
                         edit: 'text',
                         sort: true
                     }, {
-                        field: 'zhu',
+                        field: 'requirement',
                         title: '医生嘱托',
                         width: 200
                     }]
                 ],
+                data:myData,
                 page: true
             });
 

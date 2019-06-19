@@ -1,8 +1,6 @@
 package com.neusoft.ssm.dao;
 
-import com.neusoft.ssm.bean.Examcheckone;
-import com.neusoft.ssm.bean.ExamcheckoneExample;
-import com.neusoft.ssm.bean.Fmeditem;
+import com.neusoft.ssm.bean.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
@@ -47,5 +45,15 @@ public interface ExamcheckoneMapper {
 
     List<Fmeditem> findByExamType(String id);
 
+    Fmeditem findProByName(String name, String id);
 
+    int addInfo(ExamcheckInfo examcheckInfo);
+
+    int getCount(Integer doctorid, Integer medicalid);
+
+    int addExam(Examcheck examcheck);
+
+    Integer getExamId(Integer doctorid, Integer medicalid);
+
+    int addMuban(ExamcheckSet examcheckSet);
 }

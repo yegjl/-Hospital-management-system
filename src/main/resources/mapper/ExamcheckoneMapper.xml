@@ -226,4 +226,180 @@
     <select id="findByExamType" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Fmeditem">
         select * from fmeditem where RecordType=#{id}
     </select>
+
+  <select id="findProByName" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Fmeditem">
+    select * from fmeditem
+    where itemName like concat(concat('%',#{param1}   ) ,'%')
+      and RecordType=#{param2}
+  </select>
+
+  <insert id="addInfo" parameterType="com.neusoft.ssm.bean.ExamcheckInfo" keyColumn="id" keyProperty="id"  useGeneratedKeys="true">
+    insert into examcheck_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        examcheckId,
+      </if>
+      <if test="fmeditemid != null" >
+        fmeditemId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        #{examcheckid,jdbcType=INTEGER},
+      </if>
+      <if test="fmeditemid != null" >
+        #{fmeditemid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM examcheck
+    where medicalRecordId=#{param2}
+    and doctorId=#{param1}
+  </select>
+
+  <insert id="addExam" parameterType="com.neusoft.ssm.bean.Examcheck" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
+    insert into examcheck
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicalrecordid != null" >
+        medicalRecordId,
+      </if>
+      <if test="doctorid != null" >
+        doctorId,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicalrecordid != null" >
+        #{medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="doctorid != null" >
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getExamId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select id from examcheck
+    where medicalRecordId=#{param2}
+      and doctorId=#{param1}
+  </select>
+
+    <insert id="insertSelective3" parameterType="com.neusoft.ssm.bean.ExamcheckSetInfo" >
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into examcheck_set_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            id,
+            <if test="setid != null" >
+                setId,
+            </if>
+            <if test="fmeditemid != null" >
+                fmeditemId,
+            </if>
+            <if test="entrust != null" >
+                entrust,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{id,jdbcType=INTEGER},
+            <if test="setid != null" >
+                #{setid,jdbcType=INTEGER},
+            </if>
+            <if test="fmeditemid != null" >
+                #{fmeditemid,jdbcType=INTEGER},
+            </if>
+            <if test="entrust != null" >
+                #{entrust,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addMuban" parameterType="com.neusoft.ssm.bean.ExamcheckSet" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
+        insert into examcheck_set
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="doctorid != null" >
+                doctorId,
+            </if>
+            <if test="deptid != null" >
+                deptId,
+            </if>
+            <if test="setcode != null" >
+                setCode,
+            </if>
+            <if test="setname != null" >
+                setName,
+            </if>
+            <if test="time != null" >
+                time,
+            </if>
+            <if test="requirement != null" >
+                requirement,
+            </if>
+            <if test="limits != null" >
+                limits,
+            </if>
+            <if test="impression != null" >
+                impression,
+            </if>
+            <if test="diagnosis != null" >
+                diagnosis,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="doctorid != null" >
+                #{doctorid,jdbcType=INTEGER},
+            </if>
+            <if test="deptid != null" >
+                #{deptid,jdbcType=INTEGER},
+            </if>
+            <if test="setcode != null" >
+                #{setcode,jdbcType=VARCHAR},
+            </if>
+            <if test="setname != null" >
+                #{setname,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null" >
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requirement != null" >
+                #{requirement,jdbcType=VARCHAR},
+            </if>
+            <if test="limits != null" >
+                #{limits,jdbcType=CHAR},
+            </if>
+            <if test="impression != null" >
+                #{impression,jdbcType=VARCHAR},
+            </if>
+            <if test="diagnosis != null" >
+                #{diagnosis,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
 </mapper>

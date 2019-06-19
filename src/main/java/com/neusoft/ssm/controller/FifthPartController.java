@@ -2,17 +2,21 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.ssm.bean.Examcheckone;
+import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
+import com.neusoft.ssm.util.MD5;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -46,8 +50,9 @@ public class FifthPartController {
             model.addAttribute("projects", examcheckService.findByExamType("1"));
         return "fifthpart/inspection_application/add"; }
 
-    @RequestMapping(value = "/addModel")
-    public String index03() { return "fifthpart/inspection_application/add_muban"; }
+    @RequestMapping(value = "/addModel",method = RequestMethod.GET)
+    public String index03() {
+        return "fifthpart/inspection_application/add_muban"; }
 
     @RequestMapping(value = "/findpro",method = RequestMethod.GET)
     @ResponseBody
@@ -172,4 +177,62 @@ public ResultDTO<Integer> cancelById(Integer[] ids,Integer id) {
     }
     return resultDTO;
 }
+
+//快速查询项目
+@RequestMapping(value = "/getQue")
+@ResponseBody
+public Fmeditem getQue(String name,String id) {
+    Fmeditem fmeditem =  examcheckService.findProByName(name,id);
+    return fmeditem;
+}
+
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> add(ExamcheckInfo examcheckInfo,Integer doctorid,Integer medicalid) {
+        if(examcheckService.getCount(doctorid,medicalid)==0){
+            Examcheck examcheck=new Examcheck();
+            examcheck.setDoctorid(doctorid);
+            examcheck.setMedicalrecordid(medicalid);
+            examcheck.setMark("0");
+            examcheckService.addExam(examcheck);
+        }
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            System.out.println("操作开始！！！");
+            examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid,medicalid));
+            examcheckInfo.setStatus("0");
+            int issuccess = examcheckService.addInfo(examcheckInfo);
+            System.out.println("添加函数已调用");
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping(value = "/addmuban",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            Date time= new java.sql.Date(new java.util.Date().getTime());
+            examcheckSet.setTime(time);
+            int issuccess = examcheckService.addMuban(examcheckSet);
+            System.out.println("添加函数已调用");
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+
 }

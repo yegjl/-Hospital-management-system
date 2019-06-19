@@ -398,7 +398,7 @@
               edit: 'text.jsp'
             },
             {
-              field: 'require',
+              field: 'requirement',
               title: '项目要求 ',
               width: 180,
               // sort: true,
@@ -898,21 +898,41 @@
           }
         });
       },
-
+//添加检查检验项目
         add: function () {
             var that = this;
+
             layer.open({
                 type: 1,
                 title: '添加项目',
                 area: ['450px', '350px'],
                 shade: 0,
                 maxmin: true,
-
                 content: '<iframe src="fifthpart/addUI?id=${id}" frameborder="0" class = "layadmin-iframe"></iframe>',
                 btn: ['确定', '全部关闭'],
-                yes: function () {
-                    $(that).click();
-                },
+              yes: function (index,layero) {
+                var iframes = $(layero).find("iframe")[0].contentWindow;
+                var form = iframes.document.getElementById("add");
+                $.ajax({
+                  type: "POST",
+                  url: "fifthpart/add?doctorid=5&medicalid=5",
+                  data: $(form).serialize(),
+                  success: function (res) {
+                    if (res.status == 0) {
+                        layer.msg(res.message)
+                    } else {
+                      layer.msg(res.message)
+                    }
+                    setTimeout(function(){
+                      window.parent.location.reload();//修改成功后刷新父界面
+                    }, 100);
+                  },
+                  error: function () {
+                    alert("出现错误");
+                    return false;
+                  }
+                }) //ajax结束
+              },
                 btn2: function () {
                     layer.closeAll();
                 }
@@ -930,14 +950,39 @@
             layer.open({
                 type: 1,
                 title: '添加模板',
-                area: ['700px', '700px'],
+                area: ['700px', '600px'],
                 shade: 0,
                 maxmin: true,
-
-                content: '<iframe src="fifthpart/addModel" frameborder="0" class="layadmin-iframe"></iframe>',
+                content: '<iframe src="fifthpart/addModel?" frameborder="0" class="layadmin-iframe"></iframe>',
                 btn: ['确定', '全部关闭'],
-                yes: function () {
-                    $(that).click();
+                yes: function (index,layero) {
+                    var iframes = $(layero).find("iframe")[0].contentWindow;
+                    var form = iframes.document.getElementById("add");
+                    var table = iframes.layui.table;
+                    var tabledata = table.checkStatus('test-table-toolbar').data;
+                    var myArray = new Array();
+                    for (var i = 0; i < tabledata.length; i++) {
+                        myArray.push(tabledata[i]);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "fifthpart/addmuban",
+                        data: $(form).serialize(),
+                        success: function (res) {
+                            if (res.status == 0) {
+                                layer.msg(res.message)
+                            } else {
+                                layer.msg(res.message)
+                            }
+                            setTimeout(function(){
+                                window.parent.location.reload();//修改成功后刷新父界面
+                            }, 100);
+                        },
+                        error: function () {
+                            alert("出现错误");
+                            return false;
+                        }
+                    }) //ajax结束
                 },
                 btn2: function () {
                     layer.closeAll();

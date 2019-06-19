@@ -17,7 +17,7 @@ public class Examcheckone {
 
     private String goal;
 
-    private String require;
+    private String requirementment;
 
     public String getGoal() {
         return goal;
@@ -27,12 +27,12 @@ public class Examcheckone {
         this.goal = goal;
     }
 
-    public String getRequire() {
-        return require;
+    public String getRequirement() {
+        return requirementment;
     }
 
-    public void setRequire(String require) {
-        this.require = require;
+    public void setRequirement(String requirement) {
+        this.requirementment = requirement;
     }
 
     public Integer getExamcheckid() {
