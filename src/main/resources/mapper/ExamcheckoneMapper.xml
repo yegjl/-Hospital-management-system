@@ -197,7 +197,7 @@
         where status = '0'
     </delete>
 
-  <select id="findIdByCode" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <select id="findIdByCode" parameterType="java.lang.String" resultType="java.lang.Integer">
     select id from fmeditem
     where ItemCode=#{param1}
   </select>
@@ -309,13 +309,9 @@
       and doctorId=#{param1}
   </select>
 
-    <insert id="insertSelective3" parameterType="com.neusoft.ssm.bean.ExamcheckSetInfo" >
-        <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="addMubanInfo" parameterType="com.neusoft.ssm.bean.ExamcheckSetInfo" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
         insert into examcheck_set_info
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            id,
             <if test="setid != null" >
                 setId,
             </if>
@@ -327,7 +323,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            #{id,jdbcType=INTEGER},
             <if test="setid != null" >
                 #{setid,jdbcType=INTEGER},
             </if>
@@ -341,6 +336,9 @@
     </insert>
 
     <insert id="addMuban" parameterType="com.neusoft.ssm.bean.ExamcheckSet" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
         insert into examcheck_set
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="doctorid != null" >

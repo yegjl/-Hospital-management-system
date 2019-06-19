@@ -30,7 +30,7 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     }
 
     @Override
-    public Integer findIdByCode(Integer i) {
+    public Integer findIdByCode(String i) {
         return examcheckoneMapper.findIdByCode(i);
     }
 
@@ -82,6 +82,11 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     @Override
     public int addMuban(ExamcheckSet examcheckSet) {
         return examcheckoneMapper.addMuban(examcheckSet);
+    }
+
+    @Override
+    public int addMubanInfo(ExamcheckSetInfo examcheckSetInfo) {
+        return examcheckoneMapper.addMubanInfo(examcheckSetInfo);
     }
 
 }

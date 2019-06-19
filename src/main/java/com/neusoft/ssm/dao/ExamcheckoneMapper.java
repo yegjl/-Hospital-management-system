@@ -35,7 +35,7 @@ public interface ExamcheckoneMapper {
 
     int deleteUnsave();
 
-    Integer findIdByCode(Integer i);
+    Integer findIdByCode(String i);
 
     Integer saveByExamId(Integer i, Integer id);
 
@@ -56,4 +56,6 @@ public interface ExamcheckoneMapper {
     Integer getExamId(Integer doctorid, Integer medicalid);
 
     int addMuban(ExamcheckSet examcheckSet);
+
+    int addMubanInfo(ExamcheckSetInfo examcheckSetInfo);
 }

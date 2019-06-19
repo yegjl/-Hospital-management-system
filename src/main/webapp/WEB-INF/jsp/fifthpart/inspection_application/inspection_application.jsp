@@ -953,7 +953,7 @@
                 area: ['700px', '600px'],
                 shade: 0,
                 maxmin: true,
-                content: '<iframe src="fifthpart/addModel?" frameborder="0" class="layadmin-iframe"></iframe>',
+                content: '<iframe src="fifthpart/addModel" frameborder="0" class="layadmin-iframe"></iframe>',
                 btn: ['确定', '全部关闭'],
                 yes: function (index,layero) {
                     var iframes = $(layero).find("iframe")[0].contentWindow;
@@ -961,14 +961,20 @@
                     var table = iframes.layui.table;
                     var tabledata = table.checkStatus('test-table-toolbar').data;
                     var myArray = new Array();
+                    var myArray1 = new Array();
                     for (var i = 0; i < tabledata.length; i++) {
-                        myArray.push(tabledata[i]);
+                        myArray.push(tabledata[i].itemcode);
+                        myArray1.push(tabledata[i].requirement);
                     }
                     $.ajax({
                         type: "POST",
                         url: "fifthpart/addmuban",
-                        data: $(form).serialize(),
-                        success: function (res) {
+                        // data: $(form).serialize(),
+                      // data: {'examcheckSet':$(form).serialize(),
+                      //        'setInfo':myArray},
+                      // data:$.param({'examcheckSetInfos':myArray})+'&'+$(form).serialize(),
+                      data:'myArray='+myArray+"&myArray1="+myArray1+'&'+$(form).serialize(),
+                  success: function (res) {
                             if (res.status == 0) {
                                 layer.msg(res.message)
                             } else {

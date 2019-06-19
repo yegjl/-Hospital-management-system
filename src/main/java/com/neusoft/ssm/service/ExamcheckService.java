@@ -11,7 +11,7 @@ public interface ExamcheckService {
 
     void deleteUnsave();
 
-    Integer findIdByCode(Integer i);
+    Integer findIdByCode(String i);
 
     Integer saveByExamId(Integer i, Integer id);
 
@@ -32,4 +32,6 @@ public interface ExamcheckService {
     Integer getExamId(Integer doctorid, Integer medicalid);
 
     int addMuban(ExamcheckSet examcheckSet);
+
+    int addMubanInfo(ExamcheckSetInfo examcheckSetInfo);
 }

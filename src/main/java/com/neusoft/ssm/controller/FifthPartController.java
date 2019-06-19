@@ -10,10 +10,7 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,12 +93,12 @@ public class FifthPartController {
 
     @RequestMapping(value = "/deletepro",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> deleteById(Integer[] ids,Integer id) {
+    public ResultDTO<Integer> deleteById(String[] ids,Integer id) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try {
-            for(Integer i:ids){
-                i=examcheckService.findIdByCode(i);
-                examcheckService.deleteByExamId(i,id);
+            for(String i:ids){
+               int i1=examcheckService.findIdByCode(i);
+                examcheckService.deleteByExamId(i1,id);
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
@@ -117,12 +114,12 @@ public class FifthPartController {
 
     @RequestMapping(value = "/savepro",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> saveById(Integer[] ids,Integer id) {
+    public ResultDTO<Integer> saveById(String[] ids,Integer id) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try {
-            for(Integer i:ids){
-                i=examcheckService.findIdByCode(i);
-                examcheckService.saveByExamId(i,id);
+            for(String i:ids){
+               int i1=examcheckService.findIdByCode(i);
+                examcheckService.saveByExamId(i1,id);
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
@@ -138,12 +135,12 @@ public class FifthPartController {
 //开立
     @RequestMapping(value = "/openpro",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> openById(Integer[] ids,Integer id) {
+    public ResultDTO<Integer> openById(String[] ids,Integer id) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try {
-            for(Integer i:ids){
-                i=examcheckService.findIdByCode(i);
-                examcheckService.openByExamId(i,id);
+            for(String i:ids){
+               int i1=examcheckService.findIdByCode(i);
+                examcheckService.openByExamId(i1,id);
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
@@ -159,12 +156,12 @@ public class FifthPartController {
 //作废
 @RequestMapping(value = "/cancelpro",method = RequestMethod.POST)
 @ResponseBody
-public ResultDTO<Integer> cancelById(Integer[] ids,Integer id) {
+public ResultDTO<Integer> cancelById(String[] ids,Integer id) {
     ResultDTO<Integer> resultDTO = new ResultDTO();
     try {
-        for(Integer i:ids){
-            i=examcheckService.findIdByCode(i);
-            examcheckService.cancelByExamId(i,id);
+        for(String i:ids){
+           int i1=examcheckService.findIdByCode(i);
+            examcheckService.cancelByExamId(i1,id);
         }
         resultDTO.setStatus(0);
         resultDTO.setMessage("操作成功！");
@@ -216,13 +213,20 @@ public Fmeditem getQue(String name,String id) {
 
     @RequestMapping(value = "/addmuban",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet) {
+    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet,String[] myArray,String[] myArray1) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
+        ExamcheckSetInfo examcheckSetInfo=new ExamcheckSetInfo();
         try {
             Date time= new java.sql.Date(new java.util.Date().getTime());
             examcheckSet.setTime(time);
             int issuccess = examcheckService.addMuban(examcheckSet);
-            System.out.println("添加函数已调用");
+            System.out.println(examcheckSet.getId());
+            for (int i = 0; i < myArray.length; i++) {
+                examcheckSetInfo.setSetid(examcheckSet.getId());
+                examcheckSetInfo.setFmeditemid(examcheckService.findIdByCode(myArray[i]));
+                examcheckSetInfo.setEntrust(myArray1[i]);
+                examcheckService.addMubanInfo(examcheckSetInfo);
+            }
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);
