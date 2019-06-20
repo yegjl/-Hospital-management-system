@@ -89,4 +89,9 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         return examcheckoneMapper.addMubanInfo(examcheckSetInfo);
     }
 
+    @Override
+    public Fmeditem findprobyid(Integer id) {
+        return examcheckoneMapper.findprobyid(id);
+    }
+
 }

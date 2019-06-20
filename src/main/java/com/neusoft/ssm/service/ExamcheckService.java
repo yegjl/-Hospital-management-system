@@ -34,4 +34,6 @@ public interface ExamcheckService {
     int addMuban(ExamcheckSet examcheckSet);
 
     int addMubanInfo(ExamcheckSetInfo examcheckSetInfo);
+
+    Fmeditem findprobyid(Integer id);
 }

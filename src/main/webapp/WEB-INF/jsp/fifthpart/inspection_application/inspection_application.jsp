@@ -120,6 +120,8 @@
                         <input type="radio" name="sel" value="02" title="科室">
                         <input type="radio" name="sel" value="03" title="个人">
                       </div>
+                    </div>
+                  </div>
                         <div class="layui-fluid" id="LAY-component-layer-special-demo2">
                             <div class="layui-btn-container layadmin-layer-demo">
                                 <div class="layui-btn-group" style="align-content: center;">
@@ -132,8 +134,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                  </div>
                   <div id="test9"></div>
 
                 </div>
@@ -618,6 +618,7 @@
         data: data1,
         edit: ['add', 'update', 'del'] //操作节点的图标
           ,
+          showCheckbox: true,
         click: function (obj) {
           // layer.msg(JSON.stringify(obj.data));
         }

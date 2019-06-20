@@ -238,5 +238,12 @@ public Fmeditem getQue(String name,String id) {
         return resultDTO;
     }
 
+    @RequestMapping(value = "/findprobyid",method = RequestMethod.POST)
+    @ResponseBody
+    public Fmeditem findprobyid(Integer proid) {
+        return examcheckService.findprobyid(proid);
+    }
+
+
 
 }

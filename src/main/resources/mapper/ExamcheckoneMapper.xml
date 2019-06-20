@@ -400,4 +400,10 @@
         </trim>
     </insert>
 
+    <select id="findprobyid" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.Fmeditem">
+        select * from fmeditem
+        where id=#{id}
+    </select>
+
+
 </mapper>

@@ -32,7 +32,7 @@
                         </div>
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
 
-                            <select name="fmeditemid" lay-verify="required" lay-search>
+                            <select name="fmeditemid" id="fmeditemid" lay-verify="required" lay-search>
                                 <option value="">请选择项目</option>
                                 <c:forEach items="${projects}" var="project">
                                 <option value="${project.id}">${project.itemname}</option>
@@ -41,21 +41,21 @@
                         </div>
                         <br>
 
-                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">
-                            <p style="margin: auto;">快速检索：</p>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                            <input class="layui-input"  autocomplete="off" oninput="searchpro(this.value)" >
-                        </div>
-                        <br>
+<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">--%>
+<%--                            <p style="margin: auto;">快速检索：</p>--%>
+<%--                        </div>--%>
+<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">--%>
+<%--                            <input class="layui-input"  autocomplete="off" oninput="searchpro(this.value)" >--%>
+<%--                        </div>--%>
+<%--                        <br>--%>
 
-                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">
-                            <p style="margin: auto;">搜索结果：</p>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                            <input class="layui-input" id="result" autocomplete="off" readonly="readonly">
-                        </div>
-                        <br>
+<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">--%>
+<%--                            <p style="margin: auto;">搜索结果：</p>--%>
+<%--                        </div>--%>
+<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">--%>
+<%--                            <input class="layui-input" id="result" autocomplete="off" readonly="readonly">--%>
+<%--                        </div>--%>
+<%--                        <br>--%>
 
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">
                             <p style="margin: auto;">检查目的：</p>
@@ -69,7 +69,7 @@
                             <p style="margin: auto;">项目要求：</p>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                            <input class="layui-input" name="requirement" autocomplete="off">
+                            <input class="layui-input" name="requirement" id="requirement" autocomplete="off">
                         </div>
                         <br>
                     </div>

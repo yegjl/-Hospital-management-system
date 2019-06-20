@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>排班管理</title>
+    <title>检查组套</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -371,7 +371,7 @@
                                             <button data-method="add"
                                                     class=" layui-btn layui-btn-xs layui-btn-normal"><i
                                                     class="layui-icon" type="button">&#xe654;</i>增加</button>
-                                            <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
+                                            <button data-method="deltable" class=" layui-btn layui-btn-xs layui-btn-normal"><i
                                                     class="layui-icon">&#xe640;</i>删除</button>
                                             <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
                                                     class="layui-icon">&#xe642;</i>修改</button>
@@ -448,7 +448,7 @@
             var tabledata = table1.checkStatus('test-table-cellEdit-middle').data;
             var myData = [];
             for (var i = 0; i < tabledata.length; i++) {
-                var data1={itemcode:tabledata[i].itemcode,itemname:tabledata[i].itemname,requirement:tabledata[i].requirement};
+                var data1={itemcode:tabledata[i].itemcode,itemname:tabledata[i].itemname,requirement:tabledata[i].requirement,number:i};
                 myData.push(data1);
             }
             JSON.stringify(myData);
@@ -477,12 +477,14 @@
                     }, {
                         field: 'requirement',
                         title: '医生嘱托',
-                        width: 200
+                        width: 200,
+                        edit: 'text'
                     }]
                 ],
                 data:myData,
                 page: true
             });
+
 
             //头工具栏事件
             table.on('toolbar(test-table-toolbar)', function (obj) {
@@ -612,14 +614,25 @@
         element.render();
 
         var active = {
-
+//删除特定选中项目
             deltable: function () {
                 layer.closeAll();
                 layer.msg('确定要删除项目吗', {
                     // time: 20 * 1000,
                     btn: ['确定', '取消'],
                     yes: function () {
-
+                        var tabledata = layui.table.checkStatus('test-table-toolbar').data;
+                        var oldData =layui.table.cache["test-table-toolbar"];
+                        for (var i = 0; i < tabledata.length; i++) {
+                            for(var j = 0; j < oldData.length; j++) {
+                                if(oldData[j].itemcode == tabledata[i].itemcode) {
+                                    oldData.splice(j, 1);
+                                }
+                            }
+                        }
+                        layui.table.reload('test-table-toolbar',{
+                            data : oldData
+                        });
                         layer.closeAll();
                     },
                     btn2: function () {
@@ -627,20 +640,67 @@
                     }
 
                 });
+
             },
+
+
             add: function () {
                 var that = this;
                 layer.open({
                     type: 1,
-                    title: '添加项目',
+                    title: '添加检查项目',
                     area: ['450px', '350px'],
                     shade: 0,
                     maxmin: true,
 
                     content: '<iframe src="fifthpart/addUI?id=03" frameborder="0" class = "layadmin-iframe"></iframe>',
                     btn: ['确定', '全部关闭'],
-                    yes: function () {
-                        $(that).click();
+                     yes: function (index,layero) {
+                        var iframes = $(layero).find("iframe")[0].contentWindow;
+                        var proid = iframes.document.getElementById("fmeditemid").value;
+                         var requirement = iframes.document.getElementById("requirement").value;
+                         $.ajax({
+                             type: "POST",
+                             url: 'fifthpart/findprobyid?proid='+proid,
+                             success: function (res) {
+                                 var itemcode = res.itemcode;
+                                 var itemname = res.itemname;
+                                 var oldData =layui.table.cache["test-table-toolbar"];
+                                 var data1={"itemcode":itemcode,"itemname":itemname,"requirement":requirement};
+                                 oldData.push(data1);
+                                 layui.table.reload('test-table-toolbar',{
+                                     data : oldData
+                                 });
+                             },
+                             error: function () {
+                                 alert("出现错误");
+                                 return false;
+                             }
+                         }) //ajax结束
+                        // var oldData =layui.table.cache["test-table-toolbar"];
+                        // var data1={"itemcode":itemcode,"itemname":,"requirement":requirement};
+                        // oldData.push(data1);
+                        //  layui.table.reload('test-table-toolbar',{
+                        //     data : oldData
+                        // });
+                        layer.closeAll();
+                        // $.ajax({
+                        //     type: "POST",
+                        //     url: "fifthpart/add?doctorid=5&medicalid=5",
+                        //     data: $(form).serialize(),
+                        //     success: function (res) {
+                        //         if (res.status == 0) {
+                        //             layer.msg(res.message)
+                        //         } else {
+                        //             layer.msg(res.message)
+                        //         }
+                        //
+                        //     },
+                        //     error: function () {
+                        //         alert("出现错误");
+                        //         return false;
+                        //     }
+                        // }) //ajax结束
                     },
                     btn2: function () {
                         layer.closeAll();
