@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -76,7 +77,7 @@ public class UserController {
     public String index01() { return "fifthpart/ODW_index"; }
 
     @RequestMapping(value = "/index02")
-    public String index02() { return  "login/index02"; }
+    public String index02() { return  "department/department"; }
 
     @RequestMapping(value = "/index03")
     public String index03() { return  "login/index03"; }
