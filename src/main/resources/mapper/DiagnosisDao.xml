@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.DiagnosisDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Diagnosis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="diseaseId" jdbcType="INTEGER" property="diseaseid" />
+    <result column="medical_record_no" jdbcType="VARCHAR" property="medicalRecordNo" />
+    <result column="flag" jdbcType="CHAR" property="flag" />
+    <result column="D_A" jdbcType="DATE" property="dA" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, diseaseId, medical_record_no, flag, D_A
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from diagnosis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from diagnosis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Diagnosis" useGeneratedKeys="true">
+    insert into diagnosis (diseaseId, medical_record_no, flag, 
+      D_A)
+    values (#{diseaseid,jdbcType=INTEGER}, #{medicalRecordNo,jdbcType=VARCHAR}, #{flag,jdbcType=CHAR}, 
+      #{dA,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Diagnosis" useGeneratedKeys="true">
+    insert into diagnosis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="diseaseid != null">
+        diseaseId,
+      </if>
+      <if test="medicalRecordNo != null">
+        medical_record_no,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="dA != null">
+        D_A,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="diseaseid != null">
+        #{diseaseid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalRecordNo != null">
+        #{medicalRecordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=CHAR},
+      </if>
+      <if test="dA != null">
+        #{dA,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Diagnosis">
+    update diagnosis
+    <set>
+      <if test="diseaseid != null">
+        diseaseId = #{diseaseid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalRecordNo != null">
+        medical_record_no = #{medicalRecordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=CHAR},
+      </if>
+      <if test="dA != null">
+        D_A = #{dA,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Diagnosis">
+    update diagnosis
+    set diseaseId = #{diseaseid,jdbcType=INTEGER},
+      medical_record_no = #{medicalRecordNo,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=CHAR},
+      D_A = #{dA,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllBymedicalRecordNo" resultMap="BaseResultMap" parameterType="string">
+      select * from diagnosis <where>medical_record_no=#{medicalRecordNo}</where>
+    </select>
+</mapper>

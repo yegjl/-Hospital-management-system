@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="department/style/admin.css" media="all">
 
     <script src="department/jQuery/jquery-3.4.1.min.js"></script>
-    <script src="jq-load.js"></script>
 
 </head>
 
@@ -79,7 +78,7 @@
                         <iframe src="fifthpart/index?id=01" frameborder="0" class="layadmin-iframe"></iframe>
                     </div>
                     <div id="box2">
-                        <iframe src="fifthpart/index?id=02" frameborder="0"
+                        <iframe src="MedicalRecordPage/index" frameborder="0"
                                 class="layadmin-iframe"></iframe>
                     </div>
                     <div id="box3">
