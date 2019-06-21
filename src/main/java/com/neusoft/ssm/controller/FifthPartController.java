@@ -2,18 +2,17 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.ssm.bean.*;
+import com.neusoft.ssm.bean.Examcheckone;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
-import com.neusoft.ssm.util.MD5;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -78,7 +77,7 @@ public class FifthPartController {
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
-            resultDTO.setTotal((int)pageInfo.getTotal());
+            resultDTO.setTotal((int) pageInfo.getTotal());
             // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {

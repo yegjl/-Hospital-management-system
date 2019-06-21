@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.MedicalRecordPageDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.MedicalRecordPage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="medical_record_no" jdbcType="VARCHAR" property="medicalRecordNo" />
+    <result column="doctorId" jdbcType="INTEGER" property="doctorid" />
+    <result column="chief_complaint" jdbcType="VARCHAR" property="chiefComplaint" />
+    <result column="HPI" jdbcType="VARCHAR" property="hpi" />
+    <result column="PH" jdbcType="VARCHAR" property="ph" />
+    <result column="history_of_allergy" jdbcType="VARCHAR" property="historyOfAllergy" />
+    <result column="health_checkup" jdbcType="VARCHAR" property="healthCheckup" />
+    <result column="primary_diagnosis" jdbcType="INTEGER" property="primaryDiagnosis" />
+    <result column="type" jdbcType="CHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, medical_record_no, doctorId, chief_complaint, HPI, PH, history_of_allergy, health_checkup, 
+    primary_diagnosis, `type`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medical_record_page
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from medical_record_page
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.MedicalRecordPage" useGeneratedKeys="true">
+    insert into medical_record_page (medical_record_no, doctorId, chief_complaint, 
+      HPI, PH, history_of_allergy, 
+      health_checkup, primary_diagnosis, `type`
+      )
+    values (#{medicalRecordNo,jdbcType=VARCHAR}, #{doctorid,jdbcType=INTEGER}, #{chiefComplaint,jdbcType=VARCHAR}, 
+      #{hpi,jdbcType=VARCHAR}, #{ph,jdbcType=VARCHAR}, #{historyOfAllergy,jdbcType=VARCHAR}, 
+      #{healthCheckup,jdbcType=VARCHAR}, #{primaryDiagnosis,jdbcType=INTEGER}, #{type,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.MedicalRecordPage" useGeneratedKeys="true">
+    insert into medical_record_page
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="medicalRecordNo != null">
+        medical_record_no,
+      </if>
+      <if test="doctorid != null">
+        doctorId,
+      </if>
+      <if test="chiefComplaint != null">
+        chief_complaint,
+      </if>
+      <if test="hpi != null">
+        HPI,
+      </if>
+      <if test="ph != null">
+        PH,
+      </if>
+      <if test="historyOfAllergy != null">
+        history_of_allergy,
+      </if>
+      <if test="healthCheckup != null">
+        health_checkup,
+      </if>
+      <if test="primaryDiagnosis != null">
+        primary_diagnosis,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="medicalRecordNo != null">
+        #{medicalRecordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorid != null">
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="chiefComplaint != null">
+        #{chiefComplaint,jdbcType=VARCHAR},
+      </if>
+      <if test="hpi != null">
+        #{hpi,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null">
+        #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="historyOfAllergy != null">
+        #{historyOfAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCheckup != null">
+        #{healthCheckup,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryDiagnosis != null">
+        #{primaryDiagnosis,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.MedicalRecordPage">
+    update medical_record_page
+    <set>
+      <if test="medicalRecordNo != null">
+        medical_record_no = #{medicalRecordNo,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorid != null">
+        doctorId = #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="chiefComplaint != null">
+        chief_complaint = #{chiefComplaint,jdbcType=VARCHAR},
+      </if>
+      <if test="hpi != null">
+        HPI = #{hpi,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null">
+        PH = #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="historyOfAllergy != null">
+        history_of_allergy = #{historyOfAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCheckup != null">
+        health_checkup = #{healthCheckup,jdbcType=VARCHAR},
+      </if>
+      <if test="primaryDiagnosis != null">
+        primary_diagnosis = #{primaryDiagnosis,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.MedicalRecordPage">
+    update medical_record_page
+    set medical_record_no = #{medicalRecordNo,jdbcType=VARCHAR},
+      doctorId = #{doctorid,jdbcType=INTEGER},
+      chief_complaint = #{chiefComplaint,jdbcType=VARCHAR},
+      HPI = #{hpi,jdbcType=VARCHAR},
+      PH = #{ph,jdbcType=VARCHAR},
+      history_of_allergy = #{historyOfAllergy,jdbcType=VARCHAR},
+      health_checkup = #{healthCheckup,jdbcType=VARCHAR},
+      primary_diagnosis = #{primaryDiagnosis,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
