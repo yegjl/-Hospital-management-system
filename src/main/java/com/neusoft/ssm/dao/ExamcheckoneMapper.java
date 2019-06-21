@@ -60,4 +60,6 @@ public interface ExamcheckoneMapper {
     int addMubanInfo(ExamcheckSetInfo examcheckSetInfo);
 
     Fmeditem findprobyid(Integer id);
+
+    List<ExamcheckSet> getsets();
 }

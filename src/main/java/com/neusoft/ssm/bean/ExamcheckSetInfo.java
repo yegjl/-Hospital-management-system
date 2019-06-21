@@ -9,6 +9,16 @@ public class ExamcheckSetInfo {
 
     private String entrust;
 
+    private String goal;
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
     public ExamcheckSetInfo(Integer id, Integer setid, Integer fmeditemid, String entrust) {
         this.id = id;
         this.setid = setid;

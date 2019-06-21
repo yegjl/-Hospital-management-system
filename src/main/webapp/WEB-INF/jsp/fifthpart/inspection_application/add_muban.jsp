@@ -448,7 +448,7 @@
             var tabledata = table1.checkStatus('test-table-cellEdit-middle').data;
             var myData = [];
             for (var i = 0; i < tabledata.length; i++) {
-                var data1={itemcode:tabledata[i].itemcode,itemname:tabledata[i].itemname,requirement:tabledata[i].requirement,number:i};
+                var data1={itemcode:tabledata[i].itemcode,itemname:tabledata[i].itemname,goal:tabledata[i].goal,requirement:tabledata[i].requirement,number:i};
                 myData.push(data1);
             }
             JSON.stringify(myData);
@@ -475,6 +475,13 @@
                         edit: 'text',
                         sort: true
                     }, {
+                        field: 'goal',
+                        title: '项目目的',
+                        width: 200,
+                        edit: 'text',
+                        sort: true
+                    },
+                        {
                         field: 'requirement',
                         title: '医生嘱托',
                         width: 200,
@@ -659,6 +666,7 @@
                         var iframes = $(layero).find("iframe")[0].contentWindow;
                         var proid = iframes.document.getElementById("fmeditemid").value;
                          var requirement = iframes.document.getElementById("requirement").value;
+                         var goal = iframes.document.getElementById("goal").value;
                          $.ajax({
                              type: "POST",
                              url: 'fifthpart/findprobyid?proid='+proid,
@@ -666,7 +674,7 @@
                                  var itemcode = res.itemcode;
                                  var itemname = res.itemname;
                                  var oldData =layui.table.cache["test-table-toolbar"];
-                                 var data1={"itemcode":itemcode,"itemname":itemname,"requirement":requirement};
+                                 var data1={"itemcode":itemcode,"itemname":itemname,"goal":goal,"requirement":requirement};
                                  oldData.push(data1);
                                  layui.table.reload('test-table-toolbar',{
                                      data : oldData

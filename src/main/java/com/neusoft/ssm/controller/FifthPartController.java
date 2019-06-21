@@ -213,7 +213,7 @@ public Fmeditem getQue(String name,String id) {
 
     @RequestMapping(value = "/addmuban",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet,String[] myArray,String[] myArray1) {
+    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet,String[] myArray,String[] myArray1,String[] myArray2) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
         ExamcheckSetInfo examcheckSetInfo=new ExamcheckSetInfo();
         try {
@@ -225,6 +225,7 @@ public Fmeditem getQue(String name,String id) {
                 examcheckSetInfo.setSetid(examcheckSet.getId());
                 examcheckSetInfo.setFmeditemid(examcheckService.findIdByCode(myArray[i]));
                 examcheckSetInfo.setEntrust(myArray1[i]);
+                examcheckSetInfo.setGoal(myArray2[i]);
                 examcheckService.addMubanInfo(examcheckSetInfo);
             }
             resultDTO.setStatus(0);
@@ -244,6 +245,11 @@ public Fmeditem getQue(String name,String id) {
         return examcheckService.findprobyid(proid);
     }
 
-
+    @RequestMapping(value = "/getsets")
+    @ResponseBody
+    public List<ExamcheckSet> getsets() {
+        List<ExamcheckSet> examcheckSets =  examcheckService.getsets();
+        return JSONArray.fromObject(examcheckSets);
+    }
 
 }

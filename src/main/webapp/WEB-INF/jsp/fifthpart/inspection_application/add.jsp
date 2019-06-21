@@ -61,7 +61,7 @@
                             <p style="margin: auto;">检查目的：</p>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                            <input class="layui-input" name="goal"  autocomplete="off">
+                            <input class="layui-input" name="goal" id="goal"  autocomplete="off">
                         </div>
                         <br>
 

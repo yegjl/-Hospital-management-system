@@ -36,4 +36,6 @@ public interface ExamcheckService {
     int addMubanInfo(ExamcheckSetInfo examcheckSetInfo);
 
     Fmeditem findprobyid(Integer id);
+
+    List<ExamcheckSet> getsets();
 }

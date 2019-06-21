@@ -450,91 +450,130 @@
     });
   </script>
 
-<%--  <script>--%>
-<%--    layui.use(['form', 'layedit', 'laydate','element','jquery'], function() {--%>
-<%--      var form = layui.form,--%>
-<%--              layer = layui.layer,--%>
-<%--              element=layui.element,--%>
-<%--              table=layui.table,--%>
-<%--              $=layui.jquery;--%>
-<%--      $(document).on('click','#addTable',function(){--%>
-<%--        var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据--%>
-
-<%--        var tableBak = table.cache.stock_add_table;--%>
-<%--        //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，stock_add_table 为表格的id--%>
-
-<%--        for (var i = 0; i < tableBak.length; i++) {--%>
-<%--          dataBak.push(tableBak[i]);      //将之前的数组备份--%>
-<%--        }--%>
-
-<%--        //在尾部新增一行空数据，实现增行效果--%>
-<%--        dataBak.push({--%>
-<%--          "itemcode": "123"--%>
-<%--          ,"itemname": "灌肠"--%>
-<%--          ,"status": "未保存"--%>
-<%--        });--%>
-
-<%--        table.reload('test-table-cellEdit-middle',{--%>
-<%--          data:dataBak   // 将新数据重新载入表格--%>
-<%--        })--%>
-<%--      });--%>
-<%--    });--%>
-<%--  </script>--%>
   <!-- 树 -->
-
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" language="JavaScript">
+    window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')
+</script>
   <script>
     layui.use(['tree', 'util'], function () {
+        var data = [];
+        $.ajax({
+            type: "get",
+            async : false,//设置为同步操作就可以给全局变量赋值成功
+            url: "fifthpart/getsets",
+            success: function (examcheckSets) {
+              var mydata = [];
+              var children1=[];
+              var children2=[];
+              var children3=[];
+              var data1 =[];
+              var data2 =[];
+              var data3 =[];
+                for(var i=0;i<examcheckSets.length;i++){
+                    // alert(examcheckSets[i].setname);
+                    //测试成功！！！
+
+                    if(examcheckSets[i].limits==0) {
+                         data1 = {
+                            title:examcheckSets[i].setname,
+                            id:examcheckSets[i].id
+                        };
+                        children1.push(data1);
+                    }
+
+                    if(examcheckSets[i].limits==1) {
+                         data2 = {
+                            title:examcheckSets[i].setname,
+                            id:examcheckSets[i].id
+                        };
+                        children2.push(data2);
+                    }
+
+                    if(examcheckSets[i].limits==2) {
+                         data3 = {
+                            title:examcheckSets[i].setname,
+                            id:examcheckSets[i].id
+                        };
+                        children3.push(data3);
+                    }
+                  // alert(JSON.stringify(children3));
+                }
+
+                var data4 ={
+                    title: '全院组套模板',
+                    id: 0,
+                    children:children1
+                };
+
+                var data5 ={
+                    title: '科室组套模板',
+                    id: 1,
+                    children:children2
+                };
+
+                var data6 ={
+                    title: '个人组套模板',
+                    id: 2,
+                    children:children3
+                };
+
+              mydata.push(data4);
+              mydata.push(data5);
+              mydata.push(data6);
+              //将json对象转换成字符串
+              alert(JSON.stringify(mydata));
+              data=mydata;
+            }
+        });
       var tree = layui.tree,
         layer = layui.layer,
         util = layui.util,
-        data = [],
+        // data = [],
         data1 = [{
-          title: '一级',
+          title: '全院组套模板',
           id: 1,
           children: [{
             title: '二级',
-            id: 1000,
-            children: [{
-              title: '三级',
-              id: 10001,
+            id: 1000
+          }, {
+            title: '二级',
+            id: 1001,
               href: ""
-            }, {
-              title: '三级',
-              id: 10002
-            }]
           }, {
             title: '二级',
-            id: 1001
-          }, {
-            title: '二级',
-            id: 1002
+            id: 1002,
+              href: ""
           }]
         }, {
-          title: '一级',
+          title: '科室组套模板',
           id: 2,
           children: [{
             title: '二级',
-            id: 2000
+            id: 2000,
+              href: ""
           }, {
             title: '二级',
-            id: 2001
+            id: 2001,
+              href: ""
           }]
         }, {
-          title: '一级',
+          title: '个人组套模板',
           id: 3,
           children: [{
             title: '二级',
-            id: 3000
+            id: 3000,
+              href: ""
           }, {
             title: '二级',
-            id: 3001
+            id: 3001,
+              href: ""
           }]
         }]
 
         //模拟数据2
         ,
         data2 = [];
-
       //基本演示
       tree.render({
         elem: '#test12',
@@ -572,57 +611,33 @@
         }
       });
 
-      //常规用法
-      tree.render({
-        elem: '#test1' //默认是点击节点可进行收缩
-          ,
-        data: data1
-      });
-
-      //无连接线风格
-      tree.render({
-        elem: '#test13',
-        data: data1,
-        showLine: false //是否开启连接线
-      });
-
-      //仅节点左侧图标控制收缩
-      tree.render({
-        elem: '#test2',
-        data: data1,
-        onlyIconControl: true //是否仅允许节点左侧图标控制展开收缩
-          ,
-        click: function (obj) {
-          // layer.msg(JSON.stringify(obj.data));
-        }
-      });
-
-
-      //点击节点新窗口跳转
-      tree.render({
-        elem: '#test5',
-        data: data,
-        isJump: true //link 为参数匹配
-      });
-
-      //开启复选框
-      tree.render({
-        elem: '#test7',
-        data: data2,
-        showCheckbox: true
-      });
-
       //开启节点操作图标
       tree.render({
         elem: '#test9',
-        data: data1,
+        data: data,
+          // data: data1,
         edit: ['add', 'update', 'del'] //操作节点的图标
           ,
           showCheckbox: true,
         click: function (obj) {
-          // layer.msg(JSON.stringify(obj.data));
+            // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data));
+            layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data.id));
+            layer.open({
+                type: 1,
+                title: '引用组套模板',
+                area: ['700px', '600px'],
+                content: '<iframe src="fifthpart/addModel" frameborder="0" class="layadmin-iframe"></iframe>',
+                btn: ['引用组套', '取消'],
+                yes: function (index,layero) {
+                    layer.closeAll();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+            });
         }
       });
+
     });
   </script>
 
@@ -963,9 +978,11 @@
                     var tabledata = table.checkStatus('test-table-toolbar').data;
                     var myArray = new Array();
                     var myArray1 = new Array();
+                    var myArray2 = new Array();
                     for (var i = 0; i < tabledata.length; i++) {
                         myArray.push(tabledata[i].itemcode);
                         myArray1.push(tabledata[i].requirement);
+                        myArray2.push(tabledata[i].goal);
                     }
                     $.ajax({
                         type: "POST",
@@ -974,7 +991,7 @@
                       // data: {'examcheckSet':$(form).serialize(),
                       //        'setInfo':myArray},
                       // data:$.param({'examcheckSetInfos':myArray})+'&'+$(form).serialize(),
-                      data:'myArray='+myArray+"&myArray1="+myArray1+'&'+$(form).serialize(),
+                      data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2+'&'+$(form).serialize(),
                   success: function (res) {
                             if (res.status == 0) {
                                 layer.msg(res.message)

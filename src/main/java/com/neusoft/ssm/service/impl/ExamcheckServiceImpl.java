@@ -94,4 +94,9 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         return examcheckoneMapper.findprobyid(id);
     }
 
+    @Override
+    public List<ExamcheckSet> getsets() {
+        return examcheckoneMapper.getsets();
+    }
+
 }

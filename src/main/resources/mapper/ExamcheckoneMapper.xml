@@ -321,6 +321,9 @@
             <if test="entrust != null" >
                 entrust,
             </if>
+            <if test="goal != null" >
+                goal,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="setid != null" >
@@ -331,6 +334,9 @@
             </if>
             <if test="entrust != null" >
                 #{entrust,jdbcType=VARCHAR},
+            </if>
+            <if test="goal != null" >
+                #{goal,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -405,5 +411,7 @@
         where id=#{id}
     </select>
 
-
+    <select id="getsets"  resultType="com.neusoft.ssm.bean.ExamcheckSet">
+        select * from examcheck_set
+    </select>
 </mapper>
