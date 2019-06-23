@@ -44,7 +44,16 @@ public class MedicalRecordPageController {
         model.addAttribute("diseases", medicalRecordService.findallDisease());
         return "fifthpart/medical_record/add";
     }
-
+    @RequestMapping("/indexupdate")
+    public String indexupdate(String medicalRecordNo, Model model,String date, String flag,Integer diseaseid,Integer id) {
+        model.addAttribute("medicalRecordNo", medicalRecordNo);
+        model.addAttribute("id", id);
+        model.addAttribute("diseaseid", diseaseid);
+        model.addAttribute("flag", flag);
+        model.addAttribute("date", date);
+        model.addAttribute("diseases", medicalRecordService.findallDisease());
+        return "fifthpart/medical_record/update";
+    }
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<Integer> submit(MedicalRecordPage medicalRecordPage) {
@@ -104,6 +113,26 @@ public class MedicalRecordPageController {
 
         try {
             int issuccess = medicalRecordService.insertSelectiveDia(diagnosis);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping("/update")
+    @ResponseBody
+    public ResultDTO<Integer> update(Diagnosis diagnosis,Integer index,Model model) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        if (diagnosis.getFlag()==null) {
+            diagnosis.setFlag("0");
+        }
+
+        try {
+            int issuccess = medicalRecordService.updateDia(diagnosis);
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);

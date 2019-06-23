@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>添加诊断</title>
+    <title>编辑诊断</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -50,8 +50,8 @@
                         <p style="margin: auto;">主诊/疑似标志：</p>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                        <div>
-                            <input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊">
+                        <div  id="sign">
+<%--                            <input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊">--%>
                         </div>
                     </div>
                     <br>
@@ -85,8 +85,23 @@
     window.onload = function () {
 
         var $=layui.$;
+        var date="${date}";
+        var flag="${flag}";
         //type date input 默认当天
-        document.getElementById('date').valueAsDate = new Date();
+        document.getElementById('date').valueAsDate = new Date(date);
+        if (flag=="0") {
+        $("#sign").append('<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" >');
+        }else if (flag == "1") {
+            $("#sign").append('<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" checked>');
+        }
+        var select= document.getElementById("diseaseName");
+        var opts=select.getElementsByTagName("option");
+        for (var i = 0; i <opts.length ; i++) {
+            if (opts[i].value=="${diseaseid}") {
+                opts[i].selected=true;
+                break;
+            }
+        }
         // $.ajax({
         //     type: "GET",//方法类型
         //     url: "MedicalRecordPage/findDname",//url
@@ -111,10 +126,10 @@
         // var myarray = ["Saab", "Volvo", "BMW"];
         $.ajax({
             type: "POST",//方法类型
-            url: "MedicalRecordPage/add",//url
+            url: "MedicalRecordPage/update",//url
             async: false,
             // data: $("#form").serialize()+"&myarray="+myarray,
-            data: $("#form").serialize(),
+            data: $("#form").serialize()+"&id=${id}",
             success: function (result) {
 
             },

@@ -2,7 +2,7 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.ssm.bean.Examcheckone;
+import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
 import net.sf.json.JSONArray;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -38,7 +39,11 @@ public class FifthPartController {
         else return null;
 
     }
+    @RequestMapping(value = "/index2")
+    public String index2() {
+        return "fifthpart/ODW_index2";
 
+    }
     @RequestMapping(value = "/addUI")
     public String index02(String id,Model model) {
         model.addAttribute("id", id);

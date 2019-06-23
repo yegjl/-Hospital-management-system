@@ -23,42 +23,9 @@
 
 <div class="layui-fluid">
     <div class="layui-row">
-        <div class="layui-col-md3">
-            <!-- 左侧内容 -->
-            <div class="layui-fluid" id="component-tabs">
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-brief">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">本人</li>
-                                <li>科室</li>
-                            </ul>
-                            <div class="layui-tab-content">
-                                <div class="layui-tab-item layui-show">
-                                    <!-- 选项卡1中内容 -->
-                                    <!-- 左侧数据表格1 -->
-                                    <p>待诊患者共有${msg}位患者新信息</p>
-                                    <table class="layui-hide" id="test-table-simple1"></table>
-
-                                </div>
-                                <div class="layui-tab-item">科室内容</div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-fluid">
-                <div class="layui-card-body" style="background-color: white">
-                    <p>已诊患者共有${msg}位患者新信息</p>
-                    <table class="layui-hide" id="test-table-simple2"></table>
-                </div>
-            </div>
-
-        </div>
         <form id="medicalRecord" class="layui-form">
-            <div class="layui-col-md6">
+<%--            todo:栅栏--%>
+            <div class="layui-col-md8">
                 <!-- 中部折叠面板 -->
                 <div class="layui-card" style="overflow: auto;height:600px;">
                     <div class="layui-card-header">门（急）诊面板信息</div>
@@ -142,7 +109,7 @@
                                                         <button type="button" data-method="add" data-type="auto"
                                                             class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon">&#xe654;</i></button>
-                                                        <button class="layui-btn  layui-btn-sm"><i
+                                                        <button type="button" data-method="update" data-type="auto" class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon">&#xe642;</i></button>
                                                         <button class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon">&#xe640;</i></button>
@@ -177,7 +144,8 @@
                 </div>
             </div>
         </form>
-        <div class="layui-col-md3">
+<%--        todo:栅栏--%>
+        <div class="layui-col-md4">
             <div class="layui-fluid" id="component-tabs2">
                 <div class="layui-card">
                     <div class="layui-card-body">
@@ -227,7 +195,6 @@
 
                                     </div>
 
-                                    常用诊断内容
                                 </div>
                                 <div class="layui-tab-item">
                                     历史病历内容
@@ -347,73 +314,73 @@
 
 
 <!-- 数据表格1 -->
-<script>
-    layui.config({
-        base: 'department/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
-        var table = layui.table;
+<%--<script>--%>
+<%--    layui.config({--%>
+<%--        base: 'department/' //静态资源所在路径--%>
+<%--    }).extend({--%>
+<%--        index: 'lib/index' //主入口模块--%>
+<%--    }).use(['index', 'table'], function () {--%>
+<%--        var table = layui.table;--%>
 
-        table.render({
-            elem: '#test-table-simple1',
-            url: layui.setter.base + 'json/table/user.js',
-            cellMinWidth: 80 //全局定义常规单元格的最小宽度
-            ,
-            cols: [
-                [{
-                    field: 'id',
-                    width: 80,
-                    title: 'ID',
-                    sort: true
-                }, {
-                    field: 'name',
-                    width: 80,
-                    title: '姓名'
-                }, {
-                    field: 'age',
-                    width: 80,
-                    title: '年龄',
-                    sort: true
-                }]
-            ]
-        });
-    });
-</script>
+<%--        table.render({--%>
+<%--            elem: '#test-table-simple1',--%>
+<%--            url: layui.setter.base + 'json/table/user.js',--%>
+<%--            cellMinWidth: 80 //全局定义常规单元格的最小宽度--%>
+<%--            ,--%>
+<%--            cols: [--%>
+<%--                [{--%>
+<%--                    field: 'id',--%>
+<%--                    width: 80,--%>
+<%--                    title: 'ID',--%>
+<%--                    sort: true--%>
+<%--                }, {--%>
+<%--                    field: 'name',--%>
+<%--                    width: 80,--%>
+<%--                    title: '姓名'--%>
+<%--                }, {--%>
+<%--                    field: 'age',--%>
+<%--                    width: 80,--%>
+<%--                    title: '年龄',--%>
+<%--                    sort: true--%>
+<%--                }]--%>
+<%--            ]--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
 <!-- 数据表格2 -->
-<script>
-    layui.config({
-        base: 'department/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
-        var table = layui.table;
+<%--<script>--%>
+<%--    layui.config({--%>
+<%--        base: 'department/' //静态资源所在路径--%>
+<%--    }).extend({--%>
+<%--        index: 'lib/index' //主入口模块--%>
+<%--    }).use(['index', 'table'], function () {--%>
+<%--        var table = layui.table;--%>
 
-        table.render({
-            elem: '#test-table-simple2',
-            url: layui.setter.base + 'json/table/user.js',
-            cellMinWidth: 80 //全局定义常规单元格的最小宽度
-            ,
-            cols: [
-                [{
-                    field: 'id',
-                    width: 80,
-                    title: 'ID',
-                    sort: true
-                }, {
-                    field: 'name',
-                    width: 80,
-                    title: '姓名'
-                }, {
-                    field: 'age',
-                    width: 80,
-                    title: '年龄',
-                    sort: true
-                }]
-            ]
-        });
-    });
-</script>
+<%--        table.render({--%>
+<%--            elem: '#test-table-simple2',--%>
+<%--            url: layui.setter.base + 'json/table/user.js',--%>
+<%--            cellMinWidth: 80 //全局定义常规单元格的最小宽度--%>
+<%--            ,--%>
+<%--            cols: [--%>
+<%--                [{--%>
+<%--                    field: 'id',--%>
+<%--                    width: 80,--%>
+<%--                    title: 'ID',--%>
+<%--                    sort: true--%>
+<%--                }, {--%>
+<%--                    field: 'name',--%>
+<%--                    width: 80,--%>
+<%--                    title: '姓名'--%>
+<%--                }, {--%>
+<%--                    field: 'age',--%>
+<%--                    width: 80,--%>
+<%--                    title: '年龄',--%>
+<%--                    sort: true--%>
+<%--                }]--%>
+<%--            ]--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
 <!-- 诊断数据表格3 -->
 <script>
     layui.config({
@@ -485,48 +452,7 @@
         });
     });
 </script>
-<!-- 疾病数据表格3 -->
-<script>
-    layui.config({
-        base: 'department/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
-        var table = layui.table;
 
-        table.render({
-            elem: '#test-table-simple4',
-            url: layui.setter.base + 'json/table/user.js',
-            cellMinWidth: 80 //全局定义常规单元格的最小宽度
-            ,
-            cols: [
-                [{
-                    field: 'id',
-                    width: 80,
-                    title: 'ID',
-                    sort: true
-                }, {
-                    field: 'name',
-                    width: 180,
-                    title: '国际IDC编码'
-                }, {
-                    field: 'age',
-                    width: 100,
-                    title: '疾病名称',
-                    sort: true
-                }, {
-                    field: 'age',
-                    width: 180,
-                    title: '疾病助记编码'
-                }, {
-                    field: 'age',
-                    width: 100,
-                    title: '疾病所属分类'
-                }]
-            ]
-        });
-    });
-</script>
 
 <!-- 中部折叠面板模块加载 -->
 <script>
@@ -710,12 +636,42 @@
                 var that = this;
                 layer.open({
                     type: 1,
-                    title: '添加项目',
+                    title: '添加诊断',
                     area: ['450px', '450px'],
                     shade: 0,
                     maxmin: true,
                     //todo:加参数 window.onload赋值
                     content: '<iframe name="myframe" src="MedicalRecordPage/indexadd?medicalRecordNo=${medicalRecordNo}" frameborder="0" class = "layadmin-iframe"></iframe>',
+                    // content: '<h1>111222</h1>',
+                    btn: ['确定', '全部关闭'],
+                    yes: function () {
+                        myframe.window.submit();
+                        layer.closeAll();
+                        layui.table.reload('test-table-simple3');
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    ,
+                    zIndex: layer.zIndex,
+                    success: function (layero) {
+                        layer.setTop(layero);
+                    }
+                });
+            },
+
+            update: function (othis) {
+                var tabledata=layui.table.checkStatus('test-table-simple3').data;
+                var that = this;
+                layer.open({
+                    type: 1,
+                    title: '编辑诊断',
+                    area: ['450px', '450px'],
+                    shade: 0,
+                    maxmin: true,
+                    //todo:传值给uptate
+                    content: '<iframe name="myframe" src="MedicalRecordPage/indexupdate?date='+dateToStr(tabledata[0].dA)+'&medicalRecordNo=${medicalRecordNo}&flag='+tabledata[0].flag+'&diseaseid='+tabledata[0].diseaseid+'&id='+tabledata[0].id+'" frameborder="0" class = "layadmin-iframe"></iframe>',
                     // content: '<h1>111222</h1>',
                     btn: ['确定', '全部关闭'],
                     yes: function () {

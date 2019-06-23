@@ -69,4 +69,9 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return diagnosisDao.insertSelective(record);
     }
 
+    @Override
+    public int updateDia(Diagnosis record) {
+        return diagnosisDao.updateByPrimaryKeySelective(record);
+    }
+
 }
