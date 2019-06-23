@@ -130,7 +130,7 @@
                                     <button class="layui-btn  layui-btn-sm"><i class="layui-icon">&#xe642;</i></button>
                                     <button class="layui-btn  layui-btn-sm"><i
                                             class="layui-icon layui-icon-search"></i></button>
-                                    <button class="layui-btn  layui-btn-sm"><i class="layui-icon">&#xe640;</i></button>
+                                    <button  class="layui-btn  layui-btn-sm" lay-demo="getChecked"><i class="layui-icon">&#xe640;</i></button>
                                 </div>
                             </div>
                         </div>
@@ -522,7 +522,7 @@
               mydata.push(data5);
               mydata.push(data6);
               //将json对象转换成字符串
-              alert(JSON.stringify(mydata));
+              // alert(JSON.stringify(mydata));
               data=mydata;
             }
         });
@@ -580,7 +580,7 @@
         data: data,
         showCheckbox: true //是否显示复选框
           ,
-        id: 'demoId1',
+        // id: 'demoId1',
         isJump: true //是否允许点击节点时弹出新窗口跳转
           ,
         click: function (obj) {
@@ -593,11 +593,60 @@
       util.event('lay-demo', {
         getChecked: function (othis) {
           var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+            var myArray = new Array();
+            //获取子节点数据
+            for(var i=0;i<checkedData.length;i++){
+                var children=checkedData[i].children;
+                for(var j=0;j<children.length;j++){
+                    myArray.push(children[j].id);
+                }
+            }
 
-          layer.alert(JSON.stringify(checkedData), {
-            shade: 0
-          });
-          console.log(checkedData);
+            layer.open({
+                type: 1,
+                title: '删除组套模板',
+                area: ['260px', '160px'],
+                shade: 0,
+                maxmin: true,
+                content: '<p style="margin:auto;">您确定要删除选中项吗</p>',
+                btn: ['确定', '全部关闭'],
+                yes: function () {
+                    // 写下编辑的提交方法**********************************************************
+                    $.ajax({
+                        type: "POST",
+                        url: "fifthpart/deleteset",
+                        traditional: true,
+                        data: {
+                            'ids': myArray,
+                        },
+                        success: function (res) {
+                            if (res.status == 0) {
+                                layer.msg(res.message);
+                            } else {
+                                layer.msg(res.message);
+                            }
+                            setTimeout(function(){
+                                window.parent.location.reload();//修改成功后刷新父界面
+                            }, 100);
+                        },
+                        error: function () {
+                            alert("出现错误");
+                            return false;
+                        }
+                    })
+                    layer.closeAll();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+
+                ,
+                zIndex: layer.zIndex,
+                success: function (layero) {
+                    layer.setTop(layero);
+                }
+            });
+
         },
         setChecked: function () {
           tree.setChecked('demoId1', [12, 16]); //勾选指定节点
@@ -616,20 +665,55 @@
         elem: '#test9',
         data: data,
           // data: data1,
+          id: 'demoId1',
         edit: ['add', 'update', 'del'] //操作节点的图标
           ,
           showCheckbox: true,
         click: function (obj) {
             // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data));
             layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data.id));
+            if(obj.data.id==0||obj.data.id==1||obj.data.id==2) {
+              layer.msg("请选择二级菜单里面的模板");
+              return;
+            }
             layer.open({
                 type: 1,
                 title: '引用组套模板',
                 area: ['700px', '600px'],
-                content: '<iframe src="fifthpart/addModel" frameborder="0" class="layadmin-iframe"></iframe>',
+                content: '<iframe src="fifthpart/useModel?id='+obj.data.id+'" frameborder="0" class="layadmin-iframe"></iframe>',
                 btn: ['引用组套', '取消'],
-                yes: function (index,layero) {
-                    layer.closeAll();
+                yes: function (index,layero) {//将组套里面的的项目添加至数据库
+                    var iframes = $(layero).find("iframe")[0].contentWindow;
+                    var form = iframes.document.getElementById("add");
+                    var table = iframes.layui.table;
+                    var tabledata = table.checkStatus('test-table-toolbar').data;
+                    var myArray = new Array();
+                    var myArray1 = new Array();
+                    var myArray2 = new Array();
+                    for (var i = 0; i < tabledata.length; i++) {
+                        myArray.push(tabledata[i].itemcode);
+                        myArray1.push(tabledata[i].requirement);
+                        myArray2.push(tabledata[i].goal);
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "fifthpart/usemubanpros?doctorid=5&medicalid=5",
+                        data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+                        success: function (res) {
+                            if (res.status == 0) {
+                                layer.msg(res.message)
+                            } else {
+                                layer.msg(res.message)
+                            }
+                            setTimeout(function(){
+                                window.parent.location.reload();//修改成功后刷新父界面
+                            }, 100);
+                        },
+                        error: function () {
+                            alert("出现错误");
+                            return false;
+                        }
+                    }) //ajax结束
                 },
                 btn2: function () {
                     layer.closeAll();
@@ -696,12 +780,6 @@
                 } else {
                   layer.msg(res.message);
                 }
-                // layer.closeAll();
-                // parent.layui.table.reload('test-table-cellEdit-middle', {
-                //   page: {
-                //     curr: 1
-                //   }
-                // });
                 setTimeout(function(){
                   window.parent.location.reload();//修改成功后刷新父界面
                 }, 100);
@@ -1018,7 +1096,59 @@
                     layer.setTop(layero);
                 }
             });
+        },
+
+        //删除对应组套并更新树
+        delete_muban: function () {
+            var that = this;
+            layer.open({
+                type: 1,
+                title: '删除模板',
+                area: ['260px', '160px'],
+                shade: 0,
+                maxmin: true,
+                content: '<p style="margin:auto;">您确定要删除选中项吗</p>',
+                btn: ['确定', '全部关闭'],
+                yes: function () {
+                    // 写下编辑的提交方法**********************************************************
+                    $.ajax({
+                        type: "POST",
+                        url: "fifthpart/deletepro",
+                        traditional: true,
+                        data: {
+                            'ids': myArray,
+                            'id': id
+                        },
+                        success: function (res) {
+                            if (res.status == 0) {
+                                layer.msg(res.message);
+                            } else {
+                                layer.msg(res.message);
+                            }
+                            setTimeout(function(){
+                                window.parent.location.reload();//修改成功后刷新父界面
+                            }, 100);
+                        },
+                        error: function () {
+                            alert("出现错误");
+                            return false;
+                        }
+                    })
+                    layer.closeAll();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+
+                ,
+                zIndex: layer.zIndex,
+                success: function (layero) {
+                    layer.setTop(layero);
+                }
+            });
         }
+
+
 
 
     };

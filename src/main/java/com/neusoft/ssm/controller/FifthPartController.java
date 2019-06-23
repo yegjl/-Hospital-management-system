@@ -9,10 +9,10 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -82,7 +82,7 @@ public class FifthPartController {
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
-            resultDTO.setTotal((int) pageInfo.getTotal());
+            resultDTO.setTotal((int)pageInfo.getTotal());
             // 将list转为JSON格式传至前端
             resultDTO.setData(JSONArray.fromObject(list));
         } catch (Exception e) {
@@ -255,5 +255,77 @@ public Fmeditem getQue(String name,String id) {
         List<ExamcheckSet> examcheckSets =  examcheckService.getsets();
         return JSONArray.fromObject(examcheckSets);
     }
+//引用模板
+    @RequestMapping(value = "/useModel",method = RequestMethod.GET)
+    public String useModel(Integer id,Model model) {
+        ExamcheckSet examcheckSet=examcheckService.findSetById(id);
+        model.addAttribute("examcheckSet", examcheckSet);
+        List<ExamcheckSetInfo> examcheckSetInfos=examcheckService.findSetInfosById(id);
+        List<ExamcheckSetInfoPlus> examcheckSetInfoPluses = new ArrayList<ExamcheckSetInfoPlus>();
+        for(ExamcheckSetInfo e:examcheckSetInfos){
+            ExamcheckSetInfoPlus examcheckSetInfoPlus = new ExamcheckSetInfoPlus();
+            examcheckSetInfoPlus.setCode(examcheckService.findprobyid(e.getFmeditemid()).getItemcode());
+            examcheckSetInfoPlus.setName(examcheckService.findprobyid(e.getFmeditemid()).getItemname());
+            examcheckSetInfoPlus.setGoal(e.getGoal());
+            examcheckSetInfoPlus.setEntrust(e.getEntrust());
+            examcheckSetInfoPluses.add(examcheckSetInfoPlus);
+        }
+        model.addAttribute("examcheckSetInfos", examcheckSetInfoPluses);
+        return "fifthpart/inspection_application/use_muban"; }
+
+        //将引用组套里面的项目存入数据库
+        @RequestMapping(value = "/usemubanpros",method = RequestMethod.POST)
+        @ResponseBody
+        public ResultDTO<Integer> usemubanpros(String[] myArray,String[] myArray1,String[] myArray2,Integer doctorid,Integer medicalid) {
+            if(examcheckService.getCount(doctorid,medicalid)==0){
+                Examcheck examcheck=new Examcheck();
+                examcheck.setDoctorid(doctorid);
+                examcheck.setMedicalrecordid(medicalid);
+                examcheck.setMark("0");
+                examcheckService.addExam(examcheck);
+            }
+            ResultDTO<Integer> resultDTO = new ResultDTO();
+            try {
+                int issuccess=0;
+                for(int i = 0; i < myArray.length; i++) {
+                    ExamcheckInfo examcheckInfo = new ExamcheckInfo();
+                    examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid, medicalid));
+                    examcheckInfo.setStatus("0");
+                    examcheckInfo.setFmeditemid(examcheckService.findIdByCode(myArray[i]));
+                    examcheckInfo.setRequirement(myArray1[i]);
+                    examcheckInfo.setGoal(myArray2[i]);
+                    issuccess = examcheckService.addInfo(examcheckInfo);
+                }
+                resultDTO.setStatus(0);
+                resultDTO.setMessage("操作成功！");
+                resultDTO.setData(issuccess);
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus(1);
+                resultDTO.setMessage("操作失败！");
+            }
+            return resultDTO;
+        }
+
+        //删除组套
+        @RequestMapping(value = "/deleteset",method = RequestMethod.POST)
+        @ResponseBody
+        public ResultDTO<Integer> deleteset(Integer[] ids) {
+            ResultDTO<Integer> resultDTO = new ResultDTO();
+            try {
+                for(Integer i:ids){
+                    examcheckService.deleteSetById(i);
+                }
+                resultDTO.setStatus(0);
+                resultDTO.setMessage("操作成功！");
+                resultDTO.setData(1);
+                return resultDTO;
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus(1);
+                resultDTO.setMessage("操作失败！");
+            }
+            return resultDTO;
+        }
 
 }
