@@ -111,7 +111,7 @@
                                                                 class="layui-icon">&#xe654;</i></button>
                                                         <button type="button" data-method="update" data-type="auto" class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon">&#xe642;</i></button>
-                                                        <button class="layui-btn  layui-btn-sm"><i
+                                                        <button type="button" data-method="delete" data-type="auto" class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon">&#xe640;</i></button>
                                                     </div>
                                                 </div>
@@ -414,16 +414,16 @@
                     sort: true
                 }, {
                     field: 'diseasename',
-                    width: 100,
+                    width: 300,
                     title: '疾病名称'
                 }, {
                     field: 'medicalRecordNo',
-                    width: 100,
+                    width: 300,
                     title: '病历号',
                     sort: true
                 }, {
                     field: 'flag',
-                    width: 100,
+                    width: 120,
                      title: '主诊/疑似标志',
                     templet: function (d) {
                         var state = "";
@@ -440,15 +440,18 @@
                     ,unresize: true
                 }, {
                     field: 'dA',
-                    width: 100,
+                    width: 300,
                     title: '发病日期',
                     templet: function (d) {
                           return dateToStr(d.dA);
                           }
-                }
-
-                ]
-            ]
+                }]]
+            ,
+            // done : function(res, curr, count){
+            //     console.log(layui.table);
+            //     var tabledata=  layui.table.cache["test-table-simple3"];
+            //     console.log(tabledata);
+            // }
         });
     });
 </script>
@@ -479,69 +482,111 @@
 
 <script>
     layui.use(['tree', 'util'], function () {
+        var $=layui.$;
+        var data = [];
+        $.ajax({
+            type: "get",
+            async : false,//设置为同步操作就可以给全局变量赋值成功
+            url: "MedicalRecordPage/getsets",
+            success: function (res) {
+                // var mydata = [];
+                var children1=[];
+                var children2=[];
+                var children3=[];
+                var data1 =[];
+                var data2 =[];
+                var data3 =[];
+                for(var i=0;i<res.length;i++){
+                    // alert(examcheckSets[i].setname);
+                    //测试成功！！！
+
+                    if(res[i].type==0) {
+                        data1 = {
+                            title:res[i].name,
+                            id:res[i].id
+                        };
+                        children1.push(data1);
+                    }
+
+                    if(res[i].type==1) {
+                        data2 = {
+                            title:res[i].name,
+                            id:res[i].id
+                        };
+                        children2.push(data2);
+                    }
+
+                    if(res[i].type==2) {
+                        data3 = {
+                            title:res[i].name,
+                            id:res[i].id
+                        };
+                        children3.push(data3);
+                    }
+                    // alert(JSON.stringify(children3));
+                }
+
+                var data4 ={
+                    title: '全院组套模板',
+                    id: 0,
+                    children:children1
+                };
+
+                var data5 ={
+                    title: '科室组套模板',
+                    id: 1,
+                    children:children2
+                };
+
+                var data6 ={
+                    title: '个人组套模板',
+                    id: 2,
+                    children:children3
+                };
+
+                data.push(data4);
+                data.push(data5);
+                data.push(data6);
+                //将json对象转换成字符串
+                // alert(JSON.stringify(mydata));
+
+            }
+        });
         var tree = layui.tree,
             layer = layui.layer,
-            util = layui.util,
-            data = [],
-            data1 = [{
-                title: '一级',
-                id: 1,
-                children: [{
-                    title: '二级',
-                    id: 1000,
-                    children: [{
-                        title: '三级',
-                        id: 10001,
-                        href: ""
-                    }, {
-                        title: '三级',
-                        id: 10002
-                    }]
-                }, {
-                    title: '二级',
-                    id: 1001
-                }, {
-                    title: '二级',
-                    id: 1002
-                }]
-            }, {
-                title: '一级',
-                id: 2,
-                children: [{
-                    title: '二级',
-                    id: 2000
-                }, {
-                    title: '二级',
-                    id: 2001
-                }]
-            }, {
-                title: '一级',
-                id: 3,
-                children: [{
-                    title: '二级',
-                    id: 3000
-                }, {
-                    title: '二级',
-                    id: 3001
-                }]
-            }]
+            util = layui.util;
 
-            //模拟数据2
-            ,
-            data2 = [];
 
         //基本演示
         tree.render({
-            elem: '#test12',
+            elem: '#test9',
             data: data,
-            showCheckbox: true //是否显示复选框
-            ,
+            showCheckbox: true, //是否显示复选框
+            onlyIconControl: true,
             id: 'demoId1',
-            isJump: true //是否允许点击节点时弹出新窗口跳转
-            ,
+            isJump: true,//是否允许点击节点时弹出新窗口跳转
+            edit: ['add', 'update', 'del'],
             click: function (obj) {
-                var data = obj.data; //获取当前点击的节点数据
-                // layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+                var data = obj.data;
+                document.getElementsByClassName("chiefComplaint")//获取当前点击的节点数据
+                layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+            }
+            ,operate: function(obj){
+                var type = obj.type; //得到操作类型：add、edit、del
+                var data = obj.data; //得到当前节点的数据
+                var elem = obj.elem; //得到当前节点元素
+
+                //Ajax 操作
+                var id = data.id;
+                alert(id);//得到节点索引
+                if(type === 'add'){ //增加节点
+                    //返回 key 值
+                    return 123;
+                } else if(type === 'update'){ //修改节点
+                    console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
+                } else if(type === 'del'){ //删除节点
+
+                };
             }
         });
 
@@ -606,15 +651,15 @@
         });
 
         //开启节点操作图标
-        tree.render({
-            elem: '#test9',
-            data: data1,
-            edit: ['add', 'update', 'del'] //操作节点的图标
-            ,
-            click: function (obj) {
-                // layer.msg(JSON.stringify(obj.data));
-            }
-        });
+        // tree.render({
+        //     elem: '#test9',
+        //     data: data1,
+        //     edit: ['add', 'update', 'del'] //操作节点的图标
+        //     ,
+        //     click: function (obj) {
+        //         // layer.msg(JSON.stringify(obj.data));
+        //     }
+        // });
     });
   </script>
 <!-- 弹窗模块 -->
@@ -632,6 +677,7 @@
         element.render();
 
         var active = {
+
             add: function (othis) {
                 var that = this;
                 layer.open({
@@ -676,6 +722,47 @@
                     btn: ['确定', '全部关闭'],
                     yes: function () {
                         myframe.window.submit();
+                        layer.closeAll();
+                        layui.table.reload('test-table-simple3');
+
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    ,
+                    zIndex: layer.zIndex,
+                    success: function (layero) {
+                        layer.setTop(layero);
+                    }
+                });
+            } ,
+            delete: function (othis) {
+                var tabledata=layui.table.checkStatus('test-table-simple3').data;
+                var that = this;
+                layer.open({
+                    type: 1,
+                    title: '删除诊断',
+                    area: ['450px', '150px'],
+                    shade: 0,
+                    maxmin: true,
+                    content: '<h2 align="center">确定删除这一诊断吗?</h2>',
+                    // content: '<h1>111222</h1>',
+                    btn: ['确定', '全部关闭'],
+                    yes: function () {
+                        $.ajax({
+                            type: "POST",//方法类型
+                            url: "MedicalRecordPage/delete",//url
+                            async: false,
+                            // data: $("#form").serialize()+"&myarray="+myarray,
+                            data: "id="+tabledata[0].id,
+                            success: function (result) {
+
+                            },
+                            error: function (result) {
+                                alert(result.msg);
+                            }
+                        });
                         layer.closeAll();
                         layui.table.reload('test-table-simple3');
                     },

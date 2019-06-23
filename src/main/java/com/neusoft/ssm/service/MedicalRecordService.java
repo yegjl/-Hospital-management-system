@@ -1,9 +1,6 @@
 package com.neusoft.ssm.service;
 
-import com.neusoft.ssm.bean.CommonDiagnosis;
-import com.neusoft.ssm.bean.Diagnosis;
-import com.neusoft.ssm.bean.Disease;
-import com.neusoft.ssm.bean.MedicalRecordPage;
+import com.neusoft.ssm.bean.*;
 
 import java.util.List;
 
@@ -18,5 +15,7 @@ public interface MedicalRecordService {
     Diagnosis findDiagnosisByID(Integer id);
      int insertSelectiveDia(Diagnosis record);
      int updateDia(Diagnosis record);
+    int deleteDia(Integer id);
+    List<MedicalRecordPageTemplate> getSet();
 
 }

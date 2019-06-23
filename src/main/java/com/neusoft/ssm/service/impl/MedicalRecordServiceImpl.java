@@ -1,10 +1,7 @@
 package com.neusoft.ssm.service.impl;
 
 import com.neusoft.ssm.bean.*;
-import com.neusoft.ssm.dao.CommonDiagnosisDao;
-import com.neusoft.ssm.dao.DiagnosisDao;
-import com.neusoft.ssm.dao.DiseaseDao;
-import com.neusoft.ssm.dao.MedicalRecordPageDao;
+import com.neusoft.ssm.dao.*;
 import com.neusoft.ssm.service.MedicalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 
 public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Autowired
@@ -22,6 +20,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     DiagnosisDao diagnosisDao;
     @Autowired
     CommonDiagnosisDao commonDiagnosisDao;
+    @Autowired
+    MedicalRecordPageTemplateDao medicalRecordPageTemplateDao;
 
     @Override
     public MedicalRecordPage findById(Integer id) {
@@ -72,6 +72,16 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public int updateDia(Diagnosis record) {
         return diagnosisDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int deleteDia(Integer id) {
+        return diagnosisDao.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<MedicalRecordPageTemplate> getSet() {
+        return medicalRecordPageTemplateDao.selectAll();
     }
 
 }
