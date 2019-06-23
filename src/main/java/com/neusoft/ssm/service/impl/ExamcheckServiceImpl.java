@@ -99,4 +99,19 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         return examcheckoneMapper.getsets();
     }
 
+    @Override
+    public ExamcheckSet findSetById(Integer id) {
+        return examcheckoneMapper.findSetById(id);
+    }
+
+    @Override
+    public List<ExamcheckSetInfo> findSetInfosById(Integer id) {
+        return examcheckoneMapper.findSetInfosById(id);
+    }
+
+    @Override
+    public void deleteSetById(Integer i) {
+        examcheckoneMapper.deleteSetById(i);
+    }
+
 }

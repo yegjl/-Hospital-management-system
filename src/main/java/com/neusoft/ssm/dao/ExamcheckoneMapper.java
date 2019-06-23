@@ -62,4 +62,10 @@ public interface ExamcheckoneMapper {
     Fmeditem findprobyid(Integer id);
 
     List<ExamcheckSet> getsets();
+
+    ExamcheckSet findSetById(Integer id);
+
+    List<ExamcheckSetInfo> findSetInfosById(Integer id);
+
+    void deleteSetById(Integer i);
 }

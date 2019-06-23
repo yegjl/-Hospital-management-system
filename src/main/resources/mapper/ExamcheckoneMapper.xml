@@ -414,4 +414,20 @@
     <select id="getsets"  resultType="com.neusoft.ssm.bean.ExamcheckSet">
         select * from examcheck_set
     </select>
+
+    <select id="findSetById" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.ExamcheckSet">
+        select * from examcheck_set
+        where id=#{id}
+    </select>
+
+    <select id="findSetInfosById" parameterType="java.lang.Integer"  resultType="com.neusoft.ssm.bean.ExamcheckSetInfo">
+        select * from examcheck_set_info
+        where setId=#{id}
+    </select>
+
+    <delete id="deleteSetById" >
+        delete from examcheck_set
+        where id=#{i}
+    </delete>
+
 </mapper>
