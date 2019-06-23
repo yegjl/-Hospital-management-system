@@ -3,6 +3,7 @@ package com.neusoft.ssm.controller;
 import com.neusoft.ssm.bean.CommonDiagnosis;
 import com.neusoft.ssm.bean.Diagnosis;
 import com.neusoft.ssm.bean.MedicalRecordPage;
+import com.neusoft.ssm.bean.MedicalRecordPageTemplate;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.MedicalRecordService;
 import net.sf.json.JSONArray;
@@ -36,6 +37,12 @@ public class MedicalRecordPageController {
         model.addAttribute("medicalRecordNo", "2019061700001");
         model.addAttribute("CommonDiagnosises", replaceIDToName(diagnosisList));
         return "fifthpart/medical_record/medical_record";
+    }
+    @RequestMapping("/getsets")
+    @ResponseBody
+    public List<MedicalRecordPageTemplate> getsets(String medicalRecordNo, Model model) {
+        List<MedicalRecordPageTemplate> list = medicalRecordService.getSet();
+        return JSONArray.fromObject(list);
     }
 
     @RequestMapping("/indexadd")
@@ -133,6 +140,24 @@ public class MedicalRecordPageController {
 
         try {
             int issuccess = medicalRecordService.updateDia(diagnosis);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping("/delete")
+    @ResponseBody
+    public ResultDTO<Integer> delete(Integer id,Integer index,Model model) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+
+
+        try {
+            int issuccess = medicalRecordService.deleteDia(id);
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);
