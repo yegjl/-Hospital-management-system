@@ -5,14 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
-import com.neusoft.ssm.util.MD5;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -31,13 +31,19 @@ public class FifthPartController {
         return "fifthpart/null";
         else if(id.equals("02"))
             return "fifthpart/medical_record/medical_record";
-        else if (id.equals("03")) {
-            name="检查";
-            model.addAttribute("name", name);
-            return "fifthpart/inspection_application/inspection_application";
-        }
-        else return null;
+        else if(id.equals("04")){
+            //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
+//            model.addAttribute("medicalrecordid",medicalrecordid);
 
+            return "fifthpart/medicine_prescription/medicine_pre";
+        }
+        else if(id.equals("05")){//草药
+            //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
+//            model.addAttribute("medicalrecordid",medicalrecordid);
+
+            return "fifthpart/medicine_prescription/cmedicine_pre";
+        }
+        return "fifthpart/inspection_application/inspection_application";
     }
 
     @RequestMapping(value = "/addUI")

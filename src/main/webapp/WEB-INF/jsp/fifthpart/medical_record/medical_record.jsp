@@ -603,7 +603,7 @@
       tree.render({
         elem: '#test9',
         data: data1,
-        edit: ['add', 'update', 'del'] //操作节点的图标
+        edit: ['add.jsp', 'update', 'del'] //操作节点的图标
           ,
         click: function (obj) {
           // layer.msg(JSON.stringify(obj.data));

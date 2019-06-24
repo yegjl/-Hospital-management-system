@@ -55,10 +55,10 @@
 <!--        </mvc:interceptor>-->
 <!--    </mvc:interceptors>-->
     <!-- 拦截器 -->
-    <mvc:interceptors>
-        <!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 -->
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        &lt;!&ndash; 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 &ndash;&gt;-->
+<!--        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />-->
+<!--    </mvc:interceptors>-->
     <!--将静态资源交由默认的servlet处理-->
     <mvc:default-servlet-handler />
     <!--向容器自动注入配置-->
