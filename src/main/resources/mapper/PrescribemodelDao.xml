@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.PrescribemodelDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Prescribemodel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="prescribemodelid" jdbcType="VARCHAR" property="prescribemodelid" />
+    <result column="prescribemodelname" jdbcType="VARCHAR" property="prescribemodelname" />
+    <result column="prescribeusage" jdbcType="VARCHAR" property="prescribeusage" />
+    <result column="prescribetype" jdbcType="VARCHAR" property="prescribetype" />
+    <result column="server" jdbcType="VARCHAR" property="server" />
+    <result column="usage" jdbcType="VARCHAR" property="usage" />
+    <result column="createman" jdbcType="VARCHAR" property="createman" />
+    <result column="createdept" jdbcType="VARCHAR" property="createdept" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, prescribemodelid, prescribemodelname, prescribeusage, prescribetype, server, 
+    `usage`, createman, createdept, createtime
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.PrescribemodelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prescribemodel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prescribemodel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prescribemodel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.PrescribemodelExample">
+    delete from prescribemodel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Prescribemodel" useGeneratedKeys="true">
+    insert into prescribemodel (prescribemodelid, prescribemodelname, 
+      prescribeusage, prescribetype, server, 
+      `usage`, createman, createdept, 
+      createtime)
+    values (#{prescribemodelid,jdbcType=VARCHAR}, #{prescribemodelname,jdbcType=VARCHAR}, 
+      #{prescribeusage,jdbcType=VARCHAR}, #{prescribetype,jdbcType=VARCHAR}, #{server,jdbcType=VARCHAR}, 
+      #{usage,jdbcType=VARCHAR}, #{createman,jdbcType=VARCHAR}, #{createdept,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Prescribemodel" useGeneratedKeys="true">
+    insert into prescribemodel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prescribemodelid != null">
+        prescribemodelid,
+      </if>
+      <if test="prescribemodelname != null">
+        prescribemodelname,
+      </if>
+      <if test="prescribeusage != null">
+        prescribeusage,
+      </if>
+      <if test="prescribetype != null">
+        prescribetype,
+      </if>
+      <if test="server != null">
+        server,
+      </if>
+      <if test="usage != null">
+        `usage`,
+      </if>
+      <if test="createman != null">
+        createman,
+      </if>
+      <if test="createdept != null">
+        createdept,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prescribemodelid != null">
+        #{prescribemodelid,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribemodelname != null">
+        #{prescribemodelname,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribeusage != null">
+        #{prescribeusage,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribetype != null">
+        #{prescribetype,jdbcType=VARCHAR},
+      </if>
+      <if test="server != null">
+        #{server,jdbcType=VARCHAR},
+      </if>
+      <if test="usage != null">
+        #{usage,jdbcType=VARCHAR},
+      </if>
+      <if test="createman != null">
+        #{createman,jdbcType=VARCHAR},
+      </if>
+      <if test="createdept != null">
+        #{createdept,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.PrescribemodelExample" resultType="java.lang.Long">
+    select count(*) from prescribemodel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prescribemodel
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prescribemodelid != null">
+        prescribemodelid = #{record.prescribemodelid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prescribemodelname != null">
+        prescribemodelname = #{record.prescribemodelname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prescribeusage != null">
+        prescribeusage = #{record.prescribeusage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prescribetype != null">
+        prescribetype = #{record.prescribetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.server != null">
+        server = #{record.server,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usage != null">
+        `usage` = #{record.usage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createman != null">
+        createman = #{record.createman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdept != null">
+        createdept = #{record.createdept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prescribemodel
+    set id = #{record.id,jdbcType=INTEGER},
+      prescribemodelid = #{record.prescribemodelid,jdbcType=VARCHAR},
+      prescribemodelname = #{record.prescribemodelname,jdbcType=VARCHAR},
+      prescribeusage = #{record.prescribeusage,jdbcType=VARCHAR},
+      prescribetype = #{record.prescribetype,jdbcType=VARCHAR},
+      server = #{record.server,jdbcType=VARCHAR},
+      `usage` = #{record.usage,jdbcType=VARCHAR},
+      createman = #{record.createman,jdbcType=VARCHAR},
+      createdept = #{record.createdept,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Prescribemodel">
+    update prescribemodel
+    <set>
+      <if test="prescribemodelid != null">
+        prescribemodelid = #{prescribemodelid,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribemodelname != null">
+        prescribemodelname = #{prescribemodelname,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribeusage != null">
+        prescribeusage = #{prescribeusage,jdbcType=VARCHAR},
+      </if>
+      <if test="prescribetype != null">
+        prescribetype = #{prescribetype,jdbcType=VARCHAR},
+      </if>
+      <if test="server != null">
+        server = #{server,jdbcType=VARCHAR},
+      </if>
+      <if test="usage != null">
+        `usage` = #{usage,jdbcType=VARCHAR},
+      </if>
+      <if test="createman != null">
+        createman = #{createman,jdbcType=VARCHAR},
+      </if>
+      <if test="createdept != null">
+        createdept = #{createdept,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Prescribemodel">
+    update prescribemodel
+    set prescribemodelid = #{prescribemodelid,jdbcType=VARCHAR},
+      prescribemodelname = #{prescribemodelname,jdbcType=VARCHAR},
+      prescribeusage = #{prescribeusage,jdbcType=VARCHAR},
+      prescribetype = #{prescribetype,jdbcType=VARCHAR},
+      server = #{server,jdbcType=VARCHAR},
+      `usage` = #{usage,jdbcType=VARCHAR},
+      createman = #{createman,jdbcType=VARCHAR},
+      createdept = #{createdept,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
