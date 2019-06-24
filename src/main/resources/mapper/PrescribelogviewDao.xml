@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.PrescribelogviewDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Prescribelogview">
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="prescribeid" jdbcType="INTEGER" property="prescribeid" />
+    <result column="medicalid" jdbcType="INTEGER" property="medicalid" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="usage" jdbcType="VARCHAR" property="usage" />
+    <result column="dosage" jdbcType="VARCHAR" property="dosage" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="times" jdbcType="VARCHAR" property="times" />
+    <result column="days" jdbcType="VARCHAR" property="days" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="entrust" jdbcType="VARCHAR" property="entrust" />
+    <result column="istemp" jdbcType="INTEGER" property="istemp" />
+    <result column="drugid" jdbcType="INTEGER" property="drugid" />
+    <result column="DrugsName" jdbcType="VARCHAR" property="drugsname" />
+    <result column="medicalrecordid" jdbcType="INTEGER" property="medicalrecordid" />
+    <result column="doctorid" jdbcType="INTEGER" property="doctorid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pid, prescribeid, medicalid, format, price, `usage`, dosage, unit, times, `days`, 
+    `number`, amount, entrust, istemp, drugid, DrugsName, medicalrecordid, doctorid
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.PrescribelogviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prescribelogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.PrescribelogviewExample">
+    delete from prescribelogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.ssm.bean.Prescribelogview">
+    insert into prescribelogview (pid, prescribeid, medicalid, 
+      format, price, `usage`, 
+      dosage, unit, times, 
+      `days`, `number`, amount, 
+      entrust, istemp, drugid, 
+      DrugsName, medicalrecordid, doctorid
+      )
+    values (#{pid,jdbcType=INTEGER}, #{prescribeid,jdbcType=INTEGER}, #{medicalid,jdbcType=INTEGER}, 
+      #{format,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{usage,jdbcType=VARCHAR}, 
+      #{dosage,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}, 
+      #{days,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, 
+      #{entrust,jdbcType=VARCHAR}, #{istemp,jdbcType=INTEGER}, #{drugid,jdbcType=INTEGER}, 
+      #{drugsname,jdbcType=VARCHAR}, #{medicalrecordid,jdbcType=INTEGER}, #{doctorid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.ssm.bean.Prescribelogview">
+    insert into prescribelogview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="prescribeid != null">
+        prescribeid,
+      </if>
+      <if test="medicalid != null">
+        medicalid,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="usage != null">
+        `usage`,
+      </if>
+      <if test="dosage != null">
+        dosage,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="days != null">
+        `days`,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="entrust != null">
+        entrust,
+      </if>
+      <if test="istemp != null">
+        istemp,
+      </if>
+      <if test="drugid != null">
+        drugid,
+      </if>
+      <if test="drugsname != null">
+        DrugsName,
+      </if>
+      <if test="medicalrecordid != null">
+        medicalrecordid,
+      </if>
+      <if test="doctorid != null">
+        doctorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="prescribeid != null">
+        #{prescribeid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalid != null">
+        #{medicalid,jdbcType=INTEGER},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="usage != null">
+        #{usage,jdbcType=VARCHAR},
+      </if>
+      <if test="dosage != null">
+        #{dosage,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="entrust != null">
+        #{entrust,jdbcType=VARCHAR},
+      </if>
+      <if test="istemp != null">
+        #{istemp,jdbcType=INTEGER},
+      </if>
+      <if test="drugid != null">
+        #{drugid,jdbcType=INTEGER},
+      </if>
+      <if test="drugsname != null">
+        #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalrecordid != null">
+        #{medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="doctorid != null">
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.PrescribelogviewExample" resultType="java.lang.Long">
+    select count(*) from prescribelogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prescribelogview
+    <set>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.prescribeid != null">
+        prescribeid = #{record.prescribeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalid != null">
+        medicalid = #{record.medicalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.format != null">
+        format = #{record.format,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.usage != null">
+        `usage` = #{record.usage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dosage != null">
+        dosage = #{record.dosage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=VARCHAR},
+      </if>
+      <if test="record.days != null">
+        `days` = #{record.days,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        `number` = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrust != null">
+        entrust = #{record.entrust,jdbcType=VARCHAR},
+      </if>
+      <if test="record.istemp != null">
+        istemp = #{record.istemp,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugid != null">
+        drugid = #{record.drugid,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsname != null">
+        DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicalrecordid != null">
+        medicalrecordid = #{record.medicalrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.doctorid != null">
+        doctorid = #{record.doctorid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prescribelogview
+    set pid = #{record.pid,jdbcType=INTEGER},
+      prescribeid = #{record.prescribeid,jdbcType=INTEGER},
+      medicalid = #{record.medicalid,jdbcType=INTEGER},
+      format = #{record.format,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      `usage` = #{record.usage,jdbcType=VARCHAR},
+      dosage = #{record.dosage,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=VARCHAR},
+      `days` = #{record.days,jdbcType=VARCHAR},
+      `number` = #{record.number,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=VARCHAR},
+      entrust = #{record.entrust,jdbcType=VARCHAR},
+      istemp = #{record.istemp,jdbcType=INTEGER},
+      drugid = #{record.drugid,jdbcType=INTEGER},
+      DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      medicalrecordid = #{record.medicalrecordid,jdbcType=INTEGER},
+      doctorid = #{record.doctorid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+    <select id="selectByMrecordidAndDid" resultMap="BaseResultMap">
+      select * from prescribelogview where medicalrecordid = #{param1} and doctorid = #{param2}
+    </select>
+  <select id="selectByTwoid" resultMap="BaseResultMap">
+    select * from prescribelogview where prescribeid = #{param1}  and medicalid = #{param2}
+  </select>
+
+</mapper>
