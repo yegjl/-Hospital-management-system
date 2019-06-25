@@ -1,6 +1,5 @@
 package com.neusoft.ssm.dao;
 
-import com.neusoft.ssm.bean.Department;
 import com.neusoft.ssm.bean.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,11 +33,11 @@ public interface UserMapper {
 
 	List<User> selectByList();
 
-	List<User> findByUserType(String id);
-
+	User findNameById(@Param("id") Long id);
 	int insertSelective(User record);
 
-    int deleteUserByName(String name);
+	int deleteUserByName(String name);
 
-    List<User> getSearchUser(String login_name, String real_name,String id);
+	List<User> getSearchUser(String login_name, String real_name,String id);
+	List<User> findByUserType(String id);
 }

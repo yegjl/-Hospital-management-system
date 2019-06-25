@@ -9,6 +9,8 @@ public interface DoctorMapper {
 
     String findNameById(@Param("id") Long id);
 
+    String findDeptCodeById(@Param("id") Long id);
+
     List<Doctor> findAll();
 
 }

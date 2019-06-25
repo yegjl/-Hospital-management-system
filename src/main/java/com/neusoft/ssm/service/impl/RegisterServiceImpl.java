@@ -17,7 +17,7 @@ public class RegisterServiceImpl implements RegisterService {
     RegisterMapper registerMapper;
 
     @Override
-    public boolean add(String medical_record_no, String patient_name, String gender, Long age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, Long department_id, Long doctor_id, String registration_source, String settle_accounts_category, String is_seen_doctor, String status, double expense) {
+    public boolean add(String medical_record_no, String patient_name, String gender, Long age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, String department_id, Long doctor_id, String registration_source, Integer settle_accounts_category, String is_seen_doctor, String status, Double expense) {
         return registerMapper.add(medical_record_no, patient_name, gender, age, birthday, registration_category, medical_category, identity_card_no, family_address, registration_date, see_doctor_date, department_id, doctor_id, registration_source, settle_accounts_category, is_seen_doctor, status, expense);
     }
 
@@ -32,8 +32,24 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public String findById(Long id) {
+    public RegistrationInfo findById(Long id) {
         return registerMapper.findById(id);
+    }
+
+    @Override
+    public RegistrationInfo findByRecord(String medical_record_no) {
+        return registerMapper.findByRecord(medical_record_no);
+    }
+
+    @Override
+    public List<RegistrationInfo> findByKey(String keyword) {
+        keyword = "%" + keyword + "%";
+        return registerMapper.findByKey(keyword);
+    }
+
+    @Override
+    public Long findMaxRecord() {
+        return registerMapper.findMaxRecord();
     }
 
     @Override

@@ -271,5 +271,8 @@ public class FmeditemServiceImpl implements FmeditemService {
 //        }
 //        return wb;
     }
-
+    @Override
+    public Fmeditem findByItemCode(String itemCode) {
+        return fmeditemDao.findByItemCode(itemCode);
+    }
 }

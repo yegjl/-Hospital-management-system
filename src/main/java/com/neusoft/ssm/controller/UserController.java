@@ -70,9 +70,6 @@ public class UserController {
     }
 
     //身份验证跳转
-//    @RequestMapping(value = "/index01")
-//    public String index01() { return "department/department"; }
-//测试第五部分（门诊医生工作站）业务
     @RequestMapping(value = "/index01")
     public String index01() { return "fifthpart/ODW_index"; }
 
@@ -126,15 +123,63 @@ public class UserController {
         return "login/login";
     }
 
+    //调整转至排班
+    @RequestMapping(value = "/schedule")
+    public String schedule() {
+        return "schedule/schedule";
+    }
+
+    //调整转至挂号
+    @RequestMapping(value = "/register")
+    public String register() {
+        return "register/register";
+    }
+
+    //调整转至收费
+    @RequestMapping(value = "/expense")
+    public String expense() {
+        return "expense/expense";
+    }
+
+    //调整转至收费
+    @RequestMapping(value = "/search")
+    public String search_expense() {
+        return "expense/search_expense";
+    }
+
+    //调整转至收费
+    @RequestMapping(value = "/settle")
+    public String settle() {
+        return "expense/daily_settle";
+    }
+
+    //调整转至费用科目管理
+    @RequestMapping(value = "/account")
+    public String account() {
+        return "finance/expense_account";
+    }
+
+    //调整转至门诊日结核对
+    @RequestMapping(value = "/check")
+    public String check() {
+        return "finance/settle_check";
+    }
+
+    //调整转至门诊统计
+    @RequestMapping(value = "/statistic")
+    public String statistic() {
+        return "statistic/dept_statistic";
+    }
+
     //重置密码
     @RequestMapping("/verify")
     @ResponseBody
     public int verify(String login_name, String password, String answer, HttpServletRequest request, HttpSession session) {
         User user = userService.findUserById(login_name);
         String re_answer = user.getAnswer();
-        String answer1 = MD5.MD5(answer);
+        String answerByMd5 = MD5.MD5(answer);
         int message = 0;
-        if(re_answer.equals(answer1) == true) {
+        if(re_answer.equals(answerByMd5) == true) {
             String passwordByMd5 = MD5.MD5(password);
             User newUser = new User();
             newUser.setLogin_name(login_name);

@@ -3,26 +3,70 @@
 <mapper namespace="com.neusoft.ssm.dao.ScheduleResultMapper">
 
     <insert id="add" parameterType="ScheduleResult">
-        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+        <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into schedule_result (date_time, doctor_id, register_level, noon_level, limit_num)
-        values (#{date_time}, #{doctor_id}, #{register_level}, #{noon_level}, #{limit_num});
+        insert into schedule_result (date_time, doctor_id, department_id, register_level, noon_level, limit_num, remain_num)
+        values (#{date_time}, #{doctor_id}, #{department_id}, #{register_level}, #{noon_level}, #{limit_num}, #{remain_num});
     </insert>
 
     <select id="findAll" resultType="ScheduleResult">
-        select *
-        from schedule_result
+        select * from schedule_result
     </select>
 
+    <select id="findById"  resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0
+        group by doctor_id
+    </select>
+
+    <select id="findByDept" resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0
+        group by department_id
+    </select>
+
+    <select id="findByDateAndCategory" resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0 and register_level = #{register_level}
+        group by doctor_id
+    </select>
+
+    <select id="findByDateCategoryAndDept" resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0 and register_level = #{register_level} and doctor_id in (select id from  doctor where department_id = #{department_id})
+        group by doctor_id
+    </select>
+
+    <select id="findByDateAndDept" resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0 and doctor_id in (select id from  doctor where department_id = #{department_id})
+        group by doctor_id
+    </select>
+
+    <select id="findByIdAndDate" parameterType="ScheduleResult" resultType="ScheduleResult">
+        select * from schedule_result
+        where datediff(date_time, #{date_time}) = 0 and doctor_id = #{doctor_id}
+    </select>
+
+    <update id="registerToNum" parameterType="ScheduleResult">
+        update schedule_result
+        set remain_num = remain_num - 1
+        where datediff(date_time, #{date_time}) = 0 and doctor_id = #{doctor_id}
+    </update>
+
+    <update id="backRegisterToNum" parameterType="ScheduleResult">
+        update schedule_result
+        set remain_num = remain_num + 1
+        where datediff(date_time, #{date_time}) = 0 and doctor_id = #{doctor_id}
+    </update>
+
     <select id="alterAUTO">
-        alter table schedule_result
-            AUTO_INCREMENT = 1;
+        alter table schedule_result  AUTO_INCREMENT = 1;
     </select>
 
     <delete id="deleteByDate" parameterType="Date">
-        delete
-        from schedule_result
+        delete from schedule_result
         where date_time = #{date_time}
     </delete>
 

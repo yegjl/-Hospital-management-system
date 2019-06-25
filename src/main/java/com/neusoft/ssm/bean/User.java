@@ -3,22 +3,22 @@ package com.neusoft.ssm.bean;
 
 public class User {
 
+    private Long id;
     private String login_name;
     private String password;
     private String category;
     private String question;
     private String answer;
-    private Integer id;
     private String real_name;
     private Integer deptid;
     private String level;
     private String ifwork;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

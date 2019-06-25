@@ -56,7 +56,7 @@ public class DepartServiceImpl implements DepartmentService {
             department.setDeptcategoryid(cell3.getStringCellValue());
             XSSFCell cell4= (XSSFCell) row.getCell(4);
             cell4.setCellType(CellType.STRING);
-            department.setDepttype(cell4.getStringCellValue());
+            department.setDepttype(Integer.valueOf(cell4.getStringCellValue()));
 
 //			Iterator<Cell> cells = row.cellIterator();
 //			while(cells.hasNext()){
@@ -174,14 +174,18 @@ public class DepartServiceImpl implements DepartmentService {
         return departmentMapper.getNameById(id);
     }
 
-    @Override
-    @Transactional
-    public String findNameById(Long id) {
-        return departmentMapper.findNameById(id);
-    }
 
     @Override
     public List<Department> findByDeptType(String DeptType) {
         return departmentMapper.findByDeptType(DeptType);
+    }
+    @Override
+    public String findTypeByCode(String DeptCode) {
+        return departmentMapper.findTypeByCode(DeptCode);
+    }
+    @Override
+    @Transactional
+    public String findNameById(String DeptCode) {
+        return departmentMapper.findNameById(DeptCode);
     }
 }

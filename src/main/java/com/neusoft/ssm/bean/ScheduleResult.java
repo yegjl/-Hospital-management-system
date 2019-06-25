@@ -8,8 +8,10 @@ public class ScheduleResult {
     private String register_level;
     private String noon_level;
     private Integer limit_num;
+    private Integer remain_num;
     private String doctor_name;
     private String department_name;
+    private String department_id;
     private String date;
 
     public long getId() {
@@ -55,6 +57,14 @@ public class ScheduleResult {
         this.limit_num = limit_num;
     }
 
+    public Integer getRemain_num() {
+        return remain_num;
+    }
+
+    public void setRemain_num(Integer remain_num) {
+        this.remain_num = remain_num;
+    }
+
     public java.util.Date getDateTime() {
         return date_time;
     }
@@ -77,6 +87,14 @@ public class ScheduleResult {
 
     public void setDepartment_name(String department_name) {
         this.department_name = department_name;
+    }
+
+    public String getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(String department_id) {
+        this.department_id = department_id;
     }
 
     public String getDate() {

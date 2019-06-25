@@ -71,10 +71,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findNameById(Long id) {
+        return userMapper.findNameById(id);
+    }
+    @Override
     public List<User> findByUserType(String id) {
         return userMapper.findByUserType(id);
     }
-
     @Override
     public int insertSelective(User record) {
         return userMapper.insertSelective(record);
@@ -84,6 +87,5 @@ public class UserServiceImpl implements IUserService {
     public List<User> getSearchUser(String login_name, String real_name,String id) {
         return userMapper.getSearchUser(login_name,real_name,id);
     }
-
 }
 

@@ -8,6 +8,8 @@ public interface DoctorService {
 
     String findNameById(Long id);
 
+    String findDeptCodeById(Long id);
+
     List<Doctor> findAll();
 
 }

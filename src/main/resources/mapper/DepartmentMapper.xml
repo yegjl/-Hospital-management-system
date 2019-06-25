@@ -6,7 +6,7 @@
     <result column="DeptCode" jdbcType="VARCHAR" property="deptcode" />
     <result column="DeptName" jdbcType="VARCHAR" property="deptname" />
     <result column="DeptCategoryID" jdbcType="CHAR" property="deptcategoryid" />
-    <result column="DeptType" jdbcType="VARCHAR" property="depttype" />
+    <result column="DeptType" jdbcType="INTEGER" property="depttype" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -112,9 +112,9 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Department" useGeneratedKeys="true">
     insert into department (DeptCode, DeptName, DeptCategoryID,
-                            DeptType)
+      DeptType)
     values (#{deptcode,jdbcType=VARCHAR}, #{deptname,jdbcType=VARCHAR}, #{deptcategoryid,jdbcType=CHAR},
-            #{depttype,jdbcType=VARCHAR})
+      #{depttype,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Department" useGeneratedKeys="true">
     insert into department
@@ -143,7 +143,7 @@
         #{deptcategoryid,jdbcType=CHAR},
       </if>
       <if test="depttype != null">
-        #{depttype,jdbcType=VARCHAR},
+        #{depttype,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -169,7 +169,7 @@
         DeptCategoryID = #{record.deptcategoryid,jdbcType=CHAR},
       </if>
       <if test="record.depttype != null">
-        DeptType = #{record.depttype,jdbcType=VARCHAR},
+        DeptType = #{record.depttype,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -182,7 +182,7 @@
     DeptCode = #{record.deptcode,jdbcType=VARCHAR},
     DeptName = #{record.deptname,jdbcType=VARCHAR},
     DeptCategoryID = #{record.deptcategoryid,jdbcType=CHAR},
-    DeptType = #{record.depttype,jdbcType=VARCHAR}
+    DeptType = #{record.depttype,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -200,7 +200,7 @@
         DeptCategoryID = #{deptcategoryid,jdbcType=CHAR},
       </if>
       <if test="depttype != null">
-        DeptType = #{depttype,jdbcType=VARCHAR},
+        DeptType = #{depttype,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -208,9 +208,9 @@
   <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Department">
     update department
     set DeptCode = #{deptcode,jdbcType=VARCHAR},
-        DeptName = #{deptname,jdbcType=VARCHAR},
-        DeptCategoryID = #{deptcategoryid,jdbcType=CHAR},
-        DeptType = #{depttype,jdbcType=VARCHAR}
+      DeptName = #{deptname,jdbcType=VARCHAR},
+      DeptCategoryID = #{deptcategoryid,jdbcType=CHAR},
+      DeptType = #{depttype,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByDeptcgID" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -239,14 +239,17 @@
     select * from department order by id
   </select>
 
-    <select id="findNameById" parameterType="java.lang.Long" resultType="java.lang.String">
-        select DeptName
-        from department
-        where id = #{id}
+  <select id="findNameById" parameterType="java.lang.String" resultType="java.lang.String">
+        select DeptName from department
+        where DeptCode = #{DeptCode}
     </select>
 
   <select id="findByDeptType" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Department">
     select * from department
     where DeptType=#{deptType}
   </select>
+  <select id="findTypeByCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select DeptType from department
+        where DeptCode = #{DeptCode}
+    </select>
 </mapper>

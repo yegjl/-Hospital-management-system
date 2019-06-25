@@ -159,20 +159,13 @@
                                 <div class="layui-tab-item layui-show">
                                     <!-- 选项卡1中内容 -->
                                     <!-- 右侧树状图 -->
-                                    <div class="layui-card layui-form" lay-filter="component-form-element">
-
-                                        <div class="layui-card-body layui-row layui-col-space10">
-                                            <div class="layui-col-md12">
-                                                <input type="radio" name="sel" value="01" title="全院" checked>
-                                                <input type="radio" name="sel" value="02" title="科室">
-                                                <input type="radio" name="sel" value="03" title="个人">
-                                                <!-- <button class="layui-btn-sm">
-                                                                      <i class="layui-icon layui-icon-edit"></i>
-                                                                    </button>
-                                                                    <button class="layui-btn-sm">
-                                                                      <i class="layui-icon layui-icon-delete"></i>
-                                                                    </button> -->
-
+                                    <div class="layui-fluid" id="LAY-component-layer-special-demo2">
+                                        <div class="layui-btn-container layadmin-layer-demo">
+                                            <div class="layui-btn-group" style="align-content: center;">
+                                                <button data-method="add_muban" class="layui-btn  layui-btn-sm"><i
+                                                        class="layui-icon">&#xe654;</i></button>
+                                                <button class="layui-btn  layui-btn-sm"><i class="layui-icon">&#xe642;</i></button>
+                                                <button  class="layui-btn  layui-btn-sm" lay-demo="getChecked"><i class="layui-icon">&#xe640;</i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +231,7 @@
             $.ajax({
                 type: "POST",
                 url: "MedicalRecordPage/submit",
-                data: $('#medicalRecord').serialize()+"&type=0&primaryDiagnosis=1&medicalRecordNo=${medicalRecordNo}&doctorid=2",
+                data: $('#medicalRecord').serialize()+"&medicalRecordNo=${medicalRecordNo}",
                 success: function (res) {
                     if (res.status == 0) {
                     } else {
@@ -414,7 +407,7 @@
                     sort: true
                 }, {
                     field: 'diseasename',
-                    width: 300,
+                    width: 313,
                     title: '疾病名称'
                 }, {
                     field: 'medicalRecordNo',
@@ -528,19 +521,19 @@
 
                 var data4 ={
                     title: '全院组套模板',
-                    id: 0,
+                    id: -3,
                     children:children1
                 };
 
                 var data5 ={
                     title: '科室组套模板',
-                    id: 1,
+                    id: -2,
                     children:children2
                 };
 
                 var data6 ={
                     title: '个人组套模板',
-                    id: 2,
+                    id: -1,
                     children:children3
                 };
 
@@ -565,29 +558,124 @@
             onlyIconControl: true,
             id: 'demoId1',
             isJump: true,//是否允许点击节点时弹出新窗口跳转
-            edit: ['add', 'update', 'del'],
             click: function (obj) {
                 var data = obj.data;
-                document.getElementsByClassName("chiefComplaint")//获取当前点击的节点数据
+                // data.title
+                if(data.id==-1||data.id==-2||data.id==-3) {
+                    layer.msg("请选择二级菜单里面的模板");
+                    return;
+                }
+                // document.getElementsByName("chiefComplaint")[0].value="123";
+                $.ajax({
+                    type: "GET",
+                    url: "MedicalRecordPage/getTemplate?&id="+data.id,
+                    async : false,
+                    // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+                    success: function (res) {
+                        var rdata=res.data;
+                        if (res.status == 0) {
+                            document.getElementsByName("chiefComplaint")[0].value=rdata.chiefComplaint;
+                            document.getElementsByName("hpi")[0].value=rdata.hpi;
+                            document.getElementsByName("ph")[0].value=rdata.ph;
+                            document.getElementsByName("historyOfAllergy")[0].value=rdata.historyOfAllergy;
+                            document.getElementsByName("healthCheckup")[0].value=rdata.healthCheckup;
+                            $.ajax({
+                                type: "POST",
+                                url: "MedicalRecordPage/findDiaAllAndSub?medicalRecordNoNew=${medicalRecordNo}&medicalRecordNoOld="+rdata.medicalRecordNo,
+                                async : false,
+                                // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+                                success: function (res) {
+                                    var rdata=res.data;
+                                    if (res.status == 0) {
+                                       layui.table.render({
+                                            elem: '#test-table-simple3',
+                                            cellMinWidth: 200 //全局定义常规单元格的最小宽度
+                                            ,cols: [[
+                                                {
+                                                    checkbox: true,
+                                                    fixed: true
+                                                }, {
+                                                    field: 'id',
+                                                    width: 80,
+                                                    title: 'ID',
+                                                    sort: true
+                                                }, {
+                                                    field: 'diseasename',
+                                                    width: 313,
+                                                    title: '疾病名称'
+                                                }, {
+                                                    field: 'medicalRecordNo',
+                                                    width: 300,
+                                                    title: '病历号',
+                                                    sort: true
+                                                }, {
+                                                    field: 'flag',
+                                                    width: 120,
+                                                    title: '主诊/疑似标志',
+                                                    templet: function (d) {
+                                                        var state = "";
+                                                        if (d.flag == "0") {
+                                                            state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" disabled>';
+                                                        }
+                                                        else if (d.flag == "1") {
+                                                            state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" checked disabled>';
+
+                                                        }
+
+                                                        return state;
+                                                    }
+                                                    ,unresize: true
+                                                }, {
+                                                    field: 'dA',
+                                                    width: 300,
+                                                    title: '发病日期',
+                                                    templet: function (d) {
+                                                        return dateToStr(d.dA);
+                                                    }
+                                                }]],
+                                            data:rdata
+
+                                        });
+                                    } else {
+                                        layer.msg(res.message)
+                                    }
+                                },
+                                error: function () {
+                                    alert("出现错误");
+                                    return false;
+                                }
+                            }) //ajax结束
+                            layer.msg(res.message)
+                        } else {
+                            layer.msg(res.message)
+                        }
+                    },
+                    error: function () {
+                        alert("出现错误");
+                        return false;
+                    }
+                }) //ajax结束
+                // document.getElementById("chiefComplaint").value="123";//获取当前点击的节点数据
+                // document.getElementById("chiefComplaint").value
                 layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
             }
-            ,operate: function(obj){
-                var type = obj.type; //得到操作类型：add、edit、del
-                var data = obj.data; //得到当前节点的数据
-                var elem = obj.elem; //得到当前节点元素
-
-                //Ajax 操作
-                var id = data.id;
-                alert(id);//得到节点索引
-                if(type === 'add'){ //增加节点
-                    //返回 key 值
-                    return 123;
-                } else if(type === 'update'){ //修改节点
-                    console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
-                } else if(type === 'del'){ //删除节点
-
-                };
-            }
+            // ,operate: function(obj){
+            //     var type = obj.type; //得到操作类型：add、edit、del
+            //     var data = obj.data; //得到当前节点的数据
+            //     var elem = obj.elem; //得到当前节点元素
+            //
+            //     //Ajax 操作
+            //     var id = data.id;
+            //     alert(id);//得到节点索引
+            //     if(type === 'add'){ //增加节点
+            //         //返回 key 值
+            //         return 123;
+            //     } else if(type === 'update'){ //修改节点
+            //         console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
+            //     } else if(type === 'del'){ //删除节点
+            //
+            //     };
+            // }
         });
 
         //按钮事件

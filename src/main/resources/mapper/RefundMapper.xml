@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.RefundMapper">
+
+    <insert id="add" parameterType="Refund">
+        <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into refund (medical_record_no, expense_category, expense_id, refund_number, refund_expense, pay_category, day_settle_sign, refund_date)
+        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{refund_number}, #{refund_expense}, #{pay_category}, #{day_settle_sign}, #{refund_date})
+    </insert>
+
+    <select id="settleFind" resultType="Refund">
+        select * from refund
+        where day_settle_sign = '0' and refund_date between #{start_date} and #{end_date}
+    </select>
+
+    <select id="find" resultType="Refund">
+        select * from refund
+        where day_settle_sign = '1' and refund_date between #{start_date} and #{end_date}
+    </select>
+
+    <update id="settle" parameterType="java.lang.Long">
+        update refund
+        set day_settle_sign = '1'
+        where id = #{id}
+    </update>
+
+    <select id="alterAUTO">
+        alter table refund  AUTO_INCREMENT = 1;
+    </select>
+
+</mapper>

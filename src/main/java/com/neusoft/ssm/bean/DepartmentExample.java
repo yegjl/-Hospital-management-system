@@ -10,6 +10,10 @@ public class DepartmentExample {
 
     protected List<Criteria> oredCriteria;
 
+    private Integer limit;
+
+    private Long offset;
+
     public DepartmentExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -61,6 +65,22 @@ public class DepartmentExample {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setOffset(Long offset) {
+        this.offset = offset;
+    }
+
+    public Long getOffset() {
+        return offset;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -384,67 +404,59 @@ public class DepartmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeEqualTo(String value) {
+        public Criteria andDepttypeEqualTo(Integer value) {
             addCriterion("DeptType =", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeNotEqualTo(String value) {
+        public Criteria andDepttypeNotEqualTo(Integer value) {
             addCriterion("DeptType <>", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeGreaterThan(String value) {
+        public Criteria andDepttypeGreaterThan(Integer value) {
             addCriterion("DeptType >", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeGreaterThanOrEqualTo(String value) {
+        public Criteria andDepttypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("DeptType >=", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeLessThan(String value) {
+        public Criteria andDepttypeLessThan(Integer value) {
             addCriterion("DeptType <", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeLessThanOrEqualTo(String value) {
+        public Criteria andDepttypeLessThanOrEqualTo(Integer value) {
             addCriterion("DeptType <=", value, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeLike(String value) {
-            addCriterion("DeptType like", value, "depttype");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepttypeNotLike(String value) {
-            addCriterion("DeptType not like", value, "depttype");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepttypeIn(List<String> values) {
+        public Criteria andDepttypeIn(List<Integer> values) {
             addCriterion("DeptType in", values, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeNotIn(List<String> values) {
+        public Criteria andDepttypeNotIn(List<Integer> values) {
             addCriterion("DeptType not in", values, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeBetween(String value1, String value2) {
+        public Criteria andDepttypeBetween(Integer value1, Integer value2) {
             addCriterion("DeptType between", value1, value2, "depttype");
             return (Criteria) this;
         }
 
-        public Criteria andDepttypeNotBetween(String value1, String value2) {
+        public Criteria andDepttypeNotBetween(Integer value1, Integer value2) {
             addCriterion("DeptType not between", value1, value2, "depttype");
             return (Criteria) this;
         }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
 
         protected Criteria() {

@@ -1,7 +1,7 @@
 package com.neusoft.ssm.util;
 
 /**
- * 日期处理工具类
+ *  日期处理工具类
  */
 
 import java.text.DecimalFormat;
@@ -17,10 +17,10 @@ public class DateTool {
     private static transient int gregorianCutoverYear = 1582;
 
     // 闰年中每月天数
-    private static final int[] DAYS_P_MONTH_LY = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] DAYS_P_MONTH_LY= {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     //非闰年中每月天数
-    private static final int[] DAYS_P_MONTH_CY = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] DAYS_P_MONTH_CY= {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     //代表数组里的年、月、日
     private static final int Y = 0, M = 1, D = 2;
@@ -38,26 +38,27 @@ public class DateTool {
 
     //检查传入的年份是否为闰年
     public static boolean isLeapYear(int year) {
-        return year >= gregorianCutoverYear ? ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) : (year % 4 == 0);
+        return year >= gregorianCutoverYear ? ((year%4 == 0) && ((year%100 != 0) || (year%400 == 0))) : (year%4 == 0);
     }
 
     //日期加1天
     private static int[] addOneDay(int year, int month, int day) {
-        if (isLeapYear(year)) {
+        if(isLeapYear(year)) {
             day++;
-            if (day > DAYS_P_MONTH_LY[month - 1]) {
+            if(day > DAYS_P_MONTH_LY[month - 1]) {
                 month++;
-                if (month > 12) {
+                if(month > 12) {
                     year++;
                     month = 1;
                 }
                 day = 1;
             }
-        } else {
+        }
+        else {
             day++;
-            if (day > DAYS_P_MONTH_CY[month - 1]) {
+            if(day > DAYS_P_MONTH_CY[month - 1]) {
                 month++;
-                if (month > 12) {
+                if(month > 12) {
                     year++;
                     month = 1;
                 }
@@ -83,19 +84,19 @@ public class DateTool {
     //计算两个日期之间相隔的天数
     public static long countDay(Date beginDate, Date endDate) {
         long day = 0;
-        day = (endDate.getTime() - beginDate.getTime()) / (24 * 60 * 60 * 1000);
+        day=(endDate.getTime() - beginDate.getTime()) / (24*60*60*1000);
         return day;
     }
 
     //以循环的方式计算日期
-    public static List<String> getEveryday(Date beginDate, Date endDate) {
+    public static List<String> getEveryday(Date beginDate ,Date endDate) {
         long day = countDay(beginDate, endDate);
         int[] a = splitDate(beginDate);
         List<String> list = new ArrayList<String>();
         String str = getDateToString(beginDate);
         list.add(str);
 
-        for (int i = 0; i < day; i++) {
+        for(int i = 0; i < day; i++) {
             a = addOneDay(a[Y], a[M], a[D]);
             list.add(formatYear(a[Y]) + "-" + formatMonthDay(a[M]) + "-" + formatMonthDay(a[D]));
         }
@@ -105,7 +106,7 @@ public class DateTool {
     //将String日期列表转换为Date列表
     public static List<Date> getEveryDate(List<String> list) throws ParseException {
         List<Date> dateList = new ArrayList<Date>();
-        for (int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i++) {
             Date date = getStringToDate(list.get(i));
             dateList.add(date);
         }
@@ -157,5 +158,29 @@ public class DateTool {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String str = df.format(date);
         return str;
+    }
+
+    //判断当前时间是上午、下午、晚上
+    public static String NowTime(Date date) {
+        SimpleDateFormat df = new SimpleDateFormat("HH");
+        String str = df.format(date);
+        int a = Integer.parseInt(str);
+        if (a >= 0 && a <= 6) {
+            return "凌晨";
+        }
+        else if (a > 6 && a <= 12) {
+            return "上午";
+        }
+//        else if (a > 12 && a <= 13) {
+//            return "中午";
+//        }
+        else if (a > 12 && a <= 18) {
+            return "下午";
+        }
+        else if (a > 18 && a <= 24) {
+            return "晚上";
+        }
+        else
+            return "error";
     }
 }

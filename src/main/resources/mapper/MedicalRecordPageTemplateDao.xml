@@ -84,7 +84,7 @@
       `type` = #{type,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="selectAll" resultMap="BaseResultMap">
-      select * from medical_record_page_template
+    <select id="selectAllBydoctorid" resultMap="BaseResultMap" parameterType="integer" >
+      select * from medical_record_page_template where doctorid=#{doctorid}
     </select>
 </mapper>

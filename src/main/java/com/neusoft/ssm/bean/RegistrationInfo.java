@@ -5,33 +5,34 @@ import java.util.Date;
 
 public class RegistrationInfo {
 
-    private Long id;
-    private String medical_record_no;
-    private String patient_name;
-    private String gender;
-    private Long age;
-    private Date birthday;
-    private String registration_category;
-    private String medical_category;
-    private String identity_card_no;
-    private String family_address;
-    private Date registration_date;
-    private Date see_doctor_date;
-    private Long department_id;
-    private Long doctor_id;
-    private String registration_source;
-    private String settle_accounts_category;
-    private String is_seen_doctor;
-    private String status;
-    private double expense;
-    private String reserve1;
-    private String reserve2;
-    private String reserve3;
+  private Long id;
+  private String medical_record_no;
+  private String patient_name;
+  private String gender;
+  private Long age;
+  private Date birthday;
+  private String registration_category;
+  private String medical_category;
+  private String identity_card_no;
+  private String family_address;
+  private Date registration_date;
+  private Date see_doctor_date;
+  private String department_id;
+  private Long doctor_id;
+  private String registration_source;
+  private Integer settle_accounts_category;
+  private String is_seen_doctor;
+  private String status;
+  private Double expense;
+  private String reserve1;
+  private String reserve2;
+  private String reserve3;
 
-    private String doctor_name;
-    private String department_name;
-    private String date;
-    private String birthday_date;
+  private String doctor_name;
+  private String department_name;
+  private String date;
+  private String birthday_date;
+  private String settle_category;
 
     public Long getId() {
         return id;
@@ -129,13 +130,13 @@ public class RegistrationInfo {
         this.see_doctor_date = see_doctor_date;
     }
 
-    public Long getDepartment_id() {
-        return department_id;
-    }
+  public String getDepartment_id() {
+    return department_id;
+  }
 
-    public void setDepartment_id(Long department_id) {
-        this.department_id = department_id;
-    }
+  public void setDepartment_id(String department_id) {
+    this.department_id = department_id;
+  }
 
     public Long getDoctor_id() {
         return doctor_id;
@@ -153,13 +154,13 @@ public class RegistrationInfo {
         this.registration_source = registration_source;
     }
 
-    public String getSettle_accounts_category() {
-        return settle_accounts_category;
-    }
+  public Integer getSettle_accounts_category() {
+    return settle_accounts_category;
+  }
 
-    public void setSettle_accounts_category(String settle_accounts_category) {
-        this.settle_accounts_category = settle_accounts_category;
-    }
+  public void setSettle_accounts_category(Integer settle_accounts_category) {
+    this.settle_accounts_category = settle_accounts_category;
+  }
 
     public String getIs_seen_doctor() {
         return is_seen_doctor;
@@ -177,13 +178,13 @@ public class RegistrationInfo {
         this.status = status;
     }
 
-    public double getExpense() {
-        return expense;
-    }
+  public Double getExpense() {
+    return expense;
+  }
 
-    public void setExpense(double expense) {
-        this.expense = expense;
-    }
+  public void setExpense(Double expense) {
+    this.expense = expense;
+  }
 
     public String getReserve1() {
         return reserve1;
@@ -240,5 +241,13 @@ public class RegistrationInfo {
     public void setBirthday_date(String birthday_date) {
         this.birthday_date = birthday_date;
     }
+
+  public String getSettle_category() {
+    return settle_category;
+  }
+
+  public void setSettle_category(String settle_category) {
+    this.settle_category = settle_category;
+  }
 
 }

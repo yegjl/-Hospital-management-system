@@ -1,7 +1,6 @@
 package com.neusoft.ssm.service.impl;
 
 import com.neusoft.ssm.bean.ScheduleRule;
-import com.neusoft.ssm.bean.schedule;
 import com.neusoft.ssm.dao.ScheduleRuleMapper;
 import com.neusoft.ssm.service.ScheduleRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,14 @@ public class ScheduleRuleServiceImpl implements ScheduleRuleService {
     }
 
     @Override
-    public List<schedule> findByAll(String keyword) {
-        String key = "%" + keyword + "%";
-        return scheduleRuleMapper.findByAll(key);
+    public List<ScheduleRule> findByAll(String keyword) {
+        keyword = "%" + keyword + "%";
+        return scheduleRuleMapper.findByAll(keyword);
+    }
+
+    @Override
+    public ScheduleRule findByIdAndDate(Long doctor_id, String week_time) {
+        return scheduleRuleMapper.findByIdAndDate(doctor_id, week_time);
     }
 
     @Override

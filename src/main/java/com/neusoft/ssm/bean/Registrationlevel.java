@@ -7,13 +7,13 @@ import java.io.Serializable;
  * @author 
  */
 public class Registrationlevel implements Serializable {
-    private Integer id;
+    private Long id;
 
     private String numbercode;
 
     private String numbername;
 
-    private Integer isdefult;
+    private Long isdefult;
 
     private String displayorder;
 
@@ -21,11 +21,11 @@ public class Registrationlevel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,11 +45,11 @@ public class Registrationlevel implements Serializable {
         this.numbername = numbername;
     }
 
-    public Integer getIsdefult() {
+    public Long getIsdefult() {
         return isdefult;
     }
 
-    public void setIsdefult(Integer isdefult) {
+    public void setIsdefult(Long isdefult) {
         this.isdefult = isdefult;
     }
 

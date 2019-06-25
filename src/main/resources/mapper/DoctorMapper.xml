@@ -3,14 +3,17 @@
 <mapper namespace="com.neusoft.ssm.dao.DoctorMapper">
 
     <select id="findNameById" parameterType="java.lang.Long" resultType="java.lang.String">
-        select name
-        from doctor
+        select name from doctor
         where doctor.id = #{id}
     </select>
 
+    <select id="findDeptCodeById" parameterType="java.lang.Long" resultType="java.lang.String">
+        select department_id from doctor
+        where id = #{id}
+    </select>
+
     <select id="findAll" resultType="Doctor">
-        select *
-        from doctor
+        select * from doctor
     </select>
 
 </mapper>

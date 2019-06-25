@@ -22,6 +22,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public String findDeptCodeById(Long id) {
+        return doctorMapper.findDeptCodeById(id);
+    }
+
+    @Override
     public List<Doctor> findAll() {
         return doctorMapper.findAll();
     }

@@ -9,16 +9,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FeetypeServiceImpl implements FeetypeService {
+public class FeeTypeServiceImpl implements FeetypeService {
 
     @Autowired
-    private FeetypeDao feetypeDao;
+    FeetypeDao feetypeDao;
 
     @Override
     public List<Feetype> findAll() {
-        return feetypeDao.selectAll();
+        return feetypeDao.findAll();
     }
 
+    @Override
+    public String findById(Integer id) {
+        return feetypeDao.findById(id);
+    }
     @Override
     public int doInsert(Feetype record) {
         return feetypeDao.insertSelective(record);

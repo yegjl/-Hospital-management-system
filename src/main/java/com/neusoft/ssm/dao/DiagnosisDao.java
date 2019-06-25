@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DiagnosisDao {
     int deleteByPrimaryKey(Integer id);
-
+    int deleteByMedNo(String medicalRecordNo);
     int insert(Diagnosis record);
 
     int insertSelective(Diagnosis record);
