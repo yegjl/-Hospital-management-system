@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.PrescribemodellogDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Prescribemodellog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="prescribemodelid" jdbcType="INTEGER" property="prescribemodelid" />
+    <result column="medicalname" jdbcType="VARCHAR" property="medicalname" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="usage" jdbcType="VARCHAR" property="usage" />
+    <result column="dosage" jdbcType="VARCHAR" property="dosage" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="times" jdbcType="VARCHAR" property="times" />
+    <result column="entrust" jdbcType="VARCHAR" property="entrust" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, prescribemodelid, medicalname, format, price, `usage`, dosage, unit, times, entrust
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.PrescribemodellogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prescribemodellog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prescribemodellog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prescribemodellog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.PrescribemodellogExample">
+    delete from prescribemodellog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Prescribemodellog" useGeneratedKeys="true">
+    insert into prescribemodellog (prescribemodelid, medicalname, format, 
+      price, `usage`, dosage, 
+      unit, times, entrust
+      )
+    values (#{prescribemodelid,jdbcType=INTEGER}, #{medicalname,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{usage,jdbcType=VARCHAR}, #{dosage,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}, #{entrust,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Prescribemodellog" useGeneratedKeys="true">
+    insert into prescribemodellog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prescribemodelid != null">
+        prescribemodelid,
+      </if>
+      <if test="medicalname != null">
+        medicalname,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="usage != null">
+        `usage`,
+      </if>
+      <if test="dosage != null">
+        dosage,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="entrust != null">
+        entrust,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prescribemodelid != null">
+        #{prescribemodelid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalname != null">
+        #{medicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="usage != null">
+        #{usage,jdbcType=VARCHAR},
+      </if>
+      <if test="dosage != null">
+        #{dosage,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="entrust != null">
+        #{entrust,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.PrescribemodellogExample" resultType="java.lang.Long">
+    select count(*) from prescribemodellog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prescribemodellog
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prescribemodelid != null">
+        prescribemodelid = #{record.prescribemodelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalname != null">
+        medicalname = #{record.medicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.format != null">
+        format = #{record.format,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.usage != null">
+        `usage` = #{record.usage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dosage != null">
+        dosage = #{record.dosage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrust != null">
+        entrust = #{record.entrust,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prescribemodellog
+    set id = #{record.id,jdbcType=INTEGER},
+      prescribemodelid = #{record.prescribemodelid,jdbcType=INTEGER},
+      medicalname = #{record.medicalname,jdbcType=VARCHAR},
+      format = #{record.format,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      `usage` = #{record.usage,jdbcType=VARCHAR},
+      dosage = #{record.dosage,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=VARCHAR},
+      entrust = #{record.entrust,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Prescribemodellog">
+    update prescribemodellog
+    <set>
+      <if test="prescribemodelid != null">
+        prescribemodelid = #{prescribemodelid,jdbcType=INTEGER},
+      </if>
+      <if test="medicalname != null">
+        medicalname = #{medicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="usage != null">
+        `usage` = #{usage,jdbcType=VARCHAR},
+      </if>
+      <if test="dosage != null">
+        dosage = #{dosage,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="entrust != null">
+        entrust = #{entrust,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Prescribemodellog">
+    update prescribemodellog
+    set prescribemodelid = #{prescribemodelid,jdbcType=INTEGER},
+      medicalname = #{medicalname,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      `usage` = #{usage,jdbcType=VARCHAR},
+      dosage = #{dosage,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      times = #{times,jdbcType=VARCHAR},
+      entrust = #{entrust,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

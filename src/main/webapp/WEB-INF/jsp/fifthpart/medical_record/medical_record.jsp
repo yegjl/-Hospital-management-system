@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <base href="<%=basePath%>"/>
 <html>
@@ -19,9 +19,9 @@
 </head>
 
 
-<body>
 
-<div class="layui-fluid">
+<body>
+  <div class="layui-fluid">
     <div class="layui-row">
         <form id="medicalRecord" class="layui-form">
 <%--            todo:栅栏--%>

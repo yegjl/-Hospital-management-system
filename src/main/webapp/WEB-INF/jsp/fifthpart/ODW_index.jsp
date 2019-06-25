@@ -58,6 +58,12 @@
                         <li class="layui-nav-item" style="width: 100px; text-align: center;">
                             <p id="3">检查申请</p>
                         </li>
+                        <li class="layui-nav-item" style="width: 100px; text-align: center;">
+                            <p id="4">成药处方</p>
+                        </li>
+                        <li class="layui-nav-item" style="width: 100px; text-align: center;">
+                            <p id="5">草药处方</p>
+                        </li>
 
 
 
@@ -83,6 +89,14 @@
                     </div>
                     <div id="box3">
                         <iframe src="fifthpart/index?id=03" frameborder="0"
+                                class="layadmin-iframe"></iframe>
+                    </div>
+                    <div id="box4">
+                        <iframe src="fifthpart/index?id=04" frameborder="0"
+                                class="layadmin-iframe"></iframe>
+                    </div>
+                    <div id="box5">
+                        <iframe src="fifthpart/index?id=05" frameborder="0"
                                 class="layadmin-iframe"></iframe>
                     </div>
 
@@ -133,14 +147,33 @@
                     document.getElementById("box1").style.display = 'block';
                     document.getElementById("box2").style.display = 'none';
                     document.getElementById("box3").style.display = 'none';
+                    document.getElementById("box4").style.display = 'none';
+                    document.getElementById("box5").style.display = 'none';
                 } else if (this.id == '2') {
                     document.getElementById("box1").style.display = 'none';
                     document.getElementById("box2").style.display = 'block';
                     document.getElementById("box3").style.display = 'none';
-                } else {
+                    document.getElementById("box4").style.display = 'none';
+                    document.getElementById("box5").style.display = 'none';
+                } else if (this.id == '4') {
+                    document.getElementById("box1").style.display = 'none';
+                    document.getElementById("box2").style.display = 'none';
+                    document.getElementById("box3").style.display = 'none';
+                    document.getElementById("box4").style.display = 'block';
+                    document.getElementById("box5").style.display = 'none';
+                }else if (this.id == '5') {
+                    document.getElementById("box1").style.display = 'none';
+                    document.getElementById("box2").style.display = 'none';
+                    document.getElementById("box3").style.display = 'none';
+                    document.getElementById("box4").style.display = 'none';
+                    document.getElementById("box5").style.display = 'block';
+                }
+                else {
                     document.getElementById("box1").style.display = 'none';
                     document.getElementById("box2").style.display = 'none';
                     document.getElementById("box3").style.display = 'block';
+                    document.getElementById("box4").style.display = 'none';
+                    document.getElementById("box5").style.display = 'none';
                 }
                 //this是当前激活的按钮，在这里可以写对应的操作
                 if (this.className == 'btn1') {

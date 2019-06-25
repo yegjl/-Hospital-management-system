@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.DrugsDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Drugs">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DrugsCode" jdbcType="VARCHAR" property="drugscode" />
+    <result column="DrugsName" jdbcType="VARCHAR" property="drugsname" />
+    <result column="DrugsFormat" jdbcType="VARCHAR" property="drugsformat" />
+    <result column="DrugsUnit" jdbcType="VARCHAR" property="drugsunit" />
+    <result column="Manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="DrugsDosageID" jdbcType="VARCHAR" property="drugsdosageid" />
+    <result column="DrugsTypeID" jdbcType="VARCHAR" property="drugstypeid" />
+    <result column="DrugsPrice" jdbcType="DECIMAL" property="drugsprice" />
+    <result column="MnemonicCode" jdbcType="VARCHAR" property="mnemoniccode" />
+    <result column="CreationDate" jdbcType="VARCHAR" property="creationdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DrugsCode, DrugsName, DrugsFormat, DrugsUnit, Manufacturer, DrugsDosageID, DrugsTypeID, 
+    DrugsPrice, MnemonicCode, CreationDate
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.DrugsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drugs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from drugs
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drugs
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.DrugsExample">
+    delete from drugs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.neusoft.ssm.bean.Drugs" useGeneratedKeys="true">
+    insert into drugs (DrugsCode, DrugsName, DrugsFormat, 
+      DrugsUnit, Manufacturer, DrugsDosageID, 
+      DrugsTypeID, DrugsPrice, MnemonicCode, 
+      CreationDate)
+    values (#{drugscode,jdbcType=VARCHAR}, #{drugsname,jdbcType=VARCHAR}, #{drugsformat,jdbcType=VARCHAR}, 
+      #{drugsunit,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{drugsdosageid,jdbcType=VARCHAR}, 
+      #{drugstypeid,jdbcType=VARCHAR}, #{drugsprice,jdbcType=DECIMAL}, #{mnemoniccode,jdbcType=VARCHAR}, 
+      #{creationdate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.neusoft.ssm.bean.Drugs" useGeneratedKeys="true">
+    insert into drugs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="drugscode != null">
+        DrugsCode,
+      </if>
+      <if test="drugsname != null">
+        DrugsName,
+      </if>
+      <if test="drugsformat != null">
+        DrugsFormat,
+      </if>
+      <if test="drugsunit != null">
+        DrugsUnit,
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer,
+      </if>
+      <if test="drugsdosageid != null">
+        DrugsDosageID,
+      </if>
+      <if test="drugstypeid != null">
+        DrugsTypeID,
+      </if>
+      <if test="drugsprice != null">
+        DrugsPrice,
+      </if>
+      <if test="mnemoniccode != null">
+        MnemonicCode,
+      </if>
+      <if test="creationdate != null">
+        CreationDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="drugscode != null">
+        #{drugscode,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsname != null">
+        #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsformat != null">
+        #{drugsformat,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsunit != null">
+        #{drugsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsdosageid != null">
+        #{drugsdosageid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugstypeid != null">
+        #{drugstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsprice != null">
+        #{drugsprice,jdbcType=DECIMAL},
+      </if>
+      <if test="mnemoniccode != null">
+        #{mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.DrugsExample" resultType="java.lang.Long">
+    select count(*) from drugs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drugs
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugscode != null">
+        DrugsCode = #{record.drugscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsname != null">
+        DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsformat != null">
+        DrugsFormat = #{record.drugsformat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsunit != null">
+        DrugsUnit = #{record.drugsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsdosageid != null">
+        DrugsDosageID = #{record.drugsdosageid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugstypeid != null">
+        DrugsTypeID = #{record.drugstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsprice != null">
+        DrugsPrice = #{record.drugsprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mnemoniccode != null">
+        MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        CreationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drugs
+    set ID = #{record.id,jdbcType=INTEGER},
+      DrugsCode = #{record.drugscode,jdbcType=VARCHAR},
+      DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      DrugsFormat = #{record.drugsformat,jdbcType=VARCHAR},
+      DrugsUnit = #{record.drugsunit,jdbcType=VARCHAR},
+      Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      DrugsDosageID = #{record.drugsdosageid,jdbcType=VARCHAR},
+      DrugsTypeID = #{record.drugstypeid,jdbcType=VARCHAR},
+      DrugsPrice = #{record.drugsprice,jdbcType=DECIMAL},
+      MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
+      CreationDate = #{record.creationdate,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select *
+      from drugs
+      where DrugsName like concat(concat('%',#{key,jdbcType=VARCHAR}   ) ,'%')
+    or MnemonicCode like concat(concat('%',#{key,jdbcType=VARCHAR}   ) ,'%')
+  </select>
+  <select id="selectByid" resultMap="BaseResultMap">
+    select * from drugs where id = #{id}
+  </select>
+  <select id="selectAllCheng" resultMap="BaseResultMap">
+    select * from drugs where DrugsTypeID != #{drugid}
+  </select>
+  <select id="selectAllCao" resultMap="BaseResultMap">
+    select * from drugs where DrugsTypeID = #{drugid}
+  </select>
+</mapper>
