@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.AssistMapper">
+
+    <insert id="add" parameterType="Assist">
+        insert into assist (id, medical_record_no, expense_category, expense_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume)
+        values (#{id}, #{medical_record_no}, #{expense_category}, #{expense_id}, #{number}, #{expense}, #{real_expense}, #{pay_category}, #{pay_sign}, #{day_settle_sign}, #{expense_date}, #{is_consume})
+    </insert>
+
+    <delete id="delete">
+        delete from assist
+    </delete>
+
+    <select id="ToFindExpense" resultType="java.lang.Double">
+        select sum(real_expense) as total_expense from assist
+        where expense_category = #{expense_category}
+              and medical_record_no in (select medical_record_no from registration_info where department_id = #{department_id})
+    </select>
+
+</mapper>

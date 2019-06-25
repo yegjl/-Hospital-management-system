@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface DepartmentService {
+    String findNameById(String DeptCode);
+    String findTypeByCode(String DeptCode);
     public int uploadUserXls(MultipartFile file) throws IOException;
     Map<String,String> findDistinctID();
     List<Department> findByDeptcgID(String id);
@@ -18,8 +20,5 @@ public interface DepartmentService {
     int updateByPrimaryKeySelective(Department record);
     List<Department> getSearchDept(String keyword,String CgID);
     String getNameById(Integer id);
-
-    String findNameById(Long id);
-
     List<Department> findByDeptType(String DeptType);
 }

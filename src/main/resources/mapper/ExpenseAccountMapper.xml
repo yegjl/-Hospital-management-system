@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.ExpenseAccountMapper">
+
+    <select id="findByCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select account_name from expense_account
+        where account_code = #{account_code}
+    </select>
+
+    <select id="findAll" resultType="ExpenseAccount">
+        select * from expense_account
+    </select>
+
+    <select id="select" parameterType="java.lang.String" resultType="ExpenseAccount">
+        select * from expense_account
+        where account_code like #{keyword} or account_name like #{keyword}
+    </select>
+
+    <insert id="add" parameterType="ExpenseAccount">
+        <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into expense_account (account_code, account_name)
+        values (#{account_code}, #{account_name})
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from expense_account
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="ExpenseAccount">
+        update expense_account
+        set account_code = #{account_code}, account_name = #{account_name}
+        where id = #{id}
+    </update>
+
+    <select id="alterAUTO">
+        alter table expense_account  AUTO_INCREMENT = 1;
+    </select>
+
+</mapper>

@@ -155,4 +155,8 @@
       (#{item.id},#{item.itemcode},#{item.itemname},#{item.format},#{item.price},#{item.expclassid},#{item.deptid},#{item.mnemoniccode},#{item.recordtype},#{item.creationdate})
     </foreach>
   </insert>
+  <select id="findByItemCode" parameterType="java.lang.String" resultType="Fmeditem">
+        select * from fmeditem
+        where ItemCode = #{itemCode}
+    </select>
 </mapper>

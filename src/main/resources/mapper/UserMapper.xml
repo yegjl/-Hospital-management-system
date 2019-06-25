@@ -8,10 +8,10 @@
     </resultMap>
 
     <!--显示数据-->
-    <select id="UserList" resultMap="BaseResultMap">
-		select password,id,login_name,category  from USER
-		limit #{start},#{count}
-	</select>
+<!--    <select id="UserList" resultMap="BaseResultMap">-->
+<!--		select password,id,login_name,category  from USER-->
+<!--		limit #{start},#{count}-->
+<!--	</select>-->
 
     <select id="selectByList" resultMap="BaseResultMap">
 		select * from USER
@@ -23,9 +23,9 @@
     </select>
 
     <!--总数-->
-    <select id="total" resultType="int">
-		select count(*) from user
-	</select>
+<!--    <select id="total" resultType="int">-->
+<!--		select count(*) from user-->
+<!--	</select>-->
 
     <!--登录-->
     <select id="login" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -60,6 +60,10 @@
 		select count(*) from user where login_name like #{login_name}
 	</select>
 
+    <select id="findNameById" parameterType="java.lang.Long" resultType="User">
+        select * from user
+        where id = #{id}
+    </select>
     <select id="findByUserType" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from user where category=#{id}
     </select>
@@ -115,7 +119,6 @@
 
         </trim>
     </insert>
-
     <delete id="deleteUserByName" parameterType="java.lang.String">
         delete from user
         where login_name = #{name,jdbcType=VARCHAR}
@@ -127,6 +130,5 @@
           or login_name like concat(concat('%',#{param1}   ) ,'%'))
         and category=#{param3}
     </select>
-
 </mapper>
 

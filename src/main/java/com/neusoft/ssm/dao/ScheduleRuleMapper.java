@@ -1,7 +1,6 @@
 package com.neusoft.ssm.dao;
 
 import com.neusoft.ssm.bean.ScheduleRule;
-import com.neusoft.ssm.bean.schedule;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
@@ -17,8 +16,10 @@ public interface ScheduleRuleMapper {
 
     List<ScheduleRule> findAll();
 
+    ScheduleRule findByIdAndDate(@Param("doctor_id") Long doctor_id, @Param("week_time") String week_time);
+
     void alterAUTO();
 
-    List<schedule> findByAll(@Param("keyword") String keyword);
+    List<ScheduleRule> findByAll(@Param("keyword") String keyword);
 
 }

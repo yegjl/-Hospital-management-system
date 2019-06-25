@@ -80,8 +80,18 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     }
 
     @Override
-    public List<MedicalRecordPageTemplate> getSet() {
-        return medicalRecordPageTemplateDao.selectAll();
+    public int deleteDiaByMedNo(String medicalRecordNo) {
+        return diagnosisDao.deleteByMedNo(medicalRecordNo);
+    }
+
+    @Override
+    public List<MedicalRecordPageTemplate> getSet(Integer doctorid) {
+        return medicalRecordPageTemplateDao.selectAllBydoctorid(doctorid);
+    }
+
+    @Override
+    public MedicalRecordPageTemplate getSetByID(Integer id) {
+        return medicalRecordPageTemplateDao.selectByPrimaryKey(id);
     }
 
 }

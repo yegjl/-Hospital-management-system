@@ -1,7 +1,6 @@
 package com.neusoft.ssm.service;
 
 import com.neusoft.ssm.bean.ScheduleRule;
-import com.neusoft.ssm.bean.schedule;
 
 import java.sql.Date;
 import java.util.List;
@@ -16,7 +15,9 @@ public interface ScheduleRuleService {
 
     List<ScheduleRule> findAll();
 
-    List<schedule> findByAll(String keyword);
+    List<ScheduleRule> findByAll(String keyword);
+
+    ScheduleRule findByIdAndDate(Long doctor_id, String week_time);
 
     void alterAUTO();
 

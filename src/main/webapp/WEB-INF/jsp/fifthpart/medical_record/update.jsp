@@ -43,7 +43,7 @@
                         <p style="margin: auto;">病历号：</p>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                        <input class="layui-input" name="medicalRecordNo" value="${medicalRecordNo}" readonly="readonly" autocomplete="off">
+                        <input class="layui-input" name="medicalRecordNo" value="${medicalRecordNo}" autocomplete="off">
                     </div>
                     <br>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">

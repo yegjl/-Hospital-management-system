@@ -87,4 +87,9 @@
     <select id="selectAllBymedicalRecordNo" resultMap="BaseResultMap" parameterType="string">
       select * from diagnosis <where>medical_record_no=#{medicalRecordNo}</where>
     </select>
+
+  <delete id="deleteByMedNo" parameterType="string">
+    delete from diagnosis
+    where medical_record_no = #{medicalRecordNo}
+  </delete>
 </mapper>

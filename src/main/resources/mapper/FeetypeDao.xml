@@ -60,4 +60,12 @@
     <include refid="Base_Column_List" />
     from feetype
   </select>
+  <select id="findAll" resultType="Feetype">
+        select * from feetype
+    </select>
+
+  <select id="findById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select feetypeName from feetype
+        where id = #{id}
+    </select>
 </mapper>

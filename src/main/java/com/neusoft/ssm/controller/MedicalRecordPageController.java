@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class MedicalRecordPageController {
     private MedicalRecordService medicalRecordService;
 
     List<Diagnosis> diagnosisList = new ArrayList<>();
+
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         List<CommonDiagnosis> list = medicalRecordService.findAllCommonDiagnosis(2);
         diagnosisList = new ArrayList<>();
         Diagnosis diagnosis = null;
@@ -34,15 +36,37 @@ public class MedicalRecordPageController {
             diagnosis.setMedicalRecordNo("2019061700001");
             diagnosisList.add(diagnosis);
         }
+        session.setAttribute("doctorid", 2);
         model.addAttribute("medicalRecordNo", "2019061700001");
         model.addAttribute("CommonDiagnosises", replaceIDToName(diagnosisList));
         return "fifthpart/medical_record/medical_record";
     }
+
     @RequestMapping("/getsets")
     @ResponseBody
-    public List<MedicalRecordPageTemplate> getsets(String medicalRecordNo, Model model) {
-        List<MedicalRecordPageTemplate> list = medicalRecordService.getSet();
+    //todo:根据医生id获取病历模板()
+    public List<MedicalRecordPageTemplate> getsets(HttpSession session, String medicalRecordNo, Model model) {
+        List<MedicalRecordPageTemplate> list = medicalRecordService.getSet((Integer) session.getAttribute("doctorid"));
         return JSONArray.fromObject(list);
+    }
+
+    @RequestMapping("/getTemplate")
+    @ResponseBody
+    public ResultDTO<MedicalRecordPage> getTemplate(Integer id, Model model) {
+        ResultDTO<MedicalRecordPage> resultDTO = new ResultDTO<>();
+        try {
+            MedicalRecordPageTemplate medicalRecordPageTemplate = medicalRecordService.getSetByID(id);
+            MedicalRecordPage medicalRecordPage = medicalRecordService.findById(medicalRecordPageTemplate.getMedicalRecordPageId());
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(medicalRecordPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+
     }
 
     @RequestMapping("/indexadd")
@@ -51,8 +75,9 @@ public class MedicalRecordPageController {
         model.addAttribute("diseases", medicalRecordService.findallDisease());
         return "fifthpart/medical_record/add";
     }
+
     @RequestMapping("/indexupdate")
-    public String indexupdate(String medicalRecordNo, Model model,String date, String flag,Integer diseaseid,Integer id) {
+    public String indexupdate(String medicalRecordNo, Model model, String date, String flag, Integer diseaseid, Integer id) {
         model.addAttribute("medicalRecordNo", medicalRecordNo);
         model.addAttribute("id", id);
         model.addAttribute("diseaseid", diseaseid);
@@ -61,10 +86,12 @@ public class MedicalRecordPageController {
         model.addAttribute("diseases", medicalRecordService.findallDisease());
         return "fifthpart/medical_record/update";
     }
+
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> submit(MedicalRecordPage medicalRecordPage) {
+    public ResultDTO<Integer> submit(MedicalRecordPage medicalRecordPage,HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
+        medicalRecordPage.setDoctorid((Integer) session.getAttribute("doctorid"));
         try {
             int issuccess = medicalRecordService.insertSelective(medicalRecordPage);
             resultDTO.setStatus(0);
@@ -77,6 +104,7 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
+
     @RequestMapping(value = "/findDiaAll", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<List<Diagnosis>> findDiaAll(String medicalRecordNo) {
@@ -86,6 +114,33 @@ public class MedicalRecordPageController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(JSONArray.fromObject(replaceIDToName(list)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping(value = "/findDiaAllAndSub", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<Diagnosis>> findDiaAllAndSub(String medicalRecordNoNew,String medicalRecordNoOld) {
+        ResultDTO<List<Diagnosis>> resultDTO = new ResultDTO();
+        try {
+            medicalRecordService.deleteDiaByMedNo(medicalRecordNoNew);
+            List<Diagnosis> list = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNoOld);
+            for (Diagnosis diagnosis:list) {
+                diagnosis.setId(null);
+                diagnosis.setMedicalRecordNo(medicalRecordNoNew);
+                if (diagnosis.getFlag() == null) {
+                    diagnosis.setFlag("0");
+                }
+
+                medicalRecordService.insertSelectiveDia(diagnosis);
+            }
+            List<Diagnosis> listnew = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNoNew);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(JSONArray.fromObject(replaceIDToName(listnew)));
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);
@@ -112,9 +167,9 @@ public class MedicalRecordPageController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public ResultDTO<Integer> add(Diagnosis diagnosis,Integer index,Model model) {
+    public ResultDTO<Integer> add(Diagnosis diagnosis, Integer index, Model model) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
-        if (diagnosis.getFlag()==null) {
+        if (diagnosis.getFlag() == null) {
             diagnosis.setFlag("0");
         }
 
@@ -130,11 +185,12 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
+
     @RequestMapping("/update")
     @ResponseBody
-    public ResultDTO<Integer> update(Diagnosis diagnosis,Integer index,Model model) {
+    public ResultDTO<Integer> update(Diagnosis diagnosis, Integer index, Model model) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
-        if (diagnosis.getFlag()==null) {
+        if (diagnosis.getFlag() == null) {
             diagnosis.setFlag("0");
         }
 
@@ -150,9 +206,10 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
+
     @RequestMapping("/delete")
     @ResponseBody
-    public ResultDTO<Integer> delete(Integer id,Integer index,Model model) {
+    public ResultDTO<Integer> delete(Integer id, Integer index, Model model) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
 
 
@@ -168,12 +225,13 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
+
     @RequestMapping("/addcommon")
     @ResponseBody
     public ResultDTO<Integer> addcommon(Integer index) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
         Diagnosis diagnosis = diagnosisList.get(index);
-        if (diagnosis.getFlag()==null) {
+        if (diagnosis.getFlag() == null) {
             diagnosis.setFlag("0");
         }
         try {
@@ -189,9 +247,9 @@ public class MedicalRecordPageController {
         return resultDTO;
     }
 
-    private List<Diagnosis> replaceIDToName( List<Diagnosis> list) {
+    private List<Diagnosis> replaceIDToName(List<Diagnosis> list) {
         for (Diagnosis diagnosis : list) {
-           diagnosis.setDiseasename(medicalRecordService.findDiseaseById(diagnosis.getDiseaseid()).getDiseasename());
+            diagnosis.setDiseasename(medicalRecordService.findDiseaseById(diagnosis.getDiseaseid()).getDiseasename());
         }
         return list;
 

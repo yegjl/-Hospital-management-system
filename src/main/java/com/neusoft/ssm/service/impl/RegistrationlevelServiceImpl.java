@@ -2,13 +2,15 @@ package com.neusoft.ssm.service.impl;
 
 import com.neusoft.ssm.bean.Registrationlevel;
 import com.neusoft.ssm.dao.RegistrationlevelDao;
-import com.neusoft.ssm.service.RegistrationLevelService;
+import com.neusoft.ssm.service.RegistrationlevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class RegistrationLevelServiceImpl implements RegistrationLevelService{
+public class RegistrationlevelServiceImpl implements RegistrationlevelService {
+
     @Autowired
     RegistrationlevelDao registrationlevelDao;
     @Override
@@ -29,5 +31,10 @@ public class RegistrationLevelServiceImpl implements RegistrationLevelService{
     @Override
     public int updateByPrimaryKeySelective(Registrationlevel record) {
         return registrationlevelDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public Registrationlevel findByCode(String numberCode) {
+        return registrationlevelDao.findByCode(numberCode);
     }
 }

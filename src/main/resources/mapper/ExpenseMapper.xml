@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.ExpenseMapper">
+
+    <select id="findAll" resultType="Expense">
+        select * from expense
+    </select>
+
+    <select id="findByRecord" parameterType="java.lang.String" resultType="Expense">
+        select * from expense
+        where medical_record_no = #{medical_record_no}
+    </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="Expense">
+        select * from expense
+        where id = #{id}
+    </select>
+
+    <select id="findByRecordAndDate" parameterType="Expense" resultType="Expense">
+        select * from expense
+        where medical_record_no = #{medical_record_no} and expense_id = #{expense_id} and datediff(expense_date, #{expense_date}) = 0
+    </select>
+
+    <select id="search" resultType="Expense">
+        select * from expense
+        where medical_record_no = #{medical_record_no} and expense_date between #{startDate} and #{endDate}
+    </select>
+
+    <update id="charge" parameterType="Expense">
+        update expense
+        set real_expense = #{real_expense}, pay_category = #{pay_category}, pay_sign = #{pay_sign}, expense_date = #{expense_date}
+        where id = #{id}
+    </update>
+
+    <update id="refund" parameterType="Expense">
+        update expense
+        set number = #{number}, expense = #{expense}, real_expense = #{real_expense}, pay_sign = #{pay_sign}, expense_date = #{expense_date}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Expense">
+        delete from expense
+        where medical_record_no = #{medical_record_no} and expense_id = #{expense_id} and datediff(expense_date, #{expense_date}) = 0
+    </delete>
+
+    <insert id="registerExpense" parameterType="Expense">
+        <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into expense (medical_record_no, expense_category, expense_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume)
+        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{number}, #{expense}, #{real_expense}, #{pay_category}, #{pay_sign}, #{day_settle_sign}, #{expense_date}, #{is_consume})
+    </insert>
+
+    <select id="SettleFind" resultType="Expense">
+        select * from expense
+        where day_settle_sign = '0' and expense_date between #{start_date} and #{end_date}
+    </select>
+
+    <select id="find" resultType="Expense">
+        select * from expense
+        where day_settle_sign = '1' and expense_date between #{start_date} and #{end_date}
+    </select>
+
+    <select id="alterAUTO">
+        alter table expense  AUTO_INCREMENT = 1;
+    </select>
+
+    <update id="settle" parameterType="java.lang.Long">
+        update expense
+        set day_settle_sign = '1'
+        where id = #{id}
+    </update>
+
+</mapper>

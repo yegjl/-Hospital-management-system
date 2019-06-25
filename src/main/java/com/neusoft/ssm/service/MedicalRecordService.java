@@ -16,6 +16,7 @@ public interface MedicalRecordService {
      int insertSelectiveDia(Diagnosis record);
      int updateDia(Diagnosis record);
     int deleteDia(Integer id);
-    List<MedicalRecordPageTemplate> getSet();
-
+    int deleteDiaByMedNo(String medicalRecordNo);
+    List<MedicalRecordPageTemplate> getSet(Integer doctorid);
+    MedicalRecordPageTemplate getSetByID(Integer id);
 }

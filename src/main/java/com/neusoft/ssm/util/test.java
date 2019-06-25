@@ -8,9 +8,11 @@ import java.util.List;
 public class test {
 
     public static void main(String args[]) throws ParseException {
-        String str = "2019-06-30";
-        Date beginDate = new Date();
-        Date endDate = DateTool.getStringToDate(str);
+//        String str = "2019-06-30";
+//        Date beginDate = new Date();
+//        Date endDate = DateTool.getStringToDate(str);
+//        Date date = new Date();
+//        System.out.println(DateTool.NowTime(date));
 
 //        List<String> list = DateTool.getEveryday(beginDate, endDate);
 //        for(String date : list)
@@ -30,10 +32,69 @@ public class test {
 //        }
 //        System.out.println(list.size());
 
-        String s = null;
-        String a = ttt(s);
-        String ss = aaa(s);
-        System.out.println(ss);
+        //String s = null;
+        //String a = ttt(s);
+        //String ss = aaa(s);
+        //System.out.println(ss);
+
+//        for(int i = 0; i < list.size() - 1; i++) {
+//            for(int j = list.size() - 1; j > i; j--) {
+//                if(list.get(j).getTime().equals(list.get(i).getTime()))
+//                    list.remove(j);
+//            }
+//        }
+
+//        for(testList t : list)
+//            System.out.println(t.getTime());
+
+        List<testList> rule = new ArrayList<testList>();
+
+        testList t1 = new testList();
+        t1.setTime("星期一");
+        t1.setName("1");
+        rule.add(t1);
+
+        testList t2 = new testList();
+        t2.setTime("星期二");
+        t2.setName("2");
+        rule.add(t2);
+
+        testList t3 = new testList();
+        t3.setTime("星期三");
+        t3.setName("3");
+        rule.add(t3);
+
+        testList t4 = new testList();
+        t4.setTime("星期四");
+        t4.setName("4");
+        rule.add(t4);
+
+        testList t5 = new testList();
+        t5.setTime("星期五");
+        t5.setName("5");
+        rule.add(t5);
+
+        testList t6 = new testList();
+        t6.setTime("星期六");
+        t6.setName("6");
+        rule.add(t6);
+
+        testList t7 = new testList();
+        t7.setTime("星期日");
+        t7.setName("7");
+        rule.add(t7);
+
+        testList t8 = new testList();
+        t8.setTime("星期二");
+        t8.setName("8");
+        rule.add(t8);
+
+        List<testList> list = new ArrayList<>(rule.size());
+        for(int i = 0; i < rule.size(); i++)
+            list.get(i).setName(rule.get(i).getName());
+
+        for(testList t : list)
+            System.out.println(t.getName());
 
     }
 
@@ -85,14 +146,14 @@ public class test {
         int a = 0;
         boolean flag = true;
 
-        while (flag) {
+        while(flag) {
             String week = DateTool.dayToWeek(d.get(a));
-            for (int i = 0; i < rule.size(); i++) {
-                if (rule.get(i).getTime().equals(week)) {
+            for(int i = 0; i < rule.size(); i++) {
+                if(rule.get(i).getTime().equals(week)) {
                     result.add(rule.get(i));
                 }
             }
-            if (a == d.size() - 1)
+            if(a == d.size() - 1)
                 flag = false;
             a++;
         }

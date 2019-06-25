@@ -1,6 +1,7 @@
 package com.neusoft.ssm.dao;
 
 import com.neusoft.ssm.bean.Fmeditem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface FmeditemDao {
     List<Fmeditem> findAll();
 
     int uploadDepartmentInfo(List<Fmeditem> fmeditems);
+    Fmeditem findByItemCode(@Param("itemCode") String itemCode);
+
 }

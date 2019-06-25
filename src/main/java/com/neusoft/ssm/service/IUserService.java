@@ -1,8 +1,6 @@
 package com.neusoft.ssm.service;
 
-import com.neusoft.ssm.bean.Department;
 import com.neusoft.ssm.bean.User;
-
 
 import java.util.List;
 
@@ -26,9 +24,11 @@ public interface IUserService {
 
     List<User> selectByList();
 
+    User findNameById(Long id);
     List<User> findByUserType(String id);
 
     int insertSelective(User record);
 
     List<User> getSearchUser(String login_name, String real_name,String id);
+
 }

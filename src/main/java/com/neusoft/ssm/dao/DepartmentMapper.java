@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface DepartmentMapper {
+    String findNameById(@Param("DeptCode") String DeptCode);
+    String findTypeByCode(@Param("DeptCode") String DeptCode);
+
     long countByExample(DepartmentExample example);
 
     int deleteByExample(DepartmentExample example);
@@ -44,7 +47,7 @@ public interface DepartmentMapper {
 
     String getNameById(Integer id);
 
-    String findNameById(@Param("id") Long id);
 
     List<Department> findByDeptType(String deptType);
+
 }

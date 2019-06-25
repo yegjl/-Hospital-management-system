@@ -16,5 +16,5 @@ public interface MedicalRecordPageTemplateDao {
     int updateByPrimaryKeySelective(MedicalRecordPageTemplate record);
 
     int updateByPrimaryKey(MedicalRecordPageTemplate record);
-    List<MedicalRecordPageTemplate> selectAll();
+    List<MedicalRecordPageTemplate> selectAllBydoctorid(Integer doctorid);
 }
