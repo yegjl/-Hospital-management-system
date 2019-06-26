@@ -46,7 +46,16 @@ public class RegisterServiceImpl implements RegisterService {
         keyword = "%" + keyword + "%";
         return registerMapper.findByKey(keyword);
     }
+    @Override
+    public List<RegistrationInfo> findByDaidoctorid(Integer doctorid) {
 
+        return registerMapper.findByDaidoctorid(doctorid);
+    }
+    @Override
+    public List<RegistrationInfo> findByWeidoctorid(Integer doctorid) {
+
+        return registerMapper.findByWeidoctorid(doctorid);
+    }
     @Override
     public Long findMaxRecord() {
         return registerMapper.findMaxRecord();

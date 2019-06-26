@@ -5,14 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
-import com.neusoft.ssm.util.MD5;
+import com.neusoft.ssm.service.RegisterService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,8 @@ public class FifthPartController {
 
     @Autowired
     private ExamcheckService examcheckService;
-
+    @Autowired
+    RegisterService registerService;
     @RequestMapping(value = "/index")
     public String index(String id, Model model) {
         String name;
@@ -49,7 +51,42 @@ public class FifthPartController {
     @RequestMapping(value = "/index2")
     public String index2() {
         return "fifthpart/ODW_index2";
+    }
+    @RequestMapping(value = "/daizhen",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<RegistrationInfo>> daizhen(Integer doctorid){
 
+        ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        try {
+            List<RegistrationInfo> list = registerService.findByDaidoctorid(doctorid);
+            resultDTO.setTotal(list.size());
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping(value = "/weizhen",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<RegistrationInfo>> weizhen(Integer doctorid){
+
+        ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        try {
+            List<RegistrationInfo> list = registerService.findByWeidoctorid(doctorid);
+            resultDTO.setTotal(list.size());
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
     }
     @RequestMapping(value = "/addUI")
     public String index02(String id,Model model) {

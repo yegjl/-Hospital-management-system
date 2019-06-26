@@ -19,6 +19,10 @@ public interface RegisterService {
 
     List<RegistrationInfo> findByKey(String keyword);
 
+    List<RegistrationInfo> findByDaidoctorid(Integer id);
+
+    List<RegistrationInfo> findByWeidoctorid(Integer doctorid);
+
     Long findMaxRecord();
 
     void alterAUTO();

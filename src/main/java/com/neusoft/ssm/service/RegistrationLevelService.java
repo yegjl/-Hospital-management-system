@@ -4,7 +4,7 @@ import com.neusoft.ssm.bean.Registrationlevel;
 
 import java.util.List;
 
-public interface RegistrationlevelService {
+public interface RegistrationLevelService {
 
     Registrationlevel findByCode(String numberCode);
     ////    public int uploadUserXls(MultipartFile file) throws IOException;

@@ -37,7 +37,7 @@ public class ScheduleController {
     private ScheduleResultService scheduleResultService;
 
     @Autowired
-    RegistrationlevelService registrationlevelService;
+    RegistrationLevelService registrationlevelService;
 
     @Autowired
     private DoctorService doctorService;

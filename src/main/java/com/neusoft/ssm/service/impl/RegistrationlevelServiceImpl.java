@@ -2,14 +2,14 @@ package com.neusoft.ssm.service.impl;
 
 import com.neusoft.ssm.bean.Registrationlevel;
 import com.neusoft.ssm.dao.RegistrationlevelDao;
-import com.neusoft.ssm.service.RegistrationlevelService;
+import com.neusoft.ssm.service.RegistrationLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RegistrationlevelServiceImpl implements RegistrationlevelService {
+public class RegistrationlevelServiceImpl implements RegistrationLevelService {
 
     @Autowired
     RegistrationlevelDao registrationlevelDao;

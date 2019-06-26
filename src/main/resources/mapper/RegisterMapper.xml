@@ -42,5 +42,10 @@
     <select id="alterAUTO">
         alter table registration_info  AUTO_INCREMENT = 1;
     </select>
-
+    <select id="findByDaidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+        select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="01" and status="01"
+    </select>
+    <select id="findByWeidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+        select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="02" and status="01"
+    </select>
 </mapper>

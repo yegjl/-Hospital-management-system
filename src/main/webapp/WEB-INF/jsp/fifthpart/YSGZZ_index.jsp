@@ -118,7 +118,7 @@
                 <!-- <i class="layui-icon layui-icon-home"></i> -->
                 <cite>本人待诊患者</cite>
               </a>
-              <dl class="layui-nav-child">
+              <dl id="daizhen" class="layui-nav-child">
 
                 <dd data-name="console">
                   <a lay-href="fifthpart/index2">患者1</a>
@@ -209,6 +209,27 @@
 
   <script src="department/layui/layui.js"></script>
   <script>
+      window.onload=function() {
+
+          var $ = layui.$;
+          $.ajax({
+              type: "POST",//方法类型
+              url: "fifthpart/daizhen",//url
+              async: false,
+              success: function (result) {
+                  if (result.status == 0) {
+                      var daizhen = result.data;
+                      $("#daizhen").empty();
+                      for (var id in daizhen) {
+                          $("#daizhen").append("<dd data-name='console'><a lay-href='department/index?name=" + daizhen[id] + "&id=" + id + "'>" + daizhen[id] + "</a> </dd>");
+                      }
+                  }
+              },
+              error: function (result) {
+                  alert(result.msg);
+              }
+          });
+      }
     layui.config({
       base: 'department/' //静态资源所在路径
     }).extend({
