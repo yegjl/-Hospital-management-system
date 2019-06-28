@@ -28,4 +28,6 @@ public interface RegisterService {
     Long findMaxRecord();
 
     void alterAUTO();
+
+    int quezhen(String medicalRecordNo);
 }

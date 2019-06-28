@@ -6,6 +6,7 @@ import com.neusoft.ssm.bean.MedicalRecordPage;
 import com.neusoft.ssm.bean.MedicalRecordPageTemplate;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.MedicalRecordService;
+import com.neusoft.ssm.service.RegisterService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,8 @@ import java.util.List;
 public class MedicalRecordPageController {
     @Autowired
     private MedicalRecordService medicalRecordService;
-
+    @Autowired
+    RegisterService registerService;
     List<Diagnosis> diagnosisList = new ArrayList<>();
 
     @RequestMapping("/index")
@@ -82,6 +84,23 @@ public class MedicalRecordPageController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(medicalRecordPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+
+    }
+    @RequestMapping("/quezhen")
+    @ResponseBody
+    public ResultDTO<Integer> quezhen(String medicalRecordNo) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        try {
+            int success = registerService.quezhen(medicalRecordNo);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(success);
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);

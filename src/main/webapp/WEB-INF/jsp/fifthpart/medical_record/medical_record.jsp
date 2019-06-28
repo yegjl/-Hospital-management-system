@@ -133,11 +133,11 @@
                 <!-- 中 -->
                 <div class="layui-card" style="bottom: 30px;position: relative;padding-left: 20%" >
 
-                    <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
-                            style="margin:0 auto;right: -300px;position: relative;" >提交
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
+                    <button  type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
                             style="margin:0 auto;right: -300px;position: relative;" >确诊
+                    </button>
+                    <button id="zhenbi" type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="quezhen"
+                            style="margin:0 auto;right: -300px;position: relative;" >诊毕
                     </button>
                     <button type="reset" class="layui-btn layui-btn-danger"
                             style="margin:0 auto;left: 300px;position: relative;">清屏
@@ -353,10 +353,29 @@
                 url: "MedicalRecordPage/submit",
                 data: $('#medicalRecord').serialize()+"&medicalRecordNo=${medicalRecordNo}",
                 success: function (res) {
-                    if (res.status == 0) {
-                    } else {
-                        layer.msg(res.message)
+                    // if (res.status == 0) {
+                    // } else {
+                    //     layer.msg(res.message)
+                    // }
+                    var inputs = $("input");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].readOnly=true;
                     }
+                    var textareas = $("textarea");
+                    for (var i = 0; i < textareas.length; i++) {
+                        textareas[i].readOnly=true;
+                    }
+                    var buttons = $("button");
+                    for (var i = 0; i < buttons.length; i++) {
+                        if (buttons[i].id == "zhenbi") {
+                            continue;
+                        }
+                        buttons[i].disabled=true;
+                    }
+                    var you=document.getElementById("you");
+                    var zuo=document.getElementById("zuo");
+                    zuo.className="layui-col-md12";
+                    you.parentNode.removeChild(you);
                     alert("提交成功");
                     // layer.closeAll();
                     // layui.table.reload('test-table-reload',{page: {curr: 1}});
@@ -376,12 +395,34 @@
                 // data: $("#form").serialize()+"&myarray="+myarray,
                 data: "index="+data.elem.value,
                 success: function (result) {
+
+                    if (res.status == 0) {
+                    } else {
+                        layer.msg(res.message)
+                    }
+
+                    layui.table.reload('test-table-simple3');
+                },
+                error: function (result) {
+                    alert(result.msg);
+                }
+            })
+        });
+        form.on('submit(quezhen)', function(data){
+            $.ajax({
+                type: "POST",//方法类型
+                url: "MedicalRecordPage/quezhen",
+                data:"medicalRecordNo=${medicalRecordNo}",//url
+                async: false,
+                // data: $("#form").serialize()+"&myarray="+myarray,
+                success: function (result) {
+                    parent.parent.location.reload();
                     // if (res.status == 0) {
                     // } else {
                     //     layer.msg(res.message)
                     // }
 
-                    layui.table.reload('test-table-simple3');
+                    // layui.table.reload('test-table-simple3');
                 },
                 error: function (result) {
                     alert(result.msg);
