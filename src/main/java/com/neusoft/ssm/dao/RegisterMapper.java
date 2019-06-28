@@ -27,5 +27,7 @@ public interface RegisterMapper {
     void alterAUTO();
 
     List<RegistrationInfo> findByDaidoctorid(Integer doctorid);
-    List<RegistrationInfo> findByWeidoctorid(Integer doctorid);
+    List<RegistrationInfo> findByYidoctorid(Integer doctorid);
+    List<RegistrationInfo> findByDaiDepart(Integer departid);
+    List<RegistrationInfo> findByYiDepart(Integer departid);
 }

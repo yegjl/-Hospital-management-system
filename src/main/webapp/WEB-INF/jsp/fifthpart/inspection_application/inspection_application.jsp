@@ -359,6 +359,7 @@
       table.render({
         elem: '#test-table-cellEdit-middle',
         // url: layui.setter.base + 'json/table/demo.js',
+          //todo:连接
         url: 'fifthpart/findpro?doctorid=5&medicalid=5',
         method:'get',
         parseData:function (res) {
@@ -697,6 +698,7 @@
                     }
                     $.ajax({
                         type: "POST",
+                        //todo:连接病历号
                         url: "fifthpart/usemubanpros?doctorid=5&medicalid=5",
                         data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
                         success: function (res) {
@@ -1009,6 +1011,7 @@
                 var form = iframes.document.getElementById("add");
                 $.ajax({
                   type: "POST",
+                    //todo:连接病历号
                   url: "fifthpart/add?doctorid=5&medicalid=5",
                   data: $(form).serialize(),
                   success: function (res) {

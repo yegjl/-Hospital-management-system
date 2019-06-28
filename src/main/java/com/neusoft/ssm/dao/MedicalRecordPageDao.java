@@ -11,6 +11,8 @@ public interface MedicalRecordPageDao {
 
     MedicalRecordPage selectByPrimaryKey(Integer id);
 
+    MedicalRecordPage selectBymedicalRecordNo(String medicalRecordNo);
+
     int updateByPrimaryKeySelective(MedicalRecordPage record);
 
     int updateByPrimaryKey(MedicalRecordPage record);

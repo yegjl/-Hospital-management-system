@@ -144,4 +144,7 @@
       `type` = #{type,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="selectBymedicalRecordNo" resultMap="BaseResultMap" parameterType="string">
+      select * from medical_record_page where medical_record_no =#{medicalRecordNo}
+    </select>
 </mapper>

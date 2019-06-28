@@ -53,8 +53,8 @@
                 </ul>
                 <div class="layui-tab-content" style="height: 100%;">
                     <div class="layui-tab-item layui-show" style="height: 100%">
-
-                        <iframe src="MedicalRecordPage/index?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%"
+<%--                        isSeen标记是否已诊--%>
+                        <iframe src="MedicalRecordPage/index?isSeen=1&medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%"
                             frameborder="0"></iframe>
                     </div>
                     <div class="layui-tab-item">

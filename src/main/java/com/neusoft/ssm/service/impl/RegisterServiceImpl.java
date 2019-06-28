@@ -52,10 +52,21 @@ public class RegisterServiceImpl implements RegisterService {
         return registerMapper.findByDaidoctorid(doctorid);
     }
     @Override
-    public List<RegistrationInfo> findByWeidoctorid(Integer doctorid) {
+    public List<RegistrationInfo> findByYidoctorid(Integer doctorid) {
 
-        return registerMapper.findByWeidoctorid(doctorid);
+        return registerMapper.findByYidoctorid(doctorid);
     }
+
+    @Override
+    public List<RegistrationInfo> findByDaiDepart(Integer departid) {
+        return registerMapper.findByDaiDepart(departid);
+    }
+
+    @Override
+    public List<RegistrationInfo> findByYiDepart(Integer departid) {
+        return registerMapper.findByYiDepart(departid);
+    }
+
     @Override
     public Long findMaxRecord() {
         return registerMapper.findMaxRecord();

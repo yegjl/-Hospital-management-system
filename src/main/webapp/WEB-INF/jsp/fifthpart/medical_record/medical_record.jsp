@@ -25,7 +25,7 @@
     <div class="layui-row">
         <form id="medicalRecord" class="layui-form">
 <%--            todo:栅栏--%>
-            <div class="layui-col-md8">
+            <div id="zuo" class="layui-col-md8">
                 <!-- 中部折叠面板 -->
                 <div class="layui-card" style="overflow: auto;height:600px;">
                     <div class="layui-card-header">门（急）诊面板信息</div>
@@ -40,7 +40,7 @@
                                             <p style="margin-top: 7px;">主诉:</p>
                                         </div>
                                         <div style="float: right;width: 80%;margin-right: 20px;">
-                                            <input class="layui-input" autocomplete="off" name="chiefComplaint" style="float: left;">
+                                            <input class="layui-input" autocomplete="off" name="chiefComplaint" style="float: left;" >
                                         </div>
                                     </div>
 
@@ -131,10 +131,13 @@
                     </div>
                 </div>
                 <!-- 中 -->
-                <div class="layui-card" style="bottom: 30px;position: relative;">
+                <div class="layui-card" style="bottom: 30px;position: relative;padding-left: 20%" >
 
                     <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
                             style="margin:0 auto;right: -300px;position: relative;" >提交
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
+                            style="margin:0 auto;right: -300px;position: relative;" >确诊
                     </button>
                     <button type="reset" class="layui-btn layui-btn-danger"
                             style="margin:0 auto;left: 300px;position: relative;">清屏
@@ -145,7 +148,7 @@
             </div>
         </form>
 <%--        todo:栅栏--%>
-        <div class="layui-col-md4">
+        <div class="layui-col-md4" id="you">
             <div class="layui-fluid" id="component-tabs2">
                 <div class="layui-card">
                     <div class="layui-card-body">
@@ -189,9 +192,9 @@
                                     </div>
 
                                 </div>
-                                <div class="layui-tab-item">
-                                    历史病历内容
-                                </div>
+<%--                                <div class="layui-tab-item">--%>
+<%--                                    历史病历内容--%>
+<%--                                </div>--%>
 
                             </div>
                         </div>
@@ -210,6 +213,123 @@
 
 <!-- 选项卡 -->
 <script>
+    window.onload = function () {
+        var $ = layui.$;
+        var isSeen="${isSeen}";
+        if (isSeen == "") {
+            return;
+        }
+        var inputs = $("input");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].readOnly=true;
+        }
+        var textareas = $("textarea");
+        for (var i = 0; i < textareas.length; i++) {
+            textareas[i].readOnly=true;
+        }
+        var buttons = $("button");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].disabled=true;
+        }
+        var you=document.getElementById("you");
+        var zuo=document.getElementById("zuo");
+        zuo.className="layui-col-md12";
+        you.parentNode.removeChild(you);
+        $.ajax({
+            type: "GET",
+            url: "MedicalRecordPage/getHistory?&medicalRecordNo=${medicalRecordNo}",
+            async : false,
+            // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+            success: function (res) {
+                var rdata=res.data;
+                if (res.status == 0) {
+                    document.getElementsByName("chiefComplaint")[0].value=rdata.chiefComplaint;
+                    // document.getElementsByName("chiefComplaint")[0].disabled=true;
+                    document.getElementsByName("hpi")[0].value=rdata.hpi;
+                    // document.getElementsByName("hpi")[0].readOnly=true;
+                    document.getElementsByName("ph")[0].value=rdata.ph;
+                    // document.getElementsByName("ph")[0].disabled=true;
+                    document.getElementsByName("historyOfAllergy")[0].value=rdata.historyOfAllergy;
+                    document.getElementsByName("healthCheckup")[0].value=rdata.healthCheckup;
+                    $.ajax({
+                        type: "POST",
+                        url: "MedicalRecordPage/findDiaYi?medicalRecordNo=${medicalRecordNo}",
+                        async : false,
+                        // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+                        success: function (res) {
+                            var rdata=res.data;
+                            if (res.status == 0) {
+                                layui.table.render({
+                                    elem: '#test-table-simple3',
+                                    cellMinWidth: 200 //全局定义常规单元格的最小宽度
+                                    ,cols: [[
+                                        {
+                                            checkbox: true,
+                                            fixed: true
+                                        }, {
+                                            field: 'id',
+                                            width: 80,
+                                            title: 'ID',
+                                            sort: true
+                                        }, {
+                                            field: 'diseasename',
+                                            width: 313,
+                                            title: '疾病名称'
+                                        }, {
+                                            field: 'medicalRecordNo',
+                                            width: 300,
+                                            title: '病历号',
+                                            sort: true
+                                        }, {
+                                            field: 'flag',
+                                            width: 120,
+                                            title: '主诊/疑似标志',
+                                            templet: function (d) {
+                                                var state = "";
+                                                if (d.flag == "0") {
+                                                    state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" disabled>';
+                                                }
+                                                else if (d.flag == "1") {
+                                                    state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" checked disabled>';
+
+                                                }
+
+                                                return state;
+                                            }
+                                            ,unresize: true
+                                        }, {
+                                            field: 'dA',
+                                            width: 300,
+                                            title: '发病日期',
+                                            templet: function (d) {
+                                                return dateToStr(d.dA);
+                                            }
+                                        }]],
+                                    data:rdata
+
+                                });
+                            } else {
+                                layer.msg(res.message)
+                            }
+                        },
+                        error: function () {
+                            alert("出现错误");
+                            return false;
+                        }
+                    }) //ajax结束
+                    layer.msg(res.message)
+                } else {
+                    layer.msg(res.message)
+                }
+            },
+            error: function () {
+                alert("出现错误");
+                return false;
+            }
+        }); //ajax结束
+
+
+    };
     layui.config({
         base: 'department/' //静态资源所在路径
     }).extend({

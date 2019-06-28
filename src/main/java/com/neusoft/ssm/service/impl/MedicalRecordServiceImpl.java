@@ -29,6 +29,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     }
 
     @Override
+    public MedicalRecordPage findBymedicalRecordNo(String medicalRecordNo) {
+        return medicalRecordPageDao.selectBymedicalRecordNo(medicalRecordNo);
+    }
+
+    @Override
     public int deleteByPrimaryKey(Integer id) {
         return medicalRecordPageDao.deleteByPrimaryKey(id);
     }

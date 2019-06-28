@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface MedicalRecordService {
     MedicalRecordPage findById(Integer id);
+    MedicalRecordPage findBymedicalRecordNo(String medicalRecordNo);
     int deleteByPrimaryKey(Integer id);
     int insertSelective(MedicalRecordPage record);
     List<Disease> findallDisease();

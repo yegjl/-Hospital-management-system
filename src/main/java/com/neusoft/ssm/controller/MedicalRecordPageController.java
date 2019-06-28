@@ -27,7 +27,7 @@ public class MedicalRecordPageController {
     List<Diagnosis> diagnosisList = new ArrayList<>();
 
     @RequestMapping("/index")
-    public String index(Model model, HttpSession session) {
+    public String index(Model model, HttpSession session,String medicalRecordNo,Integer isSeen) {
         List<CommonDiagnosis> list = medicalRecordService.findAllCommonDiagnosis(2);
         diagnosisList = new ArrayList<>();
         Diagnosis diagnosis = null;
@@ -37,11 +37,16 @@ public class MedicalRecordPageController {
             diagnosisList.add(diagnosis);
         }
         session.setAttribute("doctorid", 2);
-        model.addAttribute("medicalRecordNo", "2019061700001");
+        model.addAttribute("medicalRecordNo", medicalRecordNo);
+        model.addAttribute("isSeen", isSeen);
         model.addAttribute("CommonDiagnosises", replaceIDToName(diagnosisList));
         return "fifthpart/medical_record/medical_record";
     }
 
+    @RequestMapping("/indexcost")
+    public String indexcost() {
+        return "fifthpart/medical_record/cost_inquiry";
+    }
     @RequestMapping("/getsets")
     @ResponseBody
     //todo:根据医生id获取病历模板()
@@ -68,7 +73,23 @@ public class MedicalRecordPageController {
         return resultDTO;
 
     }
+    @RequestMapping("/getHistory")
+    @ResponseBody
+    public ResultDTO<MedicalRecordPage> getHistory(String medicalRecordNo) {
+        ResultDTO<MedicalRecordPage> resultDTO = new ResultDTO<>();
+        try {
+            MedicalRecordPage medicalRecordPage = medicalRecordService.findBymedicalRecordNo(medicalRecordNo);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(medicalRecordPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
 
+    }
     @RequestMapping("/indexadd")
     public String indexAdd(String medicalRecordNo, Model model) {
         model.addAttribute("medicalRecordNo", medicalRecordNo);
@@ -141,6 +162,22 @@ public class MedicalRecordPageController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(JSONArray.fromObject(replaceIDToName(listnew)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping(value = "/findDiaYi", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<Diagnosis>> findDiaYi(String medicalRecordNo) {
+        ResultDTO<List<Diagnosis>> resultDTO = new ResultDTO();
+        try {
+            List<Diagnosis> list = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNo);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(JSONArray.fromObject(replaceIDToName(list)));
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);

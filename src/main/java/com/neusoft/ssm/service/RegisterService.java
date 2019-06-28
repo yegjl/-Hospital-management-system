@@ -21,8 +21,10 @@ public interface RegisterService {
 
     List<RegistrationInfo> findByDaidoctorid(Integer id);
 
-    List<RegistrationInfo> findByWeidoctorid(Integer doctorid);
+    List<RegistrationInfo> findByYidoctorid(Integer doctorid);
+    List<RegistrationInfo> findByDaiDepart(Integer departid);
 
+    List<RegistrationInfo> findByYiDepart(Integer departid);
     Long findMaxRecord();
 
     void alterAUTO();

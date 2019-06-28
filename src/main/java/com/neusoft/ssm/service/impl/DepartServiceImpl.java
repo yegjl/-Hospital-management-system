@@ -44,7 +44,7 @@ public class DepartServiceImpl implements DepartmentService {
         Sheet sheet = book.getSheetAt(0);
         //for debug: show the name of sheet that we get
 //		logger.debug("sheet name = " + book.getSheetAt(0));
-        for(int i = sheet.getFirstRowNum()+1; i <= sheet.getLastRowNum(); i++){
+        for(int i = sheet.getFirstRowNum()+2; i <= sheet.getLastRowNum(); i++){
             department = new Department();
             departmentList.add(department);
             Row row = sheet.getRow(i);

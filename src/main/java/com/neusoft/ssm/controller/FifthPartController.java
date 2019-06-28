@@ -45,12 +45,20 @@ public class FifthPartController {
 //            model.addAttribute("medicalrecordid",medicalrecordid);
 
             return "fifthpart/medicine_prescription/cmedicine_pre";
+        } else if (id==null) {
+            return "fifthpart/inspection_application/inspection_application";
         }
         return "fifthpart/inspection_application/inspection_application";
     }
     @RequestMapping(value = "/index2")
-    public String index2() {
+    public String index2(String medicalRecordNo,Model model) {
+        model.addAttribute("medicalRecordNo", medicalRecordNo);
         return "fifthpart/ODW_index2";
+    }
+    @RequestMapping(value = "/index3")
+    public String index3(String medicalRecordNo,Model model) {
+        model.addAttribute("medicalRecordNo", medicalRecordNo);
+        return "fifthpart/ODW_index3";
     }
     @RequestMapping(value = "/daizhen",method = RequestMethod.POST)
     @ResponseBody
@@ -70,13 +78,13 @@ public class FifthPartController {
         }
         return resultDTO;
     }
-    @RequestMapping(value = "/weizhen",method = RequestMethod.POST)
+    @RequestMapping(value = "/dpartdaizhen",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<List<RegistrationInfo>> weizhen(Integer doctorid){
+    public ResultDTO<List<RegistrationInfo>> Dpartdaizhen(Integer departid){
 
         ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
         try {
-            List<RegistrationInfo> list = registerService.findByWeidoctorid(doctorid);
+            List<RegistrationInfo> list = registerService.findByDaiDepart(departid);
             resultDTO.setTotal(list.size());
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
@@ -88,6 +96,43 @@ public class FifthPartController {
         }
         return resultDTO;
     }
+    @RequestMapping(value = "/yizhen",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<RegistrationInfo>> yizhen(Integer doctorid){
+
+        ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        try {
+            List<RegistrationInfo> list = registerService.findByYidoctorid(doctorid);
+            resultDTO.setTotal(list.size());
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping(value = "/dpartyizhen",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<List<RegistrationInfo>> dpartyizhen(Integer departid){
+
+        ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        try {
+            List<RegistrationInfo> list = registerService.findByYiDepart(departid);
+            resultDTO.setTotal(list.size());
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
     @RequestMapping(value = "/addUI")
     public String index02(String id,Model model) {
         model.addAttribute("id", id);

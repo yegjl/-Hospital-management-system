@@ -120,9 +120,6 @@
               </a>
               <dl id="daizhen" class="layui-nav-child">
 
-                <dd data-name="console">
-                  <a lay-href="fifthpart/index2">患者1</a>
-                </dd>
               </dl>
             </li>
 
@@ -131,36 +128,32 @@
                 <!-- <i class="layui-icon layui-icon-template"></i> -->
                 <cite>本人已诊患者</cite>
               </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="basic\User_management\Register.html">患者2</a></dd>
-
-              </dl>
-            </li>
-
-            <li data-name="template" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="页面" lay-direction="2">
-                <!-- <i class="layui-icon layui-icon-template"></i> -->
-                <cite>科室已诊患者</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="Register\Site_registration\Site_registration.html">患者3</a></dd>
+              <dl id="yizhen" class="layui-nav-child">
 
               </dl>
             </li>
 
 
-
-
-            <li data-name="template" class="layui-nav-item">
+              <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="页面" lay-direction="2">
                 <!-- <i class="layui-icon layui-icon-template"></i> -->
                 <cite>科室未诊患者</cite>
               </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="basic\Diagnostic_Directory\Diagnostic Directory.html">患者4</a></dd>
+              <dl id="dpartdaizhen" class="layui-nav-child">
+
 
               </dl>
             </li>
+              <li data-name="template" class="layui-nav-item">
+                  <a href="javascript:;" lay-tips="页面" lay-direction="2">
+                      <!-- <i class="layui-icon layui-icon-template"></i> -->
+                      <cite>科室已诊患者</cite>
+                  </a>
+                  <dl id="dpartyizhen" class="layui-nav-child">
+
+
+                  </dl>
+              </li>
           </ul>
         </div>
       </div>
@@ -214,14 +207,15 @@
           var $ = layui.$;
           $.ajax({
               type: "POST",//方法类型
-              url: "fifthpart/daizhen",//url
+              url: "fifthpart/daizhen",
+              data:"doctorid=2",//url
               async: false,
               success: function (result) {
                   if (result.status == 0) {
                       var daizhen = result.data;
                       $("#daizhen").empty();
-                      for (var id in daizhen) {
-                          $("#daizhen").append("<dd data-name='console'><a lay-href='department/index?name=" + daizhen[id] + "&id=" + id + "'>" + daizhen[id] + "</a> </dd>");
+                      for (var i=0;i<daizhen.length;i++) {
+                          $("#daizhen").append("<dd data-name='console'><a lay-href='fifthpart/index2?medicalRecordNo=" + daizhen[i].medical_record_no +"'>" + daizhen[i].patient_name + "</a> </dd>");
                       }
                   }
               },
@@ -229,7 +223,62 @@
                   alert(result.msg);
               }
           });
-      }
+        $.ajax({
+          type: "POST",//方法类型
+          url: "fifthpart/yizhen",
+          data:"doctorid=2",//url
+          async: false,
+          success: function (result) {
+            if (result.status == 0) {
+              var yizhen = result.data;
+              $("#yizhen").empty();
+              for (var i=0;i<yizhen.length;i++) {
+                $("#yizhen").append("<dd data-name='console'><a lay-href='fifthpart/index3?medicalRecordNo=" + yizhen[i].medical_record_no +"'>" + yizhen[i].patient_name + "</a> </dd>");
+              }
+            }
+          },
+          error: function (result) {
+            alert(result.msg);
+          }
+        });
+        $.ajax({
+          type: "POST",//方法类型
+          url: "fifthpart/dpartdaizhen",
+          data:"departid=1",//url
+          async: false,
+          success: function (result) {
+            if (result.status == 0) {
+              var daizhen = result.data;
+              $("#dpartdaizhen").empty();
+              for (var i=0;i<daizhen.length;i++) {
+                $("#dpartdaizhen").append("<dd data-name='console'><a lay-href='fifthpart/index2?medicalRecordNo=" + daizhen[i].medical_record_no +"'>" + daizhen[i].patient_name + "</a> </dd>");
+              }
+            }
+          },
+          error: function (result) {
+            alert(result.msg);
+          }
+        });
+          $.ajax({
+              type: "POST",//方法类型
+              url: "fifthpart/dpartyizhen",
+              data:"departid=1",//url
+              async: false,
+              success: function (result) {
+                  if (result.status == 0) {
+                      var yizhen = result.data;
+                      $("#dpartyizhen").empty();
+                      for (var i=0;i<yizhen.length;i++) {
+                          $("#dpartyizhen").append("<dd data-name='console'><a lay-href='fifthpart/index3?medicalRecordNo=" + yizhen[i].medical_record_no +"'>" + yizhen[i].patient_name + "</a> </dd>");
+                      }
+                  }
+              },
+              error: function (result) {
+                  alert(result.msg);
+              }
+          });
+      };
+
     layui.config({
       base: 'department/' //静态资源所在路径
     }).extend({

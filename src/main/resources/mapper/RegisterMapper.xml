@@ -45,7 +45,13 @@
     <select id="findByDaidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
         select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="01" and status="01"
     </select>
-    <select id="findByWeidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+    <select id="findByYidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
         select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="02" and status="01"
+    </select>
+    <select id="findByDaiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+        select * from registration_info where department_id=#{departid} and is_seen_doctor="01" and status="01"
+    </select>
+    <select id="findByYiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+        select * from registration_info where department_id=#{departid} and is_seen_doctor="02" and status="01"
     </select>
 </mapper>
