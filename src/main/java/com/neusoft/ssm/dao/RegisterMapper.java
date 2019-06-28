@@ -30,4 +30,6 @@ public interface RegisterMapper {
     List<RegistrationInfo> findByYidoctorid(Integer doctorid);
     List<RegistrationInfo> findByDaiDepart(Integer departid);
     List<RegistrationInfo> findByYiDepart(Integer departid);
+
+    RegistrationInfo selectInfoByRecordno(String recordno);
 }

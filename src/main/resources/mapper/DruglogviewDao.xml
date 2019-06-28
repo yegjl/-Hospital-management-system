@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.DruglogviewDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Druglogview">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DrugsCode" jdbcType="VARCHAR" property="drugscode" />
+    <result column="DrugsName" jdbcType="VARCHAR" property="drugsname" />
+    <result column="Drugstatus" jdbcType="VARCHAR" property="drugstatus" />
+    <result column="DrugsFormat" jdbcType="VARCHAR" property="drugsformat" />
+    <result column="ConstantName" jdbcType="VARCHAR" property="constantname" />
+    <result column="DrugsUnit" jdbcType="VARCHAR" property="drugsunit" />
+    <result column="Drugamount" jdbcType="INTEGER" property="drugamount" />
+    <result column="DrugsPrice" jdbcType="DECIMAL" property="drugsprice" />
+    <result column="Manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="TypeName" jdbcType="VARCHAR" property="typename" />
+    <result column="MnemonicCode" jdbcType="VARCHAR" property="mnemoniccode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DrugsCode, DrugsName, Drugstatus, DrugsFormat, ConstantName, DrugsUnit, Drugamount, 
+    DrugsPrice, Manufacturer, TypeName, MnemonicCode
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.DruglogviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from druglogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.DruglogviewExample">
+    delete from druglogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.ssm.bean.Druglogview">
+    insert into druglogview (ID, DrugsCode, DrugsName, 
+      Drugstatus, DrugsFormat, ConstantName, 
+      DrugsUnit, Drugamount, DrugsPrice, 
+      Manufacturer, TypeName, MnemonicCode
+      )
+    values (#{id,jdbcType=INTEGER}, #{drugscode,jdbcType=VARCHAR}, #{drugsname,jdbcType=VARCHAR}, 
+      #{drugstatus,jdbcType=VARCHAR}, #{drugsformat,jdbcType=VARCHAR}, #{constantname,jdbcType=VARCHAR}, 
+      #{drugsunit,jdbcType=VARCHAR}, #{drugamount,jdbcType=INTEGER}, #{drugsprice,jdbcType=DECIMAL}, 
+      #{manufacturer,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{mnemoniccode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.ssm.bean.Druglogview">
+    insert into druglogview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="drugscode != null">
+        DrugsCode,
+      </if>
+      <if test="drugsname != null">
+        DrugsName,
+      </if>
+      <if test="drugstatus != null">
+        Drugstatus,
+      </if>
+      <if test="drugsformat != null">
+        DrugsFormat,
+      </if>
+      <if test="constantname != null">
+        ConstantName,
+      </if>
+      <if test="drugsunit != null">
+        DrugsUnit,
+      </if>
+      <if test="drugamount != null">
+        Drugamount,
+      </if>
+      <if test="drugsprice != null">
+        DrugsPrice,
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer,
+      </if>
+      <if test="typename != null">
+        TypeName,
+      </if>
+      <if test="mnemoniccode != null">
+        MnemonicCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="drugscode != null">
+        #{drugscode,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsname != null">
+        #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugstatus != null">
+        #{drugstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsformat != null">
+        #{drugsformat,jdbcType=VARCHAR},
+      </if>
+      <if test="constantname != null">
+        #{constantname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsunit != null">
+        #{drugsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="drugamount != null">
+        #{drugamount,jdbcType=INTEGER},
+      </if>
+      <if test="drugsprice != null">
+        #{drugsprice,jdbcType=DECIMAL},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null">
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemoniccode != null">
+        #{mnemoniccode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.DruglogviewExample" resultType="java.lang.Long">
+    select count(*) from druglogview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update druglogview
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugscode != null">
+        DrugsCode = #{record.drugscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsname != null">
+        DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugstatus != null">
+        Drugstatus = #{record.drugstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsformat != null">
+        DrugsFormat = #{record.drugsformat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constantname != null">
+        ConstantName = #{record.constantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugsunit != null">
+        DrugsUnit = #{record.drugsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugamount != null">
+        Drugamount = #{record.drugamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsprice != null">
+        DrugsPrice = #{record.drugsprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.manufacturer != null">
+        Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typename != null">
+        TypeName = #{record.typename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnemoniccode != null">
+        MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update druglogview
+    set ID = #{record.id,jdbcType=INTEGER},
+      DrugsCode = #{record.drugscode,jdbcType=VARCHAR},
+      DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      Drugstatus = #{record.drugstatus,jdbcType=VARCHAR},
+      DrugsFormat = #{record.drugsformat,jdbcType=VARCHAR},
+      ConstantName = #{record.constantname,jdbcType=VARCHAR},
+      DrugsUnit = #{record.drugsunit,jdbcType=VARCHAR},
+      Drugamount = #{record.drugamount,jdbcType=INTEGER},
+      DrugsPrice = #{record.drugsprice,jdbcType=DECIMAL},
+      Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      TypeName = #{record.typename,jdbcType=VARCHAR},
+      MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from druglogview
+  </select>
+    <select id="selectById" resultMap="BaseResultMap">
+      select * from druglogview where ID = #{id}
+    </select>
+    <select id="selectByKey" resultMap="BaseResultMap">
+      select * from druglogview
+      where (DrugsName like concat(concat('%',#{drug,jdbcType=VARCHAR}   ) ,'%')
+      or MnemonicCode like concat(concat('%',#{drug,jdbcType=VARCHAR}    ) ,'%'))
+      order by id
+    </select>
+</mapper>

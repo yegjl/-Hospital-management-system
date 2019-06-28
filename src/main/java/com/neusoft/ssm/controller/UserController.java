@@ -79,8 +79,9 @@ public class UserController {
     @RequestMapping(value = "/index03")
     public String index03() { return  "fifthpart/YSGZZ_index"; }
 
+    //测试第七部分药房功能
     @RequestMapping(value = "/index04")
-    public String index04() { return  "login/index04"; }
+    public String index04() { return  "Pharmacy_Workstation/PW_index"; }
 
     @RequestMapping(value = "/index05")
     public String index05() { return  "login/index05"; }

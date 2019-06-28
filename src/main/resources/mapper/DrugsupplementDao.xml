@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.DrugsupplementDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Drugsupplement">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DrugsName" jdbcType="VARCHAR" property="drugsname" />
+    <result column="Drugstatus" jdbcType="VARCHAR" property="drugstatus" />
+    <result column="Drugamount" jdbcType="INTEGER" property="drugamount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DrugsName, Drugstatus, Drugamount
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.DrugsupplementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drugsupplement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from drugsupplement
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drugsupplement
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.DrugsupplementExample">
+    delete from drugsupplement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.neusoft.ssm.bean.Drugsupplement" useGeneratedKeys="true">
+    insert into drugsupplement (DrugsName, Drugstatus, Drugamount
+      )
+    values (#{drugsname,jdbcType=VARCHAR}, #{drugstatus,jdbcType=VARCHAR}, #{drugamount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.neusoft.ssm.bean.Drugsupplement" useGeneratedKeys="true">
+    insert into drugsupplement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="drugsname != null">
+        DrugsName,
+      </if>
+      <if test="drugstatus != null">
+        Drugstatus,
+      </if>
+      <if test="drugamount != null">
+        Drugamount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="drugsname != null">
+        #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugstatus != null">
+        #{drugstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="drugamount != null">
+        #{drugamount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.DrugsupplementExample" resultType="java.lang.Long">
+    select count(*) from drugsupplement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drugsupplement
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugsname != null">
+        DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugstatus != null">
+        Drugstatus = #{record.drugstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugamount != null">
+        Drugamount = #{record.drugamount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drugsupplement
+    set ID = #{record.id,jdbcType=INTEGER},
+      DrugsName = #{record.drugsname,jdbcType=VARCHAR},
+      Drugstatus = #{record.drugstatus,jdbcType=VARCHAR},
+      Drugamount = #{record.drugamount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Drugsupplement">
+    update drugsupplement
+    <set>
+      <if test="drugsname != null">
+        DrugsName = #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugstatus != null">
+        Drugstatus = #{drugstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="drugamount != null">
+        Drugamount = #{drugamount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Drugsupplement">
+    update drugsupplement
+    set DrugsName = #{drugsname,jdbcType=VARCHAR},
+      Drugstatus = #{drugstatus,jdbcType=VARCHAR},
+      Drugamount = #{drugamount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateReturnamount">
+      update drugsupplement
+      set  Drugamount = Drugamount + #{param2}
+      where ID = #{param1}
+    </update>
+  <update id="updateDispenseamounr">
+    update drugsupplement
+    set Drugamount = Drugamount - #{param2}
+    where ID = #{param1}
+  </update>
+</mapper>

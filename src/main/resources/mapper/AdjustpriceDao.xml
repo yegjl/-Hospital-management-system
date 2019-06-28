@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.AdjustpriceDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Adjustprice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="drugid" jdbcType="INTEGER" property="drugid" />
+    <result column="drugname" jdbcType="VARCHAR" property="drugname" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="Manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="oldprice" jdbcType="DECIMAL" property="oldprice" />
+    <result column="newprice" jdbcType="DECIMAL" property="newprice" />
+    <result column="adjustid" jdbcType="INTEGER" property="adjustid" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="adjustnumber" jdbcType="INTEGER" property="adjustnumber" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, drugid, drugname, format, Manufacturer, oldprice, newprice, adjustid, `date`, 
+    adjustnumber, reason
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.AdjustpriceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adjustprice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adjustprice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from adjustprice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.AdjustpriceExample">
+    delete from adjustprice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Adjustprice" useGeneratedKeys="true">
+    insert into adjustprice (drugid, drugname, format, 
+      Manufacturer, oldprice, newprice, 
+      adjustid, `date`, adjustnumber, 
+      reason)
+    values (#{drugid,jdbcType=INTEGER}, #{drugname,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{manufacturer,jdbcType=VARCHAR}, #{oldprice,jdbcType=DECIMAL}, #{newprice,jdbcType=DECIMAL}, 
+      #{adjustid,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{adjustnumber,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Adjustprice" useGeneratedKeys="true">
+    insert into adjustprice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="drugid != null">
+        drugid,
+      </if>
+      <if test="drugname != null">
+        drugname,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer,
+      </if>
+      <if test="oldprice != null">
+        oldprice,
+      </if>
+      <if test="newprice != null">
+        newprice,
+      </if>
+      <if test="adjustid != null">
+        adjustid,
+      </if>
+      <if test="date != null">
+        `date`,
+      </if>
+      <if test="adjustnumber != null">
+        adjustnumber,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="drugid != null">
+        #{drugid,jdbcType=INTEGER},
+      </if>
+      <if test="drugname != null">
+        #{drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="oldprice != null">
+        #{oldprice,jdbcType=DECIMAL},
+      </if>
+      <if test="newprice != null">
+        #{newprice,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustid != null">
+        #{adjustid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="adjustnumber != null">
+        #{adjustnumber,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.AdjustpriceExample" resultType="java.lang.Long">
+    select count(*) from adjustprice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update adjustprice
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugid != null">
+        drugid = #{record.drugid,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugname != null">
+        drugname = #{record.drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.format != null">
+        format = #{record.format,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oldprice != null">
+        oldprice = #{record.oldprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.newprice != null">
+        newprice = #{record.newprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.adjustid != null">
+        adjustid = #{record.adjustid,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        `date` = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.adjustnumber != null">
+        adjustnumber = #{record.adjustnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update adjustprice
+    set id = #{record.id,jdbcType=INTEGER},
+      drugid = #{record.drugid,jdbcType=INTEGER},
+      drugname = #{record.drugname,jdbcType=VARCHAR},
+      format = #{record.format,jdbcType=VARCHAR},
+      Manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      oldprice = #{record.oldprice,jdbcType=DECIMAL},
+      newprice = #{record.newprice,jdbcType=DECIMAL},
+      adjustid = #{record.adjustid,jdbcType=INTEGER},
+      `date` = #{record.date,jdbcType=DATE},
+      adjustnumber = #{record.adjustnumber,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Adjustprice">
+    update adjustprice
+    <set>
+      <if test="drugid != null">
+        drugid = #{drugid,jdbcType=INTEGER},
+      </if>
+      <if test="drugname != null">
+        drugname = #{drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="oldprice != null">
+        oldprice = #{oldprice,jdbcType=DECIMAL},
+      </if>
+      <if test="newprice != null">
+        newprice = #{newprice,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustid != null">
+        adjustid = #{adjustid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        `date` = #{date,jdbcType=DATE},
+      </if>
+      <if test="adjustnumber != null">
+        adjustnumber = #{adjustnumber,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Adjustprice">
+    update adjustprice
+    set drugid = #{drugid,jdbcType=INTEGER},
+      drugname = #{drugname,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      oldprice = #{oldprice,jdbcType=DECIMAL},
+      newprice = #{newprice,jdbcType=DECIMAL},
+      adjustid = #{adjustid,jdbcType=INTEGER},
+      `date` = #{date,jdbcType=DATE},
+      adjustnumber = #{adjustnumber,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAdjustByID" resultMap="BaseResultMap">
+    select * from adjustprice where drugid = #{drugid}
+  </select>
+</mapper>

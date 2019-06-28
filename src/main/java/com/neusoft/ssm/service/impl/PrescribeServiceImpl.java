@@ -6,6 +6,7 @@ import com.neusoft.ssm.service.PrescribeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -155,6 +156,11 @@ public class PrescribeServiceImpl implements PrescribeService {
     @Override
     public int updatePrescribecategory(Prescribecategory record) {
         return prescribecategoryDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateMoney(int id, BigDecimal money) {
+        return prescribeDao.updateTotalmoney(id, money);
     }
 
 

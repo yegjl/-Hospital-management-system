@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.ssm.dao.DispenseDao">
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Dispense">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="medicalrecordid" jdbcType="VARCHAR" property="medicalrecordid" />
+    <result column="doctorid" jdbcType="INTEGER" property="doctorid" />
+    <result column="patientname" jdbcType="VARCHAR" property="patientname" />
+    <result column="dispensestatus" jdbcType="INTEGER" property="dispensestatus" />
+    <result column="dispensedate" jdbcType="DATE" property="dispensedate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, medicalrecordid, doctorid, patientname, dispensestatus, dispensedate
+  </sql>
+  <select id="selectByExample" parameterType="com.neusoft.ssm.bean.DispenseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dispense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dispense
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dispense
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.DispenseExample">
+    delete from dispense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Dispense" useGeneratedKeys="true">
+    insert into dispense (medicalrecordid, doctorid, patientname, 
+      dispensestatus, dispensedate)
+    values (#{medicalrecordid,jdbcType=VARCHAR}, #{doctorid,jdbcType=INTEGER}, #{patientname,jdbcType=VARCHAR}, 
+      #{dispensestatus,jdbcType=INTEGER}, #{dispensedate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Dispense" useGeneratedKeys="true">
+    insert into dispense
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="medicalrecordid != null">
+        medicalrecordid,
+      </if>
+      <if test="doctorid != null">
+        doctorid,
+      </if>
+      <if test="patientname != null">
+        patientname,
+      </if>
+      <if test="dispensestatus != null">
+        dispensestatus,
+      </if>
+      <if test="dispensedate != null">
+        dispensedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="medicalrecordid != null">
+        #{medicalrecordid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorid != null">
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="patientname != null">
+        #{patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="dispensestatus != null">
+        #{dispensestatus,jdbcType=INTEGER},
+      </if>
+      <if test="dispensedate != null">
+        #{dispensedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.DispenseExample" resultType="java.lang.Long">
+    select count(*) from dispense
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dispense
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicalrecordid != null">
+        medicalrecordid = #{record.medicalrecordid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doctorid != null">
+        doctorid = #{record.doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.patientname != null">
+        patientname = #{record.patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispensestatus != null">
+        dispensestatus = #{record.dispensestatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dispensedate != null">
+        dispensedate = #{record.dispensedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dispense
+    set id = #{record.id,jdbcType=INTEGER},
+      medicalrecordid = #{record.medicalrecordid,jdbcType=VARCHAR},
+      doctorid = #{record.doctorid,jdbcType=INTEGER},
+      patientname = #{record.patientname,jdbcType=VARCHAR},
+      dispensestatus = #{record.dispensestatus,jdbcType=INTEGER},
+      dispensedate = #{record.dispensedate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Dispense">
+    update dispense
+    <set>
+      <if test="medicalrecordid != null">
+        medicalrecordid = #{medicalrecordid,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorid != null">
+        doctorid = #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="patientname != null">
+        patientname = #{patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="dispensestatus != null">
+        dispensestatus = #{dispensestatus,jdbcType=INTEGER},
+      </if>
+      <if test="dispensedate != null">
+        dispensedate = #{dispensedate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Dispense">
+    update dispense
+    set medicalrecordid = #{medicalrecordid,jdbcType=VARCHAR},
+      doctorid = #{doctorid,jdbcType=INTEGER},
+      patientname = #{patientname,jdbcType=VARCHAR},
+      dispensestatus = #{dispensestatus,jdbcType=INTEGER},
+      dispensedate = #{dispensedate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectDispenseByTodayAndStatu" resultMap="BaseResultMap">
+      select * from dispense
+      where dispensestatus = #{param1} and dispensedate=#{param2}
+    </select>
+    <select id="selectDispenseByPreidAndStatu" resultMap="BaseResultMap">
+    select * from dispense
+    where medicalrecordid = #{param1} and dispensestatus = #{param2}
+  </select>
+    <select id="selectDispenseByStatu" resultMap="BaseResultMap">
+    select * from dispense
+    where dispensestatus = #{statu}
+  </select>
+    <select id="selectDispenseByTriInfo" resultMap="BaseResultMap">
+        select * from dispense
+        where medicalrecordid = #{param1}
+            and dispensestatus = #{param2}
+            and dispensedate = #{param3}
+    </select>
+    <select id="selectAllDispense" resultMap="BaseResultMap">
+        select * from dispense
+    </select>
+    <update id="updateDispenseStatu">
+      update dispense
+      set dispensestatus = #{param2}
+      where medicalrecordid = #{param1,jdbcType=VARCHAR}
+    </update>
+</mapper>

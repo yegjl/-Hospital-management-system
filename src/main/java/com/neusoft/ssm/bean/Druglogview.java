@@ -2,34 +2,35 @@ package com.neusoft.ssm.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
- * drugs
+ * druglogview
  * @author 
  */
-public class Drugs implements Serializable {
+public class Druglogview implements Serializable {
     private Integer id;
 
     private String drugscode;
 
     private String drugsname;
 
+    private String drugstatus;
+
     private String drugsformat;
+
+    private String constantname;
 
     private String drugsunit;
 
-    private String manufacturer;
-
-    private String drugsdosageid;
-
-    private String drugstypeid;
+    private Integer drugamount;
 
     private BigDecimal drugsprice;
 
-    private String mnemoniccode;
+    private String manufacturer;
 
-    private Date creationdate;
+    private String typename;
+
+    private String mnemoniccode;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,12 +58,28 @@ public class Drugs implements Serializable {
         this.drugsname = drugsname;
     }
 
+    public String getDrugstatus() {
+        return drugstatus;
+    }
+
+    public void setDrugstatus(String drugstatus) {
+        this.drugstatus = drugstatus;
+    }
+
     public String getDrugsformat() {
         return drugsformat;
     }
 
     public void setDrugsformat(String drugsformat) {
         this.drugsformat = drugsformat;
+    }
+
+    public String getConstantname() {
+        return constantname;
+    }
+
+    public void setConstantname(String constantname) {
+        this.constantname = constantname;
     }
 
     public String getDrugsunit() {
@@ -73,28 +90,12 @@ public class Drugs implements Serializable {
         this.drugsunit = drugsunit;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public Integer getDrugamount() {
+        return drugamount;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getDrugsdosageid() {
-        return drugsdosageid;
-    }
-
-    public void setDrugsdosageid(String drugsdosageid) {
-        this.drugsdosageid = drugsdosageid;
-    }
-
-    public String getDrugstypeid() {
-        return drugstypeid;
-    }
-
-    public void setDrugstypeid(String drugstypeid) {
-        this.drugstypeid = drugstypeid;
+    public void setDrugamount(Integer drugamount) {
+        this.drugamount = drugamount;
     }
 
     public BigDecimal getDrugsprice() {
@@ -105,20 +106,28 @@ public class Drugs implements Serializable {
         this.drugsprice = drugsprice;
     }
 
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getTypename() {
+        return typename;
+    }
+
+    public void setTypename(String typename) {
+        this.typename = typename;
+    }
+
     public String getMnemoniccode() {
         return mnemoniccode;
     }
 
     public void setMnemoniccode(String mnemoniccode) {
         this.mnemoniccode = mnemoniccode;
-    }
-
-    public Date getCreationdate() {
-        return creationdate;
-    }
-
-    public void setCreationdate(Date creationdate) {
-        this.creationdate = creationdate;
     }
 
     @Override
@@ -132,18 +141,19 @@ public class Drugs implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Drugs other = (Drugs) that;
+        Druglogview other = (Druglogview) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getDrugscode() == null ? other.getDrugscode() == null : this.getDrugscode().equals(other.getDrugscode()))
             && (this.getDrugsname() == null ? other.getDrugsname() == null : this.getDrugsname().equals(other.getDrugsname()))
+            && (this.getDrugstatus() == null ? other.getDrugstatus() == null : this.getDrugstatus().equals(other.getDrugstatus()))
             && (this.getDrugsformat() == null ? other.getDrugsformat() == null : this.getDrugsformat().equals(other.getDrugsformat()))
+            && (this.getConstantname() == null ? other.getConstantname() == null : this.getConstantname().equals(other.getConstantname()))
             && (this.getDrugsunit() == null ? other.getDrugsunit() == null : this.getDrugsunit().equals(other.getDrugsunit()))
-            && (this.getManufacturer() == null ? other.getManufacturer() == null : this.getManufacturer().equals(other.getManufacturer()))
-            && (this.getDrugsdosageid() == null ? other.getDrugsdosageid() == null : this.getDrugsdosageid().equals(other.getDrugsdosageid()))
-            && (this.getDrugstypeid() == null ? other.getDrugstypeid() == null : this.getDrugstypeid().equals(other.getDrugstypeid()))
+            && (this.getDrugamount() == null ? other.getDrugamount() == null : this.getDrugamount().equals(other.getDrugamount()))
             && (this.getDrugsprice() == null ? other.getDrugsprice() == null : this.getDrugsprice().equals(other.getDrugsprice()))
-            && (this.getMnemoniccode() == null ? other.getMnemoniccode() == null : this.getMnemoniccode().equals(other.getMnemoniccode()))
-            && (this.getCreationdate() == null ? other.getCreationdate() == null : this.getCreationdate().equals(other.getCreationdate()));
+            && (this.getManufacturer() == null ? other.getManufacturer() == null : this.getManufacturer().equals(other.getManufacturer()))
+            && (this.getTypename() == null ? other.getTypename() == null : this.getTypename().equals(other.getTypename()))
+            && (this.getMnemoniccode() == null ? other.getMnemoniccode() == null : this.getMnemoniccode().equals(other.getMnemoniccode()));
     }
 
     @Override
@@ -153,14 +163,15 @@ public class Drugs implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getDrugscode() == null) ? 0 : getDrugscode().hashCode());
         result = prime * result + ((getDrugsname() == null) ? 0 : getDrugsname().hashCode());
+        result = prime * result + ((getDrugstatus() == null) ? 0 : getDrugstatus().hashCode());
         result = prime * result + ((getDrugsformat() == null) ? 0 : getDrugsformat().hashCode());
+        result = prime * result + ((getConstantname() == null) ? 0 : getConstantname().hashCode());
         result = prime * result + ((getDrugsunit() == null) ? 0 : getDrugsunit().hashCode());
-        result = prime * result + ((getManufacturer() == null) ? 0 : getManufacturer().hashCode());
-        result = prime * result + ((getDrugsdosageid() == null) ? 0 : getDrugsdosageid().hashCode());
-        result = prime * result + ((getDrugstypeid() == null) ? 0 : getDrugstypeid().hashCode());
+        result = prime * result + ((getDrugamount() == null) ? 0 : getDrugamount().hashCode());
         result = prime * result + ((getDrugsprice() == null) ? 0 : getDrugsprice().hashCode());
+        result = prime * result + ((getManufacturer() == null) ? 0 : getManufacturer().hashCode());
+        result = prime * result + ((getTypename() == null) ? 0 : getTypename().hashCode());
         result = prime * result + ((getMnemoniccode() == null) ? 0 : getMnemoniccode().hashCode());
-        result = prime * result + ((getCreationdate() == null) ? 0 : getCreationdate().hashCode());
         return result;
     }
 
@@ -173,14 +184,15 @@ public class Drugs implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", drugscode=").append(drugscode);
         sb.append(", drugsname=").append(drugsname);
+        sb.append(", drugstatus=").append(drugstatus);
         sb.append(", drugsformat=").append(drugsformat);
+        sb.append(", constantname=").append(constantname);
         sb.append(", drugsunit=").append(drugsunit);
-        sb.append(", manufacturer=").append(manufacturer);
-        sb.append(", drugsdosageid=").append(drugsdosageid);
-        sb.append(", drugstypeid=").append(drugstypeid);
+        sb.append(", drugamount=").append(drugamount);
         sb.append(", drugsprice=").append(drugsprice);
+        sb.append(", manufacturer=").append(manufacturer);
+        sb.append(", typename=").append(typename);
         sb.append(", mnemoniccode=").append(mnemoniccode);
-        sb.append(", creationdate=").append(creationdate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

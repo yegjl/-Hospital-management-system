@@ -1071,6 +1071,7 @@
                     text = othis.text();
                 var tabledata = layui.table.cache['test-table-cellEdit-middle'];
                 var myArray = new Array();
+                var fee = document.getElementById("totalmoney").innerText;//获得界面中的总价钱
                 for (var i = 0; i < tabledata.length; i++) {
                     if((tabledata[i].istemp == 2)||(tabledata[i].istemp == 3) ) {
                         alert("此处方已开立或已作废！");
@@ -1125,7 +1126,40 @@
                                 alert("出现错误");
                                 return false;
                             }
-                        })
+                        });
+
+                        //TODO：在这里创建方法，将界面中的总价获取到，然后传入处方索引表里
+                        $.ajax({
+                            type: "POST",
+                            url: "prescribe/settotalmoney",
+                            traditional: true,
+                            data: {
+                                'id': prescriid,
+                                'fee': fee
+                            },
+                            success: function (res) {
+                                if (res.status == 0) {
+                                    layer.msg(res.message);
+                                } else {
+                                    layer.msg(res.message);
+                                }
+                                setTimeout(function () {
+                                    layui.table.reload('test-table-cellEdit-middle', {
+                                        page: {
+                                            curr: 1
+                                        }
+                                    });
+                                }, 100);
+                                layer.closeAll();
+                                $("#prestatus").empty();
+                                document.getElementById("prestatus").setAttribute("value", "已开立");
+                            },
+                            error: function () {
+                                alert("出现错误");
+                                return false;
+                            }
+                        });
+
                         layer.closeAll();
                         layui.table.reload('test-table-cellEdit-middle', {
                             page: {
