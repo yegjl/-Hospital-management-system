@@ -1,10 +1,12 @@
 package com.neusoft.ssm.dao;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.DrugsExample;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface DrugsDao {
     long countByExample(DrugsExample example);
@@ -25,6 +27,10 @@ public interface DrugsDao {
 
     int updateByExample(@Param("record") Drugs record, @Param("example") DrugsExample example);
 
+    int updateByPrimaryKeySelective(Drugs record);
+
+    int updateByPrimaryKey(Drugs record);
+
     List<Drugs> selectByKey(String key);
 
     List<Drugs> selectAllCheng(String drugid);
@@ -33,4 +39,5 @@ public interface DrugsDao {
 
     Drugs selectByid(int id);
 
+    int updatePriceAndDate(int id, BigDecimal price, Date creationdate);
 }

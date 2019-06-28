@@ -2,11 +2,9 @@ package com.neusoft.ssm.bean;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-public class DrugsExample {
+public class DruglogviewExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -17,7 +15,7 @@ public class DrugsExample {
 
     private Long offset;
 
-    public DrugsExample() {
+    public DruglogviewExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -125,32 +123,6 @@ public class DrugsExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -353,6 +325,76 @@ public class DrugsExample {
             return (Criteria) this;
         }
 
+        public Criteria andDrugstatusIsNull() {
+            addCriterion("Drugstatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusIsNotNull() {
+            addCriterion("Drugstatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusEqualTo(String value) {
+            addCriterion("Drugstatus =", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusNotEqualTo(String value) {
+            addCriterion("Drugstatus <>", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusGreaterThan(String value) {
+            addCriterion("Drugstatus >", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusGreaterThanOrEqualTo(String value) {
+            addCriterion("Drugstatus >=", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusLessThan(String value) {
+            addCriterion("Drugstatus <", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusLessThanOrEqualTo(String value) {
+            addCriterion("Drugstatus <=", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusLike(String value) {
+            addCriterion("Drugstatus like", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusNotLike(String value) {
+            addCriterion("Drugstatus not like", value, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusIn(List<String> values) {
+            addCriterion("Drugstatus in", values, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusNotIn(List<String> values) {
+            addCriterion("Drugstatus not in", values, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusBetween(String value1, String value2) {
+            addCriterion("Drugstatus between", value1, value2, "drugstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugstatusNotBetween(String value1, String value2) {
+            addCriterion("Drugstatus not between", value1, value2, "drugstatus");
+            return (Criteria) this;
+        }
+
         public Criteria andDrugsformatIsNull() {
             addCriterion("DrugsFormat is null");
             return (Criteria) this;
@@ -420,6 +462,76 @@ public class DrugsExample {
 
         public Criteria andDrugsformatNotBetween(String value1, String value2) {
             addCriterion("DrugsFormat not between", value1, value2, "drugsformat");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameIsNull() {
+            addCriterion("ConstantName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameIsNotNull() {
+            addCriterion("ConstantName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameEqualTo(String value) {
+            addCriterion("ConstantName =", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameNotEqualTo(String value) {
+            addCriterion("ConstantName <>", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameGreaterThan(String value) {
+            addCriterion("ConstantName >", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameGreaterThanOrEqualTo(String value) {
+            addCriterion("ConstantName >=", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameLessThan(String value) {
+            addCriterion("ConstantName <", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameLessThanOrEqualTo(String value) {
+            addCriterion("ConstantName <=", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameLike(String value) {
+            addCriterion("ConstantName like", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameNotLike(String value) {
+            addCriterion("ConstantName not like", value, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameIn(List<String> values) {
+            addCriterion("ConstantName in", values, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameNotIn(List<String> values) {
+            addCriterion("ConstantName not in", values, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameBetween(String value1, String value2) {
+            addCriterion("ConstantName between", value1, value2, "constantname");
+            return (Criteria) this;
+        }
+
+        public Criteria andConstantnameNotBetween(String value1, String value2) {
+            addCriterion("ConstantName not between", value1, value2, "constantname");
             return (Criteria) this;
         }
 
@@ -493,6 +605,126 @@ public class DrugsExample {
             return (Criteria) this;
         }
 
+        public Criteria andDrugamountIsNull() {
+            addCriterion("Drugamount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountIsNotNull() {
+            addCriterion("Drugamount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountEqualTo(Integer value) {
+            addCriterion("Drugamount =", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountNotEqualTo(Integer value) {
+            addCriterion("Drugamount <>", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountGreaterThan(Integer value) {
+            addCriterion("Drugamount >", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("Drugamount >=", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountLessThan(Integer value) {
+            addCriterion("Drugamount <", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountLessThanOrEqualTo(Integer value) {
+            addCriterion("Drugamount <=", value, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountIn(List<Integer> values) {
+            addCriterion("Drugamount in", values, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountNotIn(List<Integer> values) {
+            addCriterion("Drugamount not in", values, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountBetween(Integer value1, Integer value2) {
+            addCriterion("Drugamount between", value1, value2, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugamountNotBetween(Integer value1, Integer value2) {
+            addCriterion("Drugamount not between", value1, value2, "drugamount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceIsNull() {
+            addCriterion("DrugsPrice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceIsNotNull() {
+            addCriterion("DrugsPrice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceEqualTo(BigDecimal value) {
+            addCriterion("DrugsPrice =", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceNotEqualTo(BigDecimal value) {
+            addCriterion("DrugsPrice <>", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceGreaterThan(BigDecimal value) {
+            addCriterion("DrugsPrice >", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("DrugsPrice >=", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceLessThan(BigDecimal value) {
+            addCriterion("DrugsPrice <", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("DrugsPrice <=", value, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceIn(List<BigDecimal> values) {
+            addCriterion("DrugsPrice in", values, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceNotIn(List<BigDecimal> values) {
+            addCriterion("DrugsPrice not in", values, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("DrugsPrice between", value1, value2, "drugsprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDrugspriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("DrugsPrice not between", value1, value2, "drugsprice");
+            return (Criteria) this;
+        }
+
         public Criteria andManufacturerIsNull() {
             addCriterion("Manufacturer is null");
             return (Criteria) this;
@@ -563,203 +795,73 @@ public class DrugsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidIsNull() {
-            addCriterion("DrugsDosageID is null");
+        public Criteria andTypenameIsNull() {
+            addCriterion("TypeName is null");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidIsNotNull() {
-            addCriterion("DrugsDosageID is not null");
+        public Criteria andTypenameIsNotNull() {
+            addCriterion("TypeName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidEqualTo(String value) {
-            addCriterion("DrugsDosageID =", value, "drugsdosageid");
+        public Criteria andTypenameEqualTo(String value) {
+            addCriterion("TypeName =", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidNotEqualTo(String value) {
-            addCriterion("DrugsDosageID <>", value, "drugsdosageid");
+        public Criteria andTypenameNotEqualTo(String value) {
+            addCriterion("TypeName <>", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidGreaterThan(String value) {
-            addCriterion("DrugsDosageID >", value, "drugsdosageid");
+        public Criteria andTypenameGreaterThan(String value) {
+            addCriterion("TypeName >", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidGreaterThanOrEqualTo(String value) {
-            addCriterion("DrugsDosageID >=", value, "drugsdosageid");
+        public Criteria andTypenameGreaterThanOrEqualTo(String value) {
+            addCriterion("TypeName >=", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidLessThan(String value) {
-            addCriterion("DrugsDosageID <", value, "drugsdosageid");
+        public Criteria andTypenameLessThan(String value) {
+            addCriterion("TypeName <", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidLessThanOrEqualTo(String value) {
-            addCriterion("DrugsDosageID <=", value, "drugsdosageid");
+        public Criteria andTypenameLessThanOrEqualTo(String value) {
+            addCriterion("TypeName <=", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidLike(String value) {
-            addCriterion("DrugsDosageID like", value, "drugsdosageid");
+        public Criteria andTypenameLike(String value) {
+            addCriterion("TypeName like", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidNotLike(String value) {
-            addCriterion("DrugsDosageID not like", value, "drugsdosageid");
+        public Criteria andTypenameNotLike(String value) {
+            addCriterion("TypeName not like", value, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidIn(List<String> values) {
-            addCriterion("DrugsDosageID in", values, "drugsdosageid");
+        public Criteria andTypenameIn(List<String> values) {
+            addCriterion("TypeName in", values, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidNotIn(List<String> values) {
-            addCriterion("DrugsDosageID not in", values, "drugsdosageid");
+        public Criteria andTypenameNotIn(List<String> values) {
+            addCriterion("TypeName not in", values, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidBetween(String value1, String value2) {
-            addCriterion("DrugsDosageID between", value1, value2, "drugsdosageid");
+        public Criteria andTypenameBetween(String value1, String value2) {
+            addCriterion("TypeName between", value1, value2, "typename");
             return (Criteria) this;
         }
 
-        public Criteria andDrugsdosageidNotBetween(String value1, String value2) {
-            addCriterion("DrugsDosageID not between", value1, value2, "drugsdosageid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidIsNull() {
-            addCriterion("DrugsTypeID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidIsNotNull() {
-            addCriterion("DrugsTypeID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidEqualTo(String value) {
-            addCriterion("DrugsTypeID =", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidNotEqualTo(String value) {
-            addCriterion("DrugsTypeID <>", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidGreaterThan(String value) {
-            addCriterion("DrugsTypeID >", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidGreaterThanOrEqualTo(String value) {
-            addCriterion("DrugsTypeID >=", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidLessThan(String value) {
-            addCriterion("DrugsTypeID <", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidLessThanOrEqualTo(String value) {
-            addCriterion("DrugsTypeID <=", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidLike(String value) {
-            addCriterion("DrugsTypeID like", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidNotLike(String value) {
-            addCriterion("DrugsTypeID not like", value, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidIn(List<String> values) {
-            addCriterion("DrugsTypeID in", values, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidNotIn(List<String> values) {
-            addCriterion("DrugsTypeID not in", values, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidBetween(String value1, String value2) {
-            addCriterion("DrugsTypeID between", value1, value2, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugstypeidNotBetween(String value1, String value2) {
-            addCriterion("DrugsTypeID not between", value1, value2, "drugstypeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceIsNull() {
-            addCriterion("DrugsPrice is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceIsNotNull() {
-            addCriterion("DrugsPrice is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceEqualTo(BigDecimal value) {
-            addCriterion("DrugsPrice =", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceNotEqualTo(BigDecimal value) {
-            addCriterion("DrugsPrice <>", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceGreaterThan(BigDecimal value) {
-            addCriterion("DrugsPrice >", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("DrugsPrice >=", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceLessThan(BigDecimal value) {
-            addCriterion("DrugsPrice <", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("DrugsPrice <=", value, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceIn(List<BigDecimal> values) {
-            addCriterion("DrugsPrice in", values, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceNotIn(List<BigDecimal> values) {
-            addCriterion("DrugsPrice not in", values, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("DrugsPrice between", value1, value2, "drugsprice");
-            return (Criteria) this;
-        }
-
-        public Criteria andDrugspriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("DrugsPrice not between", value1, value2, "drugsprice");
+        public Criteria andTypenameNotBetween(String value1, String value2) {
+            addCriterion("TypeName not between", value1, value2, "typename");
             return (Criteria) this;
         }
 
@@ -830,66 +932,6 @@ public class DrugsExample {
 
         public Criteria andMnemoniccodeNotBetween(String value1, String value2) {
             addCriterion("MnemonicCode not between", value1, value2, "mnemoniccode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateIsNull() {
-            addCriterion("CreationDate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateIsNotNull() {
-            addCriterion("CreationDate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateEqualTo(Date value) {
-            addCriterionForJDBCDate("CreationDate =", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("CreationDate <>", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateGreaterThan(Date value) {
-            addCriterionForJDBCDate("CreationDate >", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("CreationDate >=", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateLessThan(Date value) {
-            addCriterionForJDBCDate("CreationDate <", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("CreationDate <=", value, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateIn(List<Date> values) {
-            addCriterionForJDBCDate("CreationDate in", values, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("CreationDate not in", values, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("CreationDate between", value1, value2, "creationdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreationdateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("CreationDate not between", value1, value2, "creationdate");
             return (Criteria) this;
         }
     }

@@ -1,7 +1,7 @@
 package com.neusoft.ssm.service;
 
 import com.neusoft.ssm.bean.*;
-
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PrescribeService {
@@ -53,5 +53,7 @@ public interface PrescribeService {
     Prescribelogview findByTwoid(int prescribeid,int medicalid);
 
     int updatePrescribecategory(Prescribecategory record);
+
+    int updateMoney(int id, BigDecimal money);
 
 }

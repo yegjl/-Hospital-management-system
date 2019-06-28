@@ -28,4 +28,6 @@ public interface RegisterMapper {
 
     List<RegistrationInfo> findByDaidoctorid(Integer doctorid);
     List<RegistrationInfo> findByWeidoctorid(Integer doctorid);
+
+    RegistrationInfo selectInfoByRecordno(String recordno);
 }

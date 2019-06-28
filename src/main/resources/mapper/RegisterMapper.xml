@@ -48,4 +48,9 @@
     <select id="findByWeidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
         select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="02" and status="01"
     </select>
+    <select id="selectInfoByRecordno" resultType="com.neusoft.ssm.bean.RegistrationInfo">
+        select * from registration_info where medical_record_no = #{recordno,jdbcType=VARCHAR}
+    </select>
+
+
 </mapper>

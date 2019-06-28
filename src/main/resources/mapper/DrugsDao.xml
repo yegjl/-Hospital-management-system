@@ -12,7 +12,7 @@
     <result column="DrugsTypeID" jdbcType="VARCHAR" property="drugstypeid" />
     <result column="DrugsPrice" jdbcType="DECIMAL" property="drugsprice" />
     <result column="MnemonicCode" jdbcType="VARCHAR" property="mnemoniccode" />
-    <result column="CreationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="CreationDate" jdbcType="DATE" property="creationdate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -122,7 +122,7 @@
     values (#{drugscode,jdbcType=VARCHAR}, #{drugsname,jdbcType=VARCHAR}, #{drugsformat,jdbcType=VARCHAR}, 
       #{drugsunit,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{drugsdosageid,jdbcType=VARCHAR}, 
       #{drugstypeid,jdbcType=VARCHAR}, #{drugsprice,jdbcType=DECIMAL}, #{mnemoniccode,jdbcType=VARCHAR}, 
-      #{creationdate,jdbcType=VARCHAR})
+      #{creationdate,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.neusoft.ssm.bean.Drugs" useGeneratedKeys="true">
     insert into drugs
@@ -187,7 +187,7 @@
         #{mnemoniccode,jdbcType=VARCHAR},
       </if>
       <if test="creationdate != null">
-        #{creationdate,jdbcType=VARCHAR},
+        #{creationdate,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -231,7 +231,7 @@
         MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
       </if>
       <if test="record.creationdate != null">
-        CreationDate = #{record.creationdate,jdbcType=VARCHAR},
+        CreationDate = #{record.creationdate,jdbcType=DATE},
       </if>
     </set>
     <if test="_parameter != null">
@@ -250,10 +250,60 @@
       DrugsTypeID = #{record.drugstypeid,jdbcType=VARCHAR},
       DrugsPrice = #{record.drugsprice,jdbcType=DECIMAL},
       MnemonicCode = #{record.mnemoniccode,jdbcType=VARCHAR},
-      CreationDate = #{record.creationdate,jdbcType=VARCHAR}
+      CreationDate = #{record.creationdate,jdbcType=DATE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.ssm.bean.Drugs">
+    update drugs
+    <set>
+      <if test="drugscode != null">
+        DrugsCode = #{drugscode,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsname != null">
+        DrugsName = #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsformat != null">
+        DrugsFormat = #{drugsformat,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsunit != null">
+        DrugsUnit = #{drugsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsdosageid != null">
+        DrugsDosageID = #{drugsdosageid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugstypeid != null">
+        DrugsTypeID = #{drugstypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsprice != null">
+        DrugsPrice = #{drugsprice,jdbcType=DECIMAL},
+      </if>
+      <if test="mnemoniccode != null">
+        MnemonicCode = #{mnemoniccode,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        CreationDate = #{creationdate,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Drugs">
+    update drugs
+    set DrugsCode = #{drugscode,jdbcType=VARCHAR},
+      DrugsName = #{drugsname,jdbcType=VARCHAR},
+      DrugsFormat = #{drugsformat,jdbcType=VARCHAR},
+      DrugsUnit = #{drugsunit,jdbcType=VARCHAR},
+      Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      DrugsDosageID = #{drugsdosageid,jdbcType=VARCHAR},
+      DrugsTypeID = #{drugstypeid,jdbcType=VARCHAR},
+      DrugsPrice = #{drugsprice,jdbcType=DECIMAL},
+      MnemonicCode = #{mnemoniccode,jdbcType=VARCHAR},
+      CreationDate = #{creationdate,jdbcType=DATE}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
      select *
@@ -270,4 +320,10 @@
   <select id="selectAllCao" resultMap="BaseResultMap">
     select * from drugs where DrugsTypeID = #{drugid}
   </select>
+  <update id="updatePriceAndDate">
+    update drugs
+    set DrugsPrice = #{param2,jdbcType=DECIMAL} ,
+        CreationDate = #{param3,jdbcType=TIMESTAMP}
+    where ID = #{param1}
+  </update>
 </mapper>

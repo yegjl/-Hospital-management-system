@@ -3,7 +3,9 @@ package com.neusoft.ssm.dao;
 import com.neusoft.ssm.bean.Prescribe;
 import com.neusoft.ssm.bean.PrescribeExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hpsf.Decimal;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PrescribeDao {
@@ -40,4 +42,6 @@ public interface PrescribeDao {
     int updateFormulation(int id);
 
     int updateCancel(int id);
+
+    int updateTotalmoney(int id, BigDecimal money);
 }

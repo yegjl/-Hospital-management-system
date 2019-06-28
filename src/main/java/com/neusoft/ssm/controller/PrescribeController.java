@@ -439,4 +439,23 @@ public class PrescribeController {
         return resultDTO;
     }
 
+    //    settotalmoney
+    //在开立处方时间中添加存入处方总值的事件
+    @RequestMapping(value = "/settotalmoney",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> settotalmoney(int id,String fee) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            BigDecimal bigfee = new BigDecimal(fee);
+            int issuccess = prescribeService.updateMoney(id, bigfee);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
 }

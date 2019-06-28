@@ -285,4 +285,9 @@
     set isdone = 2
     where id = #{id}
   </update>
+  <update id="updateTotalmoney">
+    update prescribe
+    set money = #{param2}
+    where id = #{param1}
+  </update>
 </mapper>
