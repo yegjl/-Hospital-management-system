@@ -77,4 +77,9 @@ public class RegisterServiceImpl implements RegisterService {
     public void alterAUTO() {
         registerMapper.alterAUTO();
     }
+
+    @Override
+    public int quezhen(String medicalRecordNo) {
+        return registerMapper.updateIsSeen(medicalRecordNo);
+    }
 }

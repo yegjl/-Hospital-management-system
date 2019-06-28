@@ -32,4 +32,6 @@ public interface RegisterMapper {
     List<RegistrationInfo> findByYiDepart(Integer departid);
 
     RegistrationInfo selectInfoByRecordno(String recordno);
+
+    int updateIsSeen(String medicalRecordNo);
 }
