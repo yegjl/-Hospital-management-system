@@ -25,7 +25,7 @@
     <div class="layui-row">
         <form id="medicalRecord" class="layui-form">
 <%--            todo:栅栏--%>
-            <div id="zuo" class="layui-col-md8">
+            <div id="zuo" class="layui-col-md9">
                 <!-- 中部折叠面板 -->
                 <div class="layui-card" style="overflow: auto;height:600px;">
                     <div class="layui-card-header">门（急）诊面板信息</div>
@@ -148,7 +148,7 @@
             </div>
         </form>
 <%--        todo:栅栏--%>
-        <div class="layui-col-md4" id="you">
+        <div class="layui-col-md3" id="you">
             <div class="layui-fluid" id="component-tabs2">
                 <div class="layui-card">
                     <div class="layui-card-body">
@@ -156,7 +156,6 @@
                             <ul class="layui-tab-title">
                                 <li class="layui-this">病历模板</li>
                                 <li>常用诊断</li>
-                                <li>历史病历</li>
                             </ul>
                             <div class="layui-tab-content">
                                 <div class="layui-tab-item layui-show">
@@ -180,9 +179,9 @@
                                         <c:forEach items="${CommonDiagnosises}" varStatus="flag" var="CommonDiagnosis">
                                             <div class="layui-btn-group">
                                                 <button type="button" class=" layui-btn layui-btn-primary layui-btn-xs"
-                                                        style="float: left;margin-top: 1%;" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" lay-submit lay-filter="dia">${CommonDiagnosis.diseasename}
+                                                        style="float: left;margin-top: 1%;" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" >${CommonDiagnosis.diseasename}
                                                 </button>
-                                                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs"><i
+                                                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" lay-submit lay-filter="deletedia"><i
                                                         class="layui-icon layui-icon-delete"></i></button>
                                             </div>
                                         </c:forEach>
@@ -395,18 +394,31 @@
                 // data: $("#form").serialize()+"&myarray="+myarray,
                 data: "index="+data.elem.value,
                 success: function (result) {
-
-                    if (res.status == 0) {
-                    } else {
-                        layer.msg(res.message)
-                    }
-
                     layui.table.reload('test-table-simple3');
                 },
                 error: function (result) {
                     alert(result.msg);
                 }
             })
+        });
+        form.on('submit(deletedia)', function(data){
+            var res = confirm("确定删除这一常用诊断吗?");
+            if (!res) {
+                return;
+            }
+            $.ajax({
+                type: "POST",//方法类型
+                url: "MedicalRecordPage/deletecommon",//url
+                async: false,
+                // data: $("#form").serialize()+"&myarray="+myarray,
+                data: "index="+data.elem.value,
+                success: function (result) {
+                    layui.table.reload('test-table-simple3');
+                },
+                error: function (result) {
+                    alert(result.msg);
+                }
+            });
         });
         form.on('submit(quezhen)', function(data){
             $.ajax({
@@ -746,60 +758,61 @@
                                 async : false,
                                 // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
                                 success: function (res) {
-                                    var rdata=res.data;
-                                    if (res.status == 0) {
-                                       layui.table.render({
-                                            elem: '#test-table-simple3',
-                                            cellMinWidth: 200 //全局定义常规单元格的最小宽度
-                                            ,cols: [[
-                                                {
-                                                    checkbox: true,
-                                                    fixed: true
-                                                }, {
-                                                    field: 'id',
-                                                    width: 80,
-                                                    title: 'ID',
-                                                    sort: true
-                                                }, {
-                                                    field: 'diseasename',
-                                                    width: 313,
-                                                    title: '疾病名称'
-                                                }, {
-                                                    field: 'medicalRecordNo',
-                                                    width: 300,
-                                                    title: '病历号',
-                                                    sort: true
-                                                }, {
-                                                    field: 'flag',
-                                                    width: 120,
-                                                    title: '主诊/疑似标志',
-                                                    templet: function (d) {
-                                                        var state = "";
-                                                        if (d.flag == "0") {
-                                                            state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" disabled>';
-                                                        }
-                                                        else if (d.flag == "1") {
-                                                            state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" checked disabled>';
-
-                                                        }
-
-                                                        return state;
-                                                    }
-                                                    ,unresize: true
-                                                }, {
-                                                    field: 'dA',
-                                                    width: 300,
-                                                    title: '发病日期',
-                                                    templet: function (d) {
-                                                        return dateToStr(d.dA);
-                                                    }
-                                                }]],
-                                            data:rdata
-
-                                        });
-                                    } else {
-                                        layer.msg(res.message)
-                                    }
+                                    layui.table.reload("test-table-simple3");
+                                    // var rdata=res.data;
+                                    // if (res.status == 0) {
+                                    //    layui.table.render({
+                                    //         elem: '#test-table-simple3',
+                                    //         cellMinWidth: 200 //全局定义常规单元格的最小宽度
+                                    //         ,cols: [[
+                                    //             {
+                                    //                 checkbox: true,
+                                    //                 fixed: true
+                                    //             }, {
+                                    //                 field: 'id',
+                                    //                 width: 80,
+                                    //                 title: 'ID',
+                                    //                 sort: true
+                                    //             }, {
+                                    //                 field: 'diseasename',
+                                    //                 width: 313,
+                                    //                 title: '疾病名称'
+                                    //             }, {
+                                    //                 field: 'medicalRecordNo',
+                                    //                 width: 300,
+                                    //                 title: '病历号',
+                                    //                 sort: true
+                                    //             }, {
+                                    //                 field: 'flag',
+                                    //                 width: 120,
+                                    //                 title: '主诊/疑似标志',
+                                    //                 templet: function (d) {
+                                    //                     var state = "";
+                                    //                     if (d.flag == "0") {
+                                    //                         state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" disabled>';
+                                    //                     }
+                                    //                     else if (d.flag == "1") {
+                                    //                         state = '<input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊" checked disabled>';
+                                    //
+                                    //                     }
+                                    //
+                                    //                     return state;
+                                    //                 }
+                                    //                 ,unresize: true
+                                    //             }, {
+                                    //                 field: 'dA',
+                                    //                 width: 300,
+                                    //                 title: '发病日期',
+                                    //                 templet: function (d) {
+                                    //                     return dateToStr(d.dA);
+                                    //                 }
+                                    //             }]],
+                                    //         data:rdata
+                                    //
+                                    //     });
+                                //     } else {
+                                //         layer.msg(res.message)
+                                //     }
                                 },
                                 error: function () {
                                     alert("出现错误");
@@ -988,6 +1001,14 @@
             } ,
             delete: function (othis) {
                 var tabledata=layui.table.checkStatus('test-table-simple3').data;
+                if (tabledata.length == 0) {
+                    alert("请选定要删除的诊断！");
+                    return;
+                }
+                var ids = [];
+                for (var i = 0; i < tabledata.length; i++) {
+                    ids.push(tabledata[i].id);
+                }
                 var that = this;
                 layer.open({
                     type: 1,
@@ -995,7 +1016,7 @@
                     area: ['450px', '150px'],
                     shade: 0,
                     maxmin: true,
-                    content: '<h2 align="center">确定删除这一诊断吗?</h2>',
+                    content: '<h2 align="center">确定删除这些诊断吗?</h2>',
                     // content: '<h1>111222</h1>',
                     btn: ['确定', '全部关闭'],
                     yes: function () {
@@ -1004,11 +1025,61 @@
                             url: "MedicalRecordPage/delete",//url
                             async: false,
                             // data: $("#form").serialize()+"&myarray="+myarray,
-                            data: "id="+tabledata[0].id,
+                            data: "ids="+ids,
                             success: function (result) {
 
                             },
                             error: function (result) {
+
+                                alert(result.msg);
+                            }
+                        });
+                        layer.closeAll();
+                        layui.table.reload('test-table-simple3');
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    ,
+                    zIndex: layer.zIndex,
+                    success: function (layero) {
+                        layer.setTop(layero);
+                    }
+                });
+            },
+            deletecomdia: function (othis) {
+                var tabledata=layui.table.checkStatus('test-table-simple3').data;
+                if (tabledata.length == 0) {
+                    alert("请选定要删除的诊断！");
+                    return;
+                }
+                var ids = [];
+                for (var i = 0; i < tabledata.length; i++) {
+                    ids.push(tabledata[i].id);
+                }
+                var that = this;
+                layer.open({
+                    type: 1,
+                    title: '删除诊断',
+                    area: ['450px', '150px'],
+                    shade: 0,
+                    maxmin: true,
+                    content: '<h2 align="center">确定删除这些诊断吗?</h2>',
+                    // content: '<h1>111222</h1>',
+                    btn: ['确定', '全部关闭'],
+                    yes: function () {
+                        $.ajax({
+                            type: "POST",//方法类型
+                            url: "MedicalRecordPage/delete",//url
+                            async: false,
+                            // data: $("#form").serialize()+"&myarray="+myarray,
+                            data: "ids="+ids,
+                            success: function (result) {
+
+                            },
+                            error: function (result) {
+
                                 alert(result.msg);
                             }
                         });

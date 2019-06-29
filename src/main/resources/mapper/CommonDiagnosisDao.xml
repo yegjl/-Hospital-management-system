@@ -76,4 +76,8 @@
   <select id="selectAll" resultMap="BaseResultMap" parameterType="integer">
     select * from common_diagnosis <where>doctorid=#{doctorid}</where>
   </select>
+    <delete id="deleteBydiagnosisid" parameterType="integer">
+      delete from common_diagnosis
+      where diagnosisid=#{diagnosisid}
+    </delete>
 </mapper>

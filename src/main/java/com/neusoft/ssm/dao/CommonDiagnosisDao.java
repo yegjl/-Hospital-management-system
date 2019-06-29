@@ -16,4 +16,6 @@ public interface CommonDiagnosisDao {
     int updateByPrimaryKeySelective(CommonDiagnosis record);
 
     int updateByPrimaryKey(CommonDiagnosis record);
+
+    int deleteBydiagnosisid(Integer diagnosisid);
 }

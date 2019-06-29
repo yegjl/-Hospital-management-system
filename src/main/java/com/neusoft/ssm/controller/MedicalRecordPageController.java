@@ -35,7 +35,7 @@ public class MedicalRecordPageController {
         Diagnosis diagnosis = null;
         for (CommonDiagnosis commonDiagnosis : list) {
             diagnosis = medicalRecordService.findDiagnosisByID(commonDiagnosis.getDiagnosisid());
-            diagnosis.setMedicalRecordNo("2019061700001");
+            diagnosis.setMedicalRecordNo(medicalRecordNo);
             diagnosisList.add(diagnosis);
         }
         session.setAttribute("doctorid", 2);
@@ -265,12 +265,31 @@ public class MedicalRecordPageController {
 
     @RequestMapping("/delete")
     @ResponseBody
-    public ResultDTO<Integer> delete(Integer id, Integer index, Model model) {
+    public ResultDTO<Integer> delete(Integer[] ids, Integer index, Model model) {
         ResultDTO<Integer> resultDTO = new ResultDTO<>();
 
 
         try {
-            int issuccess = medicalRecordService.deleteDia(id);
+            for (int i = 0; i < ids.length; i++) {
+                int issuccess = medicalRecordService.deleteDia(ids[i]);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping("/deletecommon")
+    @ResponseBody
+    public ResultDTO<Integer> deletecommon(Integer index) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        Diagnosis diagnosis = diagnosisList.get(index);
+        try {
+            int issuccess = medicalRecordService.deleteCommonDiagnosis(diagnosis.getId());
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);
@@ -281,7 +300,6 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
-
     @RequestMapping("/addcommon")
     @ResponseBody
     public ResultDTO<Integer> addcommon(Integer index) {
@@ -302,7 +320,6 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
-
     private List<Diagnosis> replaceIDToName(List<Diagnosis> list) {
         for (Diagnosis diagnosis : list) {
             diagnosis.setDiseasename(medicalRecordService.findDiseaseById(diagnosis.getDiseaseid()).getDiseasename());
