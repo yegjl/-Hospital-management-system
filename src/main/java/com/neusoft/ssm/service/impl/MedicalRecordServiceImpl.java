@@ -63,7 +63,10 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     public List<CommonDiagnosis> findAllCommonDiagnosis(Integer doctorid) {
         return commonDiagnosisDao.selectAll(doctorid);
     }
-
+    @Override
+    public int deleteCommonDiagnosis(Integer diagnosisid) {
+        return commonDiagnosisDao.deleteBydiagnosisid(diagnosisid);
+    }
     @Override
     public Diagnosis findDiagnosisByID(Integer id) {
         return diagnosisDao.selectByPrimaryKey(id);
