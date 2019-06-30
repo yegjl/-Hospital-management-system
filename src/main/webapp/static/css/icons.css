@@ -1,0 +1,21 @@
+ .icon-login-doctor,
+ .icon-login-password,
+ .icon-login-checkword {
+     display: inline-block;
+     width: 20px;
+     height: 20px;
+
+     background-position: center center;
+ }
+
+ .icon-login-doctor {
+     background-image: url(../images/doctor.png);
+ }
+
+ .icon-login-password {
+     background-image: url(../images/password.png);
+ }
+
+ .icon-login-checkword {
+     background-image: url(../images/checkword.png);
+ }

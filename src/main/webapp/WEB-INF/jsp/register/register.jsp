@@ -90,7 +90,7 @@
                 //"see_doctor_date": $("#test-laydate-end").val(),
                 "department_id": $("#departmentId").val(),
                 "doctor_id": $("#doctorId").val(),
-                "registration_source": $("#register_source").val(),
+                "registration_department": $("#register_department").val(),
                 "settle_accounts_category": $("#settle_category").val(),
                 "is_seen_doctor": $("#see_doctor").val(),
                 "status": $("#status").val(),
@@ -243,7 +243,7 @@
         var id_card_no = document.getElementById("id_card_no").value.toUpperCase();
         var departmentId = document.getElementById("departmentId").value.toUpperCase();
         var doctorId = document.getElementById("doctorId").value.toUpperCase();
-        var register_source = document.getElementById("register_source").value.toUpperCase();
+        var register_department = document.getElementById("register_department").value.toUpperCase();
         var settle_category = document.getElementById("settle_category").value.toUpperCase();
         var money = document.getElementById("money").value.toUpperCase();
 
@@ -268,7 +268,7 @@
         } else if (doctorId == "") {
             alert("医生不能为空");
             return false;
-        } else if (register_source == "") {
+        } else if (register_department == "") {
             alert("挂号来源不能为空");
             return false;
         } else if (settle_category == "") {
@@ -873,7 +873,7 @@
 
                                         <div class="layui-card layui-form" lay-filter="component-form-element"
                                              style="float: right;width: 70%;">
-                                            <select name="week" id="register_source" lay-verify="required" lay-search>
+                                            <select name="week" id="register_department" lay-verify="required" lay-search>
                                                 <option value="">请选择挂号来源</option>
                                                 <option value="01">医院挂号</option>
                                                 <option value="02">预约挂号</option>

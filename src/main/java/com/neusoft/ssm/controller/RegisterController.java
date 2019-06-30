@@ -32,7 +32,7 @@ public class RegisterController {
     ExpenseService expenseService;
 
     @Autowired
-    RegistrationlevelService registrationlevelService;
+    RegistrationLevelService registrationlevelService;
 
     @Autowired
     DoctorService doctorService;

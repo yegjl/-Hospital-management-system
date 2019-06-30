@@ -37,7 +37,7 @@ public class ScheduleController {
     private ScheduleResultService scheduleResultService;
 
     @Autowired
-    RegistrationlevelService registrationlevelService;
+    RegistrationLevelService registrationlevelService;
 
     @Autowired
     private DoctorService doctorService;
@@ -47,6 +47,10 @@ public class ScheduleController {
 
     String keyword = null;
 
+    @RequestMapping(value = "/index")
+    public String Index() {
+        return "schedule/schedule";
+    }
     //跳转至添加页面
     @RequestMapping(value = "/addUI")
     public String Toadd() {

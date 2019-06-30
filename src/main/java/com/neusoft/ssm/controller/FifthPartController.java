@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
+import com.neusoft.ssm.service.SixpartService;
 import com.neusoft.ssm.util.MD5;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class FifthPartController {
 
     @Autowired
     private ExamcheckService examcheckService;
+
+    @Autowired
+    private SixpartService sixpartService;
 
     @RequestMapping(value = "/index")
     public String index(String id, Model model) {
@@ -86,6 +90,12 @@ public class FifthPartController {
                     examcheckone.setStatus("已登记");
                 else if (examcheckone.getStatus().equals("6"))
                     examcheckone.setStatus("检查结果已录入");
+                else examcheckone.setStatus("医技补录");
+
+                if((examcheckone.getIsmed()).equals("1")) {
+                    examcheckone.setMark("补录药品/材料");
+                    examcheckone.setItemname(sixpartService.getMedNameById(sixpartService.findIdByName(examcheckone.getItemname())));
+                }
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
@@ -209,6 +219,8 @@ public Fmeditem getQue(String name,String id) {
             System.out.println("操作开始！！！");
             examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid,medicalid));
             examcheckInfo.setStatus("0");
+            examcheckInfo.setNumber(1);
+            examcheckInfo.setIsmed("0");
             int issuccess = examcheckService.addInfo(examcheckInfo);
             System.out.println("添加函数已调用");
             resultDTO.setStatus(0);

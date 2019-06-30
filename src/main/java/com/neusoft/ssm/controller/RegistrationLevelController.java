@@ -2,7 +2,7 @@ package com.neusoft.ssm.controller;
 
 import com.neusoft.ssm.bean.Registrationlevel;
 import com.neusoft.ssm.dto.ResultDTO;
-import com.neusoft.ssm.service.RegistrationlevelService;
+import com.neusoft.ssm.service.RegistrationLevelService;
 import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class RegistrationLevelController {
 
     @Autowired
     //registrationService
-     RegistrationlevelService registrationLevelService;
+            RegistrationLevelService registrationLevelService;
 
     @RequestMapping(value = "/index")
     public String index01(String name,String id, Model model) {

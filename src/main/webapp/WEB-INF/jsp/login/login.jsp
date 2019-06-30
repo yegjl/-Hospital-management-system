@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
     <link type="text/css" rel="stylesheet" href="css/demo.css">
     <link type="text/css" rel="stylesheet" href="css/colorfulTab.min.css">
-
+    <link type="text/css" rel="stylesheet" href="css/icons.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/snow.js"></script>
     <script src="js/jquery.pure.tooltips.js"></script>
@@ -590,14 +590,14 @@ function inputCheck() {
                                             <span class="input input--hideo">
                                                 <input class="input__field input__field--hideo" type="text" id="login_name" name="login_name" autocomplete="on" placeholder="请输入用户名" tabindex="1" maxlength="15" />
                                                 <label class="input__label input__label--hideo" for="login_name">
-                                                    <i class="fa fa-fw fa-user icon icon--hideo"></i>
+                                                    <i class="icon-login-doctor"></i>
                                                     <span class="input__label-content input__label-content--hideo"></span>
                                                 </label>
                                             </span>
                                         <span class="input input--hideo">
                                                 <input class="input__field input__field--hideo" type="password" id="password" name="password" placeholder="请输入密码" tabindex="2" maxlength="15" />
                                                 <label class="input__label input__label--hideo" for="password">
-                                                    <i class="fa fa-fw fa-lock icon icon--hideo"></i>
+                                                    <i class="icon-login-password"></i>
                                                     <span class="input__label-content input__label-content--hideo"></span>
                                                 </label>
                                             </span>
@@ -606,7 +606,7 @@ function inputCheck() {
                                                 <span class="input input--hideo">
                                                     <input class="input__field input__field--hideo" type="text" id="validCode" name="check_code" placeholder="请输入验证码" tabindex="3" maxlength="15" />
                                                     <label class="input__label input__label--hideo" for="validCode" style="width: 50px;">
-                                                        <i class="fa fa-fw fa-lock icon icon--hideo"></i>
+                                                        <i class="icon-login-checkword"></i>
                                                         <span class="input__label-content input__label-content--hideo"></span>
                                                     </label>
                                                 </span>

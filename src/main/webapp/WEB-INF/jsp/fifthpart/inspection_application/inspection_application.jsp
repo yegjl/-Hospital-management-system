@@ -82,7 +82,7 @@
                           style="margin: 1%">删除项目</button>
 
                   <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm" style="margin: 1%">作废项目</button>
-                  <button class="layui-btn  layui-btn-sm" style="margin: 1%">查看检查结果</button>
+                  <button data-method="result" class="layui-btn  layui-btn-sm" style="margin: 1%">查看检查结果</button>
                   <button data-method="add_muban" class="layui-btn  layui-btn-sm" style="margin: 1%">存为组套</button>
                 </div>
 
@@ -387,27 +387,29 @@
             field: 'itemname',
             title: '项目名称',
             width: 180,
-            // sort: true,
-            edit: 'text.jsp'
+
           },
+            {
+              field: 'number',
+              title: '项目数量',
+              width: 180,
+
+            },
             {
               field: 'goal',
               title: '项目目的',
               width: 180,
-              // sort: true,
-              edit: 'text.jsp'
+
             },
             {
               field: 'requirement',
               title: '项目要求 ',
               width: 180,
-              // sort: true,
-              edit: 'text.jsp'
+
             },
             {
             field: 'status',
             title: '项目状态',
-            edit: 'text.jsp',
             minWidth: 180
           }]
         ]
@@ -1146,9 +1148,41 @@
                     layer.setTop(layero);
                 }
             });
+        },
+
+      result: function () {
+        var that = this;
+        var tabledata = layui.table.checkStatus('test-table-cellEdit-middle').data;
+        if(tabledata.length!=1||tabledata[0].status != "已录入结果") {
+          layer.msg("请选中一条已录入检查结果的项目");
+          return;
         }
-
-
+//这里需要后台获取的数据
+        var medical_record_no= tabledata[0].medical_record_no;
+        var itemname= tabledata[0].itemname;
+        var patient_name= tabledata[0].patient_name;
+        layer.open({
+          type: 1,
+          title: '检查/检验结果查看',
+          area: ['550px', '600px'],
+          shade: 0,
+          maxmin: true,
+          offset: 'auto',
+          content: '<iframe src="sixpart/getresult?medical_record_no='+medical_record_no+'&itemname='+itemname+'&patient_name='+patient_name+'" frameborder="0" class="layadmin-iframe"></iframe>',
+          btn: ['确定', '取消'],
+          yes: function () {
+            layer.closeAll();
+          },
+          btn2: function () {
+            layer.closeAll();
+          }
+          ,
+          zIndex: layer.zIndex,
+          success: function (layero) {
+            layer.setTop(layero);
+          }
+        });
+      },
 
 
     };
