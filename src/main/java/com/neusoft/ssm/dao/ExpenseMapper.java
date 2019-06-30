@@ -1,6 +1,7 @@
 package com.neusoft.ssm.dao;
 
 import com.neusoft.ssm.bean.Expense;
+import com.neusoft.ssm.bean.ExpenseExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
@@ -8,6 +9,27 @@ import java.util.Date;
 import java.util.List;
 
 public interface ExpenseMapper {
+    long countByExample(ExpenseExample example);
+
+    int deleteByExample(ExpenseExample example);
+
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Expense record);
+
+    int insertSelective(Expense record);
+
+    List<Expense> selectByExample(ExpenseExample example);
+
+    Expense selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Expense record, @Param("example") ExpenseExample example);
+
+    int updateByExample(@Param("record") Expense record, @Param("example") ExpenseExample example);
+
+    int updateByPrimaryKeySelective(Expense record);
+
+    int updateByPrimaryKey(Expense record);
 
     List<Expense> findAll();
 
@@ -34,5 +56,7 @@ public interface ExpenseMapper {
     boolean settle(@Param("id") Long id);
 
     void alterAUTO();
+
+
 
 }

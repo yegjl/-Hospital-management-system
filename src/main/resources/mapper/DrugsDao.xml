@@ -326,4 +326,7 @@
         CreationDate = #{param3,jdbcType=TIMESTAMP}
     where ID = #{param1}
   </update>
+  <select id="selectDrugsTypeID"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select DrugsTypeID from drugs where ID = #{medicalid}
+  </select>
 </mapper>

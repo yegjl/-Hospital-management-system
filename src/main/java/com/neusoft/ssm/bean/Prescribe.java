@@ -11,9 +11,9 @@ public class Prescribe implements Serializable {
     private Integer id;
 
     /**
-     * 病历id
+     * 病历号
      */
-    private Integer medicalrecordid;
+    private String medicalrecordid;
 
     /**
      * 开处方医生id
@@ -55,11 +55,11 @@ public class Prescribe implements Serializable {
         this.id = id;
     }
 
-    public Integer getMedicalrecordid() {
+    public String getMedicalrecordid() {
         return medicalrecordid;
     }
 
-    public void setMedicalrecordid(Integer medicalrecordid) {
+    public void setMedicalrecordid(String medicalrecordid) {
         this.medicalrecordid = medicalrecordid;
     }
 

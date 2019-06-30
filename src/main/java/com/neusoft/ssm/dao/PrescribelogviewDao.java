@@ -21,8 +21,7 @@ public interface PrescribelogviewDao {
 
     int updateByExample(@Param("record") Prescribelogview record, @Param("example") PrescribelogviewExample example);
 
-    //    medicalrecordid=3&doctorid=3
-    List<Prescribelogview> selectByMrecordidAndDid(int medicalrecordid,int doctorid);//需要处理的函数
+    List<Prescribelogview> selectByMrecordidAndDid(String medicalrecordid,int doctorid);//需要处理的函数
 
     Prescribelogview selectByTwoid(int prescribeid,int medicalid);
 }

@@ -1,171 +1,250 @@
 package com.neusoft.ssm.bean;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class Expense {
+/**
+ * expense
+ * @author 
+ */
+public class Expense implements Serializable {
+    private Integer id;
 
-  private Long id;
-  private String medical_record_no;
-  private String expense_category;
-  private String expense_id;
-  private Long number;
-  private Double expense;
-  private Double real_expense;
-  private String pay_category;
-  private String pay_sign;
-  private String day_settle_sign;
-  private Date expense_date;
-  private String is_consume;
+    /**
+     * 病历号
+     */
+    private String medicalRecordNo;
 
-  private String date; //日期转换
-  private String specifications; //规格
-  private Double unit_price; //单价
-  private String unit; //单位
-  private String expense_name; //收费项目名
-  private String name;
+    /**
+     * 收费类别
+     */
+    private String expenseCategory;
 
-  public Long getId() {
-    return id;
-  }
+    /**
+     * 收费项目id
+     */
+    private String expenseId;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    /**
+     * 处方id
+     */
+    private Integer prescribeId;
 
-  public String getMedical_record_no() {
-    return medical_record_no;
-  }
+    /**
+     * 数量
+     */
+    private Long number;
 
-  public void setMedical_record_no(String medical_record_no) {
-    this.medical_record_no = medical_record_no;
-  }
+    /**
+     * 应付费用
+     */
+    private BigDecimal expense;
 
-  public String getExpense_category() {
-    return expense_category;
-  }
+    /**
+     * 实付费用
+     */
+    private BigDecimal realExpense;
 
-  public void setExpense_category(String expense_category) {
-    this.expense_category = expense_category;
-  }
+    /**
+     * 支付方式 01：现金 02：银行储蓄卡 03：银行信用卡 04：支付宝 05：微信支付  06：医保卡
+     */
+    private String payCategory;
 
-  public String getExpense_id() {
-    return expense_id;
-  }
+    /**
+     * 付款标志 1：已付款 0：未付款 2：已退费 3：部分退费
+     */
+    private String paySign;
 
-  public void setExpense_id(String expense_id) {
-    this.expense_id = expense_id;
-  }
+    /**
+     * 日结状态 1：已日结 0：未日结
+     */
+    private String daySettleSign;
 
-  public Long getNumber() {
-    return number;
-  }
+    /**
+     * 操作日期
+     */
+    private Date expenseDate;
 
-  public void setNumber(Long number) {
-    this.number = number;
-  }
+    /**
+     * 是否已消费 1：是 0：否
+     */
+    private String isConsume;
 
-  public Double getExpense() {
-    return expense;
-  }
+    private static final long serialVersionUID = 1L;
 
-  public void setExpense(Double expense) {
-    this.expense = expense;
-  }
-
-  public Double getReal_expense() {
-    return real_expense;
-  }
-
-  public void setReal_expense(Double real_expense) {
-    this.real_expense = real_expense;
-  }
-
-  public String getPay_category() {
-    return pay_category;
-  }
-
-  public void setPay_category(String pay_category) {
-    this.pay_category = pay_category;
-  }
-
-  public String getPay_sign() {
-    return pay_sign;
-  }
-
-  public void setPay_sign(String pay_sign) {
-    this.pay_sign = pay_sign;
-  }
-
-  public String getDay_settle_sign() {
-    return day_settle_sign;
-  }
-
-  public void setDay_settle_sign(String day_settle_sign) {
-    this.day_settle_sign = day_settle_sign;
-  }
-
-  public Date getExpense_date() {
-    return expense_date;
-  }
-
-  public void setExpense_date(Date expense_date) {
-    this.expense_date = expense_date;
-  }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
-  }
-
-    public String getIs_consume() {
-        return is_consume;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIs_consume(String is_consume) {
-        this.is_consume = is_consume;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-  public String getSpecifications() {
-    return specifications;
-  }
+    public String getMedicalRecordNo() {
+        return medicalRecordNo;
+    }
 
-  public void setSpecifications(String specifications) {
-    this.specifications = specifications;
-  }
+    public void setMedicalRecordNo(String medicalRecordNo) {
+        this.medicalRecordNo = medicalRecordNo;
+    }
 
-  public Double getUnit_price() {
-    return unit_price;
-  }
+    public String getExpenseCategory() {
+        return expenseCategory;
+    }
 
-  public void setUnit_price(Double unit_price) {
-    this.unit_price = unit_price;
-  }
+    public void setExpenseCategory(String expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
 
-  public String getUnit() {
-    return unit;
-  }
+    public String getExpenseId() {
+        return expenseId;
+    }
 
-  public void setUnit(String unit) {
-    this.unit = unit;
-  }
+    public void setExpenseId(String expenseId) {
+        this.expenseId = expenseId;
+    }
 
-  public String getExpense_name() {
-    return expense_name;
-  }
+    public Integer getPrescribeId() {
+        return prescribeId;
+    }
 
-  public void setExpense_name(String expense_name) {
-    this.expense_name = expense_name;
-  }
+    public void setPrescribeId(Integer prescribeId) {
+        this.prescribeId = prescribeId;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public Long getNumber() {
+        return number;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setNumber(Long number) {
+        this.number = number;
+    }
 
+    public BigDecimal getExpense() {
+        return expense;
+    }
+
+    public void setExpense(BigDecimal expense) {
+        this.expense = expense;
+    }
+
+    public BigDecimal getRealExpense() {
+        return realExpense;
+    }
+
+    public void setRealExpense(BigDecimal realExpense) {
+        this.realExpense = realExpense;
+    }
+
+    public String getPayCategory() {
+        return payCategory;
+    }
+
+    public void setPayCategory(String payCategory) {
+        this.payCategory = payCategory;
+    }
+
+    public String getPaySign() {
+        return paySign;
+    }
+
+    public void setPaySign(String paySign) {
+        this.paySign = paySign;
+    }
+
+    public String getDaySettleSign() {
+        return daySettleSign;
+    }
+
+    public void setDaySettleSign(String daySettleSign) {
+        this.daySettleSign = daySettleSign;
+    }
+
+    public Date getExpenseDate() {
+        return expenseDate;
+    }
+
+    public void setExpenseDate(Date expenseDate) {
+        this.expenseDate = expenseDate;
+    }
+
+    public String getIsConsume() {
+        return isConsume;
+    }
+
+    public void setIsConsume(String isConsume) {
+        this.isConsume = isConsume;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        Expense other = (Expense) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getMedicalRecordNo() == null ? other.getMedicalRecordNo() == null : this.getMedicalRecordNo().equals(other.getMedicalRecordNo()))
+            && (this.getExpenseCategory() == null ? other.getExpenseCategory() == null : this.getExpenseCategory().equals(other.getExpenseCategory()))
+            && (this.getExpenseId() == null ? other.getExpenseId() == null : this.getExpenseId().equals(other.getExpenseId()))
+            && (this.getPrescribeId() == null ? other.getPrescribeId() == null : this.getPrescribeId().equals(other.getPrescribeId()))
+            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
+            && (this.getExpense() == null ? other.getExpense() == null : this.getExpense().equals(other.getExpense()))
+            && (this.getRealExpense() == null ? other.getRealExpense() == null : this.getRealExpense().equals(other.getRealExpense()))
+            && (this.getPayCategory() == null ? other.getPayCategory() == null : this.getPayCategory().equals(other.getPayCategory()))
+            && (this.getPaySign() == null ? other.getPaySign() == null : this.getPaySign().equals(other.getPaySign()))
+            && (this.getDaySettleSign() == null ? other.getDaySettleSign() == null : this.getDaySettleSign().equals(other.getDaySettleSign()))
+            && (this.getExpenseDate() == null ? other.getExpenseDate() == null : this.getExpenseDate().equals(other.getExpenseDate()))
+            && (this.getIsConsume() == null ? other.getIsConsume() == null : this.getIsConsume().equals(other.getIsConsume()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getMedicalRecordNo() == null) ? 0 : getMedicalRecordNo().hashCode());
+        result = prime * result + ((getExpenseCategory() == null) ? 0 : getExpenseCategory().hashCode());
+        result = prime * result + ((getExpenseId() == null) ? 0 : getExpenseId().hashCode());
+        result = prime * result + ((getPrescribeId() == null) ? 0 : getPrescribeId().hashCode());
+        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
+        result = prime * result + ((getExpense() == null) ? 0 : getExpense().hashCode());
+        result = prime * result + ((getRealExpense() == null) ? 0 : getRealExpense().hashCode());
+        result = prime * result + ((getPayCategory() == null) ? 0 : getPayCategory().hashCode());
+        result = prime * result + ((getPaySign() == null) ? 0 : getPaySign().hashCode());
+        result = prime * result + ((getDaySettleSign() == null) ? 0 : getDaySettleSign().hashCode());
+        result = prime * result + ((getExpenseDate() == null) ? 0 : getExpenseDate().hashCode());
+        result = prime * result + ((getIsConsume() == null) ? 0 : getIsConsume().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", medicalRecordNo=").append(medicalRecordNo);
+        sb.append(", expenseCategory=").append(expenseCategory);
+        sb.append(", expenseId=").append(expenseId);
+        sb.append(", prescribeId=").append(prescribeId);
+        sb.append(", number=").append(number);
+        sb.append(", expense=").append(expense);
+        sb.append(", realExpense=").append(realExpense);
+        sb.append(", payCategory=").append(payCategory);
+        sb.append(", paySign=").append(paySign);
+        sb.append(", daySettleSign=").append(daySettleSign);
+        sb.append(", expenseDate=").append(expenseDate);
+        sb.append(", isConsume=").append(isConsume);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
 }

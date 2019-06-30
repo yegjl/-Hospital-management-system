@@ -568,6 +568,27 @@
 
                             $.ajax({
                                 type: "POST",
+                                url: "drugstore/sendtorefund?medicalrecordid="+tabledata[0].medicalrecordno+"&medicineid="+medicineid+"&renum="+reamount,
+                                success: function (res) {
+                                    if (res.status == 0) {
+                                    } else {
+                                        layer.msg(res.message)
+                                    }
+                                    setTimeout(function () {
+                                        layui.table.reload('test-table-simple');
+                                    }, 100);
+                                    layer.closeAll();
+                                    // window.parent.layui.table.reload('test-table-reload',{page: {curr: 1}});
+                                },
+                                error: function () {
+                                    alert("出现错误");
+                                    return false;
+                                }
+                            });//ajax结束
+
+
+                            $.ajax({
+                                type: "POST",
                                 url: "drugstore/returnstatus?id="+tabledata[0].id+"&status=2&medicalrecordid="+tabledata[0].medicalrecordno,
                                 success: function (res) {
                                     if (res.status == 0) {
@@ -660,10 +681,12 @@
                     return;
                 }
                 var ids = new Array();
+                var medicalrecordids = new Array();
                 var medicineids = new Array();
                 var amounts = new Array();
                 for (var i = 0; i < tabledata.length; i++) {
                     ids.push(tabledata[i].id);
+                    medicalrecordids.push(tabledata[i].medicalrecordno);
                     medicineids.push(tabledata[i].medicineid);
                     amounts.push(tabledata[i].amount);
                 }
@@ -696,6 +719,26 @@
                         $.ajax({
                             type: "POST",
                             url: "drugstore/returnall?medicalrecordno=" + recordid + "&ids="+ids+"&medicineids="+medicineids+"&amounts="+amounts,
+                            success: function (res) {
+                                if (res.status == 0) {
+                                } else {
+                                    layer.msg(res.message)
+                                }
+                                setTimeout(function () {
+                                    layui.table.reload('test-table-simple');
+                                }, 100);
+                                layer.closeAll();
+                            },
+                            error: function () {
+                                alert("出现错误");
+                                return false;
+                            }
+                        }); //ajax结束
+
+                        $.ajax({
+                            type: "POST",
+                            // "drugstore/sendtorefund?medicalrecordid="+tabledata[0].medicalrecordno+"&medicineid="+medicineid+"&renum="+reamount,
+                            url: "drugstore/sendalltorefund?medicalrecordids=" + medicalrecordids + "&medicineids="+medicineids+"&renum="+amounts,
                             success: function (res) {
                                 if (res.status == 0) {
                                 } else {

@@ -84,7 +84,7 @@ public class UserController {
     public String index04() { return  "Pharmacy_Workstation/PW_index"; }
 
     @RequestMapping(value = "/index05")
-    public String index05() { return  "login/index05"; }
+    public String index05() { return  "expense/expense"; }
 
     @RequestMapping(value = "/index06")
     public String index06() { return  "login/index06"; }

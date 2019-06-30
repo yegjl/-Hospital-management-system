@@ -30,6 +30,9 @@ public class PrescribeServiceImpl implements PrescribeService {
     @Autowired
     private PrescribemodellogDao prescribemodellogDao;
 
+    @Autowired
+    private ExpenseMapper expenseMapper;
+
 
     @Override
     public int insertPrescribe(Prescribe record) {
@@ -94,17 +97,17 @@ public class PrescribeServiceImpl implements PrescribeService {
     }
 
     @Override
-    public List<Prescribelogview> getByMrecordidAndDid(int medicalrecordid, int doctorid) {
+    public List<Prescribelogview> getByMrecordidAndDid(String medicalrecordid, int doctorid) {
         return prescribelogviewDao.selectByMrecordidAndDid(medicalrecordid,doctorid);
     }
 
     @Override
-    public int getPreCount(Integer doctorid, Integer medicalid) {
+    public int getPreCount(Integer doctorid, String medicalid) {
         return prescribeDao.getPreCount(doctorid,medicalid);
     }
 
     @Override
-    public Integer getNowID(Integer doctorid, Integer medicalrecordid) {
+    public Integer getNowID(Integer doctorid, String medicalrecordid) {
         return prescribeDao.getNowID(doctorid, medicalrecordid);
     }
 
@@ -161,6 +164,16 @@ public class PrescribeServiceImpl implements PrescribeService {
     @Override
     public int updateMoney(int id, BigDecimal money) {
         return prescribeDao.updateTotalmoney(id, money);
+    }
+
+    @Override
+    public int insertExpense(Expense record) {
+        return expenseMapper.insertSelective(record);
+    }
+
+    @Override
+    public int getDrugsTypeID(int medicalid) {
+        return drugsDao.selectDrugsTypeID(medicalid);
     }
 
 
