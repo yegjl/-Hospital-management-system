@@ -1195,52 +1195,62 @@ public class PrescribelogviewExample {
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidEqualTo(Integer value) {
+        public Criteria andMedicalrecordidEqualTo(String value) {
             addCriterion("medicalrecordid =", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidNotEqualTo(Integer value) {
+        public Criteria andMedicalrecordidNotEqualTo(String value) {
             addCriterion("medicalrecordid <>", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidGreaterThan(Integer value) {
+        public Criteria andMedicalrecordidGreaterThan(String value) {
             addCriterion("medicalrecordid >", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMedicalrecordidGreaterThanOrEqualTo(String value) {
             addCriterion("medicalrecordid >=", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidLessThan(Integer value) {
+        public Criteria andMedicalrecordidLessThan(String value) {
             addCriterion("medicalrecordid <", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidLessThanOrEqualTo(Integer value) {
+        public Criteria andMedicalrecordidLessThanOrEqualTo(String value) {
             addCriterion("medicalrecordid <=", value, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidIn(List<Integer> values) {
+        public Criteria andMedicalrecordidLike(String value) {
+            addCriterion("medicalrecordid like", value, "medicalrecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalrecordidNotLike(String value) {
+            addCriterion("medicalrecordid not like", value, "medicalrecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMedicalrecordidIn(List<String> values) {
             addCriterion("medicalrecordid in", values, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidNotIn(List<Integer> values) {
+        public Criteria andMedicalrecordidNotIn(List<String> values) {
             addCriterion("medicalrecordid not in", values, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidBetween(Integer value1, Integer value2) {
+        public Criteria andMedicalrecordidBetween(String value1, String value2) {
             addCriterion("medicalrecordid between", value1, value2, "medicalrecordid");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalrecordidNotBetween(Integer value1, Integer value2) {
+        public Criteria andMedicalrecordidNotBetween(String value1, String value2) {
             addCriterion("medicalrecordid not between", value1, value2, "medicalrecordid");
             return (Criteria) this;
         }

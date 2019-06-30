@@ -63,9 +63,10 @@
                     </div>
                     <div class="layui-tab-item">111</div>
                     <div class="layui-tab-item">内容4</div>
-                    <div class="layui-tab-item">内容5<iframe src="medicine_prescription/medicine_prescription.html"
+                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=04"
                             style="height: 700px;width: 100%" frameborder="0"></iframe></div>
-                    <div class="layui-tab-item">内容6</div>
+                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=05"
+                            style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容7</div>
                     <div class="layui-tab-item"><iframe src="MedicalRecordPage/indexcost" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容9</div>

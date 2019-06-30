@@ -2,6 +2,7 @@ package com.neusoft.ssm.dao;
 
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
+import com.neusoft.ssm.bean.ExpenseExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
@@ -15,6 +16,27 @@ import java.util.List;
  * */
 
 public interface ExpenseMapper {
+    long countByExample(ExpenseExample example);
+
+    int deleteByExample(ExpenseExample example);
+
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Expense record);
+
+    int insertSelective(Expense record);
+
+    List<Expense> selectByExample(ExpenseExample example);
+
+    Expense selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Expense record, @Param("example") ExpenseExample example);
+
+    int updateByExample(@Param("record") Expense record, @Param("example") ExpenseExample example);
+
+    int updateByPrimaryKeySelective(Expense record);
+
+    int updateByPrimaryKey(Expense record);
 
     /**
      * 获取全部收费信息列表
@@ -146,5 +168,7 @@ public interface ExpenseMapper {
      * 重置MySQL主键自增机制
      */
     void alterAUTO();
+
+
 
 }

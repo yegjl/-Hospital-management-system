@@ -3,7 +3,7 @@
 <mapper namespace="com.neusoft.ssm.dao.PrescribeDao">
   <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Prescribe">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="medicalrecordid" jdbcType="INTEGER" property="medicalrecordid" />
+    <result column="medicalrecordid" jdbcType="VARCHAR" property="medicalrecordid" />
     <result column="doctorid" jdbcType="INTEGER" property="doctorid" />
     <result column="getmedicalflag" jdbcType="INTEGER" property="getmedicalflag" />
     <result column="type" jdbcType="VARCHAR" property="type" />
@@ -114,7 +114,7 @@
     insert into prescribe (medicalrecordid, doctorid, getmedicalflag, 
       `type`, medicaltype, isdone, 
       money)
-    values (#{medicalrecordid,jdbcType=INTEGER}, #{doctorid,jdbcType=INTEGER}, #{getmedicalflag,jdbcType=INTEGER}, 
+    values (#{medicalrecordid,jdbcType=VARCHAR}, #{doctorid,jdbcType=INTEGER}, #{getmedicalflag,jdbcType=INTEGER}, 
       #{type,jdbcType=VARCHAR}, #{medicaltype,jdbcType=VARCHAR}, #{isdone,jdbcType=INTEGER}, 
       #{money,jdbcType=DECIMAL})
   </insert>
@@ -145,7 +145,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="medicalrecordid != null">
-        #{medicalrecordid,jdbcType=INTEGER},
+        #{medicalrecordid,jdbcType=VARCHAR},
       </if>
       <if test="doctorid != null">
         #{doctorid,jdbcType=INTEGER},
@@ -180,7 +180,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.medicalrecordid != null">
-        medicalrecordid = #{record.medicalrecordid,jdbcType=INTEGER},
+        medicalrecordid = #{record.medicalrecordid,jdbcType=VARCHAR},
       </if>
       <if test="record.doctorid != null">
         doctorid = #{record.doctorid,jdbcType=INTEGER},
@@ -208,7 +208,7 @@
   <update id="updateByExample" parameterType="map">
     update prescribe
     set id = #{record.id,jdbcType=INTEGER},
-      medicalrecordid = #{record.medicalrecordid,jdbcType=INTEGER},
+      medicalrecordid = #{record.medicalrecordid,jdbcType=VARCHAR},
       doctorid = #{record.doctorid,jdbcType=INTEGER},
       getmedicalflag = #{record.getmedicalflag,jdbcType=INTEGER},
       `type` = #{record.type,jdbcType=VARCHAR},
@@ -223,7 +223,7 @@
     update prescribe
     <set>
       <if test="medicalrecordid != null">
-        medicalrecordid = #{medicalrecordid,jdbcType=INTEGER},
+        medicalrecordid = #{medicalrecordid,jdbcType=VARCHAR},
       </if>
       <if test="doctorid != null">
         doctorid = #{doctorid,jdbcType=INTEGER},
@@ -248,7 +248,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.neusoft.ssm.bean.Prescribe">
     update prescribe
-    set medicalrecordid = #{medicalrecordid,jdbcType=INTEGER},
+    set medicalrecordid = #{medicalrecordid,jdbcType=VARCHAR},
       doctorid = #{doctorid,jdbcType=INTEGER},
       getmedicalflag = #{getmedicalflag,jdbcType=INTEGER},
       `type` = #{type,jdbcType=VARCHAR},
@@ -265,12 +265,8 @@
   <select id="selectPrescribe" resultMap="BaseResultMap">
     select * from prescribe where doctorid = #{doctorid};
   </select>
-  <select id="getPreCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select count(*) from prescribe
-    where doctorid =#{param1}
-    and medicalrecordid = #{param2}
-  </select>
-  <select id="getNowID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+
+  <select id="getNowID" resultType="java.lang.Integer">
     select id from prescribe
     where medicalrecordid=#{param2}
     and doctorid=#{param1}
@@ -290,4 +286,12 @@
     set money = #{param2}
     where id = #{param1}
   </update>
+  <select id="getPreCount" resultType="int">
+    select count(*) from prescribe
+    where doctorid =#{param1}
+    and medicalrecordid = #{param2}
+  </select>
+    <select id="selectID" resultType="int">
+      select id from prescribe where medicalrecordid = #{medicinerecordid,jdbcType=VARCHAR}
+    </select>
 </mapper>

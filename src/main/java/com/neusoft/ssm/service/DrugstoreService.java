@@ -1,8 +1,6 @@
 package com.neusoft.ssm.service;
 
 import com.neusoft.ssm.bean.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -65,5 +63,9 @@ public interface DrugstoreService {
     int updateReturnamount(int id,int drugsamount);
 
     int updateDispenseamounr(int id,int drugsamount);
+
+    int getPrescribeID(String medicinerecordid);
+
+    int insertRefundDrug(RefundDrug record);
 
 }

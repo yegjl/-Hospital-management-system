@@ -152,7 +152,7 @@ public class PrescribeController {
     //新增药品
     @RequestMapping(value = "/addmedtest",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> add(Prescribecategory prescribecategory,Integer doctorid,Integer medicalrecordid) {
+    public ResultDTO<Integer> add(Prescribecategory prescribecategory,Integer doctorid,String medicalrecordid) {
         if (prescribeService.getPreCount(doctorid, medicalrecordid) == 0) {
             Prescribe prescribe = new Prescribe();
             prescribe.setDoctorid(doctorid);
@@ -292,10 +292,10 @@ public class PrescribeController {
         return resultDTO;
     }
 
-    //中间的table获取测试值，以处方号为id进行搜索（prescribe表中的id）
+    //中间的table获取测试值，以病历号和类型进行搜索（prescribe表中的medicalrecordid和type）
     @RequestMapping(value = "/gettestinfo",method = RequestMethod.GET)
     @ResponseBody
-    public ResultDTO<JSONArray> gettestinfo(int medicalrecordid, int doctorid,int page,int limit) {
+    public ResultDTO<JSONArray> gettestinfo(String medicalrecordid, int doctorid,int page,int limit) {
         ResultDTO<JSONArray> resultDTO = new ResultDTO();
         try {
             List<Prescribelogview> list = prescribeService.getByMrecordidAndDid(medicalrecordid, doctorid);
@@ -451,6 +451,49 @@ public class PrescribeController {
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    //将数据发送到expense表里
+//    insertExpense
+//    medicalrecordid,（用medicalid查drugs表的101，赋值13.14.15，查对应拼音）,(String)medicalid,prescribeid,amount,price,date
+    @RequestMapping(value = "/sendtoexpense",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> sendtoexpense(String[] medicalrecordids, Integer[] medicalids, Integer[] presribeids, Integer[] amounts, Integer[] prices){
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        Expense expense = new Expense();
+        try {
+            Date createtime= new java.sql.Date(new java.util.Date().getTime());
+            for (int i = 0; i < medicalrecordids.length; i++) {
+                expense.setMedicalRecordNo(medicalrecordids[i]);
+                String accountcode = null;
+                int type = prescribeService.getDrugsTypeID(medicalids[i]);
+                if (type == 101) {
+                    accountcode = "XYF";
+                } else if (type == 102) {
+                    accountcode = "ZCYF";
+                } else {
+                    accountcode = "ZCYF1";
+                }
+                expense.setExpenseCategory(accountcode);
+                expense.setExpenseId(String.valueOf(medicalids[i]));
+                expense.setPrescribeId(presribeids[i]);
+                Long a = new Long((long) amounts[i]);
+                expense.setNumber(a);
+                int emoney = amounts[i] * prices[i];
+                BigDecimal expensemoney = new BigDecimal(emoney);
+                expense.setExpense(expensemoney);
+                expense.setExpenseDate(createtime);
+                prescribeService.insertExpense(expense);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(0);
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);

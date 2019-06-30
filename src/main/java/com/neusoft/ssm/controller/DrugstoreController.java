@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -520,5 +519,56 @@ public ResultDTO<Integer> returnamount(Integer medicineid,Integer amount) {
     }
     return resultDTO;
 }
+
+//    sendtorefund
+@RequestMapping(value = "/sendtorefund",method = RequestMethod.POST)
+@ResponseBody
+public ResultDTO<Integer> sendtorefund(String medicalrecordid,Integer medicineid,Integer renum) {
+    ResultDTO<Integer> resultDTO = new ResultDTO();
+    RefundDrug refundDrug = new RefundDrug();
+    int issuccess = 0;
+    try {
+        refundDrug.setMedicalRecordNo(medicalrecordid);
+        refundDrug.setExpenseId(String.valueOf(medicineid));
+        refundDrug.setRefundNumber(renum);
+        refundDrug.setPrescribeId(drugstoreService.getPrescribeID(medicalrecordid));
+        issuccess = drugstoreService.insertRefundDrug(refundDrug);
+        resultDTO.setStatus(0);
+        resultDTO.setMessage("操作成功！");
+        resultDTO.setData(issuccess);
+    } catch (Exception e) {
+        e.printStackTrace();
+        resultDTO.setStatus(1);
+        resultDTO.setMessage("操作失败！");
+    }
+    return resultDTO;
+}
+
+//sendalltorefund
+@RequestMapping(value = "/sendalltorefund",method = RequestMethod.POST)
+@ResponseBody
+public ResultDTO<Integer> sendalltorefund(String[] medicalrecordids,Integer[] medicineids,Integer[] renums) {
+    ResultDTO<Integer> resultDTO = new ResultDTO();
+    int issuccess = 0;
+    try {
+        for (int i = 0; i < medicalrecordids.length; i++) {
+            RefundDrug refundDrug = new RefundDrug();
+            refundDrug.setMedicalRecordNo(medicalrecordids[i]);
+            refundDrug.setExpenseId(String.valueOf(medicineids[i]));
+            refundDrug.setRefundNumber(renums[i]);
+            refundDrug.setPrescribeId(drugstoreService.getPrescribeID(medicalrecordids[i]));
+            issuccess = drugstoreService.insertRefundDrug(refundDrug);
+        }
+        resultDTO.setStatus(0);
+        resultDTO.setMessage("操作成功！");
+        resultDTO.setData(issuccess);
+    } catch (Exception e) {
+        e.printStackTrace();
+        resultDTO.setStatus(1);
+        resultDTO.setMessage("操作失败！");
+    }
+    return resultDTO;
+}
+
 
 }

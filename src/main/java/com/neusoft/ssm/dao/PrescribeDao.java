@@ -3,7 +3,6 @@ package com.neusoft.ssm.dao;
 import com.neusoft.ssm.bean.Prescribe;
 import com.neusoft.ssm.bean.PrescribeExample;
 import org.apache.ibatis.annotations.Param;
-import org.apache.poi.hpsf.Decimal;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,13 +34,15 @@ public interface PrescribeDao {
 
     List<Prescribe> selectPrescribe(int doctorid);
 
-    int getPreCount(Integer doctorid,Integer medicalid);
+    int getPreCount(Integer doctorid,String medicalid);
 
-    Integer getNowID(Integer doctorid, Integer medicalrecordid);
+    Integer getNowID(Integer doctorid, String medicalrecordid);
 
     int updateFormulation(int id);
 
     int updateCancel(int id);
 
     int updateTotalmoney(int id, BigDecimal money);
+
+    int selectID(String medicinerecordid);
 }

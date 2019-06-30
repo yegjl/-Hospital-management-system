@@ -9,6 +9,7 @@
 
 <head>
     <meta charset="utf-8">
+    //todo:改为el name
     <title>成药处方</title>
     <!-- <meta name="renderer" content="webkit"> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -33,6 +34,7 @@
                     <div class="layui-card layui-form" lay-filter="component-form-element" style="width: 100%">
                         <!-- <div class="layui-col-md2" style="font-size: 200%;padding: 500;">成药处方</div> -->
                         <div class="layui-col-md2">
+                        //todo:改为el name
                             <p style="font-size: 200%;font-weight: 500;">成药处方</p>
                         </div>
 
@@ -88,6 +90,7 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                     <fieldset class="layui-elem-field layui-field-title">
+                    //todo:改为el name
                         <legend>成药处方药品详情</legend>
                     </fieldset>
                     <div class="layui-btn-container">
@@ -111,6 +114,9 @@
                                         style="margin: 1%">作废处方</button>
                                 <button data-method="add_muban" class="layui-btn  layui-btn-sm"
                                         style="margin: 1%">存为组套</button>
+                                <button data-method="send_expense" class="layui-btn  layui-btn-sm"
+                                        style="margin: 1%">发送</button>
+<%--                                发送按钮将存储的--%>
                             </div>
 
                         </div>
@@ -425,7 +431,9 @@
         table.render({
             elem: '#test-table-cellEdit-middle',
             // url: layui.setter.base + 'json/table/demo.js',
-            url: 'prescribe/gettestinfo?medicalrecordid=3&doctorid=3',
+
+            //todo:连接
+            url: 'prescribe/gettestinfo?medicalrecordid=3&&doctorid=3',
             method:'get',
             parseData:function (res) {
                 //TODO:解析JSON对象
@@ -495,11 +503,6 @@
                         title: '用药嘱托',
                         width: 180
                     }
-                    // {
-                    //     field: 'istemp',
-                    //     title: '暂存状态',
-                    //     width: 180
-                    // },
                 ]
             ],
             done: function (res, curr, count) {
@@ -510,9 +513,6 @@
                 }
                 $("#totalmoney").empty();
                 $("#totalmoney").html(money);
-                // $("#prestatus").empty();
-                // document.getElementById("prestatus").setAttribute("value", "未暂存");
-
             },
             page: true
         })
@@ -1127,8 +1127,7 @@
                                 return false;
                             }
                         });
-
-                        //TODO：在这里创建方法，将界面中的总价获取到，然后传入处方索引表里
+                        //TODO：金额已经存入到处方索引表里，缺少发送到expense
                         $.ajax({
                             type: "POST",
                             url: "prescribe/settotalmoney",
@@ -1196,6 +1195,8 @@
                     area: ['450px', '350px'],
                     shade: 0,
                     maxmin: true,
+                    //todo:统一
+                    content: '<iframe src="prescribe/addmed?drugid=${drugid}" frameborder="0" class = "layadmin-iframe"></iframe>',
                     content: '<iframe src="prescribe/addmed?drugid=103" frameborder="0" class = "layadmin-iframe"></iframe>',
                     btn: ['确定', '全部关闭'],
                     yes: function (index, layero) {
@@ -1205,6 +1206,7 @@
                         $.ajax({
                             type: "POST",
                             url: "prescribe/addmedtest",
+                            //todo:连接
                             data: 'doctorid='+3+'&medicalrecordid='+3+'&'+$(form).serialize(),
                             success: function (res) {
                                 if (res.status == 0) {} else {
@@ -1322,6 +1324,58 @@
                     zIndex: layer.zIndex,
                     success: function (layero) {
                         layer.setTop(layero);
+                    }
+                });
+            },
+
+            //todo:将处方信息发送给expense
+            send_expense: function () {
+                var tabledata = layui.table.cache['test-table-cellEdit-middle'];
+                if (tabledata[0].istemp != 2) {
+                    alert("处方未开立或已废除，不能发送！");
+                    return;
+                }
+                var medicalrecordids = new Array();
+                var medicalids = new Array();
+                var prescribeids = new Array();
+                var amounts = new Array();
+                var prices = new Array();
+                for (var i = 0; i < tabledata.length; i++) {
+                    medicalrecordids.push(tabledata[i].medicalrecordid);
+                    medicalids.push(tabledata[i].medicalid);
+                    prescribeids.push(tabledata[i].prescribeid);
+                    amounts.push(tabledata[i].amount);
+                    prices.push(tabledata[i].price);
+                }
+                layer.closeAll();
+                layer.msg('是否发送至收费处？', {
+                    // time: 20 * 1000,
+                    btn: ['确定', '取消'],
+                    yes: function () {
+
+                        $.ajax({
+                            // String[] medicalrecordids, Integer[] medicalids, Integer[] presribeids, Integer[] amounts, Integer[] prices
+                            type: "POST",
+                            url: "prescribe/sendtoexpense?medicalrecordids=" + medicalrecordids + "&medicalids="+medicalids+"&presribeids="+prescribeids+"&amounts="+amounts+"&prices="+prices,
+                            success: function (res) {
+                                if (res.status == 0) {
+                                } else {
+                                    layer.msg(res.message)
+                                }
+                                setTimeout(function () {
+                                    layui.table.reload('test-table-cellEdit-middle');
+                                }, 100);
+                                layer.closeAll();
+                            },
+                            error: function () {
+                                alert("出现错误");
+                                return false;
+                            }
+                        }); //ajax结束
+
+                    },
+                    btn2: function () {
+                        layer.closeAll();
                     }
                 });
             }

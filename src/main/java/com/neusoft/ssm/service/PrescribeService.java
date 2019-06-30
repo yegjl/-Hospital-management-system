@@ -28,11 +28,11 @@ public interface PrescribeService {
 
     List<Prescribecategory> getNeedPrescribe(int prescribeid);
 
-    List<Prescribelogview> getByMrecordidAndDid(int medicalrecordid,int doctorid);
+    List<Prescribelogview> getByMrecordidAndDid(String medicalrecordid,int doctorid);
 
-    int getPreCount(Integer doctorid,Integer medicalid);
+    int getPreCount(Integer doctorid,String medicalid);
 
-    Integer getNowID(Integer doctorid, Integer medicalrecordid);
+    Integer getNowID(Integer doctorid, String medicalrecordid);
 
     int updateIstemp(int id);
 
@@ -55,5 +55,9 @@ public interface PrescribeService {
     int updatePrescribecategory(Prescribecategory record);
 
     int updateMoney(int id, BigDecimal money);
+
+    int insertExpense(Expense record);
+
+
 
 }

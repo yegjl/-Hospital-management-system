@@ -36,6 +36,12 @@ public class DrugstoreServiceImpl implements DrugstoreService {
     @Autowired
     RegisterMapper registerMapper;
 
+    @Autowired
+    PrescribeDao prescribeDao;
+
+    @Autowired
+    RefundDrugDao refundDrugDao;
+
     @Override
     public int addDrug(Drugs record) {
         return drugsDao.insertSelective(record);
@@ -175,6 +181,16 @@ public class DrugstoreServiceImpl implements DrugstoreService {
     @Override
     public int updateDispenseamounr(int id, int drugsamount) {
         return drugsupplementDao.updateDispenseamounr(id, drugsamount);
+    }
+
+    @Override
+    public int getPrescribeID(String medicinerecordid) {
+        return prescribeDao.selectID(medicinerecordid);
+    }
+
+    @Override
+    public int insertRefundDrug(RefundDrug record) {
+        return refundDrugDao.insertSelective(record);
     }
 
 

@@ -77,9 +77,9 @@ public class Prescribelogview implements Serializable {
     private String drugsname;
 
     /**
-     * 病历id
+     * 病历号
      */
-    private Integer medicalrecordid;
+    private String medicalrecordid;
 
     /**
      * 开处方医生id
@@ -216,11 +216,11 @@ public class Prescribelogview implements Serializable {
         this.drugsname = drugsname;
     }
 
-    public Integer getMedicalrecordid() {
+    public String getMedicalrecordid() {
         return medicalrecordid;
     }
 
-    public void setMedicalrecordid(Integer medicalrecordid) {
+    public void setMedicalrecordid(String medicalrecordid) {
         this.medicalrecordid = medicalrecordid;
     }
 
