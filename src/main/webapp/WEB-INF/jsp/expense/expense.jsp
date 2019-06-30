@@ -14,9 +14,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="source/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="source/style/admin.css" media="all">
-    <script src="source/layui/layui.js"></script>
+    <link rel="stylesheet" href="department/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="department/style/admin.css" media="all">
+    <script src="department/layui/layui.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/json3.js"></script>
 
@@ -36,7 +36,7 @@
 
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径X
+        base: 'department/' //静态资源所在路径X
     })
         .extend({
             index: 'lib/index' //主入口模块X
@@ -251,7 +251,7 @@
 
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径
+        base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index'], function () {
@@ -563,7 +563,7 @@
 
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径
+        base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'form'], function () {
@@ -585,7 +585,7 @@
 <!-- 选择输入框 -->
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径
+        base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'form'], function () {
@@ -605,7 +605,7 @@
 </script>
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径
+        base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'laydate'], function () {
@@ -732,7 +732,7 @@
 <!-- 开启头部工具栏 -->
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径
+        base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'table'], function () {

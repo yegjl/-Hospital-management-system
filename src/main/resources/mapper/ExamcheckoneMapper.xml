@@ -251,6 +251,18 @@
       <if test="requirement != null" >
         requirement,
       </if>
+        <if test="number != null" >
+            number,
+        </if>
+        <if test="date != null" >
+            date,
+        </if>
+        <if test="ismed != null" >
+            ismed,
+        </if>
+        <if test="operatorid != null" >
+            operatorid,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="examcheckid != null" >
@@ -268,6 +280,18 @@
       <if test="requirement != null" >
         #{requirement,jdbcType=VARCHAR},
       </if>
+        <if test="number != null" >
+            #{number,jdbcType=INTEGER},
+        </if>
+        <if test="date != null" >
+            #{date,jdbcType=TIMESTAMP},
+        </if>
+        <if test="ismed != null" >
+            #{ismed,jdbcType=CHAR},
+        </if>
+        <if test="operatorid != null" >
+            #{operatorid,jdbcType=INTEGER},
+        </if>
     </trim>
   </insert>
 

@@ -19,6 +19,34 @@ public class Examcheckone {
 
     private String requirementment;
 
+    private Integer number;
+
+    private String ismed;
+
+    public String getIsmed() {
+        return ismed;
+    }
+
+    public void setIsmed(String ismed) {
+        this.ismed = ismed;
+    }
+
+    public String getRequirementment() {
+        return requirementment;
+    }
+
+    public void setRequirementment(String requirementment) {
+        this.requirementment = requirementment;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public String getGoal() {
         return goal;
     }

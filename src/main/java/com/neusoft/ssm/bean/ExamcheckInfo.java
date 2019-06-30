@@ -1,5 +1,7 @@
 package com.neusoft.ssm.bean;
 
+import java.util.Date;
+
 public class ExamcheckInfo {
     private Integer id;
 
@@ -12,6 +14,54 @@ public class ExamcheckInfo {
     private String goal;
 
     private String requirementment;
+
+    private Integer number;
+
+    private Date date;
+
+    private String ismed;
+
+    private Integer operatorid;
+
+    public Integer getOperatorid() {
+        return operatorid;
+    }
+
+    public void setOperatorid(Integer operatorid) {
+        this.operatorid = operatorid;
+    }
+
+    public String getRequirementment() {
+        return requirementment;
+    }
+
+    public void setRequirementment(String requirementment) {
+        this.requirementment = requirementment;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getIsmed() {
+        return ismed;
+    }
+
+    public void setIsmed(String ismed) {
+        this.ismed = ismed;
+    }
 
     public ExamcheckInfo(Integer id, Integer examcheckid, Integer fmeditemid, String status, String goal, String requirementment) {
         this.id = id;

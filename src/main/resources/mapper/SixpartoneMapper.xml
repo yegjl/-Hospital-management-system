@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.ssm.dao.SixpartoneMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Sixpartone" >
+    <constructor >
+      <arg column="status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="goal" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="requirement" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ItemName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="patient_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="medical_record_no" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="mark" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="Price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ismed" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="operatorid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    status, goal, requirement, number, ItemName, patient_name, medical_record_no, mark, 
+    Price, date, ismed, operatorid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neusoft.ssm.bean.SixpartoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sixpartone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.neusoft.ssm.bean.SixpartoneExample" >
+    delete from sixpartone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.neusoft.ssm.bean.Sixpartone" >
+    insert into sixpartone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="itemname != null" >
+        ItemName,
+      </if>
+      <if test="patientName != null" >
+        patient_name,
+      </if>
+      <if test="medicalRecordNo != null" >
+        medical_record_no,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="ismed != null" >
+        ismed,
+      </if>
+      <if test="operatorid != null" >
+        operatorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalRecordNo != null" >
+        #{medicalRecordNo,jdbcType=CHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=CHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ismed != null" >
+        #{ismed,jdbcType=CHAR},
+      </if>
+      <if test="operatorid != null" >
+        #{operatorid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neusoft.ssm.bean.SixpartoneExample" resultType="java.lang.Integer" >
+    select count(*) from sixpartone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sixpartone
+    <set >
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.goal != null" >
+        goal = #{record.goal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requirement != null" >
+        requirement = #{record.requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemname != null" >
+        ItemName = #{record.itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientName != null" >
+        patient_name = #{record.patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicalRecordNo != null" >
+        medical_record_no = #{record.medicalRecordNo,jdbcType=CHAR},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=CHAR},
+      </if>
+      <if test="record.price != null" >
+        Price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ismed != null" >
+        ismed = #{record.ismed,jdbcType=CHAR},
+      </if>
+      <if test="record.operatorid != null" >
+        operatorid = #{record.operatorid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sixpartone
+    set status = #{record.status,jdbcType=CHAR},
+      goal = #{record.goal,jdbcType=VARCHAR},
+      requirement = #{record.requirement,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      ItemName = #{record.itemname,jdbcType=VARCHAR},
+      patient_name = #{record.patientName,jdbcType=VARCHAR},
+      medical_record_no = #{record.medicalRecordNo,jdbcType=CHAR},
+      mark = #{record.mark,jdbcType=CHAR},
+      Price = #{record.price,jdbcType=DOUBLE},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      ismed = #{record.ismed,jdbcType=CHAR},
+      operatorid = #{record.operatorid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <select id="getPro" resultType="com.neusoft.ssm.bean.Sixpartone">
+    select * from sixpartone
+    where status='4'
+    or status = '5'
+    or status = '6'
+    or status = '7'
+  </select>
+
+  <select id="getPro1" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Sixpartone">
+    select * from sixpartone
+    where
+    (medical_record_no like concat(concat('%',#{param1}   ) ,'%')
+        or patient_name like concat(concat('%',#{param2}   ) ,'%'))
+    and
+    (status='4'
+    or status = '5'
+    or status = '6'
+    or status = '7')
+  </select>
+
+  <select id="getPicsById" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.ExamcheckResultPic">
+    select * from examcheck_result_pic
+    where resultId=#{i2}
+  </select>
+
+  <select id="findExamInfoId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id from sixparttwo
+    where medical_record_no=#{param1}
+       and itemname=#{param2}
+  </select>
+
+  <update id="updateStatus" parameterType="java.lang.Integer">
+      update examcheck_info set status = '5' where id = #{i1}
+  </update>
+
+    <update id="updateStatus1" parameterType="java.lang.Integer">
+        update examcheck_info set status = '6' where id = #{i1}
+    </update>
+
+  <select id="getdrugs" resultType="com.neusoft.ssm.bean.Drugs">
+    select id,drugscode,drugsname,drugsformat,drugsunit,drugsprice from drugs
+    where drugstypeid='101'
+  </select>
+
+  <select id="getExamCheckId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select examcheckId from sixparttwo
+    where medical_record_no=#{param1}
+      and itemname=#{param2}
+  </select>
+
+
+  <insert id="addInfo" parameterType="com.neusoft.ssm.bean.ExamcheckInfo" keyColumn="id" keyProperty="id"  useGeneratedKeys="true">
+    insert into examcheck_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        examcheckId,
+      </if>
+      <if test="fmeditemid != null" >
+        fmeditemId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="ismed != null" >
+        ismed,
+      </if>
+      <if test="operatorid != null" >
+        operatorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        #{examcheckid,jdbcType=INTEGER},
+      </if>
+      <if test="fmeditemid != null" >
+        #{fmeditemid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ismed != null" >
+        #{ismed,jdbcType=CHAR},
+      </if>
+      <if test="operatorid != null" >
+        #{operatorid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id from fmeditem
+    where ItemName=#{itemname}
+  </select>
+
+  <select id="getMedNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select DrugsName from drugs
+    where id=#{idByName}
+  </select>
+
+  <select id="getResultId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select id from examcheck_result
+    where examcheckId=#{i1}
+  </select>
+
+  <select id="getResultIdNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from examcheck_result
+    where examcheckId=#{i1}
+  </select>
+
+  <insert id="addResult" parameterType="com.neusoft.ssm.bean.ExamcheckResult" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into examcheck_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        examcheckId,
+      </if>
+      <if test="doctorid != null" >
+        doctorId,
+      </if>
+      <if test="suojian != null" >
+        suojian,
+      </if>
+      <if test="diagnosis != null" >
+        diagnosis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examcheckid != null" >
+        #{examcheckid,jdbcType=INTEGER},
+      </if>
+      <if test="doctorid != null" >
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="suojian != null" >
+        #{suojian,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosis != null" >
+        #{diagnosis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <insert id="addResultPic" parameterType="com.neusoft.ssm.bean.ExamcheckResultPic" >
+    insert into examcheck_result_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        resultId,
+      </if>
+      <if test="directory != null" >
+        directory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        #{resultid,jdbcType=INTEGER},
+      </if>
+      <if test="directory != null" >
+        #{directory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateResult" >
+    update examcheck_result
+    set
+    suojian = #{param2},
+    diagnosis = #{param3}
+    where id = #{param1}
+  </update>
+
+  <select id="getResultByInfoId" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.ExamcheckResult">
+    select * from examcheck_result
+    where examcheckId=#{i1}
+  </select>
+
+  <insert id="addOften" parameterType="com.neusoft.ssm.bean.Sixpartoften" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sixpartoften
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drugid != null" >
+        drugId,
+      </if>
+      <if test="drugsname != null" >
+        drugsName,
+      </if>
+      <if test="drugsprice != null" >
+        drugsPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drugid != null" >
+        #{drugid,jdbcType=INTEGER},
+      </if>
+      <if test="drugsname != null" >
+        #{drugsname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugsprice != null" >
+        #{drugsprice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getMedById" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.Drugs">
+    select * from drugs
+    where id=#{drugid}
+  </select>
+
+  <select id="findAllOften"  resultType="com.neusoft.ssm.bean.Sixpartoften">
+    select * from sixpartoften
+  </select>
+
+  <delete id="deleteByDrugName" parameterType="java.lang.String" >
+    delete from sixpartoften
+    where drugsName=#{name}
+  </delete>
+
+  <select id="getDrugIdByName" parameterType="java.lang.String"  resultType="java.lang.Integer">
+    select id from drugs
+    where drugsName=#{name}
+  </select>
+
+  <select id="getPro2" resultType="com.neusoft.ssm.bean.Sixpartone">
+    select * from sixpartone
+    where (status = '5'
+       or status = '6'
+       or status = '7')
+       and date BETWEEN #{param1,jdbcType=DATE} and #{param2,jdbcType=DATE}
+  </select>
+</mapper>

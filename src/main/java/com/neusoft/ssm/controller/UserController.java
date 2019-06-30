@@ -3,15 +3,17 @@ package com.neusoft.ssm.controller;
 import com.neusoft.ssm.bean.User;
 import com.neusoft.ssm.service.IUserService;
 import com.neusoft.ssm.util.MD5;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 @Controller
 @RequestMapping("login")
@@ -84,11 +86,13 @@ public class UserController {
     public String index04() { return  "Pharmacy_Workstation/PW_index"; }
 
     @RequestMapping(value = "/index05")
-    public String index05() { return  "login/index05"; }
+    public String index05() { return  "register/register"; }
 
     @RequestMapping(value = "/index06")
-    public String index06() { return  "login/index06"; }
+    public String index06() { return  "expense/expense"; }
 
+    @RequestMapping(value = "/index07")
+    public String index07() { return  "Pharmacy_Workstation/PW_index"; }
     //实现注册
     @RequestMapping(value = "/implAdd", method = RequestMethod.POST)
     @ResponseBody
