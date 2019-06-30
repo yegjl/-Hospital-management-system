@@ -18,6 +18,10 @@ public interface ExpenseAccountService {
 
     boolean update(Long id, String account_code, String account_name);
 
+    Integer findSame(String account_code, String account_name);
+
+    Integer findEditSame(String account_code, String real_code, String account_name, String real_name);
+
     void alterAUTO();
 
 }

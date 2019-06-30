@@ -10,7 +10,7 @@ import java.util.Map;
 public interface DepartmentService {
     String findNameById(String DeptCode);
     String findTypeByCode(String DeptCode);
-    public int uploadUserXls(MultipartFile file) throws IOException;
+    int uploadUserXls(MultipartFile file) throws IOException;
     Map<String,String> findDistinctID();
     List<Department> findByDeptcgID(String id);
     List<Department> findAll();
@@ -21,4 +21,5 @@ public interface DepartmentService {
     List<Department> getSearchDept(String keyword,String CgID);
     String getNameById(Integer id);
     List<Department> findByDeptType(String DeptType);
+    Long findIdByCode(String DeptCode);
 }

@@ -18,6 +18,17 @@
     <link rel="stylesheet" href="department/style/admin.css" media="all">
     <script src="department/layui/layui.js"></script>
     <script src="js/jquery.min.js"></script>
+
+    <style>
+        dl.layui-anim-upbit {
+            position: fixed;
+            min-width: 10px;
+            width: 212px;
+            margin: 0px auto;
+            left: 0px;
+            right: 18px;
+        }
+    </style>
 </head>
 
 <script>
@@ -84,9 +95,42 @@
     function getParent() {
         $(window.parent.getRefundValue());
     }
+
+    function getYF() {
+        var expense_category = document.getElementById("expense_category").value.toUpperCase();
+        var table1 = parent.layui.table;
+        var tabledata = table1.checkStatus('test-table-page').data;
+        var opt = document.getElementById("refund_number");
+        var opt2 = document.getElementById("refund_expense");
+        var unit_price = document.getElementById("unit_price").value.toUpperCase();
+        if(expense_category.indexOf("药费") != -1) {
+            $.ajax({
+                type: "post",
+                url: "expense/refundDrug",
+                data: {
+                    "id": tabledata[0].id
+                },
+                dataType: "JSON",
+                async: false,
+                success: function (data) {
+                    if(data == 0) {
+                        alert("该患者未退药，无法退费");
+                        parent.layer.closeAll();
+                    }
+                    else {
+                        opt.setAttribute("value", data);
+                        opt2.setAttribute("value", (data * unit_price) + "");
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+    }
 </script>
 
-<body onload="getDate();getParent()">
+<body onload="getDate();getParent();getYF()">
 <div class="layui-fluid" id="html1">
     <div class="layui-row layui-col-space15">
         <div class="layui-card layui-form" lay-filter="component-form-element">
@@ -146,7 +190,7 @@
                         <p style="margin: auto;">退费数量：</p>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                        <input class="layui-input" id="refund_number" autocomplete="off" onblur="getRefundExpense()" placeholder="请输入退费数量">
+                        <input type="number" class="layui-input" id="refund_number" autocomplete="off" onblur="getRefundExpense()" placeholder="请输入退费数量">
                     </div>
                     <br>
 

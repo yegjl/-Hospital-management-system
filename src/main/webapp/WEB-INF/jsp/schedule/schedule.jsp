@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <base href="<%=basePath%>"/>
 
@@ -13,8 +13,7 @@
     <title>排班管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="department/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="department/style/admin.css" media="all">
     <script src="department/layui/layui.js"></script>
@@ -24,147 +23,196 @@
 <script>
     layui.config({
         base: 'department/' //静态资源所在路径X
-    })
-        .extend({
-            index: 'lib/index' //主入口模块X
-        })
-        .use(['index', 'table'], function () {
+    }).extend({
+        index: 'lib/index' //主入口模块X
+    }).use(['index', 'table'], function() {
             var table = layui.table;
 
-            //方法级渲染
-            table.render({
-                elem: '#test-table-reload1'
-                // 这部分url你们自己填你们部署的接口********************************************************************************************
-                , url: 'schedule/list'
-                , method: 'get'
-                , parseData: function (res) {
-                    return {
-                        "code": res.status,
-                        "msg": res.message,
-                        "count": res.total,
-                        "data": res.data
+                //方法级渲染
+                table.render({
+                    elem: '#test-table-reload1'
+                    ,id: 'test-table-reload1'
+                    ,url: 'schedule/list'
+                    ,method: 'get'
+                    ,parseData: function (res) {
+                        return {
+                            "code": res.status,
+                            "msg": res.message,
+                            "count": res.total,
+                            "data": res.data
+                        }
                     }
-                }
-                , cols: [[
-                    {checkbox: true, fixed: true}
-                    , {field: 'id', title: '编号', width: 100, sort: true, fixed: true}
-                    , {field: 'doctor_id', title: '医生编号', width: 140, sort: true}
-                    , {field: 'week_time', title: '时间', width: 100, sort: true}
-                    , {field: 'department_name', title: '科室名称', width: 140, sort: true}
-                    , {field: 'doctor_name', title: '医生姓名', width: 140}
-                    , {field: 'register_level', title: '号别', width: 100}
-                    , {field: 'noon_level', title: '午别', width: 100}
-                    , {field: 'limit_num', title: '排班限额', width: 140}
-                    , {field: 'date', title: '操作日期'}
-
-                ]]
-                , page: true
-                , height: 315
-            });
-
-            table.render({
-                elem: '#test-table-reload2',
-                // 这部分url你们自己填你们部署的接口********************************************************************************************
-                url: 'schedule/schedulelist',
-                method: 'get',
-                parseData: function (res) {
-                    return {
-                        "code": res.status,
-                        "msg": res.message,
-                        "count": res.total,
-                        "data": res.data
-                    }
-                }
-                , cols: [
-                    [{
-                        checkbox: true,
-                        fixed: true
-                    }, {
-                        field: 'id',
-                        title: '编号',
-                        width: 100,
-                        sort: true,
-                        fixed: true
-                    }, {
-                        field: 'date',
-                        title: '日期',
-                        width: 180,
-                        fixed: true
-                    }, {
-                        field: 'doctor_id',
-                        title: '医生编号',
-                        width: 140
-                    }, {
-                        field: 'department_name',
-                        title: '科室名称',
-                        width: 180,
-                        sort: true
-                    }, {
-                        field: 'doctor_name',
-                        title: '医生姓名',
-                        width: 140
-                    }, {
-                        field: 'register_level',
-                        title: '号别',
-                        width: 100
-                    }, {
-                        field: 'noon_level',
-                        title: '午别',
-                        width: 100
-                    }, {
-                        field: 'limit_num',
-                        title: '排班限额'
-                    }
+                    , cols: [
+                        [{
+                            checkbox: true,
+                            fixed: true
+                        }, {
+                            field: 'id',
+                            title: '编号',
+                            width: 100,
+                            sort: true,
+                            fixed: true
+                        }, {
+                            field: 'doctor_id',
+                            title: '医生编号',
+                            width: 140,
+                            sort: true
+                        }, {
+                            field: 'week_time',
+                            title: '时间',
+                            width: 100,
+                            sort: true
+                        }, {
+                            field: 'department_name',
+                            title: '科室名称',
+                            width: 140,
+                            sort: true
+                        }, {
+                            field: 'doctor_name',
+                            title: '医生姓名',
+                            width: 140
+                        }, {
+                            field: 'register_level',
+                            title: '号别',
+                            width: 100
+                        }, {
+                            field: 'noon_level',
+                            title: '午别',
+                            width: 100
+                        }, {
+                            field: 'limit_num',
+                            title: '排班限额',
+                            width: 140
+                        }, {
+                            field: 'sc_date',
+                            title: '操作日期'
+                    }]
                     ]
-                ],
-                page: true,
-                height: 315
-            });
+                    , page: true
+                    , limit: 10
+                    , height: 315
+                });
 
+                var $ = layui.$, active = {
+                    reload: function () {
+                        var demoReload = $('#test-table-demoReload');
 
-            var $ = layui.$, active = {
-                reload: function () {
-                    var demoReload = $('#test-table-demoReload');
-
-                    //执行重载
-                    table.reload('test-table-reload1', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                        , where: {
-                            key: {
-                                id: demoReload.val()
+                        //执行重载
+                        table.reload('test-table-reload1', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
                             }
-                        }
-                    });
-                }
-            };
-
-            var $ = layui.$, active = {
-                reload: function () {
-                    var demoReload = $('#test-table-demoReload');
-
-                    //执行重载
-                    table.reload('test-table-reload2', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                        , where: {
-                            key: {
-                                id: demoReload.val()
+                            , where: {
+                                key: {
+                                    id: demoReload.val()
+                                }
                             }
-                        }
-                    });
-                }
-            };
+                        });
+                    }
+                };
 
-            $('.test-table-reload-btn .layui-btn').on('click', function () {
-                var type = $(this).data('type');
-                active[type] ? active[type].call(this) : '';
+                $('.test-table-reload-btn .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
             });
+</script>
+
+<script>
+    layui.config({
+        base: 'source/' //静态资源所在路径X
+    }).extend({
+        index: 'lib/index' //主入口模块X
+    }).use(['index', 'table'], function() {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test-table-reload2',
+            // 这部分url你们自己填你们部署的接口********************************************************************************************
+            url: 'schedule/schedulelist',
+            toolbar: '#test-table-toolbar-toolbarDemo',
+            method: 'get',
+            parseData: function (res) {
+                return {
+                    "code": res.status,
+                    "msg": res.message,
+                    "count": res.total,
+                    "data": res.data
+                }
+            }
+            , cols: [
+                [{
+                    checkbox: true,
+                    fixed: true
+                }, {
+                    field: 'id',
+                    title: '编号',
+                    width: 100,
+                    sort: true,
+                    fixed: true
+                }, {
+                    field: 'date',
+                    title: '日期',
+                    width: 180,
+                    fixed: true
+                }, {
+                    field: 'doctor_id',
+                    title: '医生编号',
+                    width: 140
+                }, {
+                    field: 'department_name',
+                    title: '科室名称',
+                    width: 180,
+                    sort: true
+                }, {
+                    field: 'doctor_name',
+                    title: '医生姓名',
+                    width: 140
+                }, {
+                    field: 'register_level',
+                    title: '号别',
+                    width: 100
+                }, {
+                    field: 'noon_level',
+                    title: '午别',
+                    width: 100
+                }, {
+                    field: 'limit_num',
+                    title: '排班限额',
+                    width: 120
+                }, {
+                    field: 'remain_num',
+                    title: '剩余号数'
+                }
+                ]
+            ],
+            page: true,
+            height: 315
         });
 
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#test-table-demoReload');
 
+                //执行重载
+                table.reload('test-table-reload2', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.test-table-reload-btn .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
 </script>
 
 <script>
@@ -177,24 +225,36 @@
 
 <script>
     function create() {
+        var start = document.getElementById("test-laydate-start").value.toUpperCase();
+        var end = document.getElementById("test-laydate-end").value.toUpperCase();
+        if(start == "") {
+            alert("开始日期不能为空");
+            return;
+        }
+        else if(end == "") {
+            alert("结束日期不能为空");
+            return;
+        }
+
         $.ajax({
             type: "post",
             url: "schedule/createSchedule",
             data: {
-                "startDate": $("#test-laydate-start").val(),
-                "endDate": $("#test-laydate-end").val(),
+                "startDate": start,
+                "endDate": end
             },
             dataType: "JSON",
             async: false,
 
             beforeSend: function () {
-                $("#submit").attr({disabled: "disabled"});
+                $("#submit").attr({ disabled: "disabled" });
             },
             success: function (data) {
-                if (data == 1) {
+                if(data == 1) {
                     alert("生成成功");
-                    layui.table.reload('test-table-reload2', {page: {curr: 1}});
-                } else
+                    layui.table.reload('test-table-reload2',{page: {curr: 1}});
+                }
+                else
                     alert("生成失败");
             },
             error: function () {
@@ -203,30 +263,36 @@
         });
     }
 
-    function find() {
+    function select() {
+        var keyword = document.getElementById("value_select").value.toUpperCase();
         $.ajax({
-            type: "post",
-            url: "schedule/find",
-            data: {
-                "keyword": $("#test-table-demoReload").val(),
-            },
-            dataType: "JSON",
-            async: false,
-
+            type: "POST",
+            url: "schedule/select",
+            traditional: true,
+            data:{'key': keyword},
             beforeSend: function () {
-                $("#submit").attr({disabled: "disabled"});
+                $("#submit").attr({ disabled: "disabled" });
             },
             success: function () {
-
+                layui.table.reload('test-table-reload1',{page: {curr: 1}});
             },
             error: function () {
-                alert("error");
+                alert("出现错误");
+                return false;
             }
         });
     }
 
     function refresh() {
-        window.location.reload();
+        layui.table.reload('test-table-reload1',{page: {curr: 1}});
+        $.ajax({
+            type: "get",
+            url: "schedule/refresh",
+            success: function () {
+                layui.table.reload('test-table-reload1',{page: {curr: 1}});
+                layui.table.reload('test-table-reload2',{page: {curr: 1}});
+            }
+        });
     }
 </script>
 
@@ -235,43 +301,35 @@
         base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index'], function () {
+    }).use(['index'], function(){
         var $ = layui.$
-            , admin = layui.admin
-            , element = layui.element
-            , router = layui.router();
+            ,admin = layui.admin
+            ,element = layui.element
+            ,router = layui.router();
 
         element.render();
 
         var active = {
 
             // 添加函数***************************************************************************************
-            addTop: function (othis) {
+            addTop: function(othis){
                 var that = this;
                 var type = othis.data('type')
-                    , text = othis.text();
+                    ,text = othis.text();
 
                 layer.open({
                     type: 1
-                    ,
-                    title: '排班添加'
-                    ,
-                    area: ['490px', '500px']
-                    ,
-                    shade: 0
-                    ,
-                    maxmin: true
-                    ,
-                    offset: type
+                    ,title: '排班添加'
+                    ,area: ['490px', '500px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,offset: type
                     // 这个地方不要缩进分行，我查了这个content不能分行orz,id内容你们自己定一个吧****************************************************************
-                    ,
-                    content: '<iframe src="schedule/addUI" frameborder="0" id="addSchedule" name="addSchedule" class="layadmin-iframe"></iframe>'
-                    ,
-                    btn: ['继续添加', '全部确定']
-                    ,
-                    yes: function () {
+                    ,content: '<iframe src="schedule/addUI" frameborder="0" id="addSchedule" name="addSchedule" class="layadmin-iframe"></iframe>'
+                    ,btn: ['确定','关闭']
+                    ,yes: function(){
                         var flag = document.getElementById("addSchedule").contentWindow.addControll();
-                        if (flag == false)
+                        if(flag == false)
                             return;
 
                         var doctorId = window.frames["addSchedule"].document.getElementById('doctorId').value;
@@ -296,74 +354,70 @@
 
                             },
                             success: function (data) {
-                                if (data == 1) {
+                                if(data == 1) {
                                     alert("添加成功");
-                                } else
+                                    layui.table.reload('test-table-reload1',{page: {curr: 1}});
+                                }
+                                else if(data == 2) {
+                                    alert("该医生已经参与当天的排班");
+                                    return;
+                                }
+                                else if(data == 3) {
+                                    alert("非临床科室不参与排班");
+                                    return;
+                                }
+                                else
                                     alert("添加失败");
                             },
                             error: function () {
                                 alert("提交失败");
                             }
                         });
-                        layui.table.reload('test-table-reload1', {page: {curr: 1}});
-                    }
-                    ,
-                    btn2: function () {
-                        // 此处要写递交的函数，但是不要把我closall的函数删掉***********************************************************************
                         layer.closeAll();
-                        //layui.table.reload('test-table-reload1',{page: {curr: 1}});
+                    }
+                    ,btn2: function(){
+                        layer.closeAll();
                     }
 
-                    ,
-                    zIndex: layer.zIndex
-                    ,
-                    success: function (layero) {
+                    ,zIndex: layer.zIndex
+                    ,success: function(layero){
                         layer.setTop(layero);
                     }
                 });
             }
 
             // 编辑弹窗
-            , edit: function (othis) {
+            ,edit: function(othis){
                 var type = othis.data('type')
-                    , text = othis.text();
+                    ,text = othis.text();
                 var tabledata = layui.table.checkStatus('test-table-reload1').data;
                 var myArray = new Array();
-                for (var i = 0; i < tabledata.length; i++) {
+                for(var i = 0; i < tabledata.length; i++){
                     myArray.push(tabledata[i].id);
                 }
-                if (myArray.length > 1) {
+                if(myArray.length > 1) {
                     alert("一次只能修改一条规则！");
                     return;
-                } else if (myArray.length < 1) {
+                }
+                else if(myArray.length < 1) {
                     alert("请选择一条规则编辑！");
                     return;
                 }
 
                 layer.open({
                     type: 1
-                    ,
-                    offset: type
-                    ,
-                    title: '排班编辑'
-                    ,
-                    id: 'layerDemo' + type
-                    ,
-                    area: ['490px', '460px']
-                    ,
-                    content: '<iframe src="schedule/editUI" frameborder="0" id="editSchedule" name="editSchedule" class="layadmin-iframe"></iframe>'
-                    ,
-                    btn: ['确定', '取消']
-                    ,
-                    maxmin: true
-                    ,
-                    btnAlign: 'c'
-                    ,
-                    shade: 0
-                    ,
-                    yes: function () {
+                    ,offset: type
+                    ,title: '排班编辑'
+                    ,id: 'layerDemo'+type
+                    ,area: ['490px', '460px']
+                    ,content: '<iframe src="schedule/editUI" frameborder="0" id="editSchedule" name="editSchedule" class="layadmin-iframe"></iframe>'
+                    ,btn:['确定','取消']
+                    ,maxmin: true
+                    ,btnAlign: 'c'
+                    ,shade: 0
+                    ,yes: function(){
                         var flag = document.getElementById("editSchedule").contentWindow.editControll();
-                        if (flag == false)
+                        if(flag == false)
                             return;
 
                         var doctorId = window.frames["editSchedule"].document.getElementById('doctorId').value;
@@ -380,7 +434,7 @@
                                 "week_time": weekTime,
                                 "register_level": registerLevel,
                                 "noon_level": noonLevel,
-                                "limit_num": limitNum,
+                                "limit_num": limitNum
                             },
                             dataType: "JSON",
                             async: false,
@@ -388,55 +442,56 @@
 
                             },
                             success: function (data) {
-                                if (data == 1) {
+                                if(data == 1) {
                                     alert("修改成功");
-                                } else
+                                    layui.table.reload('test-table-reload1',{page: {curr: 1}});
+                                }
+                                else
                                     alert("修改失败");
                             },
                             error: function () {
                                 alert("提交失败");
                             }
                         });
-                        layui.table.reload('test-table-reload1', {page: {curr: 1}});
                         layer.closeAll();
                     }
-                    ,
-                    btn2: function () {
+                    ,btn2:function(){
                         layer.closeAll();
                     }
                 });
             }
 
-            , deltable: function (othis) {
+            ,deltable: function(othis){
                 var type = othis.data('type')
-                    , text = othis.text();
+                    ,text = othis.text();
                 var tabledata = layui.table.checkStatus('test-table-reload1').data;
-                if (myArray.length < 1) {
+
+                var myArray = new Array();
+                for(var i = 0; i < tabledata.length; i++){
+                    myArray.push(tabledata[i].id);
+                }
+                if(myArray.length < 1) {
                     alert("请选择规则删除");
                     return;
-                }
-                var myArray = new Array();
-                for (var i = 0; i < tabledata.length; i++) {
-                    myArray.push(tabledata[i].id);
                 }
 
 
                 layer.open({
                     type: 1
-                    , offset: type
-                    , title: '排班删除'
-                    , id: 'layerDemo' + type
-                    , area: ['190px', '160px']
-                    , content: '<iframe src="schedule/delUI" frameborder="0" class="layadmin-iframe"></iframe>'
-                    , btn: ['确定', '取消']
-                    , btnAlign: 'c'
-                    , shade: 0
-                    , yes: function () {
+                    ,offset: type
+                    ,title: '排班删除'
+                    ,id: 'layerDemo'+type
+                    ,area: ['190px', '160px']
+                    ,content: '<iframe src="schedule/delUI" frameborder="0" class="layadmin-iframe"></iframe>'
+                    ,btn:['确定','取消']
+                    ,btnAlign: 'c'
+                    ,shade: 0
+                    ,yes: function(){
                         $.ajax({
                             type: "POST",
                             url: "schedule/delete",
                             traditional: true,
-                            data: {'id': myArray},
+                            data:{'id': myArray},
                             success: function (res) {
                                 if (res.status == 0) {
                                 } else {
@@ -449,17 +504,17 @@
                                 return false;
                             }
                         });
-                        layui.table.reload('test-table-reload1', {page: {curr: 1}});
+                        layui.table.reload('test-table-reload1',{page: {curr: 1}});
                         layer.closeAll();
                     }
-                    , btn2: function () {
+                    ,btn2:function(){
                         layer.closeAll();
                     }
                 });
             }
         };
 
-        $('#LAY-component-layer-special-demo .layadmin-layer-demo .layui-btn').on('click', function () {
+        $('#LAY-component-layer-special-demo .layadmin-layer-demo .layui-btn').on('click', function(){
             var othis = $(this), method = othis.data('method');
             active[method] ? active[method].call(this, othis) : '';
         });
@@ -471,16 +526,16 @@
         base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form'], function () {
+    }).use(['index', 'form'], function(){
         var $ = layui.$
-            , admin = layui.admin
-            , element = layui.element
-            , form = layui.form;
+            ,admin = layui.admin
+            ,element = layui.element
+            ,form = layui.form;
 
         form.render(null, 'component-form-element');
         element.render('breadcrumb', 'breadcrumb');
 
-        form.on('submit(component-form-element)', function (data) {
+        form.on('submit(component-form-element)', function(data){
             layer.msg(JSON.stringify(data.field));
             return false;
         });
@@ -510,7 +565,7 @@
             tabAdd: function () {
                 /* 新增一个Tab项 */
                 element.tabAdd('demo', {
-                    title: '新选项' + (Math.random() * 1000 | 0) /* 用于演示 */,
+                    title: '新选项' + (Math.random() * 1000 | 0) /* 用于演示 */ ,
                     content: '内容' + (Math.random() * 1000 | 0),
                     id: new Date().getTime() /* 实际使用一般是规定好的id，这里以时间戳模拟下 */
                 })
@@ -548,7 +603,7 @@
         base: 'department/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'laydate'], function () {
+    }).use(['index', 'laydate'], function(){
         var laydate = layui.laydate;
 
         //示例代码
@@ -556,8 +611,8 @@
         //开始日期
         var insStart = laydate.render({
             elem: '#test-laydate-start'
-            , min: 0
-            , done: function (value, date) {
+            ,min: 0
+            ,done: function(value, date){
                 //更新结束日期的最小日期
                 insEnd.config.min = lay.extend({}, date, {
                     month: date.month - 1
@@ -571,8 +626,8 @@
         //结束日期
         var insEnd = laydate.render({
             elem: '#test-laydate-end'
-            , min: 0
-            , done: function (value, date) {
+            ,min: 0
+            ,done: function(value, date){
                 //更新开始日期的最大日期
                 insStart.config.max = lay.extend({}, date, {
                     month: date.month - 1
@@ -595,7 +650,7 @@
                         <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-brief">
                             <ul class="layui-tab-title">
                                 <li class="layui-this">医生排班规则维护</li>
-                                <li>医生排班信息</li>
+                                <li >医生排班信息</li>
                             </ul>
                             <div class="layui-tab-content">
                                 <div class="layui-tab-item layui-show">
@@ -610,40 +665,29 @@
                                             <div class="layui-fluid" id="LAY-component-layer-special-demo">
                                                 <div class="layui-row">
                                                     <div class="layui-col-xs6 layui-col-sm4 layui-col-md2">
-                                                        <%--                                                        <div style="width: 60%;float: left;">--%>
-                                                        <%--                                                        <input class="layui-input" name="id" id="test-table-demoReload" placeholder="请输入医生姓名"--%>
-                                                        <%--                                                               style="width: 120px;display: inline;margin:10px;"></div>--%>
-                                                        <%--                                                        <div style="width: 40%;float: right;">--%>
-                                                        <%--&lt;%&ndash;                                                            <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>&ndash;%&gt;--%>
-                                                        <%--                                                            <input class="layui-btn" type="button" value="搜索" data-type="reload" style="margin: 10px;">--%>
-                                                        <%--                                                        </div>--%>
+                                                        <div style="width: 60%;float: left;">
+                                                        <input class="layui-input" name="id" id="value_select" placeholder="请输入医生姓名"
+                                                               style="width: 120px;display: inline;margin:10px;"></div>
+                                                        <div style="width: 40%;float: right;">
+                                                            <button class="layui-btn" onclick="select()" style="margin: 10px;"><i class="layui-icon">&#xe615;</i>搜索</button>
+<%--                                                            <input class="layui-btn" type="button" value="搜索" onclick="select()" style="margin: 10px;">--%>
+                                                        </div>
 
                                                     </div>
 
 
-                                                    <div class="layui-col-xs6 layui-col-sm8 layui-col-md4"
-                                                         style="float: left;">
+                                                    <div class="layui-col-xs6 layui-col-sm8 layui-col-md4" style="float: left;margin-left: 25px;width: 40%">
 
+                                                        <div class="layui-btn-container layadmin-layer-demo" >
 
-                                                        <div class="layui-btn-container layadmin-layer-demo">
-
-                                                            <%--                                                            <button data-method="addTop" data-type="auto" class="layui-btn" style="margin: 10px;">添加</button>--%>
-                                                            <input type="button" value="添加" data-method="addTop"
-                                                                   data-type="auto" class="layui-btn"
-                                                                   style="margin: 10px;">
-                                                            <%--                                                            <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
-                                                            <input type="button" value="编辑" data-method="edit"
-                                                                   data-type="auto" class="layui-btn"
-                                                                   style="margin: 10px;">
-                                                            <!-- 删除部分还没有填充函数 ************************************************************************-->
-                                                            <%--                                                            <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
-                                                            <input type="button" value="删除" data-method="deltable"
-                                                                   data-type="auto" class="layui-btn"
-                                                                   style="margin: 10px;">
-                                                            <!--   <button data-method="upload" data-type="auto" class="layui-btn" style="margin: 10px;"> 导入</button> -->
-                                                            <input type="button" value="刷新" class="layui-btn"
-                                                                   style="margin: 10px;" onclick="refresh()">
-
+<%--                                                            <input type="button" value="添加" data-method="addTop" data-type="auto" class="layui-btn" style="margin: 10px;">--%>
+                                                            <a data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</a>
+<%--                                                            <input type="button" value="编辑" data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">--%>
+                                                            <a data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</a>
+<%--                                                            <input type="button" value="删除" data-method="deltable" data-type="auto" class="layui-btn" style="margin: 10px;">--%>
+                                                            <a data-method="deltable" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</a>
+<%--                                                            <input type="button" value="刷新"  class="layui-btn" style="margin: 10px;" onclick="refresh()">--%>
+                                                            <a class="layui-btn layui-bg-cyan" style="margin: 10px;" onclick="refresh()"><i class="layui-icon">&#xe669;</i>刷新</a>
 
                                                         </div>
                                                     </div>
@@ -652,7 +696,7 @@
                                                 </div>
                                             </div>
                                             <!-- 表格 -->
-                                            <table class="layui-hide" id="test-table-reload1" lay-filter="user"></table>
+                                            <table class="layui-hide" id="test-table-reload1" lay-filter="user1"></table>
 
                                         </div>
                                     </div>
@@ -674,24 +718,19 @@
                                                                     <div class="layui-inline">
                                                                         <label class="layui-form-label">日期</label>
                                                                         <div class="layui-input-inline">
-                                                                            <input type="text" class="layui-input"
-                                                                                   id="test-laydate-start"
-                                                                                   autocomplete="off"
-                                                                                   placeholder="开始日期">
+                                                                            <input type="text" class="layui-input" id="test-laydate-start" autocomplete="off" placeholder="开始日期">
                                                                         </div>
                                                                         <div class="layui-form-mid">
                                                                             -
                                                                         </div>
                                                                         <div class="layui-input-inline">
-                                                                            <input type="text" class="layui-input"
-                                                                                   id="test-laydate-end"
-                                                                                   autocomplete="off"
-                                                                                   placeholder="结束日期">
+                                                                            <input type="text" class="layui-input" id="test-laydate-end" autocomplete="off" placeholder="结束日期">
                                                                         </div>
 
-                                                                        <input type="button" value="生成"
-                                                                               class="layui-btn" id="chaxun"
-                                                                               style="margin:auto;" onClick="create()"/>
+<%--                                                                        <input type="button" value="生成" class="layui-btn" id="chaxun" style="margin:auto;" onClick="create()"/>--%>
+                                                                        <a class="layui-btn layui-btn-normal" id="chaxun" style="margin:auto;" onClick="create()"><i class="layui-icon">&#xe61f;</i>生成</a>
+<%--                                                                        <input type="button" value="刷新" class="layui-btn" id="shuaxin" style="margin:auto;" onClick="refresh()"/>--%>
+                                                                        <a class="layui-btn layui-bg-cyan" id="shuaxin" style="margin:auto;" onClick="refresh()"><i class="layui-icon">&#xe669;</i>刷新</a>
 
                                                                     </div>
                                                                 </form>

@@ -3,17 +3,27 @@ package com.neusoft.ssm.controller;
 import com.neusoft.ssm.bean.User;
 import com.neusoft.ssm.service.IUserService;
 import com.neusoft.ssm.util.MD5;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+/**
+ * 登录跳转控制类
+ * 实现登录、注册、忘记密码、数据加密和页面跳转
+ * @author Nebula
+ * @version 1.20 2019/06/28
+ * */
 
 @Controller
 @RequestMapping("login")
@@ -22,16 +32,21 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    //跳转登录
+    /**
+     * 跳转至登录页面
+     */
     @RequestMapping("/login")
     public String toLogin() {
         return "login/login";
     }
 
-    /*验证登录
-     *
-     * 使用 @ResponseBody 在ajax异步获取数据时使用。返回0/1
-     *
+    /**
+     * 登录
+     * @param login_name 用户名
+     * @Param password 密码
+     * @Param request 返回值
+     * @Param session 连接
+     * @return message(int) 返回操作状态代码和数据
      */
     @RequestMapping(value = "/login_check", method = RequestMethod.POST)
     @ResponseBody
@@ -41,6 +56,9 @@ public class UserController {
         String lgCate = request.getParameter("category");
         request.getSession().setAttribute("lgName", lgName);
         request.getSession().setAttribute("lgCate", lgCate);
+
+        session.setAttribute("user_name", login_name);
+
         int count = userService.login(login_name, passwordByMd5);
         int message = 0;
         String category = userService.selectCategory(login_name);
@@ -71,23 +89,39 @@ public class UserController {
         return message;
     }
 
-    //身份验证跳转
+    /**
+     * 跳转至挂号收费员主页
+     */
     @RequestMapping(value = "/index01")
     public String index01() { return "fifthpart/ODW_index"; }
 
+    /**
+     * 跳转至门诊医生主页
+     */
     @RequestMapping(value = "/index02")
     public String index02() { return  "department/department"; }
 
+    /**
+     * 跳转至医技医生主页
+     */
     @RequestMapping(value = "/index03")
     public String index03() { return  "fifthpart/YSGZZ_index"; }
 
-    //测试第七部分药房功能
+    /**
+     * 跳转至药房操作员主页
+     */
     @RequestMapping(value = "/index04")
     public String index04() { return  "Pharmacy_Workstation/PW_index"; }
 
+    /**
+     * 跳转至财务管理员主页
+     */
     @RequestMapping(value = "/index05")
     public String index05() { return  "register/register"; }
 
+    /**
+     * 跳转至医院管理员主页
+     */
     @RequestMapping(value = "/index06")
     public String index06() { return  "expense/expense"; }
 
@@ -103,23 +137,26 @@ public class UserController {
         int message;
         if (login_name.length() == 0 || password.length() == 0) {
             message = -1;
-            //System.out.println("用户信息输入信息有误");
         } else if (findUserByLgName == 0) {
             userService.register(login_name, passwordByMd5, category, question, answerByMd5);
             message = 1;
-            //System.out.println("可以注册");
         } else {
-            //System.out.println("用户存在");
             message = 0;
         }
         return message;
     }
 
-    //返回主页跳转
+    /**
+     * 跳转至首页
+     */
     @RequestMapping(value = "/return")
     public String returnIndex() { return "login/login"; }
 
-    //注销
+    /**
+     * 注销
+     * @Param session 连接
+     * @return (String) 返回主页
+     */
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("lgName");
@@ -128,55 +165,86 @@ public class UserController {
         return "login/login";
     }
 
-    //调整转至排班
+    /**
+     * 跳转至排班页面
+     */
     @RequestMapping(value = "/schedule")
     public String schedule() {
         return "schedule/schedule";
     }
 
-    //调整转至挂号
+    /**
+     * 跳转至挂号页面
+     */
     @RequestMapping(value = "/register")
     public String register() {
         return "register/register";
     }
 
-    //调整转至收费
+    /**
+     * 跳转至收费页面
+     */
     @RequestMapping(value = "/expense")
     public String expense() {
         return "expense/expense";
     }
 
-    //调整转至收费
+    /**
+     * 跳转至患者费用查询页面
+     */
     @RequestMapping(value = "/search")
     public String search_expense() {
         return "expense/search_expense";
     }
 
-    //调整转至收费
+    /**
+     * 跳转至日结页面
+     */
     @RequestMapping(value = "/settle")
     public String settle() {
         return "expense/daily_settle";
     }
 
-    //调整转至费用科目管理
+    /**
+     * 跳转至费用科目管理页面
+     */
     @RequestMapping(value = "/account")
     public String account() {
         return "finance/expense_account";
     }
 
-    //调整转至门诊日结核对
+    /**
+     * 跳转至门诊日结核对页面
+     */
     @RequestMapping(value = "/check")
     public String check() {
         return "finance/settle_check";
     }
 
-    //调整转至门诊统计
+    /**
+     * 跳转至门诊科室工作量统计页面
+     */
     @RequestMapping(value = "/statistic")
     public String statistic() {
         return "statistic/dept_statistic";
     }
 
-    //重置密码
+    /**
+     * 跳转至门诊医生工作量统计页面
+     */
+    @RequestMapping(value = "/statistic2")
+    public String statistic2() {
+        return "statistic/doc_statistic";
+    }
+
+    /**
+     * 忘记密码，重置密码
+     * @Param login_name 用户名
+     * @Param password 密码
+     * @Param request 返回值
+     * @Param session 连接
+     * @return message(int) 返回操作状态代码和数据
+     */
     @RequestMapping("/verify")
     @ResponseBody
     public int verify(String login_name, String password, String answer, HttpServletRequest request, HttpSession session) {
@@ -200,11 +268,41 @@ public class UserController {
         return message;
     }
 
-    //提取密保问题
+    /**
+     * 获取密保问题
+     * @Param login_name 用户名
+     * @return user(User) 返回数据
+     */
     @RequestMapping("/getQue/{login_name}")
     @ResponseBody
     public User getQue(@PathVariable String login_name) {
         User user =  userService.findUserById(login_name);
         return user;
+    }
+
+    /**
+     * 对cookie里的密码加密
+     * @Param password 密码
+     * @return passwd(String) 返回加密后的密码
+     * @throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException
+     */
+    @RequestMapping(value = "/getlock", method = RequestMethod.POST)
+    @ResponseBody
+    public String getlock(String password) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
+        String passwd = MD5.KL(password);
+        return passwd;
+    }
+
+    /**
+     * 对cookie里的密码解密
+     * @Param password 加密的密码
+     * @return passwd(String) 返回解密后的密码
+     * @throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException
+     */
+    @RequestMapping(value = "/getdelock", method = RequestMethod.POST)
+    @ResponseBody
+    public String getdelock(String password) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
+        String passwd = MD5.JM(password);
+        return passwd;
     }
 }

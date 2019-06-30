@@ -19,13 +19,18 @@ public class StatisticServiceImpl implements StatisticService {
 
 
     @Override
-    public Double findExpense(String expense_category, String start_date, String end_date, Long department_id) {
-        return statisticMapper.findExpense(expense_category, start_date, end_date, department_id);
+    public List<Statistic> findExpense(String start_date, String end_date, Long department_id) {
+        return statisticMapper.findExpense(start_date, end_date, department_id);
     }
 
     @Override
     public List<Statistic> ToFindExpense(String start_date, String end_date, String department_id) {
         return statisticMapper.ToFindExpense(start_date, end_date, department_id);
+    }
+
+    @Override
+    public List<Statistic> findDocExpense(String start_date, String end_date, Long doctor_id) {
+        return statisticMapper.findDocExpense(start_date, end_date, doctor_id);
     }
 
     @Override
@@ -39,6 +44,16 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
+    public Long getNum(String start_date, String end_date, Long department_id) {
+        return statisticMapper.getNum(start_date, end_date, department_id);
+    }
+
+    @Override
+    public Long getDocNum(String start_date, String end_date, Long doctor_id) {
+        return statisticMapper.getDocNum(start_date, end_date, doctor_id);
+    }
+
+    @Override
     public List<Department> findDeptType(String DeptType) {
         return statisticMapper.findDeptType(DeptType);
     }
@@ -48,8 +63,4 @@ public class StatisticServiceImpl implements StatisticService {
         return statisticMapper.findTitle();
     }
 
-    @Override
-    public List<Expense> findtest(String start_date, String end_date) {
-        return statisticMapper.findtest(start_date, end_date);
-    }
 }

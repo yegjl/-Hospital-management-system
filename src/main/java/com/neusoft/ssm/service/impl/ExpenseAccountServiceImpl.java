@@ -46,6 +46,16 @@ public class ExpenseAccountServiceImpl implements ExpenseAccountService {
     }
 
     @Override
+    public Integer findSame(String account_code, String account_name) {
+        return expenseAccountMapper.findSame(account_code, account_name);
+    }
+
+    @Override
+    public Integer findEditSame(String account_code, String real_code, String account_name, String real_name) {
+        return expenseAccountMapper.findEditSame(account_code, real_code, account_name, real_name);
+    }
+
+    @Override
     public void alterAUTO() {
         expenseAccountMapper.alterAUTO();
     }

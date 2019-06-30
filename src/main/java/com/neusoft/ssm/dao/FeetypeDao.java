@@ -18,6 +18,15 @@ public interface FeetypeDao {
     int updateByPrimaryKey(Feetype record);
 
     List<Feetype> selectAll();
+    /**
+     * 获取全部结算类别信息列表
+     * @return (List<Feetype>)
+     */
     List<Feetype> findAll();
+    /**
+     * 按id获取结算类型名称
+     * @Param id 结算类型id
+     * @return (String)
+     */
     String findById(@Param("id") Integer id);
 }

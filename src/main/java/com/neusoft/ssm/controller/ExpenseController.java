@@ -2,6 +2,7 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.*;
@@ -17,6 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.List;
+
+/**
+ * 收费退费控制类
+ * 实现费用科目增删改查和患者费用查询
+ * @author Nebula
+ * @version 1.30 2019/06/29
+ * */
 
 @Controller
 @RequestMapping("expense")
@@ -46,24 +54,37 @@ public class ExpenseController {
     @Autowired
     FeetypeService feetypeService;
 
+    /**存放查找患者信息的病历号*/
     String num = null;
+    /**存放查询收费列表的患者病历号*/
     String search = null;
+    /**存放查询收费列表的开始日期*/
     Date startDate = null;
+    /**存放查询收费列表的结束日期*/
     Date endDate = null;
 
-    //跳转至收费页面
+    /**
+     * 跳转至收费弹窗
+     */
     @RequestMapping(value = "/chargeUI")
     public String ToCharge() {
         return "expense/charge_expense";
     }
 
-    //跳转至退费页面
+    /**
+     * 跳转至退费弹窗
+     */
     @RequestMapping(value = "/refundUI")
     public String ToRefund() {
         return "expense/refund_expense";
     }
 
-    //获取收费项目列表
+    /**
+     * 生成收费项目信息列表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> listall(int page, int limit) {
@@ -81,6 +102,14 @@ public class ExpenseController {
                     s.setUnit("次");
                     s.setUnit_price(s.getExpense());
                 }
+                else if(s.getExpense_category().contains("YF")) {
+                    Drugs drug = expenseService.findDrugByCode(s.getExpense_id());
+                    s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
+                    s.setExpense_name(drug.getDrugsname());
+                    s.setSpecifications(drug.getDrugsformat());
+                    s.setUnit(drug.getDrugsunit());
+                    s.setUnit_price(drug.getDrugsprice().doubleValue());
+                }
                 else {
                     s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
                     s.setExpense_name(fmeditemService.findByItemCode(s.getExpense_id()).getItemname());
@@ -108,7 +137,12 @@ public class ExpenseController {
         return resultDTO;
     }
 
-    //查询收费列表
+    /**
+     * 获取查询收费列表的参数
+     * @param medical_record_no 分页页数请求
+     * @Param start 开始日期
+     * @Param end 结束日期
+     */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
     public void searchlist(String medical_record_no, Date start, Date end) {
@@ -117,7 +151,12 @@ public class ExpenseController {
         endDate = end;
     }
 
-    //返回查询到的收费列表
+    /**
+     * 生成查询到的患者收费信息列表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/searchlist", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> searchlist(int page, int limit) {
@@ -125,30 +164,42 @@ public class ExpenseController {
         List<Expense> list = null;
 
         try {
-            PageHelper.startPage(page, limit);
-            list = expenseService.search(search, startDate, endDate);
-
-            for(Expense s : list) {
-                if(s.getExpense_category().equals("GHF")) {
-                    s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
-                    s.setExpense_name("门诊挂号");
-                    s.setSpecifications("次");
-                    s.setUnit("次");
-                    s.setUnit_price(s.getExpense());
-                }
-                else {
-                    s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
-                    s.setExpense_name(fmeditemService.findByItemCode(s.getExpense_id()).getItemname());
-                    s.setSpecifications(fmeditemService.findByItemCode(s.getExpense_id()).getFormat());
-                    s.setUnit("次");
-                    s.setUnit_price(fmeditemService.findByItemCode(s.getExpense_id()).getPrice());
-                }
-                s.setDate(DateTool.getDateToString(s.getExpense_date()));
-                s.setPay_category(DBTool.dbToPayCategory(s.getPay_category()));
-                s.setPay_sign(DBTool.dbToPaySign(s.getPay_sign()));
-                s.setDay_settle_sign(DBTool.dbToDaySign(s.getDay_settle_sign()));
+            if(search == null || startDate == null || endDate == null) {
+                return resultDTO;
             }
+            else {
+                PageHelper.startPage(page, limit);
+                list = expenseService.search(search, startDate, endDate);
 
+                for(Expense s : list) {
+                    if(s.getExpense_category().equals("GHF")) {
+                        s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
+                        s.setExpense_name("门诊挂号");
+                        s.setSpecifications("次");
+                        s.setUnit("次");
+                        s.setUnit_price(s.getExpense());
+                    }
+                    else if(s.getExpense_category().contains("YF")) {
+                        Drugs drug = expenseService.findDrugByCode(s.getExpense_id());
+                        s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
+                        s.setExpense_name(drug.getDrugsname());
+                        s.setSpecifications(drug.getDrugsformat());
+                        s.setUnit(drug.getDrugsunit());
+                        s.setUnit_price(drug.getDrugsprice().doubleValue());
+                    }
+                    else {
+                        s.setExpense_category(expenseAccountService.findByCode(s.getExpense_category()));
+                        s.setExpense_name(fmeditemService.findByItemCode(s.getExpense_id()).getItemname());
+                        s.setSpecifications(fmeditemService.findByItemCode(s.getExpense_id()).getFormat());
+                        s.setUnit("次");
+                        s.setUnit_price(fmeditemService.findByItemCode(s.getExpense_id()).getPrice());
+                    }
+                    s.setDate(DateTool.getDateToString(s.getExpense_date()));
+                    s.setPay_category(DBTool.dbToPayCategory(s.getPay_category()));
+                    s.setPay_sign(DBTool.dbToPaySign(s.getPay_sign()));
+                    s.setDay_settle_sign(DBTool.dbToDaySign(s.getDay_settle_sign()));
+                }
+            }
             PageInfo<Expense> pageInfo = new PageInfo<>(list);
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
@@ -162,7 +213,15 @@ public class ExpenseController {
         return resultDTO;
     }
 
-    //收费
+    /**
+     * 收费
+     * @param id 收费条目的id
+     * @Param real_expense 实收金额
+     * @Param pay_category 付款类型
+     * @Param pay_sign 付款标志
+     * @Param expense_date 付款日期
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/charge", method = RequestMethod.POST)
     @ResponseBody
     public int charge(Long id, Double real_expense, String pay_category, String pay_sign, Date expense_date) {
@@ -180,14 +239,28 @@ public class ExpenseController {
         return message;
     }
 
-    //退费
+    /**
+     * 退费
+     * @param id 退费条目的id
+     * @Param number 退费项目数量
+     * @Param expense 应付金额
+     * @Param real_expense 实收金额
+     * @Param pay_sign 付款标志
+     * @Param expense_date 付款日期
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/refund", method = RequestMethod.POST)
     @ResponseBody
     public int refund(Long id, Long number, Double expense, Double real_expense, String pay_sign, Date expense_date) {
         int message = 1;
         try{
             Expense e = expenseService.findById(id);
-            boolean sign = refundService.add(e.getMedical_record_no(), e.getExpense_category(), e.getExpense_id(), e.getNumber() - number, e.getExpense() - expense, e.getPay_category(), "0", expense_date);
+            if(e.getIs_consume().equals("1")) {
+                message = 2;
+                return message;
+            }
+            refundService.alterAUTO();
+            boolean sign = refundService.add(e.getMedical_record_no(), e.getExpense_category(), e.getExpense_id(), e.getPrescribe_id(), e.getNumber() - number, e.getExpense() - expense, e.getPay_category(), "0", expense_date);
             boolean flag = expenseService.refund(id, number, expense, real_expense, pay_sign, expense_date);
             if(flag == true || sign == true)
                 message = 1;
@@ -200,7 +273,11 @@ public class ExpenseController {
         return message;
     }
 
-    //获取患者姓名
+    /**
+     * 按病历号获取患者信息
+     * @param medical_record_no 患者病历号
+     * @return info(String[]) 返回患者信息数组
+     */
     @RequestMapping(value = "/info/{medical_record_no}")
     @ResponseBody
     public String[] patientInfo(@PathVariable String medical_record_no) {
@@ -234,7 +311,11 @@ public class ExpenseController {
         return info;
     }
 
-    //合计金额
+    /**
+     * 按病历号计算患者收费项目的合计金额
+     * 病历号来自于获取患者信息时的num
+     * @return info(Double[]) 返回患者合计金额数组
+     */
     @RequestMapping(value = "/total", method = RequestMethod.GET)
     @ResponseBody
     public Double[] total() {
@@ -247,14 +328,38 @@ public class ExpenseController {
         return info;
     }
 
-    //收费页面刷新
+    /**
+     * 获取退药数量
+     * @param id 收费项目id
+     * @return num(Integer) 返回退药数量
+     */
+    @RequestMapping(value = "/refundDrug", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer refundDrug(Long id) {
+        Integer num = 0;
+        try{
+            Expense es = expenseService.findById(id);
+            num = expenseService.findRefundDrugNum(es.getMedical_record_no(), es.getExpense_id(), es.getPrescribe_id());
+            if(num == null)
+                num = 0;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return num;
+    }
+
+    /**
+     * 实现收费页面表格数据刷新
+     */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     @ResponseBody
     public void refresh() {
         num = null;
     }
 
-    //查询页面刷新
+    /**
+     * 实现患者收费信息查询页面表格数据刷新
+     */
     @RequestMapping(value = "/searchRefresh", method = RequestMethod.GET)
     @ResponseBody
     public void searchRefresh() {

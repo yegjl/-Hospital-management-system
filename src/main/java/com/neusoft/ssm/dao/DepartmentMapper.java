@@ -10,7 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 public interface DepartmentMapper {
+
+    /**
+     * 按科室编码获取科室名称
+     * @Param DeptCode 科室编码
+     * @return (String)
+     */
     String findNameById(@Param("DeptCode") String DeptCode);
+
+    /**
+     * 按科室编码获取科室类型
+     * @Param DeptCode 科室编码
+     * @return (String)
+     */
     String findTypeByCode(@Param("DeptCode") String DeptCode);
 
     long countByExample(DepartmentExample example);
@@ -49,5 +61,10 @@ public interface DepartmentMapper {
 
 
     List<Department> findByDeptType(String deptType);
-
+    /**
+     * 按科室编码获取科室id
+     * @Param DeptCode 科室编码
+     * @return (Long)
+     */
+    Long findIdByCode(@Param("DeptCode") String DeptCode);
 }

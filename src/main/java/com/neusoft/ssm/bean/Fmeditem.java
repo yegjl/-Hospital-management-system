@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * fmeditem
- * @author 
+ * @author
  */
 public class Fmeditem implements Serializable {
     private Integer id;

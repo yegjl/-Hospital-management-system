@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * registrationlevel
- * @author 
+ * @author
  */
 public class Registrationlevel implements Serializable {
     private Long id;
@@ -21,13 +21,13 @@ public class Registrationlevel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
     public String getNumbercode() {
         return numbercode;

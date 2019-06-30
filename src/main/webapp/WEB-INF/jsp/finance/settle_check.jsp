@@ -339,7 +339,7 @@
                                     <div class="layui-card-header" style="float: right">统计日期：</div>
                                 </div>
                             </div>
-                            <div class="layui-col-md5">
+                            <div class="layui-col-md7">
                                 <div style="width: 100%;float:right;margin-top: 1.5%;">
 
                                     <div class="layui-input-inline">
@@ -351,8 +351,9 @@
                                     <div class="layui-input-inline">
                                         <input type="text" class="layui-input" id="test-laydate-end" autocomplete="off" placeholder="结束日期">
                                     </div>
-                                    <input class="layui-btn" type="button" id="chaxun" value="查询" onclick="getSelect()" style="margin:auto;">
-                                    <button class="layui-btn" onclick="refresh()">刷新</button>
+<%--                                    <input class="layui-btn" type="button" id="chaxun" value="查询" onclick="getSelect()" style="margin:auto;">--%>
+                                    <a class="layui-btn" type="button" id="chaxun" value="查询" onclick="getSelect()" style="margin:auto;"><i class="layui-icon">&#xe615;</i>查询</a>
+                                    <button class="layui-btn layui-bg-cyan" onclick="refresh()"><i class="layui-icon">&#xe669;</i>刷新</button>
                                 </div>
                             </div>
 
@@ -398,8 +399,7 @@
 
                     <script type="text/html" id="test-table-toolbar-toolbarDemo">
                         <div class="layui-btn-container">
-                            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">核对</button>
-
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="getCheckData"><i class="layui-icon">&#xe60e;</i>核对</button>
                         </div>
                     </script>
 

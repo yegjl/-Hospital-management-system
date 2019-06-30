@@ -97,6 +97,17 @@
                 var doctor = result[7];
                 var department = result[8];
 
+                if(age < 1) {
+                    age = Math.round(age * 12);
+                    $("#age").val("02");
+                    layui.form.render();
+                }
+                else {
+                    age = Math.round(age);
+                    $("#age").val("01");
+                    layui.form.render();
+                }
+
                 var opt1 = document.getElementById("patient_name");
                 var opt2 = document.getElementById("patient_gender");
                 var opt3 = document.getElementById("patient_age");
@@ -434,6 +445,9 @@
                                 if(data == 1) {
                                     alert("退费成功");
                                 }
+                                else if(data == 2) {
+                                    alert("该项目已经消费，无法退费");
+                                }
                                 else
                                     alert("退费失败");
                             },
@@ -742,7 +756,7 @@
             elem: '#test-table-page'
             ,id: 'test-table-page'
             ,url: 'expense/list'
-            // ,toolbar: '#test-table-toolbar-toolbarDemo'
+            ,toolbar: '#test-table-toolbar-toolbarDemo'
             ,title: '收费数据表'
             ,method: 'get'
             ,parseData: function (res) {
@@ -760,7 +774,7 @@
                 }, {
                     field: 'expense_name',
                     title: '收费项名',
-                    width: 100,
+                    width: 130,
                     sort: true,
                     fixed: true
                 }, {
@@ -783,7 +797,7 @@
                 }, {
                     field: 'unit',
                     title: '单位',
-                    width: 100
+                    width: 70
                 }, {
                     field: 'expense',
                     title: '应付金额/元',
@@ -913,7 +927,7 @@
                                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
                                     <div class="layui-form-item" style="float: left;">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn" id="search" onclick="getSelect();getTotalExpense()">查询</button>
+                                            <button class="layui-btn" id="search" onclick="getSelect();getTotalExpense()"><i class="layui-icon">&#xe615;</i>查询</button>
                                             <button type="reset" onclick="ValueReset();getTotalExpense()"
                                                     class="layui-btn layui-btn-primary">重置</button>
                                         </div>
@@ -948,8 +962,7 @@
                                                class="layui-input" style="width: 50%;float: left;" readonly="readonly">
                                         <div class="layui-card layui-form" lay-filter="component-form-element"
                                              style="width: 50%;float: right;">
-                                            <select name="week" lay-verify="required" lay-search>
-
+                                            <select name="week" id="age" lay-verify="required" readonly="true" lay-search>
                                                 <option value="01">岁</option>
                                                 <option value="02">月</option>
                                             </select>
@@ -1035,7 +1048,7 @@
 
 
 
-
+<%--                <script type="text/html" id="test-table-toolbar-toolbarDemo">--%>
                 <div class="layui-row">
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md6" style="float: left;">
                         <div class="layui-card-body" style="margin-top: 0px;">
@@ -1048,11 +1061,11 @@
                                             <div class="layui-btn-container layadmin-layer-demo">
 
                                                 <button data-method="pop_charges" data-type="getCheckData"
-                                                        class="layui-btn layui-btn" lay-event=""
-                                                        style="margin-top: 2%;float: left;">收费</button>
+                                                        class="layui-btn layui-btn-normal" lay-event=""
+                                                        style="margin-top: 2%;float: left;"><i class="layui-icon">&#xe605;</i>收费</button>
                                                 <button data-method="pop_refund" data-type="getCheckData"
-                                                        class="layui-btn layui-btn" lay-event=""
-                                                        style="margin-top: 2%;float: right">退费</button>
+                                                        class="layui-btn layui-btn-normal" lay-event=""
+                                                        style="margin-top: 2%;float: right"><i class="layui-icon">&#x1006;</i>退费</button>
 
                                             </div>
                                         </div>
@@ -1092,6 +1105,7 @@
                         </div>
                     </div>
                 </div>
+<%--                // </script>--%>
 
 
 

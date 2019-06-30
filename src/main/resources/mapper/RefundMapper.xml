@@ -6,8 +6,8 @@
         <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into refund (medical_record_no, expense_category, expense_id, refund_number, refund_expense, pay_category, day_settle_sign, refund_date)
-        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{refund_number}, #{refund_expense}, #{pay_category}, #{day_settle_sign}, #{refund_date})
+        insert into refund (medical_record_no, expense_category, expense_id, prescribe_id, refund_number, refund_expense, pay_category, day_settle_sign, refund_date)
+        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{prescribe_id}, #{refund_number}, #{refund_expense}, #{pay_category}, #{day_settle_sign}, #{refund_date})
     </insert>
 
     <select id="settleFind" resultType="Refund">

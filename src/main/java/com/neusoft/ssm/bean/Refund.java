@@ -8,6 +8,7 @@ public class Refund {
   private String medical_record_no;
   private String expense_category;
   private String expense_id;
+  private Long prescribe_id;
   private Long refund_number;
   private Double refund_expense;
   private String pay_category;
@@ -48,6 +49,14 @@ public class Refund {
 
   public void setExpense_id(String expense_id) {
     this.expense_id = expense_id;
+  }
+
+  public Long getPrescribe_id() {
+    return prescribe_id;
+  }
+
+  public void setPrescribe_id(Long prescribe_id) {
+    this.prescribe_id = prescribe_id;
   }
 
   public Long getRefund_number() {

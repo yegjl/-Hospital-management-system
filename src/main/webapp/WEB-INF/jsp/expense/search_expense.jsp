@@ -8,7 +8,6 @@
 
 <html>
 <head>
-<%--    TODO:连接--%>
     <meta charset="utf-8">
     <title>患者费用查询</title>
     <meta name="renderer" content="webkit">
@@ -27,6 +26,19 @@
         var medical_record_no = document.getElementById("medical_record_no").value.toUpperCase();
         var start = document.getElementById("test-laydate-start").value.toUpperCase();
         var end = document.getElementById("test-laydate-end").value.toUpperCase();
+
+        if(medical_record_no == "") {
+            alert("病历号不能为空");
+            return;
+        }
+        else if(start == "") {
+            alert("开始日期不能为空");
+            return;
+        }
+        else if(end == "") {
+            alert("结束日期不能为空");
+            return;
+        }
 
         $.ajax({
             type: "post",
@@ -76,6 +88,7 @@
             elem: '#test-table-page',
             id: 'test-table-page',
             url: 'expense/searchlist',
+            toolbar: '#test-table-toolbar-toolbarDemo',
             title: '收费数据表',
             method: 'get',
             parseData: function (res) {
@@ -93,12 +106,9 @@
 
             ,cols: [
             [{
-                type: 'checkbox',
-                fixed: 'left'
-            }, {
                 field: 'expense_name',
                 title: '收费项名',
-                width: 100,
+                width: 170,
                 sort: true,
                 fixed: true
             }, {
@@ -121,7 +131,7 @@
             }, {
                 field: 'unit',
                 title: '单位',
-                width: 100
+                width: 70
             }, {
                 field: 'expense',
                 title: '应付金额',
@@ -149,6 +159,7 @@
                 sort: true
             }]
         ],
+            height: 430,
             page: true
         });
 
@@ -222,8 +233,9 @@
                                             <input type="text" class="layui-input" id="test-laydate-end" autocomplete="off" placeholder="结束日期">
                                         </div>
 
-                                        <input class="layui-btn" type="button" value="查询" id="chaxun" onclick="getList()">
-                                        <button class="layui-btn" type="reset" style="margin:auto;" id="clear">重置</button>
+<%--                                        <input class="layui-btn" type="button" value="查询" id="chaxun" onclick="getList()">--%>
+                                        <a class="layui-btn" id="chaxun" onclick="getList()"><i class="layui-icon">&#xe615;</i>查询</a>
+                                        <button class="layui-btn layui-btn-primary" type="reset" style="margin:auto;" id="clear" onclick="refresh()">重置</button>
 <%--                                        <button class="layui-btn" id="refresh" onclick="refresh()">刷新</button>--%>
 
                                     </div>

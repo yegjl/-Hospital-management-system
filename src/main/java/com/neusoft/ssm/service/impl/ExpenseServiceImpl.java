@@ -1,5 +1,6 @@
 package com.neusoft.ssm.service.impl;
 
+import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 import com.neusoft.ssm.dao.ExpenseMapper;
 import com.neusoft.ssm.service.ExpenseService;
@@ -57,8 +58,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public boolean registerExpense(String medical_record_no, String expense_category, String expense_id, Long number, Double expense, Double real_expense, String pay_category, String pay_sign, String day_settle_sign, Date expense_date, String is_consume) {
-        return expenseMapper.registerExpense(medical_record_no, expense_category, expense_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume);
+    public boolean registerExpense(String medical_record_no, String expense_category, String expense_id, Long prescribe_id, Long number, Double expense, Double real_expense, String pay_category, String pay_sign, String day_settle_sign, Date expense_date, String is_consume) {
+        return expenseMapper.registerExpense(medical_record_no, expense_category, expense_id, prescribe_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume);
     }
 
     @Override
@@ -74,6 +75,16 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public boolean settle(Long id) {
         return expenseMapper.settle(id);
+    }
+
+    @Override
+    public Drugs findDrugByCode(String ID) {
+        return expenseMapper.findDrugByCode(ID);
+    }
+
+    @Override
+    public Integer findRefundDrugNum(String medical_record_no, String expense_id, Long prescribe_id) {
+        return expenseMapper.findRefundDrugNum(medical_record_no, expense_id, prescribe_id);
     }
 
     @Override

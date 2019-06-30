@@ -2,16 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.ssm.dao.StatisticMapper">
 
-    <select id="findExpense" resultType="java.lang.Double">
-        select sum(real_expense) as total_expense from expense
-        where expense_category = #{expense_category} and (pay_sign = '1' or pay_sign = '3') and (expense_date between #{start_date} and #{end_date})
+    <select id="findExpense" resultType="Statistic">
+        select account_code, sum(real_expense) as total_expense from expense, expense_account
+        where expense_category = account_code and (pay_sign = '1' or pay_sign = '3') and (expense_date between #{start_date} and #{end_date})
               and expense_id in (select ItemCode from fmeditem where DeptID = #{department_id})
+        group by account_code
     </select>
 
     <select id="ToFindExpense" resultType="Statistic">
         select account_code, sum(real_expense) as total_expense from expense, expense_account
         where expense_category = account_code and (pay_sign = '1' or pay_sign = '3') and (expense_date between #{start_date} and #{end_date})
               and medical_record_no in (select medical_record_no from registration_info where department_id = #{department_id})
+        group by account_code
+    </select>
+
+    <select id="findDocExpense" resultType="Statistic">
+        select account_code, sum(real_expense) as total_expense from expense, expense_account
+        where expense_category = account_code and (pay_sign = '1' or pay_sign = '3') and (expense_date between #{start_date} and #{end_date})
+              and medical_record_no in (select medical_record_no from registration_info where doctor_id = #{doctor_id})
         group by account_code
     </select>
 
@@ -25,6 +33,16 @@
         where department_id = #{department_id} and registration_date between #{start_date} and #{end_date}
     </select>
 
+    <select id="getNum" resultType="java.lang.Long">
+        select count(medical_record_no) as total_num from expense
+        where (expense_date between #{start_date} and #{end_date}) and expense_id in (select ItemCode from fmeditem where DeptID = #{department_id})
+    </select>
+
+    <select id="getDocNum" resultType="java.lang.Long">
+        select count(medical_record_no) as total_num from registration_info
+        where doctor_id = #{doctor_id} and registration_date between #{start_date} and #{end_date}
+    </select>
+
     <select id="findDeptType" resultType="Department">
         select * from department
         where DeptType = #{DeptType}
@@ -32,11 +50,6 @@
 
     <select id="findTitle" resultType="ExpenseAccount">
         select * from expense_account
-    </select>
-
-    <select id="findtest" resultType="expense">
-        select * from expense
-        where (pay_sign = '1' or pay_sign = '3') and expense_date between #{start_date} and #{end_date}
     </select>
 
 </mapper>

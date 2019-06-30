@@ -47,8 +47,8 @@
         <selectKey resultType ="java.lang.Long" keyProperty= "id" order= "AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into expense (medical_record_no, expense_category, expense_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume)
-        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{number}, #{expense}, #{real_expense}, #{pay_category}, #{pay_sign}, #{day_settle_sign}, #{expense_date}, #{is_consume})
+        insert into expense (medical_record_no, expense_category, expense_id, prescribe_id, number, expense, real_expense, pay_category, pay_sign, day_settle_sign, expense_date, is_consume)
+        values (#{medical_record_no}, #{expense_category}, #{expense_id}, #{prescribe_id}, #{number}, #{expense}, #{real_expense}, #{pay_category}, #{pay_sign}, #{day_settle_sign}, #{expense_date}, #{is_consume})
     </insert>
 
     <select id="SettleFind" resultType="Expense">
@@ -63,6 +63,16 @@
 
     <select id="alterAUTO">
         alter table expense  AUTO_INCREMENT = 1;
+    </select>
+
+    <select id="findDrugByCode" parameterType="java.lang.String" resultType="Drugs">
+        select * from drugs
+        where ID = #{ID}
+    </select>
+    
+    <select id="findRefundDrugNum" resultType="java.lang.Integer">
+        select refund_number from refund_drug
+        where medical_record_no = #{medical_record_no} and expense_id = #{expense_id} and prescribe_id = #{prescribe_id}
     </select>
 
     <update id="settle" parameterType="java.lang.Long">

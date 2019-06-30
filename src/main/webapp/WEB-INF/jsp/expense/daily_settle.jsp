@@ -20,11 +20,11 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/json3.js"></script>
 
-    <style>
-        .layui-table-click {
-            background-color: rgb(255, 255, 255) !important;
-        }
-    </style>
+<%--    <style>--%>
+<%--        .layui-table-click {--%>
+<%--            background-color: rgb(255, 255, 255) !important;--%>
+<%--        }--%>
+<%--    </style>--%>
 </head>
 
 <script>
@@ -128,7 +128,6 @@
             }
         });
     }
-
 </script>
 
 <script>
@@ -137,23 +136,8 @@
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'table'], function () {
-        // var table = layui.table;
-        var $ = layui.jquery,
-            layer = layui.layer //弹层
-            ,
-            form = layui.form //弹层
-            ,
-            table = layui.table //表格
-            ,
-            laydate = layui.laydate //日期控件
-            ,
-            tablePlug = layui.tablePlug //表格插件
-            ,
-            testTablePlug = layui.testTablePlug // 测试js模块
-            ,
-            renderFormSelectsIn = layui.renderFormSelectsIn // 针对form在特定场合下的渲染的封装
-            ,
-            formSelects = layui.formSelects; //多选下拉插件
+        var admin = layui.admin,
+            table = layui.table;
 
         table.render({
             elem: '#test-table-toolbar',
@@ -163,15 +147,15 @@
             title: '日结单数据表',
             method: 'get',
             parseData: function (res) {
-                return {
-                    "code":res.status,
-                    "msg":res.message,
-                    "count":res.total,
-                    "data":res.data
-                }
-            },
+            return {
+                "code":res.status,
+                "msg":res.message,
+                "count":res.total,
+                "data":res.data
+            }
+        },
             cols: [[
-                {type: 'checkbox', width:0},
+                // {type: 'radio', fixed: 'left'},
                 {
                     field: 'id',
                     title: '编号',
@@ -203,13 +187,23 @@
             page: true
         });
 
-        form.on('select(use_select)', function (data) {
-            var selectElem = $(data.elem);
-            var tdElem = selectElem.closest('td');
-            var trElem = tdElem.closest('tr');
-            var tableView = trElem.closest('.layui-table-view');
-            table.cache[tableView.attr('lay-id')][trElem.data('index')][tdElem.data('field')] =
-                data.value;
+
+        //头工具栏事件
+        table.on('toolbar(test-table-toolbar)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+            };
         });
 
         //监听行工具事件，详细弹窗模块
@@ -217,179 +211,27 @@
             var data = obj.data;
             if (obj.event === 'detail') {
                 layer.open({
-                    type: 1,
+                    type: 2,
                     title: '详细',
                     area: ['1000px', '600px'],
                     scrollbar: true,
-                    content: '<iframe src="settle/detailUI" id="detailSettle" frameborder="0" class="layadmin-iframe"></iframe>',
+                    // content: '<iframe src="settle/detailUI" id="detailSettle" frameborder="0" class="layadmin-iframe"></iframe>',
+                    content: 'settle/detailUI',
                     btn: ['关闭'],
                     yes: function () {
                         layer.closeAll();
                     },
+                    success: function(layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        body.find('#sdate').val(data.start_date);
+                        body.find('#edate').val(data.end_date);
+                    }
                 });
             }
         });
 
-        // 监听表格中的下拉选择将数据同步到table.cache中
-        form.on('select(city_select)', function (data) {
-            var selectElem = $(data.elem);
-            var tdElem = selectElem.closest('td');
-            var trElem = tdElem.closest('tr');
-            var tableView = trElem.closest('.layui-table-view');
-            table.cache[tableView.attr('lay-id')][trElem.data('index')][tdElem.data('field')] = data
-                .value;
-        });
-
-        //监听排序事件
-        table.on('sort(test)', function (obj) {
-
-        });
-
-        // 监听编辑如果评分负数给回滚到修改之前并且弹出提示信息并且重新获得焦点等待输入
-        table.on('edit(test)', function (obj) {
-            var tableId = obj.tr.closest('.layui-table-view').attr('lay-id');
-            var trIndex = obj.tr.data('index');
-            var that = this;
-            var tdElem = $(that).closest('td');
-
-            var field = obj.field;
-            var value = obj.value;
-            if (field === 'score') {
-                value = parseInt(value);
-                if (isNaN(obj.value) || value < 0) {
-                    setTimeout(function () { // 小于0回滚再次获得焦点打开
-                        obj.update({
-                            score: table._dataTemp[tableId][trIndex][field]
-                        });
-                        layer.msg('评分输入不合法，必须是大于0的数字!', {
-                            anim: 6
-                        });
-                        tdElem.click();
-                    }, 100);
-                } else {
-                    tablePlug.renderTotal(tableId);
-                }
-            }
-        }); // tr点击触发复选列点击
-        $(document).on('click', '.layui-table-view tbody tr', function (event) {
-            var elemTemp = $(this);
-            var
-                tableView = elemTemp.closest('.layui-table-view');
-            var trIndex = elemTemp.data('index');
-            tableView.find('tr[data-index="' + trIndex + '" ]').find('[name="layTableCheckbox" ]+')
-                .last()
-                .click();
-        }); // 监听固定列滚动支持的开关切换
-        form.on('switch(tableFixedScrollSwitch)', function (obj) {
-            tablePlug.enableTableFixedScroll(obj.elem.checked);
-        });
-        $('.fruit_type_in .fruit_type_text').on('click',
-            function () {
-                setTimeout(function () {
-                    $('#type_list').find('select[name="要找的select的name"]  ').next( 'div.layui- form-select ').find(".layui-input").get(0).click();
-                }, 0);
-            });
-
     });
 </script>
-
-<%--<script>--%>
-<%--    layui.config({--%>
-<%--        base: 'department/' //静态资源所在路径--%>
-<%--    }).extend({--%>
-<%--        index: 'lib/index' //主入口模块--%>
-<%--    }).use(['index', 'table'], function () {--%>
-<%--        var admin = layui.admin,--%>
-<%--            table = layui.table;--%>
-
-<%--        table.render({--%>
-<%--            elem: '#test-table-toolbar',--%>
-<%--            id: 'test-table-toolbar',--%>
-<%--            url: 'settle/list',--%>
-<%--            toolbar: '#test-table-toolbar-toolbarDemo',--%>
-<%--            title: '日结单数据表',--%>
-<%--            method: 'get',--%>
-<%--            parseData: function (res) {--%>
-<%--            return {--%>
-<%--                "code":res.status,--%>
-<%--                "msg":res.message,--%>
-<%--                "count":res.total,--%>
-<%--                "data":res.data--%>
-<%--            }--%>
-<%--        },--%>
-<%--            cols: [[--%>
-<%--                {type: 'radio', fixed: 'left'},--%>
-<%--                {--%>
-<%--                    field: 'id',--%>
-<%--                    title: '编号',--%>
-<%--                    width: 90,--%>
-<%--                    sort: true--%>
-<%--                }, {--%>
-<%--                    field: 'username',--%>
-<%--                    title: '操作员',--%>
-<%--                    width: 120--%>
-
-<%--                }, {--%>
-<%--                    field: 'start_date',--%>
-<%--                    title: '开始日期',--%>
-<%--                    width: 230--%>
-<%--                }, {--%>
-<%--                    field: 'end_date',--%>
-<%--                    title: '截止日期',--%>
-<%--                    width: 230--%>
-<%--                }, {--%>
-<%--                    field: 'expense',--%>
-<%--                    title: '结算金额/元',--%>
-<%--                    width: 130--%>
-<%--                }, {--%>
-<%--                    fixed: 'right',--%>
-<%--                    title: '操作',--%>
-<%--                    toolbar: '#test-table-toolbar-barDemo',--%>
-<%--                }]--%>
-<%--            ],--%>
-<%--            page: true--%>
-<%--        });--%>
-
-
-<%--        //头工具栏事件--%>
-<%--        table.on('toolbar(test-table-toolbar)', function (obj) {--%>
-<%--            var checkStatus = table.checkStatus(obj.config.id);--%>
-<%--            switch (obj.event) {--%>
-<%--                case 'getCheckData':--%>
-<%--                    var data = checkStatus.data;--%>
-<%--                    layer.alert(JSON.stringify(data));--%>
-<%--                    break;--%>
-<%--                case 'getCheckLength':--%>
-<%--                    var data = checkStatus.data;--%>
-<%--                    layer.msg('选中了：' + data.length + ' 个');--%>
-<%--                    break;--%>
-<%--                case 'isAll':--%>
-<%--                    layer.msg(checkStatus.isAll ? '全选' : '未全选');--%>
-<%--                    break;--%>
-<%--            };--%>
-<%--        });--%>
-
-<%--        //监听行工具事件，详细弹窗模块--%>
-<%--        table.on('tool(test-table-toolbar)', function (obj) {--%>
-<%--            var data = obj.data;--%>
-<%--            if (obj.event === 'detail') {--%>
-<%--                layer.open({--%>
-<%--                    type: 1,--%>
-<%--                    title: '详细',--%>
-<%--                    area: ['1000px', '600px'],--%>
-<%--                    scrollbar: true,--%>
-<%--                    content: '<iframe src="settle/detailUI" id="detailSettle" frameborder="0" class="layadmin-iframe"></iframe>',--%>
-<%--                    btn: ['关闭'],--%>
-<%--                    yes: function () {--%>
-<%--                        layer.closeAll();--%>
-<%--                    },--%>
-<%--                });--%>
-<%--            }--%>
-<%--        });--%>
-
-<%--    });--%>
-<%--</script>--%>
-<!-- 收费员表格 -->
 
 <script>
     layui.config({
@@ -537,7 +379,8 @@
                                     <div class="layui-input-inline">
                                         <input type="text" class="layui-input" id="test-laydate-end" autocomplete="off" placeholder="结束日期">
                                     </div>
-                                    <input class="layui-btn" type="button" value="结算" id="settle" onclick="toSettle()">
+<%--                                    <input class="layui-btn" type="button" value="结算" id="settle" onclick="toSettle()">--%>
+                                    <a class="layui-btn layui-btn-normal" id="settle" onclick="toSettle()"><i class="layui-icon">&#xe605;</i>结算</a>
                                 </div>
                             </div>
                             <div class="layui-col-md6">
@@ -554,8 +397,9 @@
                                                placeholder="结束日期">
                                     </div>
 <%--                                    <button class="layui-btn" style="margin:auto;" onclick="select()">查询</button>--%>
-                                    <input class="layui-btn" type="button" value="查询" id="chaxun" onclick="selectList()">
-                                    <button class="layui-btn" style="margin:auto;" onclick="refresh()">刷新</button>
+<%--                                    <input class="layui-btn" type="button" value="查询" id="chaxun" onclick="selectList()">--%>
+                                    <a class="layui-btn" id="chaxun" onclick="selectList()"><i class="layui-icon">&#xe615;</i>查询</a>
+                                    <button class="layui-btn layui-bg-cyan" style="margin:auto;" onclick="refresh()"><i class="layui-icon">&#xe669;</i>刷新</button>
                                 </div>
                             </div>
 
@@ -588,7 +432,7 @@
                                 </table>
 
                                 <script type="text/html" id="test-table-toolbar-barDemo">
-                                    <a class="layui-btn layui-btn-xs" lay-event="detail">详细</a>
+                                    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="detail">详细</a>
                                     <input type="hidden" name="info" id="info">
                                 </script>
                             </div>

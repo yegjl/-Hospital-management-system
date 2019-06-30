@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * department
- * @author 
+ * @author
  */
 public class Department implements Serializable {
     private Integer id;

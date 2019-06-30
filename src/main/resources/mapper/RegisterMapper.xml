@@ -32,7 +32,7 @@
 
     <select id="findByKey" parameterType="java.lang.String" resultType="RegistrationInfo">
         select * from registration_info
-        where medical_record_no like #{keyword} or patient_name like #{keyword} or age like #{keyword} or identity_card_no like #{keyword}
+        where medical_record_no like #{keyword} or patient_name like #{keyword} or age like #{keyword} or identity_card_no like #{keyword} or department_id in (select DeptCode from department where DeptName like #{keyword})
     </select>
 
     <select id="findMaxRecord" resultType="java.lang.Long">

@@ -17,8 +17,8 @@ public class RefundServiceImpl implements RefundService {
     RefundMapper refundMapper;
 
     @Override
-    public boolean add(String medical_record_no, String expense_category, String expense_id, Long refund_number, Double refund_expense, String pay_category, String day_settle_sign, Date refund_date) {
-        return refundMapper.add(medical_record_no, expense_category, expense_id, refund_number, refund_expense, pay_category, day_settle_sign, refund_date);
+    public boolean add(String medical_record_no, String expense_category, String expense_id, Long prescribe_id, Long refund_number, Double refund_expense, String pay_category, String day_settle_sign, Date refund_date) {
+        return refundMapper.add(medical_record_no, expense_category, expense_id, prescribe_id, refund_number, refund_expense, pay_category, day_settle_sign, refund_date);
     }
 
     @Override

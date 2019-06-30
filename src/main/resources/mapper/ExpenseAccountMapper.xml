@@ -35,6 +35,17 @@
         where id = #{id}
     </update>
 
+    <select id="findSame" resultType="java.lang.Integer">
+        select '0' from expense_account
+        where account_code = #{account_code} or account_name = #{account_name}
+    </select>
+
+    <select id="findEditSame" resultType="java.lang.Integer">
+        select sum('0') FROM expense_account
+        where #{account_code} in (select account_code from expense_account WHERE account_code &lt;&gt; #{real_code}) or
+              #{account_name} in (select account_name from expense_account WHERE account_name &lt;&gt; #{real_name})
+    </select>
+
     <select id="alterAUTO">
         alter table expense_account  AUTO_INCREMENT = 1;
     </select>

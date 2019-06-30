@@ -22,47 +22,14 @@
 
 
 <body>
-<div class="layui-fluid">
-  <div class="layui-row">
-    <div class="layui-col-md3">
-      <!-- 左侧内容 -->
-      <div class="layui-fluid" id="component-tabs">
+  <div class="layui-fluid">
+    <div class="layui-row">
+
+      <div class="layui-col-md8" style="overflow: auto;height:600px;">
+        <!-- 中部折叠面板 -->
         <div class="layui-card">
-          <div class="layui-card-body">
-            <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-brief">
-              <ul class="layui-tab-title">
-                <li class="layui-this">本人</li>
-                <li>科室</li>
-              </ul>
-              <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">
-                  <!-- 选项卡1中内容 -->
-                  <!-- 左侧数据表格1 -->
-                  <p>特诊患者共有${msg}位患者新信息</p>
-                  <table class="layui-hide" id="test-table-simple1"></table>
-
-                </div>
-                <div class="layui-tab-item">科室内容</div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="layui-fluid">
-        <div class="layui-card-body" style="background-color: white">
-          <p>已诊患者共有${msg}位患者新信息</p>
-          <table class="layui-hide" id="test-table-simple2"></table>
-        </div>
-      </div>
-
-    </div>
-    <div class="layui-col-md6" style="overflow: auto;height:600px;">
-      <!-- 中部折叠面板 -->
-      <div class="layui-card">
-        <div class="layui-card-header " style="height: 80px;">
-          <p style="font-size: 180%;float: left;width: 15%;margin-top: 5%">检查申请</p>
+          <div class="layui-card-header " style="height: 80px;">
+            <p style="font-size: 180%;float: left;width: 15%;margin-top: 5%">检查申请</p>
 
 
         </div>
@@ -112,16 +79,6 @@
                 <div class="layui-tab-item layui-show">
                   <!-- 选项卡1中内容 -->
                   <!-- 右侧树状图 -->
-                  <div class="layui-card layui-form" lay-filter="component-form-element">
-
-                    <div class="layui-card-body layui-row layui-col-space10">
-                      <div class="layui-col-md12">
-                        <input type="radio" name="sel" value="01" title="全院" checked style="size: 50%">
-                        <input type="radio" name="sel" value="02" title="科室">
-                        <input type="radio" name="sel" value="03" title="个人">
-                      </div>
-                    </div>
-                  </div>
                         <div class="layui-fluid" id="LAY-component-layer-special-demo2">
                             <div class="layui-btn-container layadmin-layer-demo">
                                 <div class="layui-btn-group" style="align-content: center;">

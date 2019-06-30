@@ -18,6 +18,17 @@
     <link rel="stylesheet" href="department/style/admin.css" media="all">
     <script src="department/layui/layui.js"></script>
     <script src="js/jquery.min.js"></script>
+
+    <style>
+        dl.layui-anim-upbit {
+            position: fixed;
+            min-width: 10px;
+            width: 212px;
+            margin: 0px auto;
+            left: 0px;
+            right: 18px;
+        }
+    </style>
 </head>
 
 <script>

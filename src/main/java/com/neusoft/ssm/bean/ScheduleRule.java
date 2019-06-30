@@ -1,8 +1,5 @@
 package com.neusoft.ssm.bean;
 
-
-import java.sql.Date;
-
 public class ScheduleRule {
 
   private long id;
@@ -11,19 +8,10 @@ public class ScheduleRule {
   private String register_level;
   private String noon_level;
   private Integer limit_num;
-  private Date operate_date;
+  private java.util.Date operate_date;
   private String doctor_name;
   private String department_name;
-  private java.util.Date date;
-
-  public ScheduleRule(Long doctor_id, String week_time, String register_level, String noon_level, Integer limit_num, Date operate_date) {
-    this.doctor_id = doctor_id;
-    this.week_time = week_time;
-    this.register_level = register_level;
-    this.noon_level = noon_level;
-    this.limit_num = limit_num;
-    this.operate_date = operate_date;
-  }
+  private String sc_date;
 
   public long getId() {
     return id;
@@ -79,11 +67,11 @@ public class ScheduleRule {
   }
 
 
-  public Date getOperate_date() {
+  public java.util.Date getOperate_date() {
     return operate_date;
   }
 
-  public void setOperate_date(Date operate_date) {
+  public void setOperate_date(java.util.Date operate_date) {
     this.operate_date = operate_date;
   }
 
@@ -103,12 +91,12 @@ public class ScheduleRule {
     this.department_name = department_name;
   }
 
-  public java.util.Date getDate() {
-    return date;
+  public String getSc_date() {
+    return sc_date;
   }
 
-  public void setDate(java.util.Date date) {
-    this.date = date;
+  public void setSc_date(String sc_date) {
+    this.sc_date = sc_date;
   }
 
 }

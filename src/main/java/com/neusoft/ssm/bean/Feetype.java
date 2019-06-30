@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * feetype
- * @author 
+ * @author
  */
 public class Feetype implements Serializable {
     /**

@@ -19,5 +19,10 @@ public interface RegistrationlevelDao {
     int updateByPrimaryKey(Registrationlevel record);
 
     List<Registrationlevel> findAll();
+    /**
+     * 按号别编码获取号别信息
+     * @Param numberCode 号别编码
+     * @return (Registrationlevel)
+     */
     Registrationlevel findByCode(@Param("numberCode") String numberCode);
 }

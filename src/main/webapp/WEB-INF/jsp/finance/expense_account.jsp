@@ -35,6 +35,7 @@
                 elem: '#test-table-reload',
                 id: 'test-table-reload',
                 url: 'account/list',
+                toolbar: '#test-table-toolbar-toolbarDemo',
                 method: 'get',
                 parseData: function (res) {
                     return {
@@ -66,7 +67,7 @@
                     ]
                 ],
                 page: true,
-                height: 315
+                height: 400
             });
 
 
@@ -160,7 +161,7 @@
                     maxmin: true,
                     offset: type,
                     content: '<iframe src="account/addUI" id="addAccount" name="addAccount" frameborder="0" class="layadmin-iframe"></iframe>',
-                    btn: ['继续添加', '全部确定'],
+                    btn: ['确定', '关闭'],
                     yes: function () {
                         var flag = document.getElementById("addAccount").contentWindow.addControll();
                         if(flag == false)
@@ -181,10 +182,14 @@
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if(data == 1)
+                                if(data == 1) {
                                     alert("添加成功");
+                                    layui.table.reload('test-table-reload',{page: {curr: 1}});
+                                }
                                 else if(data == 0)
                                     alert("添加失败");
+                                else if(data == 2)
+                                    alert("科目编码或科目名称重复");
                                 else
                                     alert("error");
                             },
@@ -192,9 +197,7 @@
                                 alert("提交失败");
                             }
                         });
-                        layui.table.reload('test-table-reload',{page: {curr: 1}});
                         layer.closeAll();
-
                     },
                     btn2: function () {
                         layer.closeAll();
@@ -251,17 +254,23 @@
                             data: {
                                 "id": tabledata[0].id,
                                 "account_code": code,
-                                "account_name": name
+                                "account_name": name,
+                                "code": tabledata[0].account_code,
+                                "name": tabledata[0].account_name
                             },
                             dataType: "JSON",
                             async: false,
                             beforeSend: function () {
                             },
                             success: function (data) {
-                                if(data == 1)
+                                if(data == 1) {
                                     alert("修改成功");
+                                    layui.table.reload('test-table-reload',{page: {curr: 1}});
+                                }
                                 else if(data == 0)
                                     alert("修改失败");
+                                else if(data == 2)
+                                    alert("科目编码或科目名称重复");
                                 else
                                     alert("error");
                             },
@@ -269,7 +278,6 @@
                                 alert("提交失败");
                             }
                         });
-                        layui.table.reload('test-table-reload',{page: {curr: 1}});
                         layer.closeAll();
                     },
                     btn2: function () {
@@ -412,30 +420,28 @@
                             <div class="layui-fluid" id="LAY-component-layer-special-demo">
                                 <div class="layui-row">
                                     <form method="post">
-                                    <div class="layui-col-xs6 layui-col-sm4 layui-col-md2">
+                                    <div class="layui-col-xs6 layui-col-sm4 layui-col-md3">
                                         <input class="layui-input" name="id" id="select_value" placeholder="请输入搜索内容"
                                                autocomplete="off" style="width: 55%;display: inline;margin:10px;">
-                                        <input class="layui-btn" type="button" value="搜索" onclick="selectValue()" style="float: right;margin-top: 5%">
+<%--                                        <input class="layui-btn" type="button" value="搜索" onclick="selectValue()" style="float: right;margin-top: 5%">--%>
+                                        <a class="layui-btn" onclick="selectValue()" style="float: right;margin-top: 3.25%;margin-right: 20px"><i class="layui-icon">&#xe615;</i>搜索</a>
 
                                     </div>
                                     </form>
 
 
-                                    <div class="layui-col-xs6 layui-col-sm8 layui-col-md4" style="float: left;">
+                                    <div class="layui-col-xs6 layui-col-sm8 layui-col-md6" style="float: left;">
 
 
 
 
                                         <div class="layui-btn-container layadmin-layer-demo" style="margin-left: 2%">
 
-                                            <button data-method="addTop" data-type="auto" class="layui-btn"
-                                                    style="margin: 10px;">添加</button>
-                                            <button data-method="edit" data-type="auto" class="layui-btn"
-                                                    style="margin: 10px;">编辑</button>
-                                            <button data-method="del" datatype="auto" class="layui-btn"
-                                                    style="margin: 10px;">删除</button>
-                                            <input  class="layui-btn" type="button" value="刷新" onclick="refresh()" style="margin: 10px;">
-
+                                            <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>
+                                            <button data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</button>
+                                            <button data-method="del" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
+<%--                                            <input  class="layui-btn" type="button" value="刷新" onclick="refresh()" style="margin: 10px;">--%>
+                                            <a class="layui-btn layui-bg-cyan" onclick="refresh()" style="margin: 10px;"><i class="layui-icon">&#xe669;</i>刷新</a>
 
                                         </div>
                                     </div>

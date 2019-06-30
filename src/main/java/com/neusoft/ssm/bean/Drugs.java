@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * drugs
- * @author 
+ * @author
  */
 public class Drugs implements Serializable {
     private Integer id;

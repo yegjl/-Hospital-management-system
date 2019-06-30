@@ -1,5 +1,6 @@
 package com.neusoft.ssm.service;
 
+import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 
 import java.sql.Timestamp;
@@ -24,13 +25,17 @@ public interface ExpenseService {
 
     boolean delete(String medical_record_no, String expense_id, Date expense_date);
 
-    boolean registerExpense(String medical_record_no, String expense_category, String expense_id, Long number, Double expense, Double real_expense, String pay_category, String pay_sign, String day_settle_sign, Date expense_date, String is_consume);
+    boolean registerExpense(String medical_record_no, String expense_category, String expense_id, Long prescribe_id, Long number, Double expense, Double real_expense, String pay_category, String pay_sign, String day_settle_sign, Date expense_date, String is_consume);
 
     List<Expense> SettleFind(Timestamp start_date, Timestamp end_date);
 
     List<Expense> find(Timestamp start_date, Timestamp end_date);
 
     boolean settle(Long id);
+
+    Drugs findDrugByCode(String ID);
+
+    Integer findRefundDrugNum(String medical_record_no, String expense_id, Long prescribe_id);
 
     void alterAUTO();
 

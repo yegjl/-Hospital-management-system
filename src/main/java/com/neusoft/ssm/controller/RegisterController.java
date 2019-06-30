@@ -14,9 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * 挂号退号控制类
+ * 实现挂号退号和模糊搜索
+ * @author Nebula
+ * @version 1.30 2019/06/29
+ * */
 
 @Controller
 @RequestMapping("register")
@@ -43,26 +51,55 @@ public class RegisterController {
     @Autowired
     FeetypeService feetypeService;
 
-    int serialNumber = 0; //生成病历号
-    String keyword = null; //模糊搜索全局变量
-    String category = null; //挂号类别，用于条件检索医生列表
-    String dept = null; //科室，用于条件检索医生列表
+    /**用于生成唯一的病历号*/
+    int serialNumber = 0;
+    /**存放模糊搜索关键字*/
+    String keyword = null;
+    /**存放用于条件检索医生列表的挂号类别*/
+    String category = null;
+    /**存放用于条件检索医生列表的科室id*/
+    String dept = null;
 
-    //挂号添加
+    /**
+     * 挂号
+     * @param medical_record_no 病历号
+     * @Param patient_name 患者姓名
+     * @Param gender 性别
+     * @Param age 年龄
+     * @Param birthday 生日
+     * @Param registration_category 挂号类别
+     * @Param medical_category 医疗类别
+     * @Param identity_card_no 身份证号
+     * @Param family_address 家庭住址
+     * @Param registration_date 挂号日期
+     * @Param see_doctor_date 看诊日期
+     * @Param department_id 科室id
+     * @Param doctor_id 医生id
+     * @Param registration_source 挂号来源
+     * @Param settle_accounts_category 日结标志
+     * @Param is_seen_doctor 是否看诊
+     * @Param status 状态
+     * @Param expense 价格
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public int add(String medical_record_no, String patient_name, String gender, Long age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, String department_id, Long doctor_id, String registration_source, Integer settle_accounts_category, String is_seen_doctor, String status, Double expense) {
+    public int add(String medical_record_no, String patient_name, String gender, Double age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, String department_id, Long doctor_id, String registration_source, Integer settle_accounts_category, String is_seen_doctor, String status, Double expense) {
         int message = 1;
         try{
             if(scheduleResultService.findByIdAndDate(doctor_id, registration_date).getRemain_num() == 0) {
                 message = 2;
                 return message;
             }
+            if(medical_record_no.contains(registerService.findMaxRecord() + "")) {
+                message = 3;
+                return message;
+            }
             registerService.alterAUTO();
             boolean flag = registerService.add(medical_record_no, patient_name, gender, age, birthday, registration_category, medical_category, identity_card_no, family_address, registration_date, see_doctor_date, department_id, doctor_id, registration_source, settle_accounts_category, is_seen_doctor, status, expense);
             boolean sign = scheduleResultService.registerToNum(doctor_id, registration_date);
             expenseService.alterAUTO();
-            boolean i = expenseService.registerExpense(medical_record_no, "GHF", "GHF", (long) 1, expense, (double) 0, "", "0", "0", registration_date, "0");
+            boolean i = expenseService.registerExpense(medical_record_no, "GHF", "GHF", (long) 0, (long) 1, expense, (double) 0, "", "0", "0", registration_date, "0");
             if(flag == false)
                 message = 0;
             else if(sign == false)
@@ -75,12 +112,19 @@ public class RegisterController {
         return message;
     }
 
-    //提取挂号列表
+    /**
+     * 返回挂号信息列表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDTO<JSONArray> listall(int page, int limit) {
+    public ResultDTO<JSONArray> listall(int page, int limit, HttpSession session) {
         ResultDTO<JSONArray> resultDTO = new ResultDTO();
         List<RegistrationInfo> list = null;
+
+        String name = session.getAttribute("user_name").toString();
 
         try {
             PageHelper.startPage(page, limit);
@@ -114,32 +158,44 @@ public class RegisterController {
         return  resultDTO;
     }
 
-    //退号
+    /**
+     * 退号
+     * @param id 需要退号条目的id
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/back", method = RequestMethod.POST)
     @ResponseBody
     public int back(Long id) {
         Date date = new Date();
         int message = 1;
         try{
-            String str = registerService.findById(id).getIs_seen_doctor();
-            Expense e = expenseService.findByRecordAndDate(registerService.findById(id).getMedical_record_no(), "GHF", date);
-            if(str.equals("02"))
-                message = 2;
+            Date re_date = registerService.findById(id).getRegistration_date();
+            if(registerService.findById(id).getStatus().equals("02"))
+                message = 5;
+            else if(DateTool.getDateToString(date).equals(DateTool.getDateToString(re_date)) == false)
+                message = 4;
             else {
-                if(e.getPay_sign().equals("1"))
-                    message = 3;
-                else if(e.getPay_sign().equals("2")) {
-                    boolean flag = registerService.backRegister(id);
-                    boolean i = scheduleResultService.backRegisterToNum(registerService.findById(id).getDoctor_id(), date);
-                    if(flag == false || i == false)
-                        message = 0;
-                }
+                String str = registerService.findById(id).getIs_seen_doctor();
+                Expense e = expenseService.findByRecordAndDate(registerService.findById(id).getMedical_record_no(), "GHF", date);
+                if(str.equals("02"))
+                    message = 2;
                 else {
-                    boolean flag = registerService.backRegister(id);
-                    boolean sign = expenseService.delete(registerService.findById(id).getMedical_record_no(), "GHF", date);
-                    boolean i = scheduleResultService.backRegisterToNum(registerService.findById(id).getDoctor_id(), date);
-                    if(flag == false || sign == false || i == false)
-                        message = 0;
+                    if(e.getPay_sign().equals("1")) {
+                        message = 3;
+                    }
+                    else if(e.getPay_sign().equals("2")) {
+                        boolean flag = registerService.backRegister(id);
+                        boolean i = scheduleResultService.backRegisterToNum(registerService.findById(id).getDoctor_id(), date);
+                        if(flag == false || i == false)
+                            message = 0;
+                    }
+                    else {
+                        boolean flag = registerService.backRegister(id);
+                        boolean sign = expenseService.delete(registerService.findById(id).getMedical_record_no(), "GHF", date);
+                        boolean i = scheduleResultService.backRegisterToNum(registerService.findById(id).getDoctor_id(), date);
+                        if(flag == false || sign == false || i == false)
+                            message = 0;
+                    }
                 }
             }
         }catch (Exception e){
@@ -148,7 +204,10 @@ public class RegisterController {
         return message;
     }
 
-    //生成病历号
+    /**
+     * 根据日期生成唯一的病历号
+     * @return result(ResultDTO<String>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/getmedicalrecordno", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<String> getNo() {
@@ -174,7 +233,10 @@ public class RegisterController {
         return result;
     }
 
-    //获取医生列表
+    /**
+     * 从排班表获取值班医生列表
+     * @return resultDTO(ResultDTO<ScheduleResult>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/doctorlist", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<List<ScheduleResult>> getDoctor() {
@@ -223,7 +285,10 @@ public class RegisterController {
         return resultDTO;
     }
 
-    //获取科室列表
+    /**
+     * 从排班表获取值班科室列表
+     * @return resultDTO(ResultDTO<ScheduleResult>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/departmentlist", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<List<ScheduleResult>> getDepartment() {
@@ -246,7 +311,10 @@ public class RegisterController {
         return resultDTO;
     }
 
-    //获取结算类别列表
+    /**
+     * 获取结算类型列表
+     * @return resultDTO(ResultDTO<List<Feetype>>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/feetypelist", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<List<Feetype>> getFeeType() {
@@ -265,7 +333,11 @@ public class RegisterController {
         return resultDTO;
     }
 
-    //获取挂号费
+    /**
+     * 根据挂号类别获取挂号费
+     * @Param register_category 号别
+     * @return expense(Double) 返回挂号费
+     */
     @RequestMapping(value = "/getExpense", method = RequestMethod.POST)
     @ResponseBody
     public Double getExpense(String register_category) {
@@ -275,21 +347,29 @@ public class RegisterController {
         return expense;
     }
 
-    //模糊搜索
+    /**
+     * 接收模糊搜索关键字
+     * @param key 模糊搜索关键字
+     */
     @RequestMapping(value = "/select", method = RequestMethod.POST)
     @ResponseBody
     public void select(String key) {
         keyword = key;
     }
 
-    //获取下拉列表选择的科室
+    /**
+     * 接收下拉列表选择的科室id
+     * @param department_id 科室id
+     */
     @RequestMapping(value = "/postDepartment", method = RequestMethod.POST)
     @ResponseBody
     public void postDepartment(String department_id) {
         dept = department_id;
     }
 
-    //刷新
+    /**
+     * 实现表格数据刷新
+     */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     @ResponseBody
     public void refresh() {

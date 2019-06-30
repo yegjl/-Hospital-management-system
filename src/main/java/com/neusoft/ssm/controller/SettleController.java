@@ -17,10 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+/**
+ * 结算控制类
+ * 实现收费员日结、日结明细查询和日结财务核对
+ * @author Nebula
+ * @version 1.20 2019/06/28
+ * */
 
 @Controller
 @RequestMapping("settle")
@@ -47,18 +55,26 @@ public class SettleController {
     @Autowired
     IUserService iUserService;
 
-    //主界面查询
+    /**存放日结信息查询开始日期*/
     Timestamp start = null;
+    /**存放日结信息查询结束日期*/
     Timestamp end = null;
-    //弹窗查询
+    /**存放日结明细查询弹窗开始日期*/
     Timestamp startDate = null;
+    /**存放日结明细查询弹窗结束日期*/
     Timestamp endDate = null;
-    //核对查询
+    /**存放日结财务核对查询开始日期*/
     Timestamp sDate = null;
+    /**存放日结财务核对查询结束日期*/
     Timestamp eDate = null;
+    /**存放日结财务核对查询收费员id*/
     Long userId = (long) 0;
 
-    //搜索
+    /**
+     * 接收日结信息查询关键字
+     * @param start_date 开始日期
+     * @Param end_date 结束日期
+     */
     @RequestMapping(value = "/select", method = RequestMethod.POST)
     @ResponseBody
     public void select(Timestamp start_date, Timestamp end_date) {
@@ -66,7 +82,12 @@ public class SettleController {
         end = end_date;
     }
 
-    //提取日结列表
+    /**
+     * 返回日结信息列表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> listall(int page, int limit) {
@@ -101,7 +122,12 @@ public class SettleController {
         return resultDTO;
     }
 
-    //提取信息列表
+    /**
+     * 返回收费员日结时间表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> listuser(int page, int limit) {
@@ -132,10 +158,15 @@ public class SettleController {
         return resultDTO;
     }
 
-    //日结
+    /**
+     * 收费员日结
+     * @param start_date 开始日期
+     * @Param end_date 结束日期
+     * @return expense(Double) 返回日结金额
+     */
     @RequestMapping(value = "/settle", method = RequestMethod.POST)
     @ResponseBody
-    public Double ToSettle(Timestamp start_date, Timestamp end_date) {
+    public Double ToSettle(Timestamp start_date, Timestamp end_date, HttpSession session) {
         Double expense = 0.0;
         List<Expense> elist = null;
         List<Refund> rlist = null;
@@ -156,15 +187,20 @@ public class SettleController {
                     refundService.settle(r.getId());
                 }
             }
+            Long id = Long.parseLong(session.getAttribute("user_id").toString()); //通过session获取登录用户的id
             dailySettleService.alterAUTO();
-            dailySettleService.addSettle((long) 1, sdf.format(start_date), sdf.format(end_date), expense, "0");
+            dailySettleService.addSettle(id, sdf.format(start_date), sdf.format(end_date), expense, "0");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return expense;
     }
 
-    //日结明细查询
+    /**
+     * 接收日结明细查询关键字
+     * @param start_date 开始日期
+     * @Param end_date 结束日期
+     */
     @RequestMapping(value = "/find", method = RequestMethod.POST)
     @ResponseBody
     public void listfind(Timestamp start_date, Timestamp end_date) {
@@ -172,7 +208,12 @@ public class SettleController {
         endDate = end_date;
     }
 
-    //日结明细查询-收费清单
+    /**
+     * 返回日结明细表-收费表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/findexpense", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> findexpense(int page, int limit) {
@@ -185,7 +226,6 @@ public class SettleController {
                 for(int i = 0; i < list.size(); i++) {
                     list.get(i).setId((long) i + 1);
                     list.get(i).setName(registerService.findByRecord(list.get(i).getMedical_record_no()).getPatient_name());
-                    System.out.println("11111111111111111111111111111:" + list.get(i).getExpense_category());
                     if(list.get(i).getExpense_category().equals("GHF"))
                         list.get(i).setExpense_name("门诊挂号");
                     else
@@ -209,7 +249,12 @@ public class SettleController {
         return resultDTO;
     }
 
-    //日结明细查询-退费清单
+    /**
+     * 返回日结明细表-退费表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/findrefund", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> findrefund(int page, int limit) {
@@ -245,7 +290,10 @@ public class SettleController {
         return resultDTO;
     }
 
-    //获取上一次日结时间
+    /**
+     * 获取上一次日结时间
+     * @return d(String) 返回上一次日结时间
+     */
     @RequestMapping(value = "/lastdate", method = RequestMethod.POST)
     @ResponseBody
     public String getLastDate() {
@@ -255,7 +303,12 @@ public class SettleController {
         return d;
     }
 
-    //核对查询
+    /**
+     * 接收日结财务核对查询关键字
+     * @Param user_id 收费员id
+     * @param start_date 开始日期
+     * @Param end_date 结束日期
+     */
     @RequestMapping(value = "/checkfind", method = RequestMethod.POST)
     @ResponseBody
     public void checkfind(Long user_id, Timestamp start_date, Timestamp end_date) {
@@ -264,7 +317,12 @@ public class SettleController {
         eDate = end_date;
     }
 
-    //核对查询结果
+    /**
+     * 返回日结财务核对结果
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/checklist", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> check(int page, int limit) {
@@ -296,7 +354,10 @@ public class SettleController {
         return resultDTO;
     }
 
-    //获取收费员列表
+    /**
+     * 获取收费员信息列表
+     * @return resultDTO(ResultDTO<List<User>>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<List<User>> getUserList() {
@@ -321,7 +382,13 @@ public class SettleController {
         return resultDTO;
     }
 
-    //核对
+    /**
+     * 日结财务核对
+     * @param id 日结条目id
+     * @Param check_sign 核对标志
+     * @Param check_date 核对日期
+     * @return message(int) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseBody
     public int check(Long id, String check_sign, String check_date) {
@@ -336,19 +403,25 @@ public class SettleController {
         return message;
     }
 
-    //跳转至弹窗页面
+    /**
+     * 跳转至日结明细弹窗
+     */
     @RequestMapping(value = "/detailUI")
     public String Todetail() {
         return "expense/daily_detail";
     }
 
-    //跳转至核对弹窗
+    /**
+     * 跳转至日结财务核对弹窗
+     */
     @RequestMapping(value = "/checkUI")
     public String Tocheck() {
         return "finance/settle_confirm";
     }
 
-    //刷新
+    /**
+     * 实现日结信息表格数据刷新
+     */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     @ResponseBody
     public void refresh() {
@@ -356,7 +429,9 @@ public class SettleController {
         end = null;
     }
 
-    //核对刷新
+    /**
+     * 实现日结财务核对表格数据刷新
+     */
     @RequestMapping(value = "/checkrefresh", method = RequestMethod.GET)
     @ResponseBody
     public void checkrefresh() {

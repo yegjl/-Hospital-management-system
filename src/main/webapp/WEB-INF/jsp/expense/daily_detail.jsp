@@ -31,6 +31,7 @@
 
         table.render({
             elem: '#test-table-simple1',
+            id: 'test-table-simple1',
             title: '收费清单',
             url: 'settle/findexpense',
             cellMinWidth: 80,
@@ -100,6 +101,7 @@
 
         table.render({
             elem: '#test-table-simple2',
+            id: 'test-table-simple2',
             title: '退费清单',
             url: 'settle/findrefund',
             cellMinWidth: 80,
@@ -150,6 +152,9 @@
                 }]
             ]
             ,page: true
+            ,done: function () {
+                getParent();
+            }
         });
     });
 </script>
@@ -157,12 +162,8 @@
 
 <script>
     function getParent() {
-        var table1 = parent.layui.table;
-        var tabledata = table1.checkStatus('test-table-toolbar').data;
-        alert(JSON.stringify(tabledata));
-
-        var start = tabledata[0].start_date;
-        var end = tabledata[0].end_date;
+        var start = document.getElementById("sdate").value.toUpperCase();
+        var end = document.getElementById("edate").value.toUpperCase();
 
         $.ajax({
             type: "post",
@@ -176,18 +177,20 @@
             beforeSend: function () {
             },
             success: function () {
+                layui.table.reload('test-table-simple1',{page: {curr: 1}});
+                layui.table.reload('test-table-simple2',{page: {curr: 1}});
             },
             error: function () {
             }
         });
-        layui.table.reload('test-table-simple1',{page: {curr: 1}});
     }
 </script>
 
-<body onload="getParent()">
-<div class="layui-fluid" lay-filter="body">
+<body>
+<div class="layui-fluid">
     <form>
-        <input type="hidden" name="none" id="none">
+        <input type="hidden" name="sdate" id="sdate">
+        <input type="hidden" name="edate" id="edate">
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-card">

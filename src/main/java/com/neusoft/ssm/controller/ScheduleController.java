@@ -4,14 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.ScheduleResult;
 import com.neusoft.ssm.bean.ScheduleRule;
-import com.neusoft.ssm.bean.schedule;
 import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.*;
 import com.neusoft.ssm.util.DBTool;
 import com.neusoft.ssm.util.DateTool;
 import net.sf.json.JSONArray;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +21,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 排班控制类
+ * 实现排班规则维护和生成排班表
+ * @author Nebula
+ * @version 1.10 2019/06/26
+ * */
+
 @Controller
 @RequestMapping("schedule")
 public class ScheduleController {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ScheduleRuleService scheduleRuleService;
@@ -45,31 +47,42 @@ public class ScheduleController {
     @Autowired
     private DepartmentService departmentService;
 
+    /**存放模糊搜索关键字*/
     String keyword = null;
 
-    @RequestMapping(value = "/index")
-    public String Index() {
-        return "schedule/schedule";
-    }
-    //跳转至添加页面
+    /**
+     * 跳转至添加数据弹窗
+     */
     @RequestMapping(value = "/addUI")
     public String Toadd() {
         return "schedule/add_schedule";
     }
 
-    //跳转至编辑页面
+    /**
+     * 跳转至编辑数据弹窗
+     */
     @RequestMapping(value = "/editUI")
     public String Toedit() {
         return "schedule/edit_schedule";
     }
 
-    //跳转至删除页面
+    /**
+     * 跳转至删除数据弹窗
+     */
     @RequestMapping(value = "/delUI")
     public String Todel() {
         return "schedule/del_schedule";
     }
 
-    //添加排班规则
+    /**
+     * 添加排班规则
+     * @param doctor_id 医生id
+     * @Param week_time 星期
+     * @Param register_level 号别
+     * @Param noon_level 午别
+     * @Param limit_num 排班限额
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public int add(Long doctor_id, String week_time, String register_level, String noon_level, Integer limit_num) {
@@ -97,7 +110,12 @@ public class ScheduleController {
         return message;
     }
 
-    //规则列表
+    /**
+     * 返回排班规则列表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> listall(int page, int limit) {
@@ -113,30 +131,18 @@ public class ScheduleController {
             for(ScheduleRule sr : list) {
                 sr.setDoctor_name(doctorService.findNameById(sr.getDoctor_id()));
                 sr.setDepartment_name(departmentService.findNameById(doctorService.findDeptCodeById(sr.getDoctor_id())));
-                sr.setDate(new Date(sr.getOperate_date().getTime()));
+                sr.setOperate_date(new Date(sr.getOperate_date().getTime()));
+                sr.setSc_date(DateTool.getDateToString(sr.getOperate_date()));
+                sr.setWeek_time(DBTool.dbToWeek(sr.getWeek_time()));
+                sr.setNoon_level(DBTool.dbToNoon(sr.getNoon_level()));
+                sr.setRegister_level(registrationlevelService.findByCode(sr.getRegister_level()).getNumbername());
             }
 
-            List<schedule> list1 = new ArrayList<schedule>();
-
-            for(int i = 0; i < list.size(); i++) {
-                schedule s = new schedule();
-                s.setId(list.get(i).getId());
-                s.setDoctor_id(list.get(i).getDoctor_id());
-                s.setWeek_time(DBTool.dbToWeek(list.get(i).getWeek_time()));
-                s.setRegister_level(registrationlevelService.findByCode(list.get(i).getRegister_level()).getNumbername());
-                s.setNoon_level(DBTool.dbToNoon(list.get(i).getNoon_level()));
-                s.setLimit_num(list.get(i).getLimit_num());
-                s.setDoctor_name(list.get(i).getDoctor_name());
-                s.setDepartment_name(list.get(i).getDepartment_name());
-                s.setDate(DateTool.SqlToString(list.get(i).getOperate_date()));
-                list1.add(s);
-            }
-
-            PageInfo<schedule> pageInfo = new PageInfo<>(list1);
+            PageInfo<ScheduleRule> pageInfo = new PageInfo<>(list);
             resultDTO.setStatus(0);
             resultDTO.setMessage("");
             resultDTO.setTotal((int)pageInfo.getTotal());
-            resultDTO.setData(JSONArray.fromObject(list1)); //将list转为JSON格式传至前端
+            resultDTO.setData(JSONArray.fromObject(list)); //将list转为JSON格式传至前端
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);
@@ -145,7 +151,11 @@ public class ScheduleController {
         return resultDTO;
     }
 
-    //删除
+    /**
+     * 删除
+     * @param id 需要删除的规则的id
+     * @return resultDTO(ResultDTO<Integer>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<Integer> deleteById(Long[] id) {
@@ -167,7 +177,16 @@ public class ScheduleController {
         return resultDTO;
     }
 
-    //修改排班规则
+    /**
+     * 修改排班规则
+     * @Param id 需要修改的规则id
+     * @Param doctor_id 医生id
+     * @Param week_time 星期
+     * @Param register_level 号别
+     * @Param noon_level 午别
+     * @Param limit_num 排班限额
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public int update(Long id, Long doctor_id, String week_time, String register_level, String noon_level, Integer limit_num) {
@@ -184,7 +203,12 @@ public class ScheduleController {
         return message;
     }
 
-    //生成排班表
+    /**
+     * 根据排班规则生成排班表
+     * @param startDate 开始日期
+     * @Param endDate 结束日期
+     * @return message(int) 返回操作状态代码
+     */
     @RequestMapping(value = "createSchedule", method = RequestMethod.POST)
     @ResponseBody
     public int create(Date startDate, Date endDate) throws ParseException {
@@ -240,7 +264,12 @@ public class ScheduleController {
         return message;
     }
 
-    //提取排班表
+    /**
+     * 返回排班表
+     * @param page 分页页数请求
+     * @Param limit 每页数量请求
+     * @return resultDTO(ResultDTO<JSONArray>) 返回操作状态代码和数据
+     */
     @RequestMapping(value = "/schedulelist", method = RequestMethod.GET)
     @ResponseBody
     public ResultDTO<JSONArray> listschedule(int page, int limit) {
@@ -271,7 +300,11 @@ public class ScheduleController {
         return resultDTO;
     }
 
-    //提取医生姓名
+    /**
+     * 获取医生姓名
+     * @Param doctor_id 医生id
+     * @return name(String) 返回医生姓名
+     */
     @RequestMapping(value = "/getDoctorName/{doctor_id}", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getDoctorName(@PathVariable("doctor_id") long id) {
@@ -279,7 +312,11 @@ public class ScheduleController {
         return name;
     }
 
-    //提取科室名称
+    /**
+     * 获取科室名称
+     * @Param department_id 科室id
+     * @return name(String) 返回科室名称
+     */
     @RequestMapping(value = "/getDepartmentName/{doctor_id}", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getDepartmentName(@PathVariable("doctor_id") long id) {
@@ -287,14 +324,19 @@ public class ScheduleController {
         return name;
     }
 
-    //模糊搜索
+    /**
+     * 接收模糊搜索关键字
+     * @param key 模糊搜索关键字
+     */
     @RequestMapping(value = "/select", method = RequestMethod.POST)
     @ResponseBody
     public void select(String key) {
         keyword = key;
     }
 
-    //刷新
+    /**
+     * 实现表格数据刷新
+     */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     @ResponseBody
     public void refresh() {

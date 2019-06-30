@@ -252,4 +252,10 @@
         select DeptType from department
         where DeptCode = #{DeptCode}
     </select>
+
+    <select id="findIdByCode" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from department
+        where DeptCode = #{DeptCode}
+    </select>
+
 </mapper>

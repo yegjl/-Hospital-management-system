@@ -8,6 +8,7 @@ public class Expense {
   private String medical_record_no;
   private String expense_category;
   private String expense_id;
+  private Long prescribe_id;
   private Long number;
   private Double expense;
   private Double real_expense;
@@ -54,6 +55,14 @@ public class Expense {
 
   public void setExpense_id(String expense_id) {
     this.expense_id = expense_id;
+  }
+
+  public Long getPrescribe_id() {
+    return prescribe_id;
+  }
+
+  public void setPrescribe_id(Long prescribe_id) {
+    this.prescribe_id = prescribe_id;
   }
 
   public Long getNumber() {

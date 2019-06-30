@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RegisterService {
 
-    boolean add(String medical_record_no, String patient_name, String gender, Long age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, String department_id, Long doctor_id, String registration_source, Integer settle_accounts_category, String is_seen_doctor, String status, Double expense);
+    boolean add(String medical_record_no, String patient_name, String gender, Double age, Date birthday, String registration_category, String medical_category, String identity_card_no, String family_address, Date registration_date, Date see_doctor_date, String department_id, Long doctor_id, String registration_source, Integer settle_accounts_category, String is_seen_doctor, String status, Double expense);
 
     List<RegistrationInfo> findAll();
 
