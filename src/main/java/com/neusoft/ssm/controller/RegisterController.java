@@ -124,7 +124,7 @@ public class RegisterController {
         ResultDTO<JSONArray> resultDTO = new ResultDTO();
         List<RegistrationInfo> list = null;
 
-        String name = session.getAttribute("user_name").toString();
+        //String name = session.getAttribute("user_name").toString();
 
         try {
             PageHelper.startPage(page, limit);
@@ -261,7 +261,7 @@ public class RegisterController {
                     if(DateTool.NowTime(date).equals("下午")) {
                         if(DBTool.dbToNoon(list.get(i).getNoon_level()).equals("上午"))
                             list.remove(list.get(i));
-                        if(list.size() > 0)
+                        else if(list.size() > 0)
                             list.get(i).setDoctor_name(doctorService.findNameById(list.get(i).getDoctor_id()));
                     }
                     else if(DateTool.NowTime(date).equals("晚上")) {

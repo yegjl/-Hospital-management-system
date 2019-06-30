@@ -497,6 +497,7 @@
                                 } else {
                                     layer.msg(res.message)
                                 }
+                                layui.table.reload('test-table-reload1',{page: {curr: 1}});
                                 layer.closeAll();
                             },
                             error: function () {

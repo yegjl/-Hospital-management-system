@@ -43,9 +43,11 @@ public class ExpenseAccountController {
         int message = 1;
         try{
             Integer sign = expenseAccountService.findSame(account_code, account_name);
-            if(sign == 0) {
-                message = 2;
-                return message;
+            if(sign != null) {
+                if(sign == 0) {
+                    message = 2;
+                    return message;
+                }
             }
             expenseAccountService.alterAUTO();
             boolean flag = expenseAccountService.add(account_code, account_name);

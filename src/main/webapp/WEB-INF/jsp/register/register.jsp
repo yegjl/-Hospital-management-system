@@ -70,7 +70,6 @@
         var patient_age = document.getElementById("patient_age").value.toUpperCase();
         if(patient_age == "02")
             age = age / 12;
-        alert(age);
         $.ajax({
             type: "post",
             url: "register/add",
@@ -103,7 +102,8 @@
             },
             success: function (data) {
                 if(data == 1) {
-                    alert("挂号成功");
+                    // alert("挂号成功");
+                    layui.layer.msg("挂号成功");
                     window.location.reload();
                 }
                 else if(data == 2)

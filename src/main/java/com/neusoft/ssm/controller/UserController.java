@@ -127,6 +127,27 @@ public class UserController {
 
     @RequestMapping(value = "/index07")
     public String index07() { return  "Pharmacy_Workstation/PW_index"; }
+
+    @RequestMapping(value = "/index08")
+    public String index08() { return  "expense/daily_settle"; }
+
+    @RequestMapping(value = "/index09")
+    public String index09() { return  "schedule/schedule"; }
+
+    @RequestMapping(value = "/index10")
+    public String index10() { return  "finance/expense_account"; }
+
+    @RequestMapping(value = "/index11")
+    public String index11() { return  "finance/settle_check"; }
+
+    @RequestMapping(value = "/index12")
+    public String index12() { return  "expense/search_expense"; }
+
+    @RequestMapping(value = "/index13")
+    public String index13() { return  "statistic/dept_statistic"; }
+
+    @RequestMapping(value = "/index14")
+    public String index14() { return  "statistic/doc_statistic"; }
     //实现注册
     @RequestMapping(value = "/implAdd", method = RequestMethod.POST)
     @ResponseBody
