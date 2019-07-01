@@ -223,18 +223,24 @@ public class SettleController {
         try {
             PageHelper.startPage(page, limit);
             list = expenseService.find(startDate, endDate);
-            if(list.size() > 0) {
-                for(int i = 0; i < list.size(); i++) {
-                    list.get(i).setId((long) i + 1);
-                    list.get(i).setName(registerService.findByRecord(list.get(i).getMedical_record_no()).getPatient_name());
-                    if(list.get(i).getExpense_category().equals("GHF"))
-                        list.get(i).setExpense_name("门诊挂号");
-                    else
-                        list.get(i).setExpense_name(fmeditemService.findByItemCode(list.get(i).getExpense_id()).getItemname());
-                    list.get(i).setExpense_category(expenseAccountService.findByCode(list.get(i).getExpense_category()));
-                    list.get(i).setPay_sign(DBTool.dbToPaySign(list.get(i).getPay_sign()));
-                    list.get(i).setPay_category(DBTool.dbToPayCategory(list.get(i).getPay_category()));
-                    list.get(i).setDate(DateTool.getDateToString(list.get(i).getExpense_date()));
+            if(startDate == null || endDate == null) {
+            }
+            else {
+                if(list.size() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        list.get(i).setId((long) i + 1);
+                        list.get(i).setName(registerService.findByRecord(list.get(i).getMedical_record_no()).getPatient_name());
+                        if(list.get(i).getExpense_category().equals("GHF"))
+                            list.get(i).setExpense_name("门诊挂号");
+                        else if(list.get(i).getExpense_category().contains("YF"))
+                            list.get(i).setExpense_name(expenseService.findDrugByCode(list.get(i).getExpense_id()).getDrugsname());
+                        else
+                            list.get(i).setExpense_name(fmeditemService.findByItemCode(list.get(i).getExpense_id()).getItemname());
+                        list.get(i).setExpense_category(expenseAccountService.findByCode(list.get(i).getExpense_category()));
+                        list.get(i).setPay_sign(DBTool.dbToPaySign(list.get(i).getPay_sign()));
+                        list.get(i).setPay_category(DBTool.dbToPayCategory(list.get(i).getPay_category()));
+                        list.get(i).setDate(DateTool.getDateToString(list.get(i).getExpense_date()));
+                    }
                 }
             }
             PageInfo<Expense> pageInfo = new PageInfo<>(list);
@@ -264,18 +270,23 @@ public class SettleController {
         try {
             PageHelper.startPage(page, limit);
             list = refundService.find(startDate, endDate);
-            if(list.size() > 0) {
-                for(int i = 0; i < list.size(); i++) {
-                    list.get(i).setId((long) i + 1);
-                    list.get(i).setName(registerService.findByRecord(list.get(i).getMedical_record_no()).getPatient_name());
-                    if(list.get(i).getExpense_category().equals("GHF"))
-                        list.get(i).setExpense_name("门诊挂号");
-                    else
-                        list.get(i).setExpense_name(fmeditemService.findByItemCode(list.get(i).getExpense_id()).getItemname());
-                    list.get(i).setExpense_category(expenseAccountService.findByCode(list.get(i).getExpense_category()));
-                    list.get(i).setRefund_expense(list.get(i).getRefund_expense() * -1);
-                    list.get(i).setPay_category(DBTool.dbToPayCategory(list.get(i).getPay_category()));
-                    list.get(i).setDate(DateTool.getDateToString(list.get(i).getRefund_date()));
+            if(startDate == null || endDate == null){}
+            else {
+                if(list.size() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        list.get(i).setId((long) i + 1);
+                        list.get(i).setName(registerService.findByRecord(list.get(i).getMedical_record_no()).getPatient_name());
+                        if(list.get(i).getExpense_category().equals("GHF"))
+                            list.get(i).setExpense_name("门诊挂号");
+                        else if(list.get(i).getExpense_category().contains("YF"))
+                            list.get(i).setExpense_name(expenseService.findDrugByCode(list.get(i).getExpense_id()).getDrugsname());
+                        else
+                            list.get(i).setExpense_name(fmeditemService.findByItemCode(list.get(i).getExpense_id()).getItemname());
+                        list.get(i).setExpense_category(expenseAccountService.findByCode(list.get(i).getExpense_category()));
+                        list.get(i).setRefund_expense(list.get(i).getRefund_expense() * -1);
+                        list.get(i).setPay_category(DBTool.dbToPayCategory(list.get(i).getPay_category()));
+                        list.get(i).setDate(DateTool.getDateToString(list.get(i).getRefund_date()));
+                    }
                 }
             }
             PageInfo<Refund> pageInfo = new PageInfo<>(list);

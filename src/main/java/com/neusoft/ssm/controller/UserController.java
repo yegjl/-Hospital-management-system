@@ -58,7 +58,9 @@ public class UserController {
         request.getSession().setAttribute("lgCate", lgCate);
 
         session.setAttribute("user_name", login_name);
-
+        int doctorid = userService.findIdByLoginName(login_name);
+        if(doctorid != 0)
+            session.setAttribute("doctorid", doctorid);
         int count = userService.login(login_name, passwordByMd5);
         int message = 0;
         String category = userService.selectCategory(login_name);
@@ -148,6 +150,12 @@ public class UserController {
 
     @RequestMapping(value = "/index14")
     public String index14() { return  "statistic/doc_statistic"; }
+
+    @RequestMapping(value = "/index15")
+    public String index15() { return  "Pharmacy_Workstation/PW_index"; }
+
+    @RequestMapping(value = "/index16")
+    public String index16() { return  "sixpart/TSGZZ_index"; }
     //实现注册
     @RequestMapping(value = "/implAdd", method = RequestMethod.POST)
     @ResponseBody

@@ -25,7 +25,7 @@
   <div class="layui-fluid">
     <div class="layui-row">
 
-      <div class="layui-col-md8" style="overflow: auto;height:600px;">
+      <div class="layui-col-md9" style="overflow: auto;height:600px;">
         <!-- 中部折叠面板 -->
         <div class="layui-card">
           <div class="layui-card-header " style="height: 80px;">
@@ -75,7 +75,7 @@
                 <li>常用项目</li>
 
               </ul>
-              <div class="layui-tab-content">
+              <div class="layui-tab-content" >
                 <div class="layui-tab-item layui-show">
                   <!-- 选项卡1中内容 -->
                   <!-- 右侧树状图 -->
@@ -124,57 +124,6 @@
         </div>
       </div>
 
-      <div class="layui-fluid" id="component-tabs3" style="height:300px;overflow: auto;">
-        <div class="layui-card">
-          <div class="layui-card-header">组套内容</div>
-          <div class="layui-card-body">
-            <table class="layui-table" lay-even="" lay-skin="row">
-              <colgroup>
-                <col width="150">
-                <col width="150">
-                <col width="200">
-                <col>
-              </colgroup>
-
-              <tbody>
-              <tr>
-                <td>套组编码</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>套组名称</td>
-                <td>2</td>
-
-              </tr>
-              <tr>
-                <td>适用类型</td>
-                <td>3</td>
-
-              </tr>
-              <tr>
-                <td>目的和要求</td>
-                <td>4</td>
-
-              </tr>
-              <tr>
-                <td>创建医生</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>创建时间</td>
-                <td>6</td>
-              </tr>
-              <tr>
-                <td>包含项目</td>
-                <td>5</td>
-              </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </div>
@@ -835,9 +784,13 @@
                 text = othis.text();
         var tabledata = layui.table.checkStatus('test-table-cellEdit-middle').data;
         var myArray = new Array();
+        if(tabledata.length==0){
+          layer.msg("请选择需要开立的项目");
+          return;
+        }
         for (var i = 0; i < tabledata.length; i++) {
           if(tabledata[i].status != "未开立") {
-            alert("请选择状态为未开立的项目,项目"+tabledata[i].itemname+tabledata[i].status);
+            layer.msg("请选择状态为未开立的项目,项目"+tabledata[i].itemname+tabledata[i].status);
             return;
           }
           myArray.push(tabledata[i].itemcode);

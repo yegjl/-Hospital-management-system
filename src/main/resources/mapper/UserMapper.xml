@@ -68,6 +68,10 @@
         select * from user where category=#{id}
     </select>
 
+    <select id="findIdByLoginName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select * from doctor where login_name=#{login_name}
+    </select>
+
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.User" useGeneratedKeys="true">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -209,22 +209,26 @@
         //监听行工具事件，详细弹窗模块
         table.on('tool(test-table-toolbar)', function (obj) {
             var data = obj.data;
+            var opt1 = document.getElementById("sdate");
+            opt1.setAttribute("value", data.start_date);
+            var opt2 = document.getElementById("edate");
+            opt2.setAttribute("value", data.end_date);
+
             if (obj.event === 'detail') {
                 layer.open({
                     type: 2,
                     title: '详细',
                     area: ['1000px', '600px'],
                     scrollbar: true,
-                    // content: '<iframe src="settle/detailUI" id="detailSettle" frameborder="0" class="layadmin-iframe"></iframe>',
                     content: 'settle/detailUI',
                     btn: ['关闭'],
                     yes: function () {
                         layer.closeAll();
                     },
                     success: function(layero, index) {
-                        var body = layer.getChildFrame('body', index);
-                        body.find('#sdate').val(data.start_date);
-                        body.find('#edate').val(data.end_date);
+                        // var body = layer.getChildFrame('body', index);
+                        // body.find('#sdate').val(data.start_date);
+                        // body.find('#edate').val(data.end_date);
                     }
                 });
             }
@@ -356,6 +360,8 @@
 <div class="layui-row">
     <div class="layui-fluid">
         <form method="post">
+            <input type="hidden" name="sdate" id="sdate">
+            <input type="hidden" name="edate" id="edate">
             <div class="layui-col-md12">
                 <!-- 日期选择框 -->
                 <div class="layui-card" style="height: 50px;">

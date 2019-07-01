@@ -28,6 +28,7 @@
         index: 'lib/index' //主入口模块
     }).use(['index', 'table'], function () {
         var table = layui.table;
+        getParent();
 
         table.render({
             elem: '#test-table-simple1',
@@ -87,6 +88,9 @@
                 }]
             ]
             ,page: true
+            ,done: function () {
+                //getParent();
+            }
         });
     });
 </script>
@@ -98,6 +102,7 @@
         index: 'lib/index' //主入口模块
     }).use(['index', 'table'], function () {
         var table = layui.table;
+        getParent();
 
         table.render({
             elem: '#test-table-simple2',
@@ -153,7 +158,7 @@
             ]
             ,page: true
             ,done: function () {
-                getParent();
+                //getParent();
             }
         });
     });
@@ -162,8 +167,12 @@
 
 <script>
     function getParent() {
-        var start = document.getElementById("sdate").value.toUpperCase();
-        var end = document.getElementById("edate").value.toUpperCase();
+        var start = $('#sdate', parent.document).val();
+        var end = $('#edate', parent.document).val();
+        while(start == null || end == null) {
+            start = $('#sdate', parent.document).val();
+            end = $('#edate', parent.document).val();
+        }
 
         $.ajax({
             type: "post",

@@ -12,6 +12,7 @@
 
     <select id="findAll" resultType="RegistrationInfo">
         select * from registration_info
+        order by medical_record_no desc
     </select>
 
     <update id="backRegister" parameterType="java.lang.Long">

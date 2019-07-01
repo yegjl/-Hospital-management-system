@@ -87,5 +87,10 @@ public class UserServiceImpl implements IUserService {
     public List<User> getSearchUser(String login_name, String real_name,String id) {
         return userMapper.getSearchUser(login_name,real_name,id);
     }
+
+    @Override
+    public int findIdByLoginName(String login_name) {
+        return userMapper.findIdByLoginName(login_name);
+    }
 }
 

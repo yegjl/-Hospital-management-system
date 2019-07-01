@@ -74,6 +74,10 @@ public class ScheduleController {
         return "schedule/del_schedule";
     }
 
+    @RequestMapping(value = "/index")
+    public String index() {
+        return "schedule/schedule";
+    }
     /**
      * 添加排班规则
      * @param doctor_id 医生id

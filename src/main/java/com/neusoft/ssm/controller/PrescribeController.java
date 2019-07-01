@@ -470,7 +470,7 @@ public class PrescribeController {
         try {
             Date createtime= new java.sql.Date(new java.util.Date().getTime());
             for (int i = 0; i < medicalrecordids.length; i++) {
-                expense.setMedicalRecordNo(medicalrecordids[i]);
+                expense.setMedical_record_no(medicalrecordids[i]);
                 String accountcode = null;
                 int type = prescribeService.getDrugsTypeID(medicalids[i]);
                 if (type == 101) {
@@ -480,15 +480,15 @@ public class PrescribeController {
                 } else {
                     accountcode = "ZCYF1";
                 }
-                expense.setExpenseCategory(accountcode);
-                expense.setExpenseId(String.valueOf(medicalids[i]));
-                expense.setPrescribeId(presribeids[i]);
+                expense.setExpense_category(accountcode);
+                expense.setExpense_id(String.valueOf(medicalids[i]));
+                expense.setPrescribe_id((long)presribeids[i]);
                 Long a = new Long((long) amounts[i]);
                 expense.setNumber(a);
                 int emoney = amounts[i] * prices[i];
                 BigDecimal expensemoney = new BigDecimal(emoney);
-                expense.setExpense(expensemoney);
-                expense.setExpenseDate(createtime);
+                expense.setExpense(expensemoney.doubleValue());
+                expense.setExpense_date(createtime);
                 prescribeService.insertExpense(expense);
             }
             resultDTO.setStatus(0);

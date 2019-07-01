@@ -31,4 +31,5 @@ public interface IUserService {
 
     List<User> getSearchUser(String login_name, String real_name,String id);
 
+    int findIdByLoginName(String login_name);
 }

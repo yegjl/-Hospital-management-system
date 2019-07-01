@@ -59,5 +59,5 @@ public interface PrescribeService {
     int insertExpense(Expense record);
 
 
-
+    int getDrugsTypeID(int medicalid);
 }

@@ -85,4 +85,6 @@ public interface UserMapper {
 
 	List<User> getSearchUser(String login_name, String real_name,String id);
 	List<User> findByUserType(String id);
+
+    int findIdByLoginName(String login_name);
 }
