@@ -33,6 +33,9 @@ public class PrescribeServiceImpl implements PrescribeService {
     @Autowired
     private ExpenseMapper expenseMapper;
 
+    @Autowired
+    private OftendrugDao oftendrugDao;
+
 
     @Override
     public int insertPrescribe(Prescribe record) {
@@ -174,6 +177,21 @@ public class PrescribeServiceImpl implements PrescribeService {
     @Override
     public int getDrugsTypeID(int medicalid) {
         return drugsDao.selectDrugsTypeID(medicalid);
+    }
+
+    @Override
+    public int addoften(Oftendrug record) {
+        return oftendrugDao.insertSelective(record);
+    }
+
+    @Override
+    public List<Oftendrug> showoften(int doctorid) {
+        return oftendrugDao.selectByDoctorid(doctorid);
+    }
+
+    @Override
+    public int deleteOften(Integer medicalid) {
+        return oftendrugDao.deleteByPrimaryKey(medicalid);
     }
 
 

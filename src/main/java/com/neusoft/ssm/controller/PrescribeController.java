@@ -501,4 +501,102 @@ public class PrescribeController {
         }
         return resultDTO;
     }
+
+
+    @RequestMapping(value = "/indexaddoften")
+    public String indexaddoften(int doctorid,Model model)
+    {
+        model.addAttribute("doctorid", doctorid);
+        model.addAttribute("drugstpe", "103");
+        model.addAttribute("projects", prescribeService.getAllChengDrugs("103"));//存储成药或者草药，id=103时为草药，其余是成药
+        return "fifthpart/medicine_prescription/often";
+    }
+
+//    @RequestMapping(value = "indexaddoften")
+//    @RequestMapping(value = "/indexaddoften",method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResultDTO<JSONArray> indexaddoften() {
+//        ResultDTO<JSONArray> resultDTO = new ResultDTO();
+//        try {
+//            List<Drugs> list = prescribeService.getAllChengDrugs("103");
+//            resultDTO.setStatus(0);
+//            resultDTO.setMessage("");
+//            resultDTO.setData(JSONArray.fromObject(list));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            resultDTO.setStatus(1);
+//            resultDTO.setMessage("操作失败！");
+//        }
+//        return resultDTO;
+//    }
+
+//    添加常用药
+    @RequestMapping(value = "/addoftendrug",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> addoftendrug(Oftendrug oftendrug){
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            int issuccess = prescribeService.addoften(oftendrug);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping(value = "/findoften", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDTO<JSONArray> findoften(int doctorid) {
+        ResultDTO<JSONArray> resultDTO = new ResultDTO();
+        try {
+            List<Oftendrug> list = prescribeService.showoften(doctorid);
+//            PageHelper.startPage(page, limit);
+//            PageInfo<Oftendrug> pageInfo = new PageInfo<>(list);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("");
+//            resultDTO.setTotal((int)pageInfo.getTotal());
+            resultDTO.setData(JSONArray.fromObject(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    //删除常用项目
+    @RequestMapping(value = "/deleteoften",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> deleteoften(Integer[] medicalids) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            for(int id : medicalids){
+                prescribeService.deleteOften(id);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(1);
+            return resultDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping(value = "/indexuseoften")
+    public String indexuseoften(int medicalid,String medicalname,int doctorid,Model model)
+    {
+        model.addAttribute("medicalid", medicalid);
+        model.addAttribute("medicalname", medicalname);
+        model.addAttribute("doctorid", doctorid);
+        model.addAttribute("drugstpe", "103");
+//        model.addAttribute("projects", prescribeService.getAllChengDrugs("103"));//存储成药或者草药，id=103时为草药，其余是成药
+        return "fifthpart/medicine_prescription/useoften";
+    }
 }
