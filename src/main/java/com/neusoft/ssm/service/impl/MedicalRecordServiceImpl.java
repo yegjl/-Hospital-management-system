@@ -102,4 +102,9 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return medicalRecordPageTemplateDao.selectByPrimaryKey(id);
     }
 
+    @Override
+    public int insertMedicalRecordPageTemplate(MedicalRecordPageTemplate record) {
+        return medicalRecordPageTemplateDao.insertSelective(record);
+    }
+
 }

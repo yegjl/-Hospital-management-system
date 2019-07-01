@@ -22,9 +22,9 @@ public interface RegisterService {
     List<RegistrationInfo> findByDaidoctorid(Integer id);
 
     List<RegistrationInfo> findByYidoctorid(Integer doctorid);
-    List<RegistrationInfo> findByDaiDepart(Integer departid);
+    List<RegistrationInfo> findByDaiDepart(String departcode);
 
-    List<RegistrationInfo> findByYiDepart(Integer departid);
+    List<RegistrationInfo> findByYiDepart(String departcode);
     Long findMaxRecord();
 
     void alterAUTO();

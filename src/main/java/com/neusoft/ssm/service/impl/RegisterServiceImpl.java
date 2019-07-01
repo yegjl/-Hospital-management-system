@@ -58,13 +58,13 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public List<RegistrationInfo> findByDaiDepart(Integer departid) {
-        return registerMapper.findByDaiDepart(departid);
+    public List<RegistrationInfo> findByDaiDepart(String departcode) {
+        return registerMapper.findByDaiDepart(departcode);
     }
 
     @Override
-    public List<RegistrationInfo> findByYiDepart(Integer departid) {
-        return registerMapper.findByYiDepart(departid);
+    public List<RegistrationInfo> findByYiDepart(String departcode) {
+        return registerMapper.findByYiDepart(departcode);
     }
 
     @Override

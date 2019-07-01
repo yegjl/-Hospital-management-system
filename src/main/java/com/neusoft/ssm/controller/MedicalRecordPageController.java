@@ -133,6 +133,26 @@ public class MedicalRecordPageController {
         medicalRecordPage.setDoctorid((Integer) session.getAttribute("doctorid"));
         try {
             int issuccess = medicalRecordService.insertSelective(medicalRecordPage);
+           int medicalRecordPageID= medicalRecordService.findBymedicalRecordNo(medicalRecordPage.getMedicalRecordNo()).getId();
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(medicalRecordPageID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+    @RequestMapping(value = "/addmu", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> addmu(MedicalRecordPageTemplate medicalRecordPageTemplate, HttpSession session) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        medicalRecordPageTemplate.setDoctorid((Integer)session.getAttribute("doctorid"));
+//        medicalRecordPage.setDoctorid((Integer) session.getAttribute("doctorid"));
+        try {
+            int issuccess = medicalRecordService.insertMedicalRecordPageTemplate(medicalRecordPageTemplate);
+//            int medicalRecordPageID= medicalRecordService.findBymedicalRecordNo(medicalRecordPage.getMedicalRecordNo()).getId();
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(issuccess);
@@ -165,16 +185,19 @@ public class MedicalRecordPageController {
     public ResultDTO<List<Diagnosis>> findDiaAllAndSub(String medicalRecordNoNew,String medicalRecordNoOld) {
         ResultDTO<List<Diagnosis>> resultDTO = new ResultDTO();
         try {
-            medicalRecordService.deleteDiaByMedNo(medicalRecordNoNew);
-            List<Diagnosis> list = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNoOld);
-            for (Diagnosis diagnosis:list) {
-                diagnosis.setId(null);
-                diagnosis.setMedicalRecordNo(medicalRecordNoNew);
-                if (diagnosis.getFlag() == null) {
-                    diagnosis.setFlag("0");
-                }
+            //todo:若new=old
+            if (!medicalRecordNoNew.equals(medicalRecordNoOld)) {
+                medicalRecordService.deleteDiaByMedNo(medicalRecordNoNew);
+                List<Diagnosis> list = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNoOld);
+                for (Diagnosis diagnosis:list) {
+                    diagnosis.setId(null);
+                    diagnosis.setMedicalRecordNo(medicalRecordNoNew);
+                    if (diagnosis.getFlag() == null) {
+                        diagnosis.setFlag("0");
+                    }
 
-                medicalRecordService.insertSelectiveDia(diagnosis);
+                    medicalRecordService.insertSelectiveDia(diagnosis);
+                }
             }
             List<Diagnosis> listnew = medicalRecordService.findDiaAllBymedicalRecordNo(medicalRecordNoNew);
             resultDTO.setStatus(0);

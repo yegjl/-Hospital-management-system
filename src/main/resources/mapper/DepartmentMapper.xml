@@ -257,5 +257,9 @@
         select id from department
         where DeptCode = #{DeptCode}
     </select>
+  <select id="findCodeById" resultType="string" parameterType="integer">
+    select DeptCode from department
+    where id =#{departid}
+  </select>
 
 </mapper>

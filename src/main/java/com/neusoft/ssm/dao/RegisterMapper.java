@@ -85,8 +85,8 @@ public interface RegisterMapper {
 
     List<RegistrationInfo> findByDaidoctorid(Integer doctorid);
     List<RegistrationInfo> findByYidoctorid(Integer doctorid);
-    List<RegistrationInfo> findByDaiDepart(Integer departid);
-    List<RegistrationInfo> findByYiDepart(Integer departid);
+    List<RegistrationInfo> findByDaiDepart(String departcode);
+    List<RegistrationInfo> findByYiDepart(String departcode);
 
     RegistrationInfo selectInfoByRecordno(String recordno);
 

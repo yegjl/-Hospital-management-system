@@ -63,17 +63,11 @@
                         <input type="date" name="dA" class="layui-input" id="date">
                     </div>
                     <br>
+
                 </div>
-
-
             </div>
-
-
         </form>
-
-
     </div>
-
 </div>
 
 

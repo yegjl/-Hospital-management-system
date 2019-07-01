@@ -49,11 +49,11 @@
     <select id="findByYidoctorid" parameterType="integer" resultType="com.neusoft.ssm.bean.RegistrationInfo">
         select * from registration_info where doctor_id=#{doctorid} and is_seen_doctor="02" and status="01"
     </select>
-    <select id="findByDaiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo">
-        select * from registration_info where department_id=#{departid} and is_seen_doctor="01" and status="01"
+    <select id="findByDaiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo" parameterType="string">
+        select * from registration_info where department_id=#{departcode} and is_seen_doctor="01" and status="01"
     </select>
-    <select id="findByYiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo">
-        select * from registration_info where department_id=#{departid} and is_seen_doctor="02" and status="01"
+    <select id="findByYiDepart" resultType="com.neusoft.ssm.bean.RegistrationInfo" parameterType="string">
+        select * from registration_info where department_id=#{departcode} and is_seen_doctor="02" and status="01"
     </select>
     <select id="selectInfoByRecordno" resultType="com.neusoft.ssm.bean.RegistrationInfo">
         select * from registration_info where medical_record_no = #{recordno,jdbcType=VARCHAR}

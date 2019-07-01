@@ -67,4 +67,5 @@ public interface DepartmentMapper {
      * @return (Long)
      */
     Long findIdByCode(@Param("DeptCode") String DeptCode);
+    String findCodeById(Integer departid);
 }

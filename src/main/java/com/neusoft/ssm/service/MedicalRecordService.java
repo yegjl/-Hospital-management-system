@@ -23,4 +23,5 @@ public interface MedicalRecordService {
     int deleteDiaByMedNo(String medicalRecordNo);
     List<MedicalRecordPageTemplate> getSet(Integer doctorid);
     MedicalRecordPageTemplate getSetByID(Integer id);
+    int insertMedicalRecordPageTemplate(MedicalRecordPageTemplate record);
 }

@@ -164,10 +164,9 @@
                                     <div class="layui-fluid" id="LAY-component-layer-special-demo2">
                                         <div class="layui-btn-container layadmin-layer-demo">
                                             <div class="layui-btn-group" style="align-content: center;">
-                                                <button data-method="add_muban" class="layui-btn  layui-btn-sm"><i
-                                                        class="layui-icon">&#xe654;</i></button>
-                                                <button class="layui-btn  layui-btn-sm"><i class="layui-icon">&#xe642;</i></button>
-                                                <button  class="layui-btn  layui-btn-sm" lay-demo="getChecked"><i class="layui-icon">&#xe640;</i></button>
+                                                <button id="addmu" type="button" data-method="addmu" class="layui-btn  layui-btn-sm" >
+                                                    <i class="layui-icon">&#xe654;</i></button>
+                                                <button id="deletemu" type="button" data-method="deletemu" class="layui-btn  layui-btn-sm" ><i class="layui-icon">&#xe640;</i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -216,6 +215,8 @@
         var $ = layui.$;
         var isSeen="${isSeen}";
         if (isSeen == "") {
+            var buttons2 = document.getElementById("LAY-component-layer-special-demo2");
+            buttons2.parentNode.removeChild(buttons2);
             return;
         }
         var inputs = $("input");
@@ -228,12 +229,13 @@
         }
         var buttons = $("button");
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].disabled=true;
+            if (buttons[i].id == "addmu" || buttons[i].id == "deletemu") {
+                continue;
+            }
+            buttons[i].disabled = true;
         }
-        var you=document.getElementById("you");
-        var zuo=document.getElementById("zuo");
-        zuo.className="layui-col-md12";
-        you.parentNode.removeChild(you);
+        var medtree=document.getElementById("test9");
+        medtree.parentNode.removeChild(medtree);
         $.ajax({
             type: "GET",
             url: "MedicalRecordPage/getHistory?&medicalRecordNo=${medicalRecordNo}",
@@ -441,6 +443,79 @@
                 }
             })
         });
+        <%--form.on('submit(addmu)', function(data){--%>
+        <%--    var id;--%>
+        <%--    var res = confirm("确定添加病历模板?");--%>
+        <%--    if (!res) {--%>
+        <%--        return;--%>
+        <%--    }--%>
+        <%--    $.ajax({--%>
+        <%--        type: "POST",--%>
+        <%--        url: "MedicalRecordPage/submit",--%>
+        <%--        data: $('#medicalRecord').serialize()+"&medicalRecordNo=${medicalRecordNo}",--%>
+        <%--        success: function (res) {--%>
+        <%--             id=res.data;--%>
+        <%--            // layer.closeAll();--%>
+        <%--            // layui.table.reload('test-table-reload',{page: {curr: 1}});--%>
+        <%--        },--%>
+        <%--        error: function () {--%>
+        <%--            alert("出现错误");--%>
+        <%--            return false;--%>
+        <%--        }--%>
+        <%--    })--%>
+
+        //     $.ajax({
+        //         type: "POST",//方法类型
+        //         url: "MedicalRecordPage/addmu",//url
+        //         async: false,
+        //         // data: $("#form").serialize()+"&myarray="+myarray,
+        //         data: "index="+data.elem.value,
+        //         success: function (result) {
+        //             layui.table.reload('test-table-simple3');
+        //         },
+        //         error: function (result) {
+        //             alert(result.msg);
+        //         }
+        //     });
+        // });
+        // form.on('submit(updatemu)', function(data){
+        //     var res = confirm("确定修改病历模板?");
+        //     if (!res) {
+        //         return;
+        //     }
+        //     $.ajax({
+        //         type: "POST",//方法类型
+        //         url: "MedicalRecordPage/updatemu",//url
+        //         async: false,
+        //         // data: $("#form").serialize()+"&myarray="+myarray,
+        //         data: "index="+data.elem.value,
+        //         success: function (result) {
+        //             layui.table.reload('test-table-simple3');
+        //         },
+        //         error: function (result) {
+        //             alert(result.msg);
+        //         }
+        //     });
+        // });
+        // form.on('submit(deletemu)', function(data){
+        //     var res = confirm("确定删除病历模板?");
+        //     if (!res) {
+        //         return;
+        //     }
+        //     $.ajax({
+        //         type: "POST",//方法类型
+        //         url: "MedicalRecordPage/deletemu",//url
+        //         async: false,
+        //         // data: $("#form").serialize()+"&myarray="+myarray,
+        //         data: "index="+data.elem.value,
+        //         success: function (result) {
+        //             layui.table.reload('test-table-simple3');
+        //         },
+        //         error: function (result) {
+        //             alert(result.msg);
+        //         }
+        //     });
+        // });
         /* 触发事件 */
         var active = {
             tabAdd: function () {
@@ -940,6 +1015,61 @@
 
         var active = {
 
+            addmu: function (othis) {
+                var that = this;
+                layer.open({
+                    type: 1,
+                    title: '添加病历模板',
+                    area: ['450px', '250px'],
+                    shade: 0,
+                    maxmin: true,//<div class="layui-fluid" id="html1"><div class="layui-row layui-col-space15">                                                                                                                                                                            //'+tabledata[0].id+'
+                    content: '<form id="addmu" style="padding: 20px;">模板名称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="layui-input" name="name" id="" autocomplete="off" style="width: 200px;height:20%;display: inline;margin:10px;" align="center" value=""><br>类别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  name="type" style="width: 200px; height:20%;display: inline;margin:10px;" align="center"><option value="0">全院</option><option value="1">科室</option><option value="2">个人</option></select></form>',
+                    // content: '<h1>111222</h1>',
+                    btn: ['确定', '全部关闭'],
+                    yes: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "MedicalRecordPage/submit",
+                            data: $('#medicalRecord').serialize()+"&medicalRecordNo=${medicalRecordNo}",
+                            async:false,
+                            success: function (res) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "MedicalRecordPage/addmu",
+                                    data: $('#addmu').serialize()+"&medicalRecordPageId="+res.data,
+                                    async:false,
+                                    success: function (res) {
+
+                                        // layer.closeAll();
+                                        // layui.table.reload('test-table-reload',{page: {curr: 1}});
+                                    },
+                                    error: function () {
+                                        alert("ttt");
+                                        return false;
+                                    }
+                                });
+                                // layer.closeAll();
+                                // layui.table.reload('test-table-reload',{page: {curr: 1}});
+                            },
+                            error: function () {
+                                alert("t");
+                                return false;
+                            }
+                        });
+                        layer.closeAll();
+
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    ,
+                    zIndex: layer.zIndex,
+                    success: function (layero) {
+                        layer.setTop(layero);
+                    }
+                });
+            },
             add: function (othis) {
                 var that = this;
                 layer.open({
@@ -1100,6 +1230,11 @@
         };
 
         $('#LAY-component-layer-special-demo .layadmin-layer-demo .layui-btn').on('click', function () {
+            var othis = $(this),
+                method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+        $('#LAY-component-layer-special-demo2 .layadmin-layer-demo .layui-btn').on('click', function () {
             var othis = $(this),
                 method = othis.data('method');
             active[method] ? active[method].call(this, othis) : '';

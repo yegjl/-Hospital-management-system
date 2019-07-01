@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
+import com.neusoft.ssm.service.DepartmentService;
 import com.neusoft.ssm.service.ExamcheckService;
 import com.neusoft.ssm.service.RegisterService;
 import com.neusoft.ssm.service.SixpartService;
@@ -32,7 +33,8 @@ public class FifthPartController {
 
     @Autowired
     private SixpartService sixpartService;
-
+    @Autowired
+    DepartmentService departmentService;
     @RequestMapping(value = "/index")
     public String index(String id, Model model, String medicalRecordNo, HttpSession session) {
         String name;
@@ -98,11 +100,12 @@ public class FifthPartController {
     }
     @RequestMapping(value = "/dpartdaizhen",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<List<RegistrationInfo>> Dpartdaizhen(Integer departid){
+    public ResultDTO<List<RegistrationInfo>> dpartdaizhen(Integer departid){
 
         ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        String departcode = departmentService.findCodeByID(departid);
         try {
-            List<RegistrationInfo> list = registerService.findByDaiDepart(departid);
+            List<RegistrationInfo> list = registerService.findByDaiDepart(departcode);
             resultDTO.setTotal(list.size());
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
@@ -137,8 +140,9 @@ public class FifthPartController {
     public ResultDTO<List<RegistrationInfo>> dpartyizhen(Integer departid){
 
         ResultDTO<List<RegistrationInfo>> resultDTO = new ResultDTO<>();
+        String departcode = departmentService.findCodeByID(departid);
         try {
-            List<RegistrationInfo> list = registerService.findByYiDepart(departid);
+            List<RegistrationInfo> list = registerService.findByYiDepart(departcode);
             resultDTO.setTotal(list.size());
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");
