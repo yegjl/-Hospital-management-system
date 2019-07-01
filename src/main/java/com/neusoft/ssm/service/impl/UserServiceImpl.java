@@ -92,5 +92,10 @@ public class UserServiceImpl implements IUserService {
     public int findIdByLoginName(String login_name) {
         return userMapper.findIdByLoginName(login_name);
     }
+
+    @Override
+    public int findDeptIdByName(String login_name) {
+        return userMapper.findDeptIdByName(login_name);
+    }
 }
 

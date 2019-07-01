@@ -114,4 +114,9 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         examcheckoneMapper.deleteSetById(i);
     }
 
+    @Override
+    public void insertExpense(Expense expense) {
+        examcheckoneMapper.insertExpense(expense);
+    }
+
 }

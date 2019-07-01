@@ -810,7 +810,7 @@
             // 写下编辑的提交方法**********************************************************
             $.ajax({
               type: "POST",
-              url: "fifthpart/openpro",
+              url: "fifthpart/openpro?mark=${id}&medicalRecordNo=${medicalRecordNo}",
               traditional: true,
               data: {
                 'ids': myArray,

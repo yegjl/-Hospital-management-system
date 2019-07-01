@@ -464,4 +464,16 @@
         where id=#{i}
     </delete>
 
+    <insert id="insertExpense" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Expense" useGeneratedKeys="true">
+        insert into expense (medical_record_no, expense_category, expense_id,
+                             prescribe_id, `number`, expense,
+                             real_expense, pay_category, pay_sign,
+                             day_settle_sign, expense_date, is_consume
+        )
+        values (#{medical_record_no,jdbcType=CHAR}, #{expense_category,jdbcType=CHAR}, #{expense_id,jdbcType=VARCHAR},
+                #{prescribe_id,jdbcType=INTEGER}, #{number,jdbcType=DECIMAL}, #{expense,jdbcType=DECIMAL},
+                #{real_expense,jdbcType=DECIMAL}, #{pay_category,jdbcType=CHAR}, #{pay_sign,jdbcType=CHAR},
+                #{day_settle_sign,jdbcType=CHAR}, #{expense_date,jdbcType=DATE}, #{is_consume,jdbcType=CHAR}
+               )
+    </insert>
 </mapper>

@@ -69,7 +69,11 @@
     </select>
 
     <select id="findIdByLoginName" parameterType="java.lang.String" resultType="java.lang.Integer">
-        select * from doctor where login_name=#{login_name}
+        select id from doctor where login_name=#{login_name}
+    </select>
+
+    <select id="findDeptIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select deptid from user where login_name=#{login_name}
     </select>
 
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.User" useGeneratedKeys="true">
