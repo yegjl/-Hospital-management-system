@@ -51,4 +51,6 @@ public interface SixpartService {
     Integer getDrugIdByName(String name);
 
     List<Sixpartone> getPro2(Date startDate, Date endDate);
+
+    int getMedicalIdByNo(String medicalRecordNo);
 }

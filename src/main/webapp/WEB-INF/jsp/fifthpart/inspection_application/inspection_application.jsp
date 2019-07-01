@@ -266,7 +266,7 @@
         elem: '#test-table-cellEdit-middle',
         // url: layui.setter.base + 'json/table/demo.js',
           //todo:连接
-        url: 'fifthpart/findpro?doctorid=${doctorid}&medicalid=5',
+        url: 'fifthpart/findpro?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}',
         method:'get',
         parseData:function (res) {
           //TODO:解析JSON对象
@@ -370,7 +370,7 @@
         $.ajax({
             type: "get",
             async : false,//设置为同步操作就可以给全局变量赋值成功
-            url: "fifthpart/getsets",
+            url: "fifthpart/getsets?id=${id}",
             success: function (examcheckSets) {
               var mydata = [];
               var children1=[];
@@ -607,7 +607,7 @@
                     $.ajax({
                         type: "POST",
                         //todo:连接病历号
-                        url: "fifthpart/usemubanpros?doctorid=5&medicalid=5",
+                        url: "fifthpart/usemubanpros?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}",
                         data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
                         success: function (res) {
                             if (res.status == 0) {
@@ -924,7 +924,7 @@
                 $.ajax({
                   type: "POST",
                     //todo:连接病历号
-                  url: "fifthpart/add?doctorid=5&medicalid=5",
+                  url: "fifthpart/add?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}",
                   data: $(form).serialize(),
                   success: function (res) {
                     if (res.status == 0) {
@@ -962,7 +962,7 @@
                 area: ['700px', '600px'],
                 shade: 0,
                 maxmin: true,
-                content: '<iframe src="fifthpart/addModel" frameborder="0" class="layadmin-iframe"></iframe>',
+                content: '<iframe src="fifthpart/addModel?id=${id}" frameborder="0" class="layadmin-iframe"></iframe>',
                 btn: ['确定', '全部关闭'],
                 yes: function (index,layero) {
                     var iframes = $(layero).find("iframe")[0].contentWindow;
@@ -980,11 +980,7 @@
                     $.ajax({
                         type: "POST",
                         url: "fifthpart/addmuban",
-                        // data: $(form).serialize(),
-                      // data: {'examcheckSet':$(form).serialize(),
-                      //        'setInfo':myArray},
-                      // data:$.param({'examcheckSetInfos':myArray})+'&'+$(form).serialize(),
-                      data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2+'&'+$(form).serialize(),
+                      data:'id=${id}&myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2+'&'+$(form).serialize(),
                   success: function (res) {
                             if (res.status == 0) {
                                 layer.msg(res.message)

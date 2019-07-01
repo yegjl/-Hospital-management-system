@@ -180,10 +180,11 @@
     </if>
   </update>
 
-  <select id="getPro" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.Examcheckone">
+  <select id="getPro"  resultType="com.neusoft.ssm.bean.Examcheckone">
     select * from examcheckone
     where doctorId=#{param1}
     and medicalRecordId=#{param2}
+    and mark=#{param3}
   </select>
 
     <delete id="deleteByExamId" parameterType="java.lang.Integer">
@@ -295,10 +296,11 @@
     </trim>
   </insert>
 
-  <select id="getCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <select id="getCount"  resultType="java.lang.Integer">
     SELECT COUNT(*) FROM examcheck
     where medicalRecordId=#{param2}
     and doctorId=#{param1}
+    and mark=#{param3}
   </select>
 
   <insert id="addExam" parameterType="com.neusoft.ssm.bean.Examcheck" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
@@ -327,10 +329,11 @@
     </trim>
   </insert>
 
-  <select id="getExamId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <select id="getExamId"  resultType="java.lang.Integer">
     select id from examcheck
     where medicalRecordId=#{param2}
       and doctorId=#{param1}
+      and mark=#{param3}
   </select>
 
     <insert id="addMubanInfo" parameterType="com.neusoft.ssm.bean.ExamcheckSetInfo" keyColumn="id" keyProperty="id"  useGeneratedKeys="true" >
@@ -398,6 +401,9 @@
             <if test="diagnosis != null" >
                 diagnosis,
             </if>
+            <if test="mark != null" >
+                mark,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="doctorid != null" >
@@ -427,6 +433,9 @@
             <if test="diagnosis != null" >
                 #{diagnosis,jdbcType=VARCHAR},
             </if>
+            <if test="mark != null" >
+                #{mark,jdbcType=CHAR},
+            </if>
         </trim>
     </insert>
 
@@ -437,6 +446,7 @@
 
     <select id="getsets"  resultType="com.neusoft.ssm.bean.ExamcheckSet">
         select * from examcheck_set
+        where mark = #{mark}
     </select>
 
     <select id="findSetById" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.ExamcheckSet">

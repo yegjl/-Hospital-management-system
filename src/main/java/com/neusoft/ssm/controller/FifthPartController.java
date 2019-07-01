@@ -39,11 +39,14 @@ public class FifthPartController {
         model.addAttribute("medicalRecordNo", medicalRecordNo);//病历号
         int doctorid = (int)session.getAttribute("doctorid");
         model.addAttribute("doctorid", doctorid);
-
+        int medicalid = sixpartService.getMedicalIdByNo(medicalRecordNo);//这是检查检验申请用到的病历号对应的id
+        model.addAttribute("medicalid", medicalid);
         if (id.equals("01"))
         return "fifthpart/null";
-        else if(id.equals("03"))
-            return "fifthpart/medical_record/medical_record";
+        else if(id.equals("03")) {
+            model.addAttribute("name", "检验");
+            return "fifthpart/inspection_application/inspection_application";
+        }
         else if(id.equals("02")) {
             model.addAttribute("name", "检查");
             return "fifthpart/inspection_application/inspection_application";
@@ -51,8 +54,8 @@ public class FifthPartController {
         else if(id.equals("04")){
             //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
 //            model.addAttribute("medicalrecordid",medicalrecordid);
-
-            return "fifthpart/medicine_prescription/medicine_pre";
+            model.addAttribute("name", "处置");
+            return "fifthpart/inspection_application/inspection_application";
         }
         else if(id.equals("05")){//草药
             //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
@@ -150,22 +153,41 @@ public class FifthPartController {
     @RequestMapping(value = "/addUI")
     public String index02(String id,Model model) {
         model.addAttribute("id", id);
-        if(id.equals("03"))
+        if(id.equals("02"))
             model.addAttribute("projects", examcheckService.findByExamType("1"));
+        else if(id.equals("03"))
+            model.addAttribute("projects", examcheckService.findByExamType("2"));
+        else
+            model.addAttribute("projects", examcheckService.findByExamType("3"));
         return "fifthpart/inspection_application/add"; }
 
     @RequestMapping(value = "/addModel",method = RequestMethod.GET)
-    public String index03() {
+    public String index03(String id,Model model) {
+        String name;
+        if(id.equals("02"))
+            name = "检查";
+        else if(id.equals("03"))
+            name = "检验";
+        else name = "处置";
+        model.addAttribute("name", name);
+        model.addAttribute("id", id);
         return "fifthpart/inspection_application/add_muban"; }
 
     @RequestMapping(value = "/findpro",method = RequestMethod.GET)
     @ResponseBody
-    public ResultDTO<JSONArray> listall(int page, int limit, int doctorid, int medicalid) {
+    public ResultDTO<JSONArray> listall(int page, int limit, int doctorid, int medicalid, String id) {
         ResultDTO<JSONArray> resultDTO = new ResultDTO();
         List<Examcheckone> list = null;
         try {
             PageHelper.startPage(page, limit);
-            list = examcheckService.getPro(doctorid,medicalid);
+            String mark;
+            if(id.equals("02"))
+                mark = "1";
+            else if(id.equals("03"))
+                mark = "2";
+            else
+                mark = "3";
+            list = examcheckService.getPro(doctorid,medicalid,mark);
             PageInfo<Examcheckone> pageInfo = new PageInfo<>(list);
             for(Examcheckone examcheckone : list){
                 if (examcheckone.getStatus().equals("0"))
@@ -298,21 +320,30 @@ public Fmeditem getQue(String name,String id) {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> add(ExamcheckInfo examcheckInfo,Integer doctorid,Integer medicalid) {
-        if(examcheckService.getCount(doctorid,medicalid)==0){
+    public ResultDTO<Integer> add(ExamcheckInfo examcheckInfo,Integer doctorid,Integer medicalid,String id) {
+        String mark;
+        if(id.equals("02"))
+            mark = "1";
+        else if(id.equals("03"))
+            mark = "2";
+        else
+            mark = "3";
+        if(examcheckService.getCount(doctorid,medicalid,mark)==0){
             Examcheck examcheck=new Examcheck();
             examcheck.setDoctorid(doctorid);
             examcheck.setMedicalrecordid(medicalid);
-            examcheck.setMark("0");
+            examcheck.setMark(mark);
             examcheckService.addExam(examcheck);
         }
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try {
             System.out.println("操作开始！！！");
-            examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid,medicalid));
+            examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid,medicalid,mark));
             examcheckInfo.setStatus("0");
             examcheckInfo.setNumber(1);
             examcheckInfo.setIsmed("0");
+            Date time= new java.sql.Date(new java.util.Date().getTime());
+            examcheckInfo.setDate(time);
             int issuccess = examcheckService.addInfo(examcheckInfo);
             System.out.println("添加函数已调用");
             resultDTO.setStatus(0);
@@ -328,12 +359,20 @@ public Fmeditem getQue(String name,String id) {
 
     @RequestMapping(value = "/addmuban",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet,String[] myArray,String[] myArray1,String[] myArray2) {
+    public ResultDTO<Integer> addmuban(ExamcheckSet examcheckSet,String[] myArray,String[] myArray1,String[] myArray2,String id) {
+        String mark;
+        if(id.equals("02"))
+            mark = "1";
+        else if(id.equals("03"))
+            mark = "2";
+        else
+            mark = "3";
         ResultDTO<Integer> resultDTO = new ResultDTO();
         ExamcheckSetInfo examcheckSetInfo=new ExamcheckSetInfo();
         try {
             Date time= new java.sql.Date(new java.util.Date().getTime());
             examcheckSet.setTime(time);
+            examcheckSet.setMark(mark);
             int issuccess = examcheckService.addMuban(examcheckSet);
             System.out.println(examcheckSet.getId());
             for (int i = 0; i < myArray.length; i++) {
@@ -362,8 +401,15 @@ public Fmeditem getQue(String name,String id) {
 
     @RequestMapping(value = "/getsets")
     @ResponseBody
-    public List<ExamcheckSet> getsets() {
-        List<ExamcheckSet> examcheckSets =  examcheckService.getsets();
+    public List<ExamcheckSet> getsets(String id) {
+        String mark;
+        if(id.equals("02"))
+            mark = "1";
+        else if(id.equals("03"))
+            mark = "2";
+        else
+            mark = "3";
+        List<ExamcheckSet> examcheckSets =  examcheckService.getsets(mark);
         return JSONArray.fromObject(examcheckSets);
     }
 //引用模板
@@ -387,12 +433,19 @@ public Fmeditem getQue(String name,String id) {
         //将引用组套里面的项目存入数据库
         @RequestMapping(value = "/usemubanpros",method = RequestMethod.POST)
         @ResponseBody
-        public ResultDTO<Integer> usemubanpros(String[] myArray,String[] myArray1,String[] myArray2,Integer doctorid,Integer medicalid) {
-            if(examcheckService.getCount(doctorid,medicalid)==0){
+        public ResultDTO<Integer> usemubanpros(String[] myArray,String[] myArray1,String[] myArray2,Integer doctorid,Integer medicalid,String id) {
+            String mark;
+            if(id.equals("02"))
+                mark = "1";
+            else if(id.equals("03"))
+                mark = "2";
+            else
+                mark = "3";
+            if(examcheckService.getCount(doctorid,medicalid,mark)==0){
                 Examcheck examcheck=new Examcheck();
                 examcheck.setDoctorid(doctorid);
                 examcheck.setMedicalrecordid(medicalid);
-                examcheck.setMark("0");
+                examcheck.setMark(mark);
                 examcheckService.addExam(examcheck);
             }
             ResultDTO<Integer> resultDTO = new ResultDTO();
@@ -400,8 +453,11 @@ public Fmeditem getQue(String name,String id) {
                 int issuccess=0;
                 for(int i = 0; i < myArray.length; i++) {
                     ExamcheckInfo examcheckInfo = new ExamcheckInfo();
-                    examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid, medicalid));
+                    Date time= new java.sql.Date(new java.util.Date().getTime());
+                    examcheckInfo.setDate(time);
+                    examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid, medicalid,mark));
                     examcheckInfo.setStatus("0");
+                    examcheckInfo.setIsmed("0");
                     examcheckInfo.setFmeditemid(examcheckService.findIdByCode(myArray[i]));
                     examcheckInfo.setRequirement(myArray1[i]);
                     examcheckInfo.setGoal(myArray2[i]);

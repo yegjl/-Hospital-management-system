@@ -504,4 +504,9 @@
        or status = '7')
        and date BETWEEN #{param1,jdbcType=DATE} and #{param2,jdbcType=DATE}
   </select>
+
+  <select id="getMedicalIdByNo" parameterType="java.lang.String"  resultType="java.lang.Integer">
+    select id from registration_info
+    where medical_record_no=#{medicalRecordNo}
+  </select>
 </mapper>

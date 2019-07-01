@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>检查组套</title>
+    <title>${name}组套</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,196 +19,7 @@
 </head>
 
 <body>
-<%--    <div class="layui-fluid" id="html1">--%>
-<%--        <div class="layui-row layui-col-space15">--%>
-<%--            <div class="layui-card layui-form" lay-filter="component-form-element">--%>
-<%--                <div style="padding: 20px;">--%>
 
-<%--                    <div class="layui-row">--%>
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%">组合编码：</p>--%>
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <input class="layui-input" name="setcode" autocomplete="off">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <div style="margin-left: 5px">--%>
-<%--                                    <p style="margin: auto;font-size: 150%;">组合名称：</p>--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <input class="layui-input" name="setname" autocomplete="off">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%">业务分类：</p>--%>
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <select name="week" lay-verify="required" disabled="disabled">--%>
-<%--                                    <option value="">请选择项目</option>--%>
-<%--                                    <option value="01">项目一</option>--%>
-<%--                                    <option value="02">项目二</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <div style="margin-left: 5px">--%>
-<%--                                    <p style="margin: auto;font-size: 150%;">单据分类：</p>--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <select name="week" lay-verify="required" lay-search>--%>
-<%--                                    <option value="">请选择项目</option>--%>
-<%--                                    <option value="01">项目一</option>--%>
-<%--                                    <option value="02">项目二</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%">服务分类：</p>--%>
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <select name="week" lay-verify="required" disabled="disabled">--%>
-<%--                                    <option value="">请选择项目</option>--%>
-<%--                                    <option value="01">项目一</option>--%>
-<%--                                    <option value="02">项目二</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <div style="margin-left: 5px">--%>
-<%--                                    <p style="margin: auto;font-size: 150%;">适用范围：</p>--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <select name="limits" lay-verify="required" lay-search>--%>
-<%--                                    <option value="">请选择项目</option>--%>
-<%--                                    <option value="0">全院</option>--%>
-<%--                                    <option value="1">科室</option>--%>
-<%--                                    <option value="2">个人</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">--%>
-<%--                            <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%;">临床印象：</p>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">--%>
-<%--                                <div class="layui-input-block" style="margin-left: 10%">--%>
-<%--                                    <textarea name="impression" placeholder="" class="layui-textarea"--%>
-<%--                                        style="min-height: 50px"></textarea>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">--%>
-<%--                            <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%;">临床诊断：</p>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">--%>
-<%--                                <div class="layui-input-block" style="margin-left: 10%">--%>
-<%--                                    <textarea name="diagnosis" placeholder="" class="layui-textarea"--%>
-<%--                                        style="min-height: 50px"></textarea>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">--%>
-<%--                            <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 110%;">目的和要求：</p>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">--%>
-<%--                                <div class="layui-input-block" style="margin-left: 10%">--%>
-<%--                                    <textarea name="requirement" placeholder="" class="layui-textarea"--%>
-<%--                                        style="min-height: 50px"></textarea>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <!-- 分割线 -->--%>
-<%--                        <hr class="layui-bg-green">--%>
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <p style="margin: auto;font-size: 150%">创建医生：</p>--%>
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <input class="layui-input" id="" autocomplete="off" readonly>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-
-<%--                        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">--%>
-<%--                                <div style="margin-left: 5px">--%>
-<%--                                    <p style="margin: auto;font-size: 150%;">创建科室：</p>--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">--%>
-<%--                                <input class="layui-input" id="" autocomplete="off" readonly>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">--%>
-<%--                            <div class="layui-fluid" id="LAY-component-layer-special-demo">--%>
-<%--                                <div class="layui-btn-container layadmin-layer-demo">--%>
-<%--                            <div class="layui-card-body">--%>
-<%--                                <div class="layui-btn-group">--%>
-
-
-<%--                                    <button data-method="add" class=" layui-btn layui-btn-xs layui-btn-normal"><i--%>
-<%--                                            class="layui-icon">&#xe654;</i>增加</button>--%>
-<%--                                    <button class=" layui-btn layui-btn-xs layui-btn-normal"><i--%>
-<%--                                            class="layui-icon">&#xe640;</i>删除</button>--%>
-<%--                                    <button class=" layui-btn layui-btn-xs layui-btn-normal"><i--%>
-<%--                                            class="layui-icon">&#xe642;</i>修改</button>--%>
-<%--                                    <button class=" layui-btn layui-btn-xs layui-btn-normal"><i--%>
-<%--                                            class="layui-icon">&#xe615;</i>查询</button>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">--%>
-<%--                            <div class="layui-input-block" style="margin-left: 18%">--%>
-<%--                                <table class="layui-hide" id="test-table-toolbar" lay-filter="test-table-toolbar">--%>
-<%--                                </table>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                    </div>--%>
-
-<%--                </div>--%>
-
-<%--            </div>--%>
-
-
-<%--        </div>--%>
-
-<%--    </div>--%>
     <div class="layui-fluid" id="html1">
         <div class="layui-row layui-col-space15">
             <div class="layui-card layui-form" lay-filter="component-form-element">
@@ -536,77 +347,6 @@
     </script>
 
 
-<%--<!-- 弹窗模块 -->--%>
-<%--<script>--%>
-<%--    layui.config({--%>
-<%--        base: 'department/' //静态资源所在路径--%>
-<%--    }).extend({--%>
-<%--        index: 'lib/index' //主入口模块--%>
-<%--    }).use(['index'], function () {--%>
-<%--        var $ = layui.$,--%>
-<%--            admin = layui.admin,--%>
-<%--            element = layui.element,--%>
-<%--            router = layui.router();--%>
-
-<%--        element.render();--%>
-
-<%--        var active = {--%>
-<%--            //添加检查检验项目--%>
-<%--            add: function () {--%>
-<%--                var that = this;--%>
-
-<%--                layer.open({--%>
-<%--                    type: 1,--%>
-<%--                    title: '添加项目',--%>
-<%--                    area: ['450px', '350px'],--%>
-<%--                    shade: 0,--%>
-<%--                    maxmin: true,--%>
-<%--                    content: '<iframe src="fifthpart/addUI?id=${id}" frameborder="0" class = "layadmin-iframe"></iframe>',--%>
-<%--                    btn: ['确定', '全部关闭'],--%>
-<%--                    yes: function (index,layero) {--%>
-<%--                        var iframes = $(layero).find("iframe")[0].contentWindow;--%>
-<%--                        var form = iframes.document.getElementById("add");--%>
-<%--                        $.ajax({--%>
-<%--                            type: "POST",--%>
-<%--                            url: "fifthpart/add?doctorid=5&medicalid=5",--%>
-<%--                            data: $(form).serialize(),--%>
-<%--                            success: function (res) {--%>
-<%--                                if (res.status == 0) {--%>
-<%--                                    layer.msg(res.message)--%>
-<%--                                } else {--%>
-<%--                                    layer.msg(res.message)--%>
-<%--                                }--%>
-<%--                                setTimeout(function(){--%>
-<%--                                    window.parent.location.reload();//修改成功后刷新父界面--%>
-<%--                                }, 100);--%>
-<%--                            },--%>
-<%--                            error: function () {--%>
-<%--                                alert("出现错误");--%>
-<%--                                return false;--%>
-<%--                            }--%>
-<%--                        }) //ajax结束--%>
-<%--                    },--%>
-<%--                    btn2: function () {--%>
-<%--                        layer.closeAll();--%>
-<%--                    }--%>
-
-<%--                    ,--%>
-<%--                    zIndex: layer.zIndex,--%>
-<%--                    success: function (layero) {--%>
-<%--                        layer.setTop(layero);--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            },--%>
-<%--            };--%>
-<%--        $('#LAY-component-layer-special-demo .layadmin-layer-demo .layui-btn').on('click', function () {--%>
-<%--            var othis = $(this),--%>
-<%--                method = othis.data('method');--%>
-<%--            active[method] ? active[method].call(this, othis) : '';--%>
-<%--        });--%>
-
-<%--    });--%>
-<%--</script>--%>
-<!-- 弹窗模块 -->
 <script>
     layui.config({
         base: 'department/' //静态资源所在路径
@@ -655,12 +395,12 @@
                 var that = this;
                 layer.open({
                     type: 1,
-                    title: '添加检查项目',
+                    title: '添加${name}项目',
                     area: ['450px', '350px'],
                     shade: 0,
                     maxmin: true,
 
-                    content: '<iframe src="fifthpart/addUI?id=03" frameborder="0" class = "layadmin-iframe"></iframe>',
+                    content: '<iframe src="fifthpart/addUI?id=${id}" frameborder="0" class = "layadmin-iframe"></iframe>',
                     btn: ['确定', '全部关闭'],
                      yes: function (index,layero) {
                         var iframes = $(layero).find("iframe")[0].contentWindow;
@@ -685,30 +425,7 @@
                                  return false;
                              }
                          }) //ajax结束
-                        // var oldData =layui.table.cache["test-table-toolbar"];
-                        // var data1={"itemcode":itemcode,"itemname":,"requirement":requirement};
-                        // oldData.push(data1);
-                        //  layui.table.reload('test-table-toolbar',{
-                        //     data : oldData
-                        // });
-                        layer.closeAll();
-                        // $.ajax({
-                        //     type: "POST",
-                        //     url: "fifthpart/add?doctorid=5&medicalid=5",
-                        //     data: $(form).serialize(),
-                        //     success: function (res) {
-                        //         if (res.status == 0) {
-                        //             layer.msg(res.message)
-                        //         } else {
-                        //             layer.msg(res.message)
-                        //         }
-                        //
-                        //     },
-                        //     error: function () {
-                        //         alert("出现错误");
-                        //         return false;
-                        //     }
-                        // }) //ajax结束
+
                     },
                     btn2: function () {
                         layer.closeAll();

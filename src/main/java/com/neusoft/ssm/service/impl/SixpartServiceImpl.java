@@ -130,5 +130,10 @@ public class SixpartServiceImpl implements SixpartService {
         return sixpartoneMapper.getPro2(startDate,endDate);
     }
 
+    @Override
+    public int getMedicalIdByNo(String medicalRecordNo) {
+        return sixpartoneMapper.getMedicalIdByNo(medicalRecordNo);
+    }
+
 
 }

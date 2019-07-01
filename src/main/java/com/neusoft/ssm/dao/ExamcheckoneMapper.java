@@ -29,7 +29,7 @@ public interface ExamcheckoneMapper {
 
     int updateByExample(@Param("record") Examcheckone record, @Param("example") ExamcheckoneExample example);
 
-    List<Examcheckone> getPro(Integer doctorid, Integer medicalid);
+    List<Examcheckone> getPro(Integer doctorid, Integer medicalid,String mark);
 
     int deleteByExamId(Integer i, Integer id);
 
@@ -49,11 +49,11 @@ public interface ExamcheckoneMapper {
 
     int addInfo(ExamcheckInfo examcheckInfo);
 
-    int getCount(Integer doctorid, Integer medicalid);
+    int getCount(Integer doctorid, Integer medicalid,String mark);
 
     int addExam(Examcheck examcheck);
 
-    Integer getExamId(Integer doctorid, Integer medicalid);
+    Integer getExamId(Integer doctorid, Integer medicalid,String mark);
 
     int addMuban(ExamcheckSet examcheckSet);
 
@@ -61,7 +61,7 @@ public interface ExamcheckoneMapper {
 
     Fmeditem findprobyid(Integer id);
 
-    List<ExamcheckSet> getsets();
+    List<ExamcheckSet> getsets(String mark);
 
     ExamcheckSet findSetById(Integer id);
 

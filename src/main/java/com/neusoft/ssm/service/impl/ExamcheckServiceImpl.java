@@ -15,8 +15,8 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     ExamcheckoneMapper examcheckoneMapper;
 
     @Override
-    public List<Examcheckone> getPro(Integer doctorid, Integer medicalid) {
-        return examcheckoneMapper.getPro(doctorid,medicalid);
+    public List<Examcheckone> getPro(Integer doctorid, Integer medicalid,String mark) {
+        return examcheckoneMapper.getPro(doctorid,medicalid,mark);
     }
 
     @Override
@@ -65,8 +65,8 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     }
 
     @Override
-    public int getCount(Integer doctorid, Integer medicalid) {
-        return examcheckoneMapper.getCount(doctorid,medicalid);
+    public int getCount(Integer doctorid, Integer medicalid,String mark) {
+        return examcheckoneMapper.getCount(doctorid,medicalid,mark);
     }
 
     @Override
@@ -75,8 +75,8 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     }
 
     @Override
-    public Integer getExamId(Integer doctorid, Integer medicalid) {
-        return examcheckoneMapper.getExamId(doctorid,medicalid);
+    public Integer getExamId(Integer doctorid, Integer medicalid,String mark) {
+        return examcheckoneMapper.getExamId(doctorid,medicalid,mark);
     }
 
     @Override
@@ -95,8 +95,8 @@ public class ExamcheckServiceImpl implements ExamcheckService {
     }
 
     @Override
-    public List<ExamcheckSet> getsets() {
-        return examcheckoneMapper.getsets();
+    public List<ExamcheckSet> getsets(String mark) {
+        return examcheckoneMapper.getsets(mark);
     }
 
     @Override

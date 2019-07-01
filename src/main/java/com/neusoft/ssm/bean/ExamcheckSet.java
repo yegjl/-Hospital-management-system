@@ -23,6 +23,16 @@ public class ExamcheckSet {
 
     private String diagnosis;
 
+    private String mark;
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
     public ExamcheckSet(Integer id, Integer doctorid, Integer deptid, String setcode, String setname, Date time, String requirement, String limits, String impression, String diagnosis) {
         this.id = id;
         this.doctorid = doctorid;
