@@ -58,8 +58,8 @@
                             frameborder="0"></iframe>
                     </div>
                     <div class="layui-tab-item">
-                        <iframe src="fifthpart/index?id=03"
-                            style="height: 700px;width: 100%" frameborder="0"></iframe>
+                        <iframe src="fifthpart/index?id=02&medicalRecordNo=${medicalRecordNo}"
+                            style="height: 700px;width: 100%" frameborder="0"></iframe>//检查申请
                     </div>
                     <div class="layui-tab-item">111</div>
                     <div class="layui-tab-item">内容4</div>

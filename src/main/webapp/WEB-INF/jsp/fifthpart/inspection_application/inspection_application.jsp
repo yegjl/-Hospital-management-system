@@ -29,14 +29,14 @@
         <!-- 中部折叠面板 -->
         <div class="layui-card">
           <div class="layui-card-header " style="height: 80px;">
-            <p style="font-size: 180%;float: left;width: 15%;margin-top: 5%">检查申请</p>
+            <p style="font-size: 180%;float: left;width: 15%;margin-top: 5%">${name}申请</p>
 
 
         </div>
         <div class="layui-card">
           <div class="layui-card-body">
             <fieldset class="layui-elem-field layui-field-title">
-              <legend>检查申请项目列表</legend>
+              <legend>${name}申请项目列表</legend>
             </fieldset>
             <div class="layui-btn-container">
               <div class="layui-fluid" id="LAY-component-layer-special-demo">
@@ -49,7 +49,7 @@
                           style="margin: 1%">删除项目</button>
 
                   <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm" style="margin: 1%">作废项目</button>
-                  <button data-method="result" class="layui-btn  layui-btn-sm" style="margin: 1%">查看检查结果</button>
+                  <button data-method="result" class="layui-btn  layui-btn-sm" style="margin: 1%">查看${name}结果</button>
                   <button data-method="add_muban" class="layui-btn  layui-btn-sm" style="margin: 1%">存为组套</button>
                 </div>
 
@@ -266,7 +266,7 @@
         elem: '#test-table-cellEdit-middle',
         // url: layui.setter.base + 'json/table/demo.js',
           //todo:连接
-        url: 'fifthpart/findpro?doctorid=5&medicalid=5',
+        url: 'fifthpart/findpro?doctorid=${doctorid}&medicalid=5',
         method:'get',
         parseData:function (res) {
           //TODO:解析JSON对象
