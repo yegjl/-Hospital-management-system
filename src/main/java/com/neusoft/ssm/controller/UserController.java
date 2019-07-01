@@ -59,6 +59,8 @@ public class UserController {
 
         session.setAttribute("user_name", login_name);
         int doctorid = userService.findIdByLoginName(login_name);
+        int departid = userService.findDeptIdByName(login_name);
+        session.setAttribute("departid", departid);
         if(doctorid != 0)
             session.setAttribute("doctorid", doctorid);
         int count = userService.login(login_name, passwordByMd5);

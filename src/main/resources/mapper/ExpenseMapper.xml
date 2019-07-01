@@ -118,16 +118,16 @@
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Expense" useGeneratedKeys="true">
     insert into expense (medical_record_no, expense_category, expense_id,
-      prescribe_id, `number`, expense,
-      real_expense, pay_category, pay_sign,
-      day_settle_sign, expense_date, is_consume
-      )
+    prescribe_id, `number`, expense,
+    real_expense, pay_category, pay_sign,
+    day_settle_sign, expense_date, is_consume
+    )
     values (#{medicalRecordNo,jdbcType=CHAR}, #{expenseCategory,jdbcType=CHAR}, #{expenseId,jdbcType=VARCHAR},
-      #{prescribeId,jdbcType=INTEGER}, #{number,jdbcType=DECIMAL}, #{expense,jdbcType=DECIMAL},
-      #{realExpense,jdbcType=DECIMAL}, #{payCategory,jdbcType=CHAR}, #{paySign,jdbcType=CHAR},
-      #{daySettleSign,jdbcType=CHAR}, #{expenseDate,jdbcType=DATE}, #{isConsume,jdbcType=CHAR}
-      )
-  </insert>
+    #{prescribeId,jdbcType=INTEGER}, #{number,jdbcType=DECIMAL}, #{expense,jdbcType=DECIMAL},
+    #{realExpense,jdbcType=DECIMAL}, #{payCategory,jdbcType=CHAR}, #{paySign,jdbcType=CHAR},
+    #{daySettleSign,jdbcType=CHAR}, #{expenseDate,jdbcType=DATE}, #{isConsume,jdbcType=CHAR}
+    )
+</insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Expense" useGeneratedKeys="true">
         insert into expense
         <trim prefix="(" suffix=")" suffixOverrides=",">

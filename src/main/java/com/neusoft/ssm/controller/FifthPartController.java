@@ -270,12 +270,30 @@ public class FifthPartController {
 //开立
     @RequestMapping(value = "/openpro",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> openById(String[] ids,Integer id) {
+    public ResultDTO<Integer> openById(String[] ids,Integer id,String mark,String medicalRecordNo) {
+        String account_name;
+        if(mark.equals("02"))
+            account_name = "CTJCF";
+        else if(id.equals("03"))
+            account_name = "JYF";
+        else
+            account_name = "CZF";
         ResultDTO<Integer> resultDTO = new ResultDTO();
         try {
             for(String i:ids){
                int i1=examcheckService.findIdByCode(i);
                 examcheckService.openByExamId(i1,id);
+                Fmeditem fmeditem = examcheckService.findprobyid(i1);
+                Expense expense = new Expense();
+                expense.setMedical_record_no(medicalRecordNo);
+                expense.setExpense_category(account_name);
+                expense.setNumber((long)1);
+                expense.setExpense_id(fmeditem.getItemcode());
+                expense.setExpense(fmeditem.getPrice());
+                Date time= new java.sql.Date(new java.util.Date().getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                expense.setDate(sdf.format(time));
+                examcheckService.insertExpense(expense);
             }
             resultDTO.setStatus(0);
             resultDTO.setMessage("操作成功！");

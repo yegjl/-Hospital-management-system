@@ -38,7 +38,6 @@ public class MedicalRecordPageController {
             diagnosis.setMedicalRecordNo(medicalRecordNo);
             diagnosisList.add(diagnosis);
         }
-        session.setAttribute("doctorid", 2);
         model.addAttribute("medicalRecordNo", medicalRecordNo);
         model.addAttribute("isSeen", isSeen);
         model.addAttribute("CommonDiagnosises", replaceIDToName(diagnosisList));

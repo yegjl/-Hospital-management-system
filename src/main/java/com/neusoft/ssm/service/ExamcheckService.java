@@ -44,4 +44,6 @@ public interface ExamcheckService {
     List<ExamcheckSetInfo> findSetInfosById(Integer id);
 
     void deleteSetById(Integer i);
+
+    void insertExpense(Expense expense);
 }

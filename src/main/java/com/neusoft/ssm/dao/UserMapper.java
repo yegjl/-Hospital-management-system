@@ -87,4 +87,6 @@ public interface UserMapper {
 	List<User> findByUserType(String id);
 
     int findIdByLoginName(String login_name);
+
+    int findDeptIdByName(String login_name);
 }
