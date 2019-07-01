@@ -7,12 +7,13 @@ import com.neusoft.ssm.dto.ResultDTO;
 import com.neusoft.ssm.service.ExamcheckService;
 import com.neusoft.ssm.service.RegisterService;
 import com.neusoft.ssm.service.SixpartService;
-import com.neusoft.ssm.util.MD5;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -61,7 +62,7 @@ public class FifthPartController {
             //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
 //            model.addAttribute("medicalrecordid",medicalrecordid);
 
-            return "fifthpart/medicine_prescription/cmedicine_pre";
+            return "fifthpart/medicine_prescription/medicine_pre";
         } else if (id==null) {
             return "fifthpart/inspection_application/inspection_application";
         }

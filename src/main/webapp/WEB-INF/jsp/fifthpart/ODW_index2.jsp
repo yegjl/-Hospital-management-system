@@ -69,8 +69,7 @@
                         <iframe src="fifthpart/index?id=04&medicalRecordNo=${medicalRecordNo}"
                                 style="height: 700px;width: 100%" frameborder="0"></iframe>//处置申请
                     </div>
-                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=05"
-                            style="height: 700px;width: 100%" frameborder="0"></iframe></div>
+                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=05&medicalRecordNo=${medicalRecordNo}"style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item"><iframe src="fifthpart/index?id=06"
                             style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容7</div>

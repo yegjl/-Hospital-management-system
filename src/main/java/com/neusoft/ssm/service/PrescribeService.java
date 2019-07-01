@@ -58,6 +58,11 @@ public interface PrescribeService {
 
     int insertExpense(Expense record);
 
-
     int getDrugsTypeID(int medicalid);
+
+    int addoften(Oftendrug record);
+
+    List<Oftendrug> showoften(int doctorid);
+
+    int deleteOften(Integer medicalid);
 }
