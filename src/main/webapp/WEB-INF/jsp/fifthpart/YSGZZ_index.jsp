@@ -208,7 +208,7 @@
           $.ajax({
               type: "POST",//方法类型
               url: "fifthpart/daizhen",
-              data:"doctorid=2",//url
+              data:"doctorid=${sessionScope.doctorid}",//url
               async: false,
               success: function (result) {
                   if (result.status == 0) {
@@ -226,7 +226,7 @@
         $.ajax({
           type: "POST",//方法类型
           url: "fifthpart/yizhen",
-          data:"doctorid=2",//url
+          data:"doctorid=${sessionScope.doctorid}",//url
           async: false,
           success: function (result) {
             if (result.status == 0) {
@@ -244,7 +244,7 @@
         $.ajax({
           type: "POST",//方法类型
           url: "fifthpart/dpartdaizhen",
-          data:"departid=1",//url
+          data:"departid=${sessionScope.departid}",//url
           async: false,
           success: function (result) {
             if (result.status == 0) {
@@ -262,7 +262,7 @@
           $.ajax({
               type: "POST",//方法类型
               url: "fifthpart/dpartyizhen",
-              data:"departid=1",//url
+              data:"departid=${sessionScope.departid}",//url
               async: false,
               success: function (result) {
                   if (result.status == 0) {
