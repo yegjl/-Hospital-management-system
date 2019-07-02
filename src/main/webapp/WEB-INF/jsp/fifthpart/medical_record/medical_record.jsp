@@ -164,9 +164,9 @@
                                     <div class="layui-fluid" id="LAY-component-layer-special-demo2">
                                         <div class="layui-btn-container layadmin-layer-demo">
                                             <div class="layui-btn-group" style="align-content: center;">
-                                                <button id="addmu" type="button" data-method="addmu" class="layui-btn  layui-btn-sm" >
+                                                <button id="addmu" type="button" data-method="addmu" data-type="auto" class="layui-btn  layui-btn-sm" >
                                                     <i class="layui-icon">&#xe654;</i></button>
-                                                <button id="deletemu" type="button" data-method="deletemu" class="layui-btn  layui-btn-sm" ><i class="layui-icon">&#xe640;</i></button>
+                                                <button id="deletemu" type="button" lay-demo="getChecked" class="layui-btn  layui-btn-sm" ><i class="layui-icon">&#xe640;</i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -234,8 +234,6 @@
             }
             buttons[i].disabled = true;
         }
-        var medtree=document.getElementById("test9");
-        medtree.parentNode.removeChild(medtree);
         $.ajax({
             type: "GET",
             url: "MedicalRecordPage/getHistory?&medicalRecordNo=${medicalRecordNo}",
@@ -807,6 +805,11 @@
             id: 'demoId1',
             isJump: true,//是否允许点击节点时弹出新窗口跳转
             click: function (obj) {
+                var isSeen="${isSeen}";
+                if (isSeen!="") {
+                    alert("该病人已经看诊完毕!");
+                    return;
+                }
                 var data = obj.data;
                 // data.title
                 if(data.id==-1||data.id==-2||data.id==-3) {
@@ -931,11 +934,30 @@
         util.event('lay-demo', {
             getChecked: function (othis) {
                 var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+                var ids = [];
+                //获取子节点数据
+                for(var i=0;i<checkedData.length;i++) {
+                    var children = checkedData[i].children;
+                    for (var j = 0; j < children.length; j++) {
+                        ids.push(children[j].id);
+                    }
+                }
+                $.ajax({
+                    type: "POST",//方法类型
+                    url: "MedicalRecordPage/deletemu",//url
+                    async: false,
+                    // data: $("#form").serialize()+"&myarray="+myarray,
+                    data: "ids="+ids,
+                    success: function (result) {
 
-                layer.alert(JSON.stringify(checkedData), {
-                    shade: 0
+                    },
+                    error: function (result) {
+
+                        alert(result.msg);
+                    }
                 });
-                console.log(checkedData);
+                layer.closeAll();
+                layui.table.reload('test-table-simple3');
             },
             setChecked: function () {
                 tree.setChecked('demoId1', [12, 16]); //勾选指定节点
@@ -1023,40 +1045,28 @@
                     area: ['450px', '250px'],
                     shade: 0,
                     maxmin: true,//<div class="layui-fluid" id="html1"><div class="layui-row layui-col-space15">                                                                                                                                                                            //'+tabledata[0].id+'
-                    content: '<form id="addmu" style="padding: 20px;">模板名称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="layui-input" name="name" id="" autocomplete="off" style="width: 200px;height:20%;display: inline;margin:10px;" align="center" value=""><br>类别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  name="type" style="width: 200px; height:20%;display: inline;margin:10px;" align="center"><option value="0">全院</option><option value="1">科室</option><option value="2">个人</option></select></form>',
+                    // content: '<form id="tianjia"><input type="text" name="name"/> </form>',
+                    content: '<form id="tianjia" style="padding: 20px;">模板名称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" autocomplete="off" style="width: 200px;height:20%;display: inline;margin:10px;" /><br>类别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  name="type" style="width: 200px;display: inline;margin:10px;" ><option value="0">全院</option><option value="1">科室</option><option value="2">个人</option></select></form>',
                     // content: '<h1>111222</h1>',
                     btn: ['确定', '全部关闭'],
                     yes: function () {
-                        $.ajax({
-                            type: "POST",
-                            url: "MedicalRecordPage/submit",
-                            data: $('#medicalRecord').serialize()+"&medicalRecordNo=${medicalRecordNo}",
-                            async:false,
-                            success: function (res) {
                                 $.ajax({
                                     type: "POST",
                                     url: "MedicalRecordPage/addmu",
-                                    data: $('#addmu').serialize()+"&medicalRecordPageId="+res.data,
+                                    data: $('#tianjia').serialize()+"&medicalRecordNo=${medicalRecordNo}",
                                     async:false,
                                     success: function (res) {
-
                                         // layer.closeAll();
                                         // layui.table.reload('test-table-reload',{page: {curr: 1}});
                                     },
                                     error: function () {
-                                        alert("ttt");
+                                        alert("cuowu");
                                         return false;
                                     }
                                 });
-                                // layer.closeAll();
+                                layer.closeAll();
+                                parent.window.location.reload();
                                 // layui.table.reload('test-table-reload',{page: {curr: 1}});
-                            },
-                            error: function () {
-                                alert("t");
-                                return false;
-                            }
-                        });
-                        layer.closeAll();
 
                     },
                     btn2: function () {

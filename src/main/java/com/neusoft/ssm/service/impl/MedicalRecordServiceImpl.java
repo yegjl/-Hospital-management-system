@@ -67,6 +67,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     public int deleteCommonDiagnosis(Integer diagnosisid) {
         return commonDiagnosisDao.deleteBydiagnosisid(diagnosisid);
     }
+
+    @Override
+    public int deletemu(Integer id) {
+        return medicalRecordPageTemplateDao.deleteByPrimaryKey(id);
+    }
+
     @Override
     public Diagnosis findDiagnosisByID(Integer id) {
         return diagnosisDao.selectByPrimaryKey(id);

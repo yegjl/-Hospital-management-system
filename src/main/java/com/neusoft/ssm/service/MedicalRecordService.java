@@ -15,7 +15,7 @@ public interface MedicalRecordService {
     List<CommonDiagnosis> findAllCommonDiagnosis(Integer doctorid);
 
     int deleteCommonDiagnosis(Integer diagnosisid);
-
+    int deletemu(Integer id);
     Diagnosis findDiagnosisByID(Integer id);
      int insertSelectiveDia(Diagnosis record);
      int updateDia(Diagnosis record);

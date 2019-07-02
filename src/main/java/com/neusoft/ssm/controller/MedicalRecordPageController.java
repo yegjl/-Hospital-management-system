@@ -146,8 +146,9 @@ public class MedicalRecordPageController {
     }
     @RequestMapping(value = "/addmu", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> addmu(MedicalRecordPageTemplate medicalRecordPageTemplate, HttpSession session) {
+    public ResultDTO<Integer> addmu(MedicalRecordPageTemplate medicalRecordPageTemplate,String medicalRecordNo, HttpSession session) {
         ResultDTO<Integer> resultDTO = new ResultDTO();
+        medicalRecordPageTemplate.setMedicalRecordPageId(medicalRecordService.findBymedicalRecordNo(medicalRecordNo).getId());
         medicalRecordPageTemplate.setDoctorid((Integer)session.getAttribute("doctorid"));
 //        medicalRecordPage.setDoctorid((Integer) session.getAttribute("doctorid"));
         try {
@@ -304,7 +305,23 @@ public class MedicalRecordPageController {
         }
         return resultDTO;
     }
-
+    @RequestMapping("/deletemu")
+    @ResponseBody
+    public ResultDTO<Integer> deletemu(Integer[] ids, Integer index, Model model) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<>();
+        try {
+            for (int i = 0; i < ids.length; i++) {
+                int issuccess = medicalRecordService.deletemu(ids[i]);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
     @RequestMapping("/deletecommon")
     @ResponseBody
     public ResultDTO<Integer> deletecommon(Integer index) {
