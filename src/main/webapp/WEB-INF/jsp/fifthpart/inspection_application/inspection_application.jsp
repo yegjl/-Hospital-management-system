@@ -1062,14 +1062,14 @@
       result: function () {
         var that = this;
         var tabledata = layui.table.checkStatus('test-table-cellEdit-middle').data;
-        if(tabledata.length!=1||tabledata[0].status != "已录入结果") {
+        if(tabledata.length!=1||tabledata[0].status != "检查结果已录入") {
           layer.msg("请选中一条已录入检查结果的项目");
           return;
         }
 //这里需要后台获取的数据
-        var medical_record_no= tabledata[0].medical_record_no;
+        var examcheckid= tabledata[0].examcheckid;
         var itemname= tabledata[0].itemname;
-        var patient_name= tabledata[0].patient_name;
+        // var patient_name= tabledata[0].patient_name;
         layer.open({
           type: 1,
           title: '检查/检验结果查看',
@@ -1077,7 +1077,7 @@
           shade: 0,
           maxmin: true,
           offset: 'auto',
-          content: '<iframe src="sixpart/getresult?medical_record_no='+medical_record_no+'&itemname='+itemname+'&patient_name='+patient_name+'" frameborder="0" class="layadmin-iframe"></iframe>',
+          content: '<iframe src="sixpart/getresult1?examcheckid='+examcheckid+'&itemname='+itemname+'" frameborder="0" class="layadmin-iframe"></iframe>',
           btn: ['确定', '取消'],
           yes: function () {
             layer.closeAll();

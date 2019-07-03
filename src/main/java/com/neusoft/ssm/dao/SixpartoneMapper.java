@@ -84,4 +84,8 @@ public interface SixpartoneMapper {
     List<Sixpartone> getPro2(Date startDate, Date endDate);
 
     int getMedicalIdByNo(String medicalRecordNo);
+
+    String getNumById(Integer examcheckid);
+
+    String getPatientName(Integer examcheckid);
 }

@@ -170,5 +170,9 @@ public interface ExpenseMapper {
     void alterAUTO();
 
 
+    Expense getExpenceById(Long id);
 
+    Integer getInfoId(String medical_record_no, String itemcode);
+
+    void updateStatus(Integer examInfoId);
 }

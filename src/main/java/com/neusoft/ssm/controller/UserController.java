@@ -1,5 +1,6 @@
 package com.neusoft.ssm.controller;
 
+import com.neusoft.ssm.bean.Doctor;
 import com.neusoft.ssm.bean.User;
 import com.neusoft.ssm.service.IUserService;
 import com.neusoft.ssm.util.MD5;

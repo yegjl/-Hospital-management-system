@@ -295,6 +295,24 @@ public ResultDTO<Integer> resultadd(String medical_record_no,String itemname,Str
         return "sixpart/layer/result";
     }
 
+    //显示检查检验结果1
+    @RequestMapping(value = "/getresult1",method = RequestMethod.GET)
+    public String getresult1(Model model,Integer examcheckid,String itemname) {
+        String medical_record_no = sixpartService.getNumById(examcheckid);
+        String patient_name = sixpartService.getPatientName(examcheckid);
+        int i1=sixpartService.findExamInfoId(medical_record_no,itemname);
+        int i2=sixpartService.getResultId(i1);
+        List<ExamcheckResultPic> examcheckResultPics = sixpartService.getPicsById(i2);
+        ExamcheckResult examcheckResult = sixpartService.getResultByInfoId(i1);
+        model.addAttribute("suojian", examcheckResult.getSuojian());
+        model.addAttribute("advice", examcheckResult.getDiagnosis());
+        model.addAttribute("examcheckResultPics", examcheckResultPics);
+        model.addAttribute("medical_record_no", medical_record_no);
+        model.addAttribute("patient_name", patient_name);
+        model.addAttribute("itemname", itemname);
+        return "sixpart/layer/result";
+    }
+
     //添加常用项目
     @RequestMapping(value = "/addoften",method = RequestMethod.POST)
     @ResponseBody

@@ -233,6 +233,15 @@ public class ExpenseController {
             else {
                 message = 0;
             }
+            //收费后更新检查检验里面对应的项目为已收费
+            Expense expense = expenseService.getExpenceById(id);
+            if(expense.getExpense_category().equals("CTJCF")||expense.getExpense_category().equals("JYAN")||expense.getExpense_category().equals("CZF")){
+               String medical_record_no = expense.getMedical_record_no();
+               String itemcode = expense.getExpense_id();
+               Integer examInfoId = expenseService.getInfoId(medical_record_no,itemcode);
+               //将检查检验明细里面的项目更新
+                expenseService.updateStatus(examInfoId);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
