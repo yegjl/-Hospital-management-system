@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
-import com.neusoft.ssm.service.DepartmentService;
-import com.neusoft.ssm.service.ExamcheckService;
-import com.neusoft.ssm.service.RegisterService;
-import com.neusoft.ssm.service.SixpartService;
+import com.neusoft.ssm.service.*;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +32,8 @@ public class FifthPartController {
     private SixpartService sixpartService;
     @Autowired
     DepartmentService departmentService;
+    @Autowired
+    RegistrationLevelService registrationLevelService;
     @RequestMapping(value = "/index")
     public String index(String id, Model model, String medicalRecordNo, HttpSession session) {
         String name;
@@ -68,6 +67,7 @@ public class FifthPartController {
                 model.addAttribute("prescribetype", "成药");
             }
 
+            model.addAttribute("prestatus",registrationLevelService.findByCode(registerService.findByRecord(medicalRecordNo).getRegistration_category()).getNumbername());
 
             return "fifthpart/medicine_prescription/medicine_pre";
         } else if (id==null) {
