@@ -470,7 +470,7 @@ public class PrescribeController {
 //    medicalrecordid,（用medicalid查drugs表的101，赋值13.14.15，查对应拼音）,(String)medicalid,prescribeid,amount,price,date
     @RequestMapping(value = "/sendtoexpense",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> sendtoexpense(String[] medicalrecordids, Integer[] medicalids, Integer[] presribeids, Integer[] amounts, Integer[] prices){
+    public ResultDTO<Integer> sendtoexpense(String[] medicalrecordids, Integer[] medicalids, Integer[] presribeids, Integer[] amounts, String[] prices){
         ResultDTO<Integer> resultDTO = new ResultDTO();
         Expense expense = new Expense();
         try {
@@ -491,10 +491,15 @@ public class PrescribeController {
                 expense.setPrescribe_id((long)presribeids[i]);
                 Long a = new Long((long) amounts[i]);
                 expense.setNumber(a);
-                int emoney = amounts[i] * prices[i];
+                double emoney = amounts[i] * (Double.valueOf(prices[i]));
                 BigDecimal expensemoney = new BigDecimal(emoney);
                 expense.setExpense(expensemoney.doubleValue());
                 expense.setExpense_date(createtime);
+                expense.setReal_expense(0.0);
+                expense.setPay_category("");
+                expense.setPay_sign("0");
+                expense.setDay_settle_sign("0");
+                expense.setIs_consume("0");
                 prescribeService.insertExpense(expense);
             }
             resultDTO.setStatus(0);

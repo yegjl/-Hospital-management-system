@@ -1,7 +1,10 @@
 package com.neusoft.ssm.service.impl;
 
+import com.neusoft.ssm.bean.Dispense;
+import com.neusoft.ssm.bean.Dispensecategory;
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
+import com.neusoft.ssm.dao.DispensecategoryDao;
 import com.neusoft.ssm.dao.ExpenseMapper;
 import com.neusoft.ssm.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Autowired
     ExpenseMapper expenseMapper;
+
+    @Autowired
+    DispensecategoryDao dispensecategoryDao;
 
     @Override
     public List<Expense> findAll() {
@@ -105,5 +111,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void updateStatus(Integer examInfoId) {
         expenseMapper.updateStatus(examInfoId);
+    }
+
+    @Override
+    public String getPatientName(String medical_record_no) {
+        return expenseMapper.getPatientName(medical_record_no);
+    }
+
+    @Override
+    public int getDispenseNum(String medical_record_no) {
+        return expenseMapper.getDispenseNum(medical_record_no);
+    }
+
+    @Override
+    public void insertDispense(Dispense dispense) {
+        expenseMapper.insertDispense(dispense);
+    }
+
+    @Override
+    public void insertDispenselog(Dispensecategory dispensecategory) {
+         dispensecategoryDao.insertSelective(dispensecategory);
     }
 }

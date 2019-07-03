@@ -2,6 +2,8 @@ package com.neusoft.ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neusoft.ssm.bean.Dispense;
+import com.neusoft.ssm.bean.Dispensecategory;
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 import com.neusoft.ssm.dto.ResultDTO;
@@ -241,6 +243,35 @@ public class ExpenseController {
                Integer examInfoId = expenseService.getInfoId(medical_record_no,itemcode);
                //将检查检验明细里面的项目更新
                 expenseService.updateStatus(examInfoId);
+            }
+            //往Dispense表里面插入药品
+            if(expense.getExpense_category().contains("YF")){
+                String medical_record_no = expense.getMedical_record_no();
+                String itemcode = expense.getExpense_id();
+                String patient_name = expenseService.getPatientName(medical_record_no);
+                Dispense dispense = new Dispense();
+                Date createtime= new java.sql.Date(new java.util.Date().getTime());
+                if(expenseService.getDispenseNum(medical_record_no)==0){
+                    dispense.setMedicalrecordid(medical_record_no);
+                    dispense.setPatientname(patient_name);
+                    dispense.setDoctorid(1);
+                    dispense.setDispensestatus(0);
+                    dispense.setDispensedate(createtime);
+                    expenseService.insertDispense(dispense);
+                }
+                Dispensecategory dispensecategory = new Dispensecategory();
+                dispensecategory.setMedicalrecordno(medical_record_no);
+                dispensecategory.setMedicineid(Integer.valueOf(expense.getExpense_id()));
+                Drugs drugs = new Drugs();
+                drugs = expenseService.findDrugByCode(expense.getExpense_id());
+                dispensecategory.setMedicinename(drugs.getDrugsname());
+                dispensecategory.setFormat(drugs.getDrugsformat());
+                dispensecategory.setAmount(expense.getNumber().intValue());
+                dispensecategory.setUnit(drugs.getDrugsunit());
+                dispensecategory.setPrice(drugs.getDrugsprice());
+                dispensecategory.setManufacturer(drugs.getManufacturer());
+                dispensecategory.setDispensestatus(0);
+                expenseService.insertDispenselog(dispensecategory);
             }
         }catch (Exception e){
             e.printStackTrace();

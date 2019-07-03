@@ -1,5 +1,7 @@
 package com.neusoft.ssm.service;
 
+import com.neusoft.ssm.bean.Dispense;
+import com.neusoft.ssm.bean.Dispensecategory;
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 
@@ -44,4 +46,12 @@ public interface ExpenseService {
     Integer getInfoId(String medical_record_no, String itemcode);
 
     void updateStatus(Integer examInfoId);
+
+    String getPatientName(String medical_record_no);
+
+    int getDispenseNum(String medical_record_no);
+
+    void insertDispense(Dispense dispense);
+
+    void insertDispenselog(Dispensecategory dispensecategory);
 }

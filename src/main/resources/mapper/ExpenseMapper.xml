@@ -131,16 +131,16 @@
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Expense" useGeneratedKeys="true">
         insert into expense
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="medicalRecordNo != null">
+            <if test="medical_record_no != null">
                 medical_record_no,
             </if>
-            <if test="expenseCategory != null">
+            <if test="expense_category != null">
                 expense_category,
             </if>
-            <if test="expenseId != null">
+            <if test="expense_id != null">
                 expense_id,
             </if>
-            <if test="prescribeId != null">
+            <if test="prescribe_id != null">
                 prescribe_id,
             </if>
             <if test="number != null">
@@ -149,37 +149,37 @@
             <if test="expense != null">
                 expense,
             </if>
-            <if test="realExpense != null">
+            <if test="real_expense != null">
                 real_expense,
             </if>
-            <if test="payCategory != null">
+            <if test="pay_category != null">
                 pay_category,
             </if>
-            <if test="paySign != null">
+            <if test="pay_sign != null">
                 pay_sign,
             </if>
-            <if test="daySettleSign != null">
+            <if test="day_settle_sign != null">
                 day_settle_sign,
             </if>
-            <if test="expenseDate != null">
+            <if test="expense_date != null">
                 expense_date,
             </if>
-            <if test="isConsume != null">
+            <if test="is_consume != null">
                 is_consume,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="medicalRecordNo != null">
-                #{medicalRecordNo,jdbcType=CHAR},
+            <if test="medical_record_no != null">
+                #{medical_record_no,jdbcType=CHAR},
             </if>
-            <if test="expenseCategory != null">
-                #{expenseCategory,jdbcType=CHAR},
+            <if test="expense_category != null">
+                #{expense_category,jdbcType=CHAR},
             </if>
-            <if test="expenseId != null">
-                #{expenseId,jdbcType=VARCHAR},
+            <if test="expense_id != null">
+                #{expense_id,jdbcType=VARCHAR},
             </if>
-            <if test="prescribeId != null">
-                #{prescribeId,jdbcType=INTEGER},
+            <if test="prescribe_id != null">
+                #{prescribe_id,jdbcType=INTEGER},
             </if>
             <if test="number != null">
                 #{number,jdbcType=DECIMAL},
@@ -187,23 +187,23 @@
             <if test="expense != null">
                 #{expense,jdbcType=DECIMAL},
             </if>
-            <if test="realExpense != null">
-                #{realExpense,jdbcType=DECIMAL},
+            <if test="real_expense != null">
+                #{real_expense,jdbcType=DECIMAL},
             </if>
-            <if test="payCategory != null">
-                #{payCategory,jdbcType=CHAR},
+            <if test="pay_category != null">
+                #{pay_category,jdbcType=CHAR},
             </if>
-            <if test="paySign != null">
-                #{paySign,jdbcType=CHAR},
+            <if test="pay_sign != null">
+                #{pay_sign,jdbcType=CHAR},
             </if>
-            <if test="daySettleSign != null">
-                #{daySettleSign,jdbcType=CHAR},
+            <if test="day_settle_sign != null">
+                #{day_settle_sign,jdbcType=CHAR},
             </if>
-            <if test="expenseDate != null">
-                #{expenseDate,jdbcType=DATE},
+            <if test="expense_date != null">
+                #{expense_date,jdbcType=DATE},
             </if>
-            <if test="isConsume != null">
-                #{isConsume,jdbcType=CHAR},
+            <if test="is_consume != null">
+                #{is_consume,jdbcType=CHAR},
             </if>
         </trim>
     </insert>
@@ -433,4 +433,52 @@
         set status = '4'
         where id = #{param1}
     </update>
+
+    <select id="getPatientName" resultType="java.lang.String">
+        select patient_name from registration_info
+        where medical_record_no = #{param1}
+    </select>
+
+    <select id="getDispenseNum" resultType="java.lang.Integer">
+        select count(*) from dispense
+        where medicalrecordid = #{param1}
+    </select>
+
+    <insert id="insertDispense" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.Dispense" useGeneratedKeys="true">
+        insert into dispense
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicalrecordid != null">
+                medicalrecordid,
+            </if>
+            <if test="doctorid != null">
+                doctorid,
+            </if>
+            <if test="patientname != null">
+                patientname,
+            </if>
+            <if test="dispensestatus != null">
+                dispensestatus,
+            </if>
+            <if test="dispensedate != null">
+                dispensedate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicalrecordid != null">
+                #{medicalrecordid,jdbcType=CHAR},
+            </if>
+            <if test="doctorid != null">
+                #{doctorid,jdbcType=CHAR},
+            </if>
+            <if test="patientname != null">
+                #{patientname,jdbcType=VARCHAR},
+            </if>
+            <if test="dispensestatus != null">
+                #{dispensestatus,jdbcType=INTEGER},
+            </if>
+            <if test="dispensedate != null">
+                #{dispensedate,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
 </mapper>

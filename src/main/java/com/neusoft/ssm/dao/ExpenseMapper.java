@@ -1,5 +1,6 @@
 package com.neusoft.ssm.dao;
 
+import com.neusoft.ssm.bean.Dispense;
 import com.neusoft.ssm.bean.Drugs;
 import com.neusoft.ssm.bean.Expense;
 import com.neusoft.ssm.bean.ExpenseExample;
@@ -175,4 +176,10 @@ public interface ExpenseMapper {
     Integer getInfoId(String medical_record_no, String itemcode);
 
     void updateStatus(Integer examInfoId);
+
+    String getPatientName(String medical_record_no);
+
+    int getDispenseNum(String medical_record_no);
+
+    void insertDispense(Dispense dispense);
 }

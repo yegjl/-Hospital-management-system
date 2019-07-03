@@ -523,14 +523,14 @@ public ResultDTO<Integer> returnamount(Integer medicineid,Integer amount) {
 //    sendtorefund
 @RequestMapping(value = "/sendtorefund",method = RequestMethod.POST)
 @ResponseBody
-public ResultDTO<Integer> sendtorefund(String medicalrecordid,Integer medicineid,Integer renum) {
+public ResultDTO<Integer> sendtorefund(String medicalrecordid,Integer medicineid,String renum) {
     ResultDTO<Integer> resultDTO = new ResultDTO();
     RefundDrug refundDrug = new RefundDrug();
     int issuccess = 0;
     try {
         refundDrug.setMedicalRecordNo(medicalrecordid);
-        refundDrug.setExpenseId(String.valueOf(medicineid));
-        refundDrug.setRefundNumber(renum);
+        refundDrug.setExpenseId(medicineid.toString());
+        refundDrug.setRefundNumber(Integer.valueOf(renum));
         refundDrug.setPrescribeId(drugstoreService.getPrescribeID(medicalrecordid));
         issuccess = drugstoreService.insertRefundDrug(refundDrug);
         resultDTO.setStatus(0);
@@ -554,7 +554,7 @@ public ResultDTO<Integer> sendalltorefund(String[] medicalrecordids,Integer[] me
         for (int i = 0; i < medicalrecordids.length; i++) {
             RefundDrug refundDrug = new RefundDrug();
             refundDrug.setMedicalRecordNo(medicalrecordids[i]);
-            refundDrug.setExpenseId(String.valueOf(medicineids[i]));
+            refundDrug.setExpenseId(medicineids[i].toString());
             refundDrug.setRefundNumber(renums[i]);
             refundDrug.setPrescribeId(drugstoreService.getPrescribeID(medicalrecordids[i]));
             issuccess = drugstoreService.insertRefundDrug(refundDrug);
