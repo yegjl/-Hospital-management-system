@@ -62,7 +62,12 @@ public class FifthPartController {
         }
         else if(id.equals("05")){//草药
             //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
-//            model.addAttribute("medicalrecordid",medicalrecordid);
+            if ((session.getAttribute("deptcategoryid").toString()).equals("20")) {
+                model.addAttribute("prescribetype", "草药");
+            } else {
+                model.addAttribute("prescribetype", "成药");
+            }
+
 
             return "fifthpart/medicine_prescription/medicine_pre";
         } else if (id==null) {

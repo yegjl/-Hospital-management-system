@@ -366,7 +366,7 @@
             tabChange: function () {
                 /* 切换到指定Tab项 */
                 element.tabChange('demo', '44');
-            },
+            }
         };
 
         $('#component-tabs .site-demo-active').on('click', function () {
