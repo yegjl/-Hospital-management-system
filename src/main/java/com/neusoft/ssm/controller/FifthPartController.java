@@ -284,8 +284,8 @@ public class FifthPartController {
         String account_name;
         if(mark.equals("02"))
             account_name = "CTJCF";
-        else if(id.equals("03"))
-            account_name = "JYF";
+        else if(mark.equals("03"))
+            account_name = "JYAN";
         else
             account_name = "CZF";
         ResultDTO<Integer> resultDTO = new ResultDTO();
@@ -301,8 +301,15 @@ public class FifthPartController {
                 expense.setExpense_id(fmeditem.getItemcode());
                 expense.setExpense(fmeditem.getPrice());
                 Date time= new java.sql.Date(new java.util.Date().getTime());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                expense.setDate(sdf.format(time));
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                expense.setDate(sdf.format(time));
+                expense.setExpense_date(time);
+                expense.setPrescribe_id((long)0);
+                expense.setReal_expense(0.0);
+                expense.setPay_sign("0");
+                expense.setDay_settle_sign("0");
+                expense.setIs_consume("0");
+                expense.setPay_category("");
                 examcheckService.insertExpense(expense);
             }
             resultDTO.setStatus(0);

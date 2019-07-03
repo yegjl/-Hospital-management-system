@@ -509,4 +509,14 @@
     select id from registration_info
     where medical_record_no=#{medicalRecordNo}
   </select>
+
+  <select id="getNumById"  resultType="java.lang.String">
+    select medical_record_no from examcheckthree
+    where id=#{examcheckid}
+  </select>
+
+  <select id="getPatientName"  resultType="java.lang.String">
+    select patient_name from examcheckthree
+    where id=#{examcheckid}
+  </select>
 </mapper>

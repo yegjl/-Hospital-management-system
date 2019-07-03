@@ -417,4 +417,20 @@
         where id = #{id}
     </update>
 
+    <select id="getExpenceById" resultType="com.neusoft.ssm.bean.Expense">
+        select * from expense
+        where id = #{id}
+    </select>
+
+    <select id="getInfoId" resultType="java.lang.Integer">
+        select id from examchecktwo
+        where medical_record_no = #{param1}
+        and itemcode = #{param2}
+    </select>
+
+    <update id="updateStatus" parameterType="Expense">
+        update examcheck_info
+        set status = '4'
+        where id = #{param1}
+    </update>
 </mapper>
