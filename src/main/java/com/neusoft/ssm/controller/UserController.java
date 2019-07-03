@@ -1,6 +1,7 @@
 package com.neusoft.ssm.controller;
 
 import com.neusoft.ssm.bean.User;
+import com.neusoft.ssm.service.DepartmentService;
 import com.neusoft.ssm.service.IUserService;
 import com.neusoft.ssm.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
-
+    @Autowired
+    DepartmentService departmentService;
     /**
      * 跳转至登录页面
      */
@@ -60,7 +62,9 @@ public class UserController {
         session.setAttribute("user_name", login_name);
         int doctorid = userService.findIdByLoginName(login_name);
         int departid = userService.findDeptIdByName(login_name);
+        String deptcategoryid = departmentService.findById(departid).getDeptcategoryid();
         session.setAttribute("departid", departid);
+        session.setAttribute("deptcategoryid",deptcategoryid);
         if(doctorid != 0)
             session.setAttribute("doctorid", doctorid);
         int count = userService.login(login_name, passwordByMd5);
