@@ -157,13 +157,14 @@ public class PrescribeController {
     //新增药品
     @RequestMapping(value = "/addmedtest",method = RequestMethod.POST)
     @ResponseBody
-    public ResultDTO<Integer> add(Prescribecategory prescribecategory,Integer doctorid,String medicalrecordid,String medicaltype) {
+    public ResultDTO<Integer> add(Prescribecategory prescribecategory,Integer doctorid,String medicalrecordid,String prestatus,String medicaltype) {
         if (prescribeService.getPreCount(doctorid, medicalrecordid) == 0) {
             Prescribe prescribe = new Prescribe();
             prescribe.setDoctorid(doctorid);
             prescribe.setMedicalrecordid(medicalrecordid);
             prescribe.setGetmedicalflag(0);
-            prescribe.setType("普诊");
+            prescribe.setType(prestatus);
+            prescribe.setMedicaltype(medicaltype);
             prescribe.setIsdone(0);
             prescribeService.insertPrescribe(prescribe);
         }
