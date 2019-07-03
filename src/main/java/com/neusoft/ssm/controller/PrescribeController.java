@@ -29,10 +29,15 @@ public class PrescribeController {
     }
 
     @RequestMapping(value = "/addmed")
-    public String addmed(String drugid,Model model)
+    public String addmed(String deptcategoryid,Model model)
     {
+        String drugid = "103";
+        if (!deptcategoryid.equals("20")) {
+            model.addAttribute("projects", prescribeService.getAllChengDrugs(drugid));//存储成药或者草药，id=103时为草药，其余是成药
+        } else {
+            model.addAttribute("projects", prescribeService.getAllCaoDrugs(drugid));
+        }
         model.addAttribute("drugstpe", drugid);
-        model.addAttribute("projects", prescribeService.getAllChengDrugs(drugid));//存储成药或者草药，id=103时为草药，其余是成药
         return "fifthpart/medicine_prescription/add";
     }
 
