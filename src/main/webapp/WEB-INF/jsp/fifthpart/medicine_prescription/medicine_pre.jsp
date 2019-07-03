@@ -9,8 +9,9 @@
 
 <head>
     <meta charset="utf-8">
-    //todo:改为el name
-    <title>成药处方</title>
+<%--    //todo:改为el name--%>
+<%--   prescribetype:如果是西医(deptcategoryid!=20)，就传成药，如果是deptcategoryid==20就是中医，传草药 --%>
+    <title>${prescribetype}处方</title>
     <!-- <meta name="renderer" content="webkit"> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -34,18 +35,18 @@
                     <div class="layui-card layui-form" lay-filter="component-form-element" style="width: 100%">
                         <!-- <div class="layui-col-md2" style="font-size: 200%;padding: 500;">成药处方</div> -->
                         <div class="layui-col-md2">
-                        //todo:改为el name
-                            <p style="font-size: 200%;font-weight: 500;">成药处方</p>
+<%--                        //todo:改为el name--%>
+                            <p style="font-size: 200%;font-weight: 500;">${prescribetype}处方</p>
                         </div>
 
                         <div class="layui-col-md1">
-                            <div style="margin-top: 55%;margin-left: 10px;">
+                            <div style="margin-top: 55%;margin-left: 5px;">
                                 <p>处方类型</p>
                             </div>
                         </div>
                         <div class="layui-col-md2">
                             <div style="margin-top: 22%;width: 70%" class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                                <input class="layui-input" name="pretype" id="pretype" autocomplete="off" readonly>
+                                <input class="layui-input" value="普诊" name="pretype" id="pretype" autocomplete="off" readonly>
                             </div>
                         </div>
 
@@ -90,8 +91,8 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                     <fieldset class="layui-elem-field layui-field-title">
-                    //todo:改为el name
-                        <legend>成药处方药品详情</legend>
+<%--                    //todo:改为el name--%>
+                        <legend>${prescribetype}处方药品详情</legend>
                     </fieldset>
                     <div class="layui-btn-container">
                         <div class="layui-fluid" id="LAY-component-layer-special-demo">
@@ -304,7 +305,7 @@
 
         table.render({
             elem: '#test-table-checkbox',
-            url: 'prescribe/findoften?doctorid=${doctorid}',
+            url: 'prescribe/findoften?doctorid=${sessionScope.doctorid}',
             method:'get',
             title: '常用项目表',
             parseData:function (res) {
@@ -469,7 +470,7 @@
             // url: layui.setter.base + 'json/table/demo.js',
 
             //todo:连接
-            url: 'prescribe/gettestinfo?medicalrecordid=3&&doctorid=3',
+            url: 'prescribe/gettestinfo?medicalrecordid=${medicalRecordNo}&&doctorid=${sessionScope.doctorid}',
             method:'get',
             parseData:function (res) {
                 //TODO:解析JSON对象
@@ -1232,8 +1233,9 @@
                     shade: 0,
                     maxmin: true,
                     //todo:统一
+                    //drugtypeid应该为101/102/103三个值中的一个
                     <%--content: '<iframe src="prescribe/addmed?drugid=${drugid}" frameborder="0" class = "layadmin-iframe"></iframe>',--%>
-                    content: '<iframe src="prescribe/addmed?drugid=103" frameborder="0" class = "layadmin-iframe"></iframe>',
+                    content: '<iframe src="prescribe/addmed?deptcategoryid=${sessionScope.deptcategoryid}" frameborder="0" class = "layadmin-iframe"></iframe>',
                     btn: ['确定', '全部关闭'],
                     yes: function (index, layero) {
 
@@ -1243,7 +1245,7 @@
                             type: "POST",
                             url: "prescribe/addmedtest",
                             //todo:连接
-                            data: 'doctorid='+3+'&medicalrecordid='+3+'&'+$(form).serialize(),
+                            data: 'doctorid=${sessionScope.doctorid}&medicalrecordid=${medicalRecordNo}&'+$(form).serialize(),
                             success: function (res) {
                                 if (res.status == 0) {} else {
                                     layer.msg(res.message)
@@ -1292,9 +1294,10 @@
                     area: ['700px', '600px'],
                     shade: 0,
                     maxmin: true,
+                    //todo:连接(doctorid,depetid)
                     //此处的createman的值和1004行中的doctorid都是同一个值,
                     //测试传值为string,后期改成用int的id去查医生姓名和科室名
-                    content: '<iframe src="prescribe/addModel?createman=3&createdept=3" frameborder="0" class="layadmin-iframe"></iframe>',
+                    content: '<iframe src="prescribe/addModel?createman=${sessionScope.doctorid}&createdept=${sessionScope.deptcategoryid}" frameborder="0" class="layadmin-iframe"></iframe>',
                     btn: ['确定', '全部关闭'],
                     yes: function (index, layero) {
                         var iframes = $(layero).find("iframe")[0].contentWindow;
@@ -1425,7 +1428,7 @@
                     shade: 0,
                     maxmin: true,
                     offset: [],
-                    content: '<iframe src="prescribe/indexaddoften?doctorid=${doctorid}" frameborder="0" class="layadmin-iframe"></iframe>',
+                    content: '<iframe src="prescribe/indexaddoften?doctorid=${sessionScope.doctorid}" frameborder="0" class="layadmin-iframe"></iframe>',
                     btn: ['添加', '关闭'],
                     yes: function (index,layero) {
                         var iframes = $(layero).find("iframe")[0].contentWindow;
@@ -1557,7 +1560,7 @@
                         $.ajax({
                             type: "POST",
                             url: "prescribe/addmedtest",
-                            data: 'doctorid='+3+'&medicalrecordid='+3+'&'+$(form).serialize(),
+                            data: 'doctorid=${doctorid}&medicalrecordid=${medicalRecordNo}&'+$(form).serialize(),
                             success: function (res) {
                                 if (res.status == 0) {
                                     layer.msg(res.message)
