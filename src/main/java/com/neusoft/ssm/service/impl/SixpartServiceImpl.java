@@ -135,5 +135,15 @@ public class SixpartServiceImpl implements SixpartService {
         return sixpartoneMapper.getMedicalIdByNo(medicalRecordNo);
     }
 
+    @Override
+    public String getNumById(Integer examcheckid) {
+        return sixpartoneMapper.getNumById(examcheckid);
+    }
+
+    @Override
+    public String getPatientName(Integer examcheckid) {
+        return sixpartoneMapper.getPatientName(examcheckid);
+    }
+
 
 }

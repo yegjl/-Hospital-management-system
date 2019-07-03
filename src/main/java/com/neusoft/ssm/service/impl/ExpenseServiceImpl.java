@@ -91,4 +91,19 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void alterAUTO() {
         expenseMapper.alterAUTO();
     }
+
+    @Override
+    public Expense getExpenceById(Long id) {
+        return expenseMapper.getExpenceById(id);
+    }
+
+    @Override
+    public Integer getInfoId(String medical_record_no, String itemcode) {
+        return expenseMapper.getInfoId(medical_record_no,itemcode);
+    }
+
+    @Override
+    public void updateStatus(Integer examInfoId) {
+        expenseMapper.updateStatus(examInfoId);
+    }
 }
