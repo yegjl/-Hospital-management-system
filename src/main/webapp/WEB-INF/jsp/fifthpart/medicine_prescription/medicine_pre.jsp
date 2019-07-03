@@ -46,7 +46,7 @@
                         </div>
                         <div class="layui-col-md2">
                             <div style="margin-top: 22%;width: 70%" class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                                <input class="layui-input" value="普诊" name="pretype" id="pretype" autocomplete="off" readonly>
+                                <input class="layui-input" name="pretype" id="pretype" autocomplete="off" readonly>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                             <div >
 <%--                                <div class="layui-col-md2">--%>
                                     <div style="margin-top: 20%;width: 70%" class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                                        <input class="layui-input" name="prestatus" id="prestatus" autocomplete="off" readonly>
+                                        <input class="layui-input" value="${prestatus}" name="prestatus" id="prestatus" autocomplete="off" readonly>
                                     </div>
 <%--                                </div>--%>
                             </div>
@@ -1245,7 +1245,7 @@
                             type: "POST",
                             url: "prescribe/addmedtest",
                             //todo:连接
-                            data: 'doctorid=${sessionScope.doctorid}&medicalrecordid=${medicalRecordNo}&'+$(form).serialize(),
+                            data: 'doctorid=${sessionScope.doctorid}&medicalrecordid=${medicalRecordNo}&medicaltype=${prescribetype}&'+$(form).serialize(),
                             success: function (res) {
                                 if (res.status == 0) {} else {
                                     layer.msg(res.message)
