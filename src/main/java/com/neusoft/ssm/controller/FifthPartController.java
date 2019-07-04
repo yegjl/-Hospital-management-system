@@ -447,6 +447,15 @@ public Fmeditem getQue(String name,String id) {
         List<ExamcheckSet> examcheckSets =  examcheckService.getsets(mark);
         return JSONArray.fromObject(examcheckSets);
     }
+
+    //获取处方模板
+    @RequestMapping(value = "/getprescribemodel")
+    @ResponseBody
+    public List<Prescribemodel> getprescribemodel() {
+        List<Prescribemodel> prescribemodels =  examcheckService.getpreModels();
+        return JSONArray.fromObject(prescribemodels);
+    }
+
 //引用模板
     @RequestMapping(value = "/useModel",method = RequestMethod.GET)
     public String useModel(Integer id,Model model) {
@@ -464,6 +473,14 @@ public Fmeditem getQue(String name,String id) {
         }
         model.addAttribute("examcheckSetInfos", examcheckSetInfoPluses);
         return "fifthpart/inspection_application/use_muban"; }
+//引用成药处方模板
+    @RequestMapping(value = "/usePreModel",method = RequestMethod.GET)
+    public String usePreModel(Integer id,Model model) {
+        Prescribemodel prescribemodel=examcheckService.findPreModelById(id);
+        model.addAttribute("prescribemodel", prescribemodel);
+        List<Prescribemodellog> prescribemodellogs=examcheckService.findPreLogsById(id);
+        model.addAttribute("prescribemodellogs", prescribemodellogs);
+        return "fifthpart/medicine_prescription/use_muban"; }
 
         //将引用组套里面的项目存入数据库
         @RequestMapping(value = "/usemubanpros",method = RequestMethod.POST)
@@ -529,5 +546,25 @@ public Fmeditem getQue(String name,String id) {
             }
             return resultDTO;
         }
+
+    @RequestMapping(value = "/deletepremodels",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> deletepremodels(Integer[] ids) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            for(Integer i:ids){
+                examcheckService.deleteModelById(i);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(1);
+            return resultDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
 
 }

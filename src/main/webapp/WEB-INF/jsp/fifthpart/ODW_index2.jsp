@@ -47,7 +47,6 @@
                     <li>处置申请</li>
                     <li>成药处方</li>
                     <li>草药处方</li>
-                    <li>诊毕</li>
                     <li>患者费用明细查询</li>
                     <li>个人工作量统计</li>
                 </ul>
@@ -72,8 +71,7 @@
                     <div class="layui-tab-item"><iframe src="fifthpart/index?id=05&medicalRecordNo=${medicalRecordNo}"style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item"><iframe src="fifthpart/index?id=06"
                             style="height: 700px;width: 100%" frameborder="0"></iframe></div>
-                    <div class="layui-tab-item">内容7</div>
-                    <div class="layui-tab-item"><iframe src="MedicalRecordPage/indexcost" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
+                    <div class="layui-tab-item"><iframe src="login/index12" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容9</div>
                 </div>
             </div>

@@ -150,12 +150,6 @@
                                     <div class="layui-card layui-form" lay-filter="component-form-element">
 
                                         <div class="layui-card-body layui-row layui-col-space10">
-                                            <div class="layui-col-md12">
-                                                <input type="radio" name="sel" value="01" title="全院" checked
-                                                       style="size: 50%">
-                                                <input type="radio" name="sel" value="02" title="科室">
-                                                <input type="radio" name="sel" value="03" title="个人">
-                                            </div>
                                             <div class="layui-fluid" id="LAY-component-layer-special-demo2">
                                                 <div class="layui-btn-container layadmin-layer-demo">
                                                     <div class="layui-btn-group" style="align-content: center;">
@@ -167,7 +161,7 @@
                                                         <button class="layui-btn  layui-btn-sm"><i
                                                                 class="layui-icon layui-icon-search"></i></button>
                                                         <button class="layui-btn  layui-btn-sm"><i
-                                                                class="layui-icon">&#xe640;</i></button>
+                                                                class="layui-icon" lay-demo="getChecked">&#xe640;</i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,56 +200,7 @@
                 </div>
             </div>
 
-            <div class="layui-fluid" id="component-tabs3" style="height:300px;overflow: auto;">
-                <div class="layui-card">
-                    <div class="layui-card-header">组套内容</div>
-                    <div class="layui-card-body">
-                        <table class="layui-table" lay-even="" lay-skin="row">
-                            <colgroup>
-                                <col width="150">
-                                <col width="150">
-                                <col width="200">
-                                <col>
-                            </colgroup>
 
-                            <tbody>
-                            <tr>
-                                <td>套组编码</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>套组名称</td>
-                                <td>2</td>
-
-                            </tr>
-                            <tr>
-                                <td>适用类型</td>
-                                <td>3</td>
-
-                            </tr>
-                            <tr>
-                                <td>目的和要求</td>
-                                <td>4</td>
-
-                            </tr>
-                            <tr>
-                                <td>创建医生</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>创建时间</td>
-                                <td>6</td>
-                            </tr>
-                            <tr>
-                                <td>包含项目</td>
-                                <td>5</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -284,14 +229,7 @@
             return false;
         });
 
-        // form.on('select(pretype)', function(data){
-        //     // console.log(data.elem); //得到select原始DOM对象
-        //     // console.log(data.value); //得到被选中的值
-        //     // console.log(data.othis); //得到美化后的DOM对象
-        //     type = data.value;
-        //     console.log(type);
-        //     return type;
-        // });
+
     });
 </script>
 
@@ -591,115 +529,158 @@
     });
 </script>
 
-<%--  <script>--%>
-<%--    layui.use(['form', 'layedit', 'laydate','element','jquery'], function() {--%>
-<%--      var form = layui.form,--%>
-<%--              layer = layui.layer,--%>
-<%--              element=layui.element,--%>
-<%--              table=layui.table,--%>
-<%--              $=layui.jquery;--%>
-<%--      $(document).on('click','#addTable',function(){--%>
-<%--        var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据--%>
 
-<%--        var tableBak = table.cache.stock_add_table;--%>
-<%--        //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，stock_add_table 为表格的id--%>
-
-<%--        for (var i = 0; i < tableBak.length; i++) {--%>
-<%--          dataBak.push(tableBak[i]);      //将之前的数组备份--%>
-<%--        }--%>
-
-<%--        //在尾部新增一行空数据，实现增行效果--%>
-<%--        dataBak.push({--%>
-<%--          "itemcode": "123"--%>
-<%--          ,"itemname": "灌肠"--%>
-<%--          ,"status": "未保存"--%>
-<%--        });--%>
-
-<%--        table.reload('test-table-cellEdit-middle',{--%>
-<%--          data:dataBak   // 将新数据重新载入表格--%>
-<%--        })--%>
-<%--      });--%>
-<%--    });--%>
-<%--  </script>--%>
 <!-- 树 -->
-
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" language="JavaScript">
+    window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')
+</script>
 <script>
     layui.use(['tree', 'util'], function () {
         var tree = layui.tree,
             layer = layui.layer,
             util = layui.util,
-            data = [],
-            data1 = [{
-                title: '一级',
-                id: 1,
-                children: [{
-                    title: '二级',
-                    id: 1000,
-                    children: [{
-                        title: '三级',
-                        id: 10001,
-                        href: ""
-                    }, {
-                        title: '三级',
-                        id: 10002
-                    }]
-                }, {
-                    title: '二级',
-                    id: 1001
-                }, {
-                    title: '二级',
-                    id: 1002
-                }]
-            }, {
-                title: '一级',
-                id: 2,
-                children: [{
-                    title: '二级',
-                    id: 2000
-                }, {
-                    title: '二级',
-                    id: 2001
-                }]
-            }, {
-                title: '一级',
-                id: 3,
-                children: [{
-                    title: '二级',
-                    id: 3000
-                }, {
-                    title: '二级',
-                    id: 3001
-                }]
-            }]
+            data = [];
+        $.ajax({
+            type: "get",
+            async : false,//设置为同步操作就可以给全局变量赋值成功
+            url: "fifthpart/getprescribemodel",
+            success: function (models) {
+                var mydata = [];
+                var children1=[];
+                var children2=[];
+                var children3=[];
+                var data1 =[];
+                var data2 =[];
+                var data3 =[];
+                for(var i=0;i<models.length;i++){
+                    // alert(examcheckSets[i].setname);
+                    //测试成功！！！
 
-            //模拟数据2
-            ,
-            data2 = [];
+                    if(models[i].usage==0) {
+                        data1 = {
+                            title:models[i].prescribemodelname,
+                            id:models[i].id
+                        };
+                        children1.push(data1);
+                    }
 
-        //基本演示
-        tree.render({
-            elem: '#test12',
-            data: data,
-            showCheckbox: true //是否显示复选框
-            ,
-            id: 'demoId1',
-            isJump: true //是否允许点击节点时弹出新窗口跳转
-            ,
-            click: function (obj) {
-                var data = obj.data; //获取当前点击的节点数据
-                // layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+                    if(models[i].usage==1) {
+                        data2 = {
+                            title:models[i].prescribemodelname,
+                            id:models[i].id
+                        };
+                        children2.push(data2);
+                    }
+
+                    if(models[i].usage==2) {
+                        data3 = {
+                            title:models[i].prescribemodelname,
+                            id:models[i].id
+                        };
+                        children3.push(data3);
+                    }
+                    // alert(JSON.stringify(children3));
+                }
+
+                var data4 ={
+                    title: '全院处方模板',
+                    id: 0,
+                    children:children1
+                };
+
+                var data5 ={
+                    title: '科室处方模板',
+                    id: 1,
+                    children:children2
+                };
+
+                var data6 ={
+                    title: '个人处方模板',
+                    id: 2,
+                    children:children3
+                };
+
+                mydata.push(data4);
+                mydata.push(data5);
+                mydata.push(data6);
+                //将json对象转换成字符串
+                // alert(JSON.stringify(mydata));
+                data=mydata;
             }
         });
+        //基本演示
+        // tree.render({
+        //     elem: '#test12',
+        //     data: data,
+        //     showCheckbox: true //是否显示复选框
+        //     ,
+        //     id: 'demoId1',
+        //     isJump: true //是否允许点击节点时弹出新窗口跳转
+        //     ,
+        //     click: function (obj) {
+        //         var data = obj.data; //获取当前点击的节点数据
+        //         // layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+        //     }
+        // });
 
         //按钮事件
         util.event('lay-demo', {
             getChecked: function (othis) {
                 var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+                var myArray = new Array();
+                //获取子节点数据
+                for(var i=0;i<checkedData.length;i++){
+                    var children=checkedData[i].children;
+                    for(var j=0;j<children.length;j++){
+                        myArray.push(children[j].id);
+                    }
+                }
 
-                layer.alert(JSON.stringify(checkedData), {
-                    shade: 0
+                layer.open({
+                    type: 1,
+                    title: '删除组套模板',
+                    area: ['260px', '160px'],
+                    shade: 0,
+                    maxmin: true,
+                    content: '<p style="margin:auto;">您确定要删除选中项吗</p>',
+                    btn: ['确定', '全部关闭'],
+                    yes: function () {
+                        // 写下编辑的提交方法**********************************************************
+                        $.ajax({
+                            type: "POST",
+                            url: "fifthpart/deletepremodels",
+                            traditional: true,
+                            data: {
+                                'ids': myArray,
+                            },
+                            success: function (res) {
+                                if (res.status == 0) {
+                                    layer.msg(res.message);
+                                } else {
+                                    layer.msg(res.message);
+                                }
+                                setTimeout(function(){
+                                    window.parent.location.reload();//修改成功后刷新父界面
+                                }, 100);
+                            },
+                            error: function () {
+                                alert("出现错误");
+                                return false;
+                            }
+                        })
+                        layer.closeAll();
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    ,
+                    zIndex: layer.zIndex,
+                    success: function (layero) {
+                        layer.setTop(layero);
+                    }
                 });
-                console.log(checkedData);
             },
             setChecked: function () {
                 tree.setChecked('demoId1', [12, 16]); //勾选指定节点
@@ -713,54 +694,67 @@
             }
         });
 
-        //常规用法
-        tree.render({
-            elem: '#test1' //默认是点击节点可进行收缩
-            ,
-            data: data1
-        });
 
-        //无连接线风格
-        tree.render({
-            elem: '#test13',
-            data: data1,
-            showLine: false //是否开启连接线
-        });
-
-        //仅节点左侧图标控制收缩
-        tree.render({
-            elem: '#test2',
-            data: data1,
-            onlyIconControl: true //是否仅允许节点左侧图标控制展开收缩
-            ,
-            click: function (obj) {
-                // layer.msg(JSON.stringify(obj.data));
-            }
-        });
-
-
-        //点击节点新窗口跳转
-        tree.render({
-            elem: '#test5',
-            data: data,
-            isJump: true //link 为参数匹配
-        });
-
-        //开启复选框
-        tree.render({
-            elem: '#test7',
-            data: data2,
-            showCheckbox: true
-        });
 
         //开启节点操作图标
         tree.render({
             elem: '#test9',
-            data: data1,
+            data: data,
+            id: 'demoId1',
             edit: ['add', 'update', 'del'] //操作节点的图标
             ,
+            showCheckbox: true,
             click: function (obj) {
                 // layer.msg(JSON.stringify(obj.data));
+                layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data.id));
+                if(obj.data.id==0||obj.data.id==1||obj.data.id==2) {
+                    layer.msg("请选择二级菜单里面的模板");
+                    return;
+                }
+                layer.open({
+                    type: 1,
+                    title: '引用处方模板',
+                    area: ['700px', '600px'],
+                    content: '<iframe src="fifthpart/usePreModel?id='+obj.data.id+'" frameborder="0" class="layadmin-iframe"></iframe>',
+                    btn: ['引用组套', '取消'],
+                    yes: function (index,layero) {//将组套里面的的项目添加至数据库
+                        <%--var iframes = $(layero).find("iframe")[0].contentWindow;--%>
+                        <%--var form = iframes.document.getElementById("add");--%>
+                        <%--var table = iframes.layui.table;--%>
+                        <%--var tabledata = table.checkStatus('test-table-toolbar').data;--%>
+                        <%--var myArray = new Array();--%>
+                        <%--var myArray1 = new Array();--%>
+                        <%--var myArray2 = new Array();--%>
+                        <%--for (var i = 0; i < tabledata.length; i++) {--%>
+                        <%--    myArray.push(tabledata[i].itemcode);--%>
+                        <%--    myArray1.push(tabledata[i].requirement);--%>
+                        <%--    myArray2.push(tabledata[i].goal);--%>
+                        <%--}--%>
+                        <%--$.ajax({--%>
+                        <%--    type: "POST",--%>
+                        <%--    //todo:连接病历号--%>
+                        <%--    url: "fifthpart/usemubanpros?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}",--%>
+                        <%--    data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,--%>
+                        <%--    success: function (res) {--%>
+                        <%--        if (res.status == 0) {--%>
+                        <%--            layer.msg(res.message)--%>
+                        <%--        } else {--%>
+                        <%--            layer.msg(res.message)--%>
+                        <%--        }--%>
+                        <%--        setTimeout(function(){--%>
+                        <%--            window.parent.location.reload();//修改成功后刷新父界面--%>
+                        <%--        }, 100);--%>
+                        <%--    },--%>
+                        <%--    error: function () {--%>
+                        <%--        alert("出现错误");--%>
+                        <%--        return false;--%>
+                        <%--    }--%>
+                        <%--}) //ajax结束--%>
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+                });
             }
         });
     });

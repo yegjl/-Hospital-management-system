@@ -476,4 +476,23 @@
                 #{day_settle_sign,jdbcType=CHAR}, #{expense_date,jdbcType=DATE}, #{is_consume,jdbcType=CHAR}
                )
     </insert>
+
+    <select id="getpreModels"  resultType="com.neusoft.ssm.bean.Prescribemodel">
+        select * from prescribemodel
+    </select>
+
+    <select id="findPreModelById" parameterType="java.lang.Integer" resultType="com.neusoft.ssm.bean.Prescribemodel">
+        select * from prescribemodel
+        where id=#{id}
+    </select>
+
+    <select id="findPreLogsById" parameterType="java.lang.Integer"  resultType="com.neusoft.ssm.bean.Prescribemodellog">
+        select * from prescribemodellog
+        where prescribemodelid=#{id}
+    </select>
+
+    <delete id="deleteModelById" >
+        delete from prescribemodel
+        where id=#{i}
+    </delete>
 </mapper>
