@@ -220,7 +220,7 @@
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
                                         <div class="layui-input-inline">
-                                            <input type="text" id="medical_record_no" class="layui-input" placeholder="请输入病历号">
+                                            <input type="text" id="medical_record_no" class="layui-input" placeholder="请输入病历号" value="${medicalRecordNo}">
                                         </div>
                                         <label class="layui-form-label">日期范围</label>
                                         <div class="layui-input-inline">

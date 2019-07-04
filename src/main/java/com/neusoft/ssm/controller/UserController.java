@@ -7,6 +7,7 @@ import com.neusoft.ssm.service.IUserService;
 import com.neusoft.ssm.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -102,13 +103,13 @@ public class UserController {
      * 跳转至挂号收费员主页
      */
     @RequestMapping(value = "/index01")
-    public String index01() { return "fifthpart/ODW_index"; }
+    public String index01() { return "department/department"; }
 
     /**
      * 跳转至门诊医生主页
      */
     @RequestMapping(value = "/index02")
-    public String index02() { return  "department/department"; }
+    public String index02() { return  "Register_Index"; }
 
     /**
      * 跳转至医技医生主页
@@ -120,49 +121,20 @@ public class UserController {
      * 跳转至药房操作员主页
      */
     @RequestMapping(value = "/index04")
-    public String index04() { return  "Pharmacy_Workstation/PW_index"; }
+    public String index04() { return  "sixpart/TSGZZ_index"; }
 
     /**
      * 跳转至财务管理员主页
      */
     @RequestMapping(value = "/index05")
-    public String index05() { return  "register/register"; }
+    public String index05() { return  "Pharmacy_Workstation/PW_index"; }
 
     /**
      * 跳转至医院管理员主页
      */
     @RequestMapping(value = "/index06")
-    public String index06() { return  "expense/expense"; }
+    public String index06() { return  "FinancialM_Index"; }
 
-    @RequestMapping(value = "/index07")
-    public String index07() { return  "Pharmacy_Workstation/PW_index"; }
-
-    @RequestMapping(value = "/index08")
-    public String index08() { return  "expense/daily_settle"; }
-
-    @RequestMapping(value = "/index09")
-    public String index09() { return  "schedule/schedule"; }
-
-    @RequestMapping(value = "/index10")
-    public String index10() { return  "finance/expense_account"; }
-
-    @RequestMapping(value = "/index11")
-    public String index11() { return  "finance/settle_check"; }
-
-    @RequestMapping(value = "/index12")
-    public String index12() { return  "expense/search_expense"; }
-
-    @RequestMapping(value = "/index13")
-    public String index13() { return  "statistic/dept_statistic"; }
-
-    @RequestMapping(value = "/index14")
-    public String index14() { return  "statistic/doc_statistic"; }
-
-    @RequestMapping(value = "/index15")
-    public String index15() { return  "Pharmacy_Workstation/PW_index"; }
-
-    @RequestMapping(value = "/index16")
-    public String index16() { return  "sixpart/TSGZZ_index"; }
     //实现注册
     @RequestMapping(value = "/implAdd", method = RequestMethod.POST)
     @ResponseBody
@@ -340,5 +312,22 @@ public class UserController {
     public String getdelock(String password) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
         String passwd = MD5.JM(password);
         return passwd;
+    }
+
+    @RequestMapping(value = "/index")
+    public String index01(String id, String name, Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("id", id);
+        //model.addAttribute("departments", departmentService.findAll());
+        if (id.equals("01"))
+            return "register/register";
+        else if(id.equals("02"))
+            return "expense/expense";
+        else if(id.equals("03"))
+            return "expense/search_expense";
+        else if(id.equals("04"))
+            return "expense/daily_settle";
+        else
+            return "";
     }
 }

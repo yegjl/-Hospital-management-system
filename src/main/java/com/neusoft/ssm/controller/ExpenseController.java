@@ -13,6 +13,7 @@ import com.neusoft.ssm.util.DateTool;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -407,5 +408,22 @@ public class ExpenseController {
         search = null;
         startDate = null;
         endDate = null;
+    }
+
+    @RequestMapping(value = "/index")
+    public String index01(String id, String name, Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("id", id);
+        //model.addAttribute("departments", departmentService.findAll());
+        if (id.equals("01"))
+            return "finance/expense_account";
+        else if(id.equals("02"))
+            return "finance/settle_check";
+        else if(id.equals("03"))
+            return "statistic/dept_statistic";
+        else if(id.equals("04"))
+            return "statistic/doc_statistic";
+        else
+            return "";
     }
 }

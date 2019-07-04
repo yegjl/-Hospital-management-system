@@ -71,7 +71,7 @@
                     <div class="layui-tab-item"><iframe src="fifthpart/index?id=05&medicalRecordNo=${medicalRecordNo}"style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item"><iframe src="fifthpart/index?id=06"
                             style="height: 700px;width: 100%" frameborder="0"></iframe></div>
-                    <div class="layui-tab-item"><iframe src="login/index12" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
+                    <div class="layui-tab-item"><iframe src="login/index12?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容9</div>
                 </div>
             </div>
