@@ -132,4 +132,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void insertDispenselog(Dispensecategory dispensecategory) {
          dispensecategoryDao.insertSelective(dispensecategory);
     }
+
+    @Override
+    public int getDoctorID(String medical_record_no) {
+        return expenseMapper.getDoctorID(medical_record_no);
+    }
 }

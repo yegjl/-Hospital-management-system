@@ -110,8 +110,9 @@
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
                             <select name="times" lay-verify="required" lay-search>
                                 <option value="">请输入或搜素搜频次</option>
-                                <option value="01">名称一</option>
-                                <option value="02">名称二</option>
+                                <option value="一天一次">一天一次</option>
+                                <option value="一天两次">一天两次</option>
+                                <option value="一天三次">一天三次</option>
                             </select>
                         </div>
                         <br>

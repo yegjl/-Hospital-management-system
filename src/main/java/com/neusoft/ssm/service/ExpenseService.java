@@ -54,4 +54,6 @@ public interface ExpenseService {
     void insertDispense(Dispense dispense);
 
     void insertDispenselog(Dispensecategory dispensecategory);
+
+    int getDoctorID(String medical_record_no);
 }

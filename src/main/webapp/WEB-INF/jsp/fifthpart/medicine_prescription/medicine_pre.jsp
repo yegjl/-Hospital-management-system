@@ -822,9 +822,9 @@
                                     layer.msg(res.message);
                                 }
                                 setTimeout(function () {
-                                    window.parent.location
-                                        .reload(); //修改成功后刷新父界面
+                                    layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
+                                layer.closeAll();
                             },
                             error: function () {
                                 alert("出现错误");
@@ -875,7 +875,7 @@
                                     layer.msg(res.message)
                                 }
                                 setTimeout(function () {
-                                    window.parent.location.reload();
+                                    layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
                                 layer.closeAll();
                                 // window.parent.layui.table.reload('test-table-reload',{page: {curr: 1}});
@@ -1018,9 +1018,9 @@
                                 }
 
                                 setTimeout(function () {
-                                    window.parent.location
-                                        .reload(); //修改成功后刷新父界面
+                                    layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
+                                layer.closeAll();
                             },
                             error: function () {
                                 alert("出现错误");
@@ -1079,11 +1079,10 @@
                                 } else {
                                     layer.msg(res.message);
                                 }
-
                                 setTimeout(function () {
-                                    window.parent.location
-                                        .reload(); //修改成功后刷新父界面
+                                    layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
+                                layer.closeAll();
                             },
                             error: function () {
                                 alert("出现错误");

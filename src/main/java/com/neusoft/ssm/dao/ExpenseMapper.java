@@ -182,4 +182,7 @@ public interface ExpenseMapper {
     int getDispenseNum(String medical_record_no);
 
     void insertDispense(Dispense dispense);
+
+    int getDoctorID(String medical_record_no);
+
 }

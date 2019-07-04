@@ -5,7 +5,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.ssm.bean.*;
 import com.neusoft.ssm.dto.ResultDTO;
-import com.neusoft.ssm.service.DrugstoreService;
+import com.neusoft.ssm.service.*;
+import com.neusoft.ssm.util.DBTool;
+import com.neusoft.ssm.util.DateTool;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,20 @@ import java.util.List;
 @RequestMapping("drugstore")
 public class DrugstoreController {
     @Autowired
+    RegisterService registerService;
+
+    @Autowired
     DrugstoreService drugstoreService;
+
+    @Autowired
+    FeetypeService feetypeService;
+
+    @Autowired
+    DepartmentService departmentService;
+
+    @Autowired
+    DoctorService doctorService;
+//    String settle = feetypeService.findById(registerService.findByRecord(medical_record_no).getSettle_accounts_category());
 
     @RequestMapping(value = "/dispensing")
     public String dispensing(){
@@ -354,22 +369,46 @@ public class DrugstoreController {
         return resultDTO;
     }
 
+
+
     //发药界面中间上面部分表单的重载
     @RequestMapping(value = "/getRegistInfo",method = RequestMethod.GET)
     @ResponseBody
-    public ResultDTO<RegistrationInfo> getRegistInfo(String medicalrecordno){
-        ResultDTO<RegistrationInfo> resultDTO = new ResultDTO();
-        try {
-            RegistrationInfo list = drugstoreService.getInfoByRecordno(medicalrecordno);
-            resultDTO.setStatus(0);
-            resultDTO.setMessage("操作成功");
-            resultDTO.setData(list);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultDTO.setStatus(1);
-            resultDTO.setMessage("操作失败！");
-        }
-        return resultDTO;
+    public String[] getRegistInfo(String medicalrecordno){
+//        ResultDTO<RegistrationInfo> resultDTO = new ResultDTO();
+        String[] info = new String[20];
+        Date createtime= new java.sql.Date(new Date().getTime());
+        String num = medicalrecordno;
+        String name = registerService.findByRecord(medicalrecordno).getPatient_name();
+        String gender = DBTool.dbToGender(registerService.findByRecord(medicalrecordno).getGender());
+        int aaage = registerService.findByRecord(medicalrecordno).getAge().intValue();
+        String age = aaage + "";
+        String settle = feetypeService.findById(registerService.findByRecord(medicalrecordno).getSettle_accounts_category());
+        String department = departmentService.findNameById(doctorService.findDeptCodeById(registerService.findByRecord(medicalrecordno).getDoctor_id()));
+        String time = DateTool.getDateToString(drugstoreService.getInfoByRecordno(medicalrecordno).getRegistration_date());
+        String doctor = doctorService.findNameById(registerService.findByRecord(medicalrecordno).getDoctor_id());
+
+        info[0] = num;
+        info[1] = name;
+        info[2] = gender;
+        info[3] = age;
+        info[4] = settle;
+        info[5] = department;
+        info[6] = time;
+        info[7] = doctor;
+        return info;
+//                try {
+//            RegistrationInfo list = drugstoreService.getInfoByRecordno(medicalrecordno);
+//            String settle = feetypeService.findById(registerService.findByRecord(medicalrecordno).getSettle_accounts_category());
+//            resultDTO.setStatus(0);
+//            resultDTO.setMessage("操作成功");
+//            resultDTO.setData(list);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            resultDTO.setStatus(1);
+//            resultDTO.setMessage("操作失败！");
+//        }
+//        return resultDTO;
     }
 
     //changestatus,通过病历号，用于（发药、全退）

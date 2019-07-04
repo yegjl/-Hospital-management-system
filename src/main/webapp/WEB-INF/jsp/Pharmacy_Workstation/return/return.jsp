@@ -151,6 +151,15 @@
                     </div>
                     <div class="layui-table-body">
                         <table class="layui-hide" id="test-table-simple"></table>
+                        <script type="text/html" id="test-table-statusTpl">
+                            {{#  if(d.dispensestatus == 0){ }}
+                            <span style="color: #000000;">{{ "未发药"}}</span>
+                            {{#  } else if(d.dispensestatus == 1) { }}
+                            <span style="color: #05F936;">{{ "已发药" }}</span>
+                            {{#  } else if(d.dispensestatus == 2) { }}
+                            <span style="color: #FF0000;">{{ "已退药" }}</span>
+                            {{#  } }}
+                        </script>
                     </div>
                 </div>
             </div>
@@ -348,6 +357,7 @@
                 },{
                     field: 'dispensestatus',
                     width: 130,
+                    templet:'#test-table-statusTpl',
                     title: '发药状态'
                 }]
             ],page: true
@@ -375,44 +385,30 @@
                     url: "drugstore/getRegistInfo?medicalrecordno="+medicalrecordno,//url
                     async: false,
                     success: function (result) {
-                        if (result.status == 0) {
-                            logs= result.data;
-                            $("#medical_record_no").empty();
-                            $("#patient_name").empty();
-                            $("#gender").empty();
-                            $("#age").empty();
-                            $("#settle_accounts_category").empty();
-                            $("#department_id").empty();
-                            $("#date").empty();
-                            $("#doctor_id").empty();
-                            document.getElementById("medical_record_no").setAttribute("value",logs.medical_record_no);
-                            document.getElementById("patient_name").setAttribute("value",logs.patient_name);
-                            document.getElementById("gender").setAttribute("value",logs.gender) ;
-                            document.getElementById("age").setAttribute("value",logs.age) ;
-                            document.getElementById("settle_accounts_category").setAttribute("value",logs.settle_accounts_category) ;
-                            document.getElementById("department_id").setAttribute("value",logs.department_id);
-                            // var now = new Date(logs.registration_date);
-                            // var str = now.format("yyyy-MM-dd");
-                            var month=0;
-                            var day=0;
-                            var date=new Date(logs.registration_date);
-                            if((date.getMonth()+1)>=10)
-                            {
-                                month=date.getMonth()+1;
-                            }else
-                            {
-                                month="0"+(date.getMonth()+1);
-                            }
-                            if(date.getDate()>=10)
-                            {
-                                day=date.getDate();
-                            }else {
-                                day="0"+date.getDate();
-                            }
-                            var setDate=date.getFullYear()+"-"+month+"-"+day;
-                            document.getElementById("date").setAttribute("value",setDate);
-                            document.getElementById("doctor_id").setAttribute("value",logs.doctor_id) ;
-                        }
+                        var num = result[0];
+                        var name = result[1];
+                        var gender = result[2];
+                        var age = result[3];
+                        var settle = result[4];
+                        var department = result[5];
+                        var time = result[6];
+                        var doctor = result[7];
+                        $("#medical_record_no").empty();
+                        $("#patient_name").empty();
+                        $("#gender").empty();
+                        $("#age").empty();
+                        $("#settle_accounts_category").empty();
+                        $("#department_id").empty();
+                        $("#date").empty();
+                        $("#doctor_id").empty();
+                        document.getElementById("medical_record_no").setAttribute("value",num);
+                        document.getElementById("patient_name").setAttribute("value",name);
+                        document.getElementById("gender").setAttribute("value",gender) ;
+                        document.getElementById("age").setAttribute("value",age) ;
+                        document.getElementById("settle_accounts_category").setAttribute("value",settle) ;
+                        document.getElementById("department_id").setAttribute("value",department);
+                        document.getElementById("date").setAttribute("value",time);
+                        document.getElementById("doctor_id").setAttribute("value",doctor) ;
                     },
                     error: function (result) {
                         alert(result.msg);

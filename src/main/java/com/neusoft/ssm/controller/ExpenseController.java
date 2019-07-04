@@ -249,12 +249,13 @@ public class ExpenseController {
                 String medical_record_no = expense.getMedical_record_no();
                 String itemcode = expense.getExpense_id();
                 String patient_name = expenseService.getPatientName(medical_record_no);
+                int docid = expenseService.getDoctorID(medical_record_no);
                 Dispense dispense = new Dispense();
                 Date createtime= new java.sql.Date(new java.util.Date().getTime());
                 if(expenseService.getDispenseNum(medical_record_no)==0){
                     dispense.setMedicalrecordid(medical_record_no);
                     dispense.setPatientname(patient_name);
-                    dispense.setDoctorid(1);
+                    dispense.setDoctorid(docid);
                     dispense.setDispensestatus(0);
                     dispense.setDispensedate(createtime);
                     expenseService.insertDispense(dispense);

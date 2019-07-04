@@ -3,18 +3,18 @@
 <mapper namespace="com.neusoft.ssm.dao.ExpenseMapper">
     <resultMap id="BaseResultMap" type="com.neusoft.ssm.bean.Expense">
         <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="medical_record_no" jdbcType="CHAR" property="medicalRecordNo" />
-        <result column="expense_category" jdbcType="CHAR" property="expenseCategory" />
-        <result column="expense_id" jdbcType="VARCHAR" property="expenseId" />
-        <result column="prescribe_id" jdbcType="INTEGER" property="prescribeId" />
+        <result column="medical_record_no" jdbcType="CHAR" property="medical_record_no" />
+        <result column="expense_category" jdbcType="CHAR" property="expense_category" />
+        <result column="expense_id" jdbcType="VARCHAR" property="expense_id" />
+        <result column="prescribe_id" jdbcType="INTEGER" property="prescribe_id" />
         <result column="number" jdbcType="DECIMAL" property="number" />
         <result column="expense" jdbcType="DECIMAL" property="expense" />
-        <result column="real_expense" jdbcType="DECIMAL" property="realExpense" />
-        <result column="pay_category" jdbcType="CHAR" property="payCategory" />
-        <result column="pay_sign" jdbcType="CHAR" property="paySign" />
-        <result column="day_settle_sign" jdbcType="CHAR" property="daySettleSign" />
-        <result column="expense_date" jdbcType="DATE" property="expenseDate" />
-        <result column="is_consume" jdbcType="CHAR" property="isConsume" />
+        <result column="real_expense" jdbcType="DECIMAL" property="real_expense" />
+        <result column="pay_category" jdbcType="CHAR" property="pay_category" />
+        <result column="pay_sign" jdbcType="CHAR" property="pay_sign" />
+        <result column="day_settle_sign" jdbcType="CHAR" property="day_settle_sign" />
+        <result column="expense_date" jdbcType="DATE" property="expense_date" />
+        <result column="is_consume" jdbcType="CHAR" property="is_consume" />
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -481,4 +481,9 @@
             </if>
         </trim>
     </insert>
+
+    <select id="getDoctorID" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select doctorid from prescribe
+        where medicalrecordid = #{medical_record_no,jdbcType=VARCHAR}
+    </select>
 </mapper>
