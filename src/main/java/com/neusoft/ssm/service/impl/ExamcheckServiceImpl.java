@@ -119,4 +119,24 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         examcheckoneMapper.insertExpense(expense);
     }
 
+    @Override
+    public List<Prescribemodel> getpreModels() {
+        return examcheckoneMapper.getpreModels();
+    }
+
+    @Override
+    public Prescribemodel findPreModelById(Integer id) {
+        return examcheckoneMapper.findPreModelById(id);
+    }
+
+    @Override
+    public List<Prescribemodellog> findPreLogsById(Integer id) {
+        return examcheckoneMapper.findPreLogsById(id);
+    }
+
+    @Override
+    public void deleteModelById(Integer i) {
+        examcheckoneMapper.deleteModelById(i);
+    }
+
 }

@@ -13,26 +13,26 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="department/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="department/style/admin.css" media="all">
 </head>
 
 <body>
 
-    <div class="layui-fluid" id="html1">
-        <div class="layui-row layui-col-space15">
-            <div class="layui-card layui-form" lay-filter="component-form-element">
-                <div style="padding: 20px;">
+<div class="layui-fluid" id="html1">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card layui-form" lay-filter="component-form-element">
+            <div style="padding: 20px;">
 
-                    <div class="layui-row">
-                        <form id="addmodel"  role="form">
+                <div class="layui-row">
+                    <form id="addmodel"  role="form">
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">
-                                <p style="margin: auto;font-size: 150%">组套编码：</p>
+                                <p style="margin: auto;font-size: 150%">模板编码：</p>
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" name="prescribemodelid" autocomplete="off">
+                                <input class="layui-input" name="prescribemodelid" autocomplete="off" value="${prescribemodel.prescribemodelid}">
                             </div>
                         </div>
 
@@ -40,12 +40,12 @@
                         <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">
                                 <div style="margin-left: 5px">
-                                    <p style="margin: auto;font-size: 150%;">组套名称：</p>
+                                    <p style="margin: auto;font-size: 150%;">模板名称：</p>
                                 </div>
 
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" name="prescribemodelname" autocomplete="off">
+                                <input class="layui-input" name="prescribemodelname" autocomplete="off" value="${prescribemodel.prescribemodelname}">
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@
                                 <p style="margin: auto;font-size: 150%">创建医生：</p>
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" id="createman" name="createman" autocomplete="off" readonly>
+                                <input class="layui-input" id="createman" name="createman" autocomplete="off" value="${prescribemodel.createman}" readonly>
                             </div>
                         </div>
 
@@ -129,217 +129,215 @@
 
                             </div>
                             <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-                                <input class="layui-input" id="createdept" name="createdept" autocomplete="off" readonly>
+                                <input class="layui-input" id="createdept" name="createdept" autocomplete="off" value="${prescribemodel.createdept}" readonly>
                             </div>
                         </div>
-                        </form>
+                    </form>
 
-                        <hr class="layui-bg-green">
-                        <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">
-                            <div class="layui-card-body">
-                                <div class="layui-fluid" id="LAY-component-layer-special-demo">
-                                    <div class="layui-btn-container layadmin-layer-demo">
-                                        <div class="layui-btn-group">
+                    <hr class="layui-bg-green">
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">
+                        <div class="layui-card-body">
+                            <div class="layui-fluid" id="LAY-component-layer-special-demo">
+                                <div class="layui-btn-container layadmin-layer-demo">
+                                    <div class="layui-btn-group">
 
-                                            <button data-method="add"
-                                                    class=" layui-btn layui-btn-xs layui-btn-normal"><i
-                                                    class="layui-icon" type="button">&#xe654;</i>增加</button>
-                                            <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
-                                                    class="layui-icon">&#xe640;</i>删除</button>
-                                            <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
-                                                    class="layui-icon">&#xe642;</i>修改</button>
-                                            <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
-                                                    class="layui-icon">&#xe615;</i>查询</button>
-                                        </div>
+                                        <button data-method="add"
+                                                class=" layui-btn layui-btn-xs layui-btn-normal"><i
+                                                class="layui-icon" type="button">&#xe654;</i>增加</button>
+                                        <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
+                                                class="layui-icon">&#xe640;</i>删除</button>
+                                        <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
+                                                class="layui-icon">&#xe642;</i>修改</button>
+                                        <button class=" layui-btn layui-btn-xs layui-btn-normal"><i
+                                                class="layui-icon">&#xe615;</i>查询</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
-                            <div class="layui-input-block" style="margin-left: 18%">
-                                <table class="layui-hide" id="test-table-toolbar" lay-filter="test-table-toolbar">
-                                </table>
-                            </div>
-                        </div>
-
                     </div>
 
-
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
+                        <div class="layui-input-block" style="margin-left: 18%">
+                            <table class="layui-hide" id="test-table-toolbar" lay-filter="test-table-toolbar">
+                            </table>
+                        </div>
+                    </div>
 
                 </div>
-
-
 
 
 
             </div>
 
 
+
+
+
         </div>
+
 
     </div>
 
+</div>
 
 
 
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script src="department/layui/layui.js"></script>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="department/layui/layui.js"></script>
 
 
-    <script>
-        layui.config({
-            base: 'department/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use(['index', 'form'], function () {
-            var $ = layui.$,
-                admin = layui.admin,
-                element = layui.element,
-                form = layui.form;
+<script>
+    layui.config({
+        base: 'department/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function () {
+        var $ = layui.$,
+            admin = layui.admin,
+            element = layui.element,
+            form = layui.form;
 
-            form.render(null, 'component-form-element');
-            element.render('breadcrumb', 'breadcrumb');
+        form.render(null, 'component-form-element');
+        element.render('breadcrumb', 'breadcrumb');
 
-            form.on('submit(component-form-element)', function (data) {
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
+        form.on('submit(component-form-element)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
         });
-    </script>
+    });
+</script>
 
-    <!-- 数据表格 -->
-    <script>
-        layui.config({
-            base: 'department/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use(['index', 'table'], function () {
-            var admin = layui.admin,
-                table = layui.table;
-            var table1 = parent.layui.table;
-            var tabledata = table1.cache['test-table-cellEdit-middle'];
-            var myData = [];
-            for (var i = 0; i < tabledata.length; i++) {
-                var data1={drugsname:tabledata[i].drugsname,format:tabledata[i].format,price:tabledata[i].price,usage:tabledata[i].usage,dosage:tabledata[i].dosage,unit:tabledata[i].unit,times:tabledata[i].times,entrust:tabledata[i].entrust};
-                myData.push(data1);
-            }
-            JSON.stringify(myData);
-            table.render({
-                elem: '#test-table-toolbar',
-                // url: layui.setter.base + 'json/table/demo.js',
-                // toolbar: '#test-table-toolbar-toolbarDemo',
-                title: '项目数据表',
-                width: 475,
-                cols: [
-                    [{
-                        type: 'checkbox',
-                        fixed: 'left'
-                    }, {
-                        field: 'drugsname',
-                        title: '药品名称*',
-                        width: 180,
-                        sort: true,
-                        edit: 'text'
-                        }, {
-                        field: 'format',
-                        title: '规格*',
-                        width: 180,
-                        edit: 'text'
-                    },{
-                        field: 'price',
-                        title: '单价*',
-                        width: 180,
-                        edit: 'text'
+<!-- 数据表格 -->
+<script>
+    layui.config({
+        base: 'department/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function () {
+        var admin = layui.admin,
+            table = layui.table;
+        var myData = [];
+        <c:forEach items="${prescribemodellogs}" var="infos">
+        var data1={drugsname:"${infos.medicalname}",format:"${infos.format}",price:"${infos.price}",usage:"${infos.usage}",dosage:"${infos.dosage}",times:"${infos.times}",unit:"${infos.unit}",entrust:"${infos.entrust}"};
+        myData.push(data1); //js中可以使用此标签，将EL表达式中的值push到数组中
+        </c:forEach>
+        JSON.stringify(myData);
+        table.render({
+            elem: '#test-table-toolbar',
+            // url: layui.setter.base + 'json/table/demo.js',
+            // toolbar: '#test-table-toolbar-toolbarDemo',
+            title: '项目数据表',
+            width: 475,
+            cols: [
+                [{
+                    type: 'checkbox',
+                    fixed: 'left'
+                }, {
+                    field: 'drugsname',
+                    title: '药品名称*',
+                    width: 180,
+                    sort: true,
+                    edit: 'text'
+                }, {
+                    field: 'format',
+                    title: '规格*',
+                    width: 180,
+                    edit: 'text'
+                },{
+                    field: 'price',
+                    title: '单价*',
+                    width: 180,
+                    edit: 'text'
+                },
+                    {
+                        field: 'usage',
+                        title: '用法',
+                        width: 180
                     },
-                        {
-                            field: 'usage',
-                            title: '用法',
-                            width: 180
-                        },
-                        {
-                            field: 'dosage',
-                            title: '用量 ',
-                            width: 180
-                        },
-                        {
-                            field: 'unit',
-                            title: '单位*',
-                            width: 180
-                        },
-                        {
-                            field: 'times',
-                            title: '频次 ',
-                            width: 180
-                        },
-                        {
+                    {
+                        field: 'dosage',
+                        title: '用量 ',
+                        width: 180
+                    },
+                    {
+                        field: 'unit',
+                        title: '单位*',
+                        width: 180
+                    },
+                    {
+                        field: 'times',
+                        title: '频次 ',
+                        width: 180
+                    },
+                    {
                         field: 'entrust',
                         title: '用药嘱托',
                         width: 200
                     }]
-                ],
-                data:myData,
-                page: true
-            });
-
-            //头工具栏事件
-            table.on('toolbar(test-table-toolbar)', function (obj) {
-                var checkStatus = table.checkStatus(obj.config.id);
-                switch (obj.event) {
-                    case 'getCheckData':
-                        var data = checkStatus.data;
-                        layer.alert(JSON.stringify(data));
-                        break;
-                    case 'getCheckLength':
-                        var data = checkStatus.data;
-                        layer.msg('选中了：' + data.length + ' 个');
-                        break;
-                    case 'isAll':
-                        layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                        break;
-                };
-            });
-
-            //监听行工具事件
-            table.on('tool(test-table-toolbar)', function (obj) {
-                var data = obj.data;
-                if (obj.event === 'del') {
-                    layer.confirm('真的删除行么', function (index) {
-                        obj.del();
-                        layer.close(index);
-                    });
-                } else if (obj.event === 'edit') {
-                    layer.prompt({
-                        formType: 2,
-                        value: data.email
-                    }, function (value, index) {
-                        obj.update({
-                            email: value
-                        });
-                        layer.close(index);
-                    });
-                }
-            });
-
+            ],
+            data:myData,
+            page: true
         });
-    </script>
 
-    <script>
-        window.onload=function() {
-            $("#createman").empty();
-            $("#createdept").empty();
-            document.getElementById("createman").setAttribute("value",${createman});
-            document.getElementById("createdept").setAttribute("value",${createdept});
-            $(function () {
-                $("#first").click();
-            })
-        }
-        layui.config({
-            base: 'department/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use('index');
-    </script>
+        //头工具栏事件
+        table.on('toolbar(test-table-toolbar)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test-table-toolbar)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.prompt({
+                    formType: 2,
+                    value: data.email
+                }, function (value, index) {
+                    obj.update({
+                        email: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+
+    });
+</script>
+
+<script>
+    window.onload=function() {
+        $("#createman").empty();
+        $("#createdept").empty();
+        document.getElementById("createman").setAttribute("value",${createman});
+        document.getElementById("createdept").setAttribute("value",${createdept});
+        $(function () {
+            $("#first").click();
+        })
+    }
+    layui.config({
+        base: 'department/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
 
 
 <%--<!-- 弹窗模块 -->--%>

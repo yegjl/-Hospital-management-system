@@ -46,4 +46,12 @@ public interface ExamcheckService {
     void deleteSetById(Integer i);
 
     void insertExpense(Expense expense);
+
+    List<Prescribemodel> getpreModels();
+
+    Prescribemodel findPreModelById(Integer id);
+
+    List<Prescribemodellog> findPreLogsById(Integer id);
+
+    void deleteModelById(Integer i);
 }
