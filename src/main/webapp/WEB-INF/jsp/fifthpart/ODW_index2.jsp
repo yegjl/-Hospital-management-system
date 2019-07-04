@@ -74,7 +74,7 @@
                             style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item">内容7</div>
                     <div class="layui-tab-item"><iframe src="MedicalRecordPage/indexcost" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
-                    <div class="layui-tab-item">内容9</div>
+                    <div class="layui-tab-item"><iframe src="selfstatis/indexselfstatis?doctorid=${sessionScope.doctorid}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                 </div>
             </div>
         </div>
