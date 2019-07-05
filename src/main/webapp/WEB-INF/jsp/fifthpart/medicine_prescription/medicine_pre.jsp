@@ -662,8 +662,9 @@
                                     layer.msg(res.message);
                                 }
                                 setTimeout(function(){
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
+                                layer.closeAll();
                             },
                             error: function () {
                                 alert("出现错误");
@@ -756,6 +757,7 @@
                                 setTimeout(function () {
                                     layui.table.reload('test-table-cellEdit-middle');
                                 }, 100);
+                                layer.closeAll();
                             },
                             error: function () {
                                 alert("出现错误");

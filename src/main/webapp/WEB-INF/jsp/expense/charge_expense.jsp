@@ -89,7 +89,7 @@
         }
         else if(real_expense > expense) {
             var m = real_expense - expense;
-            alert("找零" + m + "元");
+            alert("找零" + m.toFixed(2) + "元");
             var opt = document.getElementById("real_expense");
             opt.setAttribute("value", m + "");
             return true;

@@ -253,6 +253,7 @@
     or status = '5'
     or status = '6'
     or status = '7'
+    order by medical_record_no desc
   </select>
 
   <select id="getPro1" parameterType="java.lang.String" resultType="com.neusoft.ssm.bean.Sixpartone">
