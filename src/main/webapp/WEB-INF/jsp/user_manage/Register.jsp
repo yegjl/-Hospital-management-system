@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
   String path = request.getContextPath();
@@ -83,26 +83,6 @@
                 </div>
               </div>
             </div>
-          </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
 
   <script src="department/layui/layui.js"></script>
   <script>
@@ -266,21 +246,23 @@
         edit: function (othis) {
             var type = othis.data('type'),
               text = othis.text();
-
+            var tabledata=layui.table.checkStatus('test-table-reload').data;
             layer.open({
               type: 1,
               offset: type,
               title: '${name}编辑',
               id: 'layerDemo' + type,
               area: ['490px', '460px'],
-              content: '<iframe src="user/editUI1" frameborder="0" class="layadmin-iframe"></iframe>',
+              content: "<iframe name='myframe' src='user/editUI1?login_name="+tabledata[0].login_name+"&password="+tabledata[0].password+"&id="+tabledata[0].id+"&real_name="+tabledata[0].real_name+"&category="+tabledata[0].category+"&deptid="+tabledata[0].deptid+"' frameborder='0' class='layadmin-iframe'></iframe>",
               btn: ['确定', '取消'],
               maxmin: true,
               btnAlign: 'c',
               shade: 0,
               yes: function () {
                 // 写下编辑的提交方法**********************************************************
+                myframe.window.submit();
                 layer.closeAll();
+                layui.table.reload('test-table-reload');
               },
               btn2: function () {
                 layer.closeAll();

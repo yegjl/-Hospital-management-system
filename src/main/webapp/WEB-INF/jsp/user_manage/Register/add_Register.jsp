@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="department/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="department/style/admin.css" media="all">
 </head>
-
+<body>
 
 <form id="add"  role="form">
  <div class="layui-fluid" id="html1">

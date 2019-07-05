@@ -64,6 +64,10 @@ public class UserServiceImpl implements IUserService {
     public boolean updateUser(User user) {
         return userMapper.updateUser(user);
     }
+    @Override
+    public int updateUserByID(User user) {
+        return userMapper.updateUserByID(user);
+    }
 
     @Override
     public List<User> selectByList() {

@@ -22,6 +22,8 @@ public interface IUserService {
 
     int findUserByLgName(String login_name);
 
+    int updateUserByID(User user);
+
     List<User> selectByList();
 
     User findNameById(Long id);

@@ -83,7 +83,6 @@
     <select id="findDeptCountByName" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(deptid) from user where login_name=#{login_name}
     </select>
-
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.User" useGeneratedKeys="true">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -146,5 +145,29 @@
           or login_name like concat(concat('%',#{param1}   ) ,'%'))
         and category=#{param3}
     </select>
+    <update id="updateUserByID" parameterType="User">
+        update user
+        <set>
+            <if test="login_name != null">
+                login_name=#{login_name},
+            </if>
+            <if test="real_name != null">
+                real_name=#{real_name},
+            </if>
+            <if test="deptid != null">
+                deptid=#{deptid} ,
+            </if>
+            <if test="category != null ">
+                category=#{category},
+            </if>
+            <if test="level != null">
+                level=#{level} ,
+            </if>
+            <if test="ifwork != null">
+                ifwork=#{ifwork},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>
 

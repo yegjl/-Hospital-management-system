@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
@@ -20,7 +20,7 @@
 <body>
  <div class="layui-fluid" id="html1">
     <div class="layui-row layui-col-space15">
-        <div class="layui-card layui-form" lay-filter="component-form-element">
+        <form id="form" class="layui-card layui-form" lay-filter="component-form-element">
           <div style="padding: 20px;" style="margin: auto;">
 
             <div class="layui-row">
@@ -29,23 +29,16 @@
             <p style="margin: auto;">登录名：</p>
               </div>
               <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-            <input class="layui-input" id="login_name" name="login_name" autocomplete="off" value="">
+            <input class="layui-input" id="login_name" name="login_name" autocomplete="off" value="${login_name}">
           </div>
           <br>
 
-          <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
-            <p style="margin: auto;">密码：</p>
-              </div>
-              <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-            <input class="layui-input" name="password" id="password" autocomplete="off" >
-          </div>
-          <br>
 
           <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
             <p style="margin: auto;">真实姓名：</p>
               </div>
               <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-            <input class="layui-input" name="real_name" autocomplete="off" readonly="readonly">
+            <input class="layui-input" name="real_name" autocomplete="off"value="${real_name}" >
           </div>
           <br>
 
@@ -53,51 +46,55 @@
             <p style="margin: auto;">所在科室：</p>
               </div>
               <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                  <select name="deptid" lay-verify="required" lay-search>
-                      <c:forEach items="${departments}" var="department">
-                          <option value="${department.id}">${department.deptname}</option>
+                  <select id="departments" name="deptid"  lay-search>
+                      <c:forEach items="${depts}" var="dept">
+                          <option value="${dept.id}">${dept.deptname}</option>
                       </c:forEach>
                   </select>
           </div>
           <br>
 
-          <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
-            <p style="margin: auto;">用户类别：</p>
-              </div>
-              <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-            <input class="layui-input" name="category" autocomplete="off" readonly="readonly">
-          </div>
-          <br>
-
-          <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
-            <p style="margin: auto;">医生职称：</p>
-              </div>
-              <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-               <select name="level" lay-verify="required" lay-search>
-                      <option value="">请选择职称</option>
-                      <option value="01">主任医师</option>
-                      <option value="02">副主任医师</option>
-                      <option value="03">主治医师</option>
-                      <option value="04">住院医师</option>
-
+                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md1">
+                        <p style="margin: auto;">用户类别：</p>
+                    </div>
+                <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
+                    <select id="usercategorys" name="category"  lay-search>
+                        <option value="01">挂号收费员</option>
+                        <option value="02">门诊医生</option>
+                        <option value="03">医技医生</option>
+                        <option value="04">药房操作员</option>
+                        <option value="05">财务管理员</option>
+                        <option value="06">医院管理员</option>
                     </select>
           </div>
           <br>
 
-           <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
-            <p style="margin: auto;">是否参与排班：</p>
+              <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
+                  <p style="margin: auto;">医生职称：</p>
               </div>
               <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-               <select name="ifwork" lay-verify="required" lay-search>
+                  <select id="level" name="level" lay-verify="required" lay-search>
+                      <option value="01">主任医师</option>
+                      <option value="02">副主任医师</option>
+                      <option value="03">主治医师</option>
+                      <option value="04">住院医师</option>
+                  </select>
+              </div>
+              <br>
+
+              <div class="layui-col-xs6 layui-col-sm6 layui-col-md1" >
+                  <p style="margin: auto;">是否参与排班：</p>
+              </div>
+              <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
+                  <select id="ifwork" name="ifwork" lay-verify="required" lay-search>
                       <option value="">请选择是与否</option>
                       <option value="01">是</option>
                       <option value="02">否</option>
 
 
-                    </select>
-          </div>
-          <br>
-
+                  </select>
+              </div>
+              <br>
 
 
         </div>
@@ -110,7 +107,7 @@
 
 
 
-        </div>
+        </form>
 
 
       </div>
@@ -134,26 +131,78 @@
   <script src="department/layui/layui.js"></script>
 
 
-   <script>
-  layui.config({
-    base: 'department/' //静态资源所在路径
-  }).extend({
-    index: 'lib/index' //主入口模块
-  }).use(['index', 'form'], function(){
-    var $ = layui.$
-    ,admin = layui.admin
-    ,element = layui.element
-    ,form = layui.form;
-    
-    form.render(null, 'component-form-element');
-    element.render('breadcrumb', 'breadcrumb');
-    
-    form.on('submit(component-form-element)', function(data){
-      layer.msg(JSON.stringify(data.field));
-      return false;
-    });
-  });
-  </script>
+<script>
+    window.onload = function () {
+        var select1= document.getElementById("departments");
+        var opts1=select1.getElementsByTagName("option");
+        for (var i = 0; i <opts1.length ; i++) {
+            if (opts1[i].innerText=="${deptid}") {
+                opts1[i].selected=true;
+                break;
+            }
+        }
+        var select2= document.getElementById("level");
+        var opts2=select2.getElementsByTagName("option");
+        for (var k = 0; k <opts2.length ; k++) {
+            if (opts2[k].innerText=="${level}") {
+                opts2[k].selected=true;
+                break;
+            }
+        }
+        var select3= document.getElementById("ifwork");
+        var opts3=select3.getElementsByTagName("option");
+        for (var k = 0; k <opts3.length ; k++) {
+            if (opts3[k].innerText=="${ifwork}") {
+                opts3[k].selected=true;
+                break;
+            }
+        }
 
+        var select= document.getElementById("usercategorys");
+        var opts=select.getElementsByTagName("option");
+        for (var j = 0; j <opts.length ; j++) {
+            if (opts[j].innerText=="${category}") {
+                opts[j].selected=true;
+                break;
+            }
+        }
+    };
+    function submit() {
+        // alert("zizizi");
+        var $=layui.$;
+        // var myarray = ["Saab", "Volvo", "BMW"];
+        $.ajax({
+            type: "POST",//方法类型
+            url: "user/update",//url
+            async: false,
+            // data: $("#form").serialize()+"&myarray="+myarray,
+            data: $("#form").serialize()+"&id=${id}",
+            success: function (result) {
+
+            },
+            error: function (result) {
+                alert(result.msg);
+            }
+        });
+    }
+    layui.config({
+        base: 'department/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , element = layui.element
+            , form = layui.form;
+
+        form.render(null, 'component-form-element');
+        element.render('breadcrumb', 'breadcrumb');
+
+        form.on('submit(component-form-element)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
 </body>
 </html>

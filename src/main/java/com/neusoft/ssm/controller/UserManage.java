@@ -70,8 +70,27 @@ public class UserManage {
     }
 
     @RequestMapping(value = "/editUI1")
-    public String index05() {
+    public String index05(Integer id,String category,String deptid,String login_name,String password,String real_name, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("category", category);
+        model.addAttribute("deptid", deptid);
+        model.addAttribute("depts", departmentService.findAll());
+        model.addAttribute("login_name", login_name);
+        model.addAttribute("real_name", real_name);
         return "user_manage/Register/edit_Register";
+    }
+
+    @RequestMapping(value = "/editUI2")
+    public String editUI2(Integer id,String category,String deptid,String login_name,String real_name,String level,String ifwork, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("category", category);
+        model.addAttribute("deptid", deptid);
+        model.addAttribute("depts", departmentService.findAll());
+        model.addAttribute("login_name", login_name);
+        model.addAttribute("real_name", real_name);
+        model.addAttribute("level", level);
+        model.addAttribute("ifwork", ifwork);
+        return "user_manage/Outpatient_Department/edit_Outpatient_Department";
     }
 
     @RequestMapping(value = "/findall",method = RequestMethod.GET)
@@ -89,6 +108,7 @@ public class UserManage {
             }
              for(User user : list){
                  UserDemo userDemo = new UserDemo();
+                 userDemo.setId(user.getId().toString());
                  userDemo.setReal_name(user.getReal_name());
                  userDemo.setLogin_name(user.getLogin_name());
                  userDemo.setPassword(user.getPassword());
@@ -168,7 +188,23 @@ public class UserManage {
         }
         return resultDTO;
     }
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> update(User user) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            int success=iUserService.updateUserByID(user);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(success);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO<Integer> deleteById(String[] names) {
