@@ -72,7 +72,7 @@
                     </div>
                     <br>
 
-                    <div>
+                    <div class="layui-upload-list">
                         <c:forEach items="${examcheckResultPics}" var="url">
                             <img src="static/resultpics/${url.directory}"  height="180" width="180">
                         </c:forEach>
