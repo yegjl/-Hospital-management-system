@@ -79,7 +79,7 @@
                             <div >
 <%--                                <div class="layui-col-md2">--%>
                                     <div style="margin-top: 20%;margin-left:50%;width: 70%" class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                                        <input class="layui-input" name="prestatus" id="prestatus" autocomplete="off" readonly>
+                                        <input class="layui-input" value="${word}" name="prestatus" id="prestatus" autocomplete="off" readonly>
                                     </div>
 <%--                                </div>--%>
                             </div>

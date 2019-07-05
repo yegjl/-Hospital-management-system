@@ -56,19 +56,22 @@
                         <iframe src="MedicalRecordPage/index?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%"
                             frameborder="0"></iframe>
                     </div>
+<%--                    //检查申请--%>
                     <div class="layui-tab-item">
                         <iframe src="fifthpart/index?id=02&medicalRecordNo=${medicalRecordNo}"
-                            style="height: 700px;width: 100%" frameborder="0"></iframe>//检查申请
+                            style="height: 700px;width: 100%" frameborder="0"></iframe>
                     </div>
+<%--                    //检验申请--%>
                     <div class="layui-tab-item">
                         <iframe src="fifthpart/index?id=03&medicalRecordNo=${medicalRecordNo}"
-                                style="height: 700px;width: 100%" frameborder="0"></iframe>//检验申请
+                                style="height: 700px;width: 100%" frameborder="0"></iframe>
                     </div>
+<%--                    //处置申请--%>
                     <div class="layui-tab-item">
                         <iframe src="fifthpart/index?id=04&medicalRecordNo=${medicalRecordNo}"
-                                style="height: 700px;width: 100%" frameborder="0"></iframe>//处置申请
+                                style="height: 700px;width: 100%" frameborder="0"></iframe>
                     </div>
-                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=05&medicalRecordNo=${medicalRecordNo}"style="height: 700px;width: 100%" frameborder="0"></iframe></div>
+                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=05&medicalRecordNo=${medicalRecordNo}&word=未开立"style="height: 700px;width: 100%" frameborder="0"></iframe></div>
 <%--                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=06"--%>
 <%--                            style="height: 700px;width: 100%" frameborder="0"></iframe></div>--%>
 <%--                    <div class="layui-tab-item"><iframe src="login/index12?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>--%>

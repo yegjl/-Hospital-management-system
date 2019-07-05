@@ -34,7 +34,7 @@ public class FifthPartController {
     @Autowired
     RegistrationLevelService registrationLevelService;
     @RequestMapping(value = "/index")
-    public String index(String id, Model model, String medicalRecordNo, HttpSession session) {
+    public String index(String id, Model model, String medicalRecordNo, HttpSession session,String word) {
         String name;
         model.addAttribute("id", id);
         model.addAttribute("medicalRecordNo", medicalRecordNo);//病历号
@@ -42,6 +42,7 @@ public class FifthPartController {
         model.addAttribute("doctorid", doctorid);
         int medicalid = sixpartService.getMedicalIdByNo(medicalRecordNo);//这是检查检验申请用到的病历号对应的id
         model.addAttribute("medicalid", medicalid);
+
         if (id.equals("01"))
         return "fifthpart/null";
         else if(id.equals("03")) {
@@ -60,6 +61,11 @@ public class FifthPartController {
         }
         else if(id.equals("05")){//草药
             //从之前的界面里面获取到病历号（int还是char），然后传入处方界面使用
+            if (word.equals("已开立")) {
+                model.addAttribute("word", word);
+            } else {
+                model.addAttribute("word", "");
+            }
             if ((session.getAttribute("deptcategoryid").toString()).equals("20")) {
                 model.addAttribute("prescribetype", "草药");
             } else {
@@ -85,7 +91,12 @@ public class FifthPartController {
         return "fifthpart/ODW_index2";
     }
     @RequestMapping(value = "/index3")
-    public String index3(String medicalRecordNo,Model model) {
+    public String index3(String medicalRecordNo,Model model,HttpSession session) {
+        if ((session.getAttribute("deptcategoryid").toString()).equals("20")) {
+            model.addAttribute("prescribetype", "草药");
+        } else {
+            model.addAttribute("prescribetype", "成药");
+        }
         model.addAttribute("medicalRecordNo", medicalRecordNo);
         return "fifthpart/ODW_index3";
     }
