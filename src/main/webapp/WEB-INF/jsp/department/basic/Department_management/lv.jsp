@@ -46,11 +46,17 @@
 
                                     <div class="layui-btn-container layadmin-layer-demo">
                                         <%--                  <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>--%>
-                                        <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>
-                                        <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>
-                                        <!-- 删除部分还没有填充函数 ************************************************************************-->
-                                        <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>
+<%--                                        <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>--%>
+<%--                                        <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
+<%--                                        <!-- 删除部分还没有填充函数 ************************************************************************-->--%>
+<%--                                        <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
 
+                                            <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>
+                                            <button data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</button>
+                                            <%--                      <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
+                                            <!-- 删除部分还没有填充函数 ************************************************************************-->
+                                            <%--                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
+                                            <button data-method="deltable" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
 
                                     </div>
                                 </div>

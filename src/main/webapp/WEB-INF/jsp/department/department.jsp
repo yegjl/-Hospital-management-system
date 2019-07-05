@@ -17,6 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="department/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="department/style/admin.css" media="all">
+  <link type="text/css" rel="stylesheet" href="css/icons.css" />
 
 
 </head>
@@ -95,17 +96,16 @@
         <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
           <li data-name="home" class="layui-nav-item">
             <a href="javascript:;" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-group"></i>
               <cite>科室管理</cite>
             </a>
             <dl id="cgNames"class="layui-nav-child">
-
             </dl>
           </li>
 
           <li data-name="home" class="layui-nav-item">
             <a href="javascript:;" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-friends" ></i>
               <cite>用户管理</cite>
             </a>
             <dl id="cgNames1"class="layui-nav-child">
@@ -136,7 +136,7 @@
 
             <li data-name="home" class="layui-nav-item">
                 <a lay-href="registrationLevel/index?name=挂号级别" lay-tips="主页" lay-direction="2">
-                    <i class="layui-icon layui-icon-home"></i>
+                    <i class="layui-icon layui-icon-list"></i>
                     <cite>挂号级别管理</cite>
                 </a>
             </li>
@@ -144,14 +144,14 @@
 
           <li data-name="home" class="layui-nav-item">
             <a lay-href="fee/index?name=结算类别管理" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-rmb"></i>
               <cite>结算类别管理</cite>
             </a>
           </li>
 
           <li data-name="home" class="layui-nav-item">
             <a href="javascript:;" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-menu-fill"></i>
               <cite>诊断目录管理</cite>
             </a>
 
@@ -160,14 +160,14 @@
 
           <li data-name="home" class="layui-nav-item">
             <a lay-href="fmedItem/index?name=非药品收费项目" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-layouts"></i>
               <cite>非药品收费项目管理</cite>
             </a>
           </li>
 
           <li data-name="home" class="layui-nav-item">
             <a lay-href="schedule/index?name=医生排班管理" lay-tips="主页" lay-direction="2">
-              <i class="layui-icon layui-icon-home"></i>
+              <i class="layui-icon layui-icon-date"></i>
               <cite>医生排班管理</cite>
             </a>
           </li>

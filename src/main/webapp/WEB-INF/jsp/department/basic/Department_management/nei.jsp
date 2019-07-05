@@ -37,28 +37,31 @@
 <%--                  <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" style="width: 130px;display: inline;margin:10px;">--%>
 <%--                  <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>--%>
 <%--                </div>--%>
-
+              <div class="layui-inline">
                 <div class="demoTable">
                   搜索ID：
                   <div class="layui-inline">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off">
                   </div>
-                  <button class="layui-btn" data-type="reload">搜索</button>
-                </div>
 
-                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="float: left;">
+                  <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                </div>
+              </div>
                   <%--                搜索ID：--%>
                   <%--    <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" style="width: 200px;display: inline;margin:10px;">--%>
                   <%--    <input id="test-table-demoReload"  style="width: 200px;display: inline;margin:10px;">--%>
 
-
-                  <div class="layui-btn-container layadmin-layer-demo">
+                <div class="layui-inline">
+                  <div class="layui-btn-container layadmin-layer-demo" style="float: right">
                     <%--                  <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>--%>
-                    <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>
-                    <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>
+<%--                    <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>--%>
+                      <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>
+                      <button data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</button>
+<%--                      <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
                     <!-- 删除部分还没有填充函数 ************************************************************************-->
-                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>
-                    <button data-method="upload" data-type="auto" class="layui-btn" style="margin: 10px;"> 导入</button>
+<%--                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
+                      <button data-method="del" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
+                    <button data-method="upload" data-type="auto" class="layui-btn layui-btn-warm" style="margin: 10px;"><i class="layui-icon">&#xe601;</i> 导入</button>
 
 
                   </div>
@@ -171,7 +174,7 @@
           layer.open({
             type: 1
             ,title: '科室添加'
-            ,area: ['490px', '460px']
+            ,area: ['400px', '460px']
             ,shade: 0
             ,maxmin: true
             ,offset: type
@@ -224,7 +227,7 @@
             ,offset: type
             ,title: '科室编辑'
             ,id: 'layerDemo'+type
-            ,area: ['490px', '460px']
+            ,area: ['400px', '460px']
             ,content: html            // '<form id="update" style="padding: 20px;">id：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="layui-input" id="" autocomplete="off" style="width: 200px;display: inline;margin:10px;" align="center" value="'+tabledata[0].id+'"><br>科室编码：<input class="layui-input" id="" autocomplete="off" style="width: 200px;display: inline;margin:10px;" value="'+tabledata[0].deptcode+'"><br>科室名称：<input class="layui-input" id="" autocomplete="off" style="width: 200px;display: inline;margin:10px;" value="'+tabledata[0].deptname+'"><br>科室分类：<input class="layui-input" id="" autocomplete="off" style="width: 200px;display: inline;margin:10px;" value="'+tabledata[0].deptcategoryid+'"><br>科室类型：<input class="layui-input" id="" autocomplete="off" style="width: 200px;display: inline;margin:10px;" value="'+tabledata[0].depttype+'"><br></form>'
             ,btn:['确定','取消']
             ,btnAlign: 'c'

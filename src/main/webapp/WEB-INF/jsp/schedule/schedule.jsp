@@ -70,7 +70,7 @@
                         }, {
                             field: 'doctor_name',
                             title: '医生姓名',
-                            width: 140
+                            width: 120
                         }, {
                             field: 'register_level',
                             title: '号别',
@@ -153,16 +153,16 @@
                 }, {
                     field: 'date',
                     title: '日期',
-                    width: 180,
+                    width: 120,
                     fixed: true
                 }, {
                     field: 'doctor_id',
                     title: '医生编号',
-                    width: 140
+                    width: 120
                 }, {
                     field: 'department_name',
                     title: '科室名称',
-                    width: 180,
+                    width: 120,
                     sort: true
                 }, {
                     field: 'doctor_name',
@@ -558,7 +558,7 @@
         element.render();
 
         element.on('tab(component-tabs-brief)', function (obj) {
-            layer.msg(obj.index + '：' + this.innerHTML);
+            layer.msg( this.innerHTML);
         });
 
         /* 触发事件 */
