@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>收费</title>
+    <title>收费/退费</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -23,7 +23,7 @@
     <style type="text/css">
         .layui-table th {
             font-weight: 600;
-            font-size: 100%;
+            font-size: 50%;
         }
 
         body .layui-table-tips .layui-layer-content {
@@ -801,11 +801,11 @@
                 }, {
                     field: 'expense',
                     title: '应付金额/元',
-                    width: 115
+                    width: 100
                 }, {
                     field: 'real_expense',
                     title: '实付金额/元',
-                    width: 115
+                    width: 100
                 }, {
                     field: 'pay_category',
                     title: '付款方式',
@@ -814,11 +814,11 @@
                     field: 'pay_sign',
                     title: '付款标志',
                     templet:'#test-table-statusTpl',
-                    width: 100
+                    width: 90
                 }, {
                     field: 'day_settle_sign',
                     title: '日结状态',
-                    width: 100
+                    width: 90
                 }, {
                     field: 'date',
                     title: '操作日期'

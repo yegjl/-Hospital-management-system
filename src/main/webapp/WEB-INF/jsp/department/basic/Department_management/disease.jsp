@@ -33,32 +33,60 @@
 
                         <div class="layui-fluid" id="LAY-component-layer-special-demo">
                             <div class="layui-row">
-                                <div class="demoTable">
-                                    搜索ID：
+<%--                                <div class="demoTable">--%>
+<%--                                    搜索ID：--%>
+<%--                                    <div class="layui-inline">--%>
+<%--                                        <input class="layui-input" name="id" id="demoReload" autocomplete="off">--%>
+<%--                                    </div>--%>
+<%--                                    <button class="layui-btn" data-type="reload">搜索</button>--%>
+<%--                                </div>--%>
+
+<%--                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="float: left;">--%>
+
+<%--                                    <div class="layui-btn-container layadmin-layer-demo">--%>
+<%--                                        <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>--%>
+<%--&lt;%&ndash;                                        <button data-method="addTop" data-type="auto" class="layui-btn"&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                style="margin: 10px;">添加&ndash;%&gt;--%>
+<%--                                        </button>--%>
+<%--                                        <button data-method="edit" data-type="auto" class="layui-btn"--%>
+<%--                                                style="margin: 10px;">编辑--%>
+<%--                                        </button>--%>
+<%--                                        <!-- 删除部分还没有填充函数 ************************************************************************-->--%>
+<%--                                        <button data-method="deltable" datatype="auto" class="layui-btn"--%>
+<%--                                                style="margin: 10px;">删除--%>
+<%--                                        </button>--%>
+
+
+<%--                                    </div>--%>
+<%--                                </div>--%>
                                     <div class="layui-inline">
-                                        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                                        <div class="demoTable">
+                                            搜索ID：
+                                            <div class="layui-inline">
+                                                <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                                            </div>
+
+                                            <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                        </div>
                                     </div>
-                                    <button class="layui-btn" data-type="reload">搜索</button>
-                                </div>
+                                    <%--                搜索ID：--%>
+                                    <%--    <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" style="width: 200px;display: inline;margin:10px;">--%>
+                                    <%--    <input id="test-table-demoReload"  style="width: 200px;display: inline;margin:10px;">--%>
 
-                                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="float: left;">
-
-                                    <div class="layui-btn-container layadmin-layer-demo">
-
-                                        <button data-method="addTop" data-type="auto" class="layui-btn"
-                                                style="margin: 10px;">添加
-                                        </button>
-                                        <button data-method="edit" data-type="auto" class="layui-btn"
-                                                style="margin: 10px;">编辑
-                                        </button>
-                                        <!-- 删除部分还没有填充函数 ************************************************************************-->
-                                        <button data-method="deltable" datatype="auto" class="layui-btn"
-                                                style="margin: 10px;">删除
-                                        </button>
+                                    <div class="layui-inline">
+                                        <div class="layui-btn-container layadmin-layer-demo" style="float: right">
+                                            <%--                  <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>--%>
+                                            <%--                    <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>--%>
+                                            <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>
+                                            <button data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</button>
+                                            <%--                      <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
+                                            <!-- 删除部分还没有填充函数 ************************************************************************-->
+                                            <%--                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
+                                            <button data-method="deltable" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
 
 
+                                        </div>
                                     </div>
-                                </div>
 
 
                             </div>
@@ -113,7 +141,7 @@
                     , {field: 'diseasename', title: '疾病名称', width: 180}
                     , {field: 'diseasecode', title: '拼音码', width: 180}
                     , {field: 'dicaname', title: '分类名称', width: 180}
-                    , {field: 'disecategoryid', title: '分类id', width: 180}
+                    , {field: 'disecategoryid', title: '分类id'}
 
                 ]]
                 , page: true

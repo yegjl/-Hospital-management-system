@@ -19,6 +19,14 @@
     <script src="department/layui/layui.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/json3.js"></script>
+
+    <style type="text/css">
+        .layui-table th {
+            font-weight: 600;
+            font-size: 50%;
+        }
+
+    </style>
 </head>
 
 <script>

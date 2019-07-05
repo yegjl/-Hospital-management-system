@@ -21,7 +21,7 @@
 
 
 <body>
-  <div class="layui-fluid">
+  <div class="layui-fluid" style="height: 600px">
     <div class="layui-row">
         <form id="medicalRecord" class="layui-form">
 <%--            todo:栅栏--%>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <!-- 中 -->
-                <div class="layui-card" style="bottom: 30px;position: relative;padding-left: 20%" >
+                <div class="layui-card" style="bottom: 30px;position: relative;" >
 
                     <button  type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="subm"
                             style="margin:0 auto;right: -300px;position: relative;" >确诊

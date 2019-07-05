@@ -40,32 +40,35 @@
                         <div class="layui-fluid" id="LAY-component-layer-special-demo">
                           <div class="layui-row">
 
-                            <div class="demoTable">
-                              搜索登录名或真实姓名：
-                              <div class="layui-inline">
-                                <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-                              </div>
-                              <button class="layui-btn" data-type="reload">搜索</button>
-                            </div>
+                            <div class="layui-inline">
+                              <div class="demoTable">
+                                搜索登录名或真实姓名：
+                                <div class="layui-inline">
+                                  <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                                </div>
 
-                            <div class="layui-col-xs6 layui-col-sm8 layui-col-md4" style="float: left;">
-
-
-
-
-                              <div class="layui-btn-container layadmin-layer-demo">
-
-                                <button data-method="addTop" data-type="auto" class="layui-btn"
-                                  style="margin: 10px;">添加</button>
-                                <button data-method="edit" data-type="auto" class="layui-btn"
-                                  style="margin: 10px;">编辑</button>
-                                <button data-method="deltable" datatype="auto" class="layui-btn"
-                                  style="margin: 10px;">删除</button>
-
-
+                                <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                               </div>
                             </div>
+                            <%--                搜索ID：--%>
+                            <%--    <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off" style="width: 200px;display: inline;margin:10px;">--%>
+                            <%--    <input id="test-table-demoReload"  style="width: 200px;display: inline;margin:10px;">--%>
 
+                            <div class="layui-inline">
+                              <div class="layui-btn-container layadmin-layer-demo" style="float: right">
+                                <%--                  <button class="layui-btn" data-type="reload" style="margin: 10px;">搜索</button>--%>
+                                <%--                    <button data-method="addTop" data-type="auto" class="layui-btn"style="margin: 10px;">添加</button>--%>
+                                <button data-method="addTop" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe608;</i>添加</button>
+                                <button data-method="edit" data-type="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe620;</i>编辑</button>
+                                <%--                      <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
+                                <!-- 删除部分还没有填充函数 ************************************************************************-->
+                                <%--                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
+                                <button data-method="deltable" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
+                                <button data-method="upload" data-type="auto" class="layui-btn layui-btn-warm" style="margin: 10px;"><i class="layui-icon">&#xe601;</i> 导入</button>
+
+
+                              </div>
+                            </div>
 
                           </div>
                         </div>

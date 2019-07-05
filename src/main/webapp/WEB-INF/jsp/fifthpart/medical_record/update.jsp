@@ -51,7 +51,7 @@
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
                         <div  id="sign">
-<%--                            <input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊">--%>
+                            <input id="flag" type="checkbox" name="flag" lay-filter="flag" lay-skin="switch" lay-text="疑似|主诊">
                         </div>
                     </div>
                     <br>
@@ -60,7 +60,8 @@
                         <p style="margin: auto;">发病日期：</p>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md11">
-                        <input type="date" name="dA" class="layui-input" id="date">
+<%--                        <input type="date" name="dA" class="layui-input" id="date">--%>
+                    <input  name="dA" type="text" class="layui-input" id="date">
                     </div>
                     <br>
                 </div>
@@ -165,31 +166,32 @@
 </script>
 
 <!-- 时间选择模块 -->
-<%--    <script>--%>
-<%--        layui.config({--%>
-<%--            base: 'department/' //静态资源所在路径--%>
-<%--        }).extend({--%>
-<%--            index: 'lib/index' //主入口模块--%>
-<%--        }).use(['index', 'laydate'], function () {--%>
-<%--            // var laydate = layui.laydate;--%>
+<script>
+    layui.config({
+        base: 'department/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'laydate'], function () {
+        var laydate = layui.laydate;
 
-<%--            //示例代码--%>
+        //示例代码
 
-<%--            //常规用法--%>
-<%--            // laydate.render({--%>
-<%--            //     elem: '#test-laydate-normal-cn'--%>
-<%--            // });--%>
+        //常规用法
+        laydate.render({
+            elem: '#date',
+            value:new Date()
+        });
 
 
-<%--            //同时绑定多个--%>
-<%--            lay('.test-laydate-item').each(function () {--%>
-<%--                laydate.render({--%>
-<%--                    elem: this,--%>
-<%--                    trigger: 'click'--%>
-<%--                });--%>
-<%--            });--%>
+        //同时绑定多个
+        lay('.test-laydate-item').each(function () {
+            laydate.render({
+                elem: this,
+                trigger: 'click'
+            });
+        });
 
-<%--        });--%>
-<%--    </script>--%>
+    });
+</script>
 </body>
 </html>

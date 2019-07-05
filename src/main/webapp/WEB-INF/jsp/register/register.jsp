@@ -1066,7 +1066,7 @@
 
                                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md3" >
 
-                                    <div  style="text-align: right;margin-top: 5px;float: left;width: 30%;">结算金额/元：</div>
+                                    <div  style="text-align: right;margin-top: 5px;float: left;width: 30%;font-size: 90%">结算金额/元：</div>
 
                                     <input type="number" id="money" name="title" autocomplete="off" class="layui-input"style="float: right;width: 70%;" readonly="true">
 
