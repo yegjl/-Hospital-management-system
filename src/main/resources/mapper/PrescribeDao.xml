@@ -294,4 +294,7 @@
     <select id="selectID" resultType="int">
       select id from prescribe where medicalrecordid = #{medicinerecordid,jdbcType=VARCHAR}
     </select>
+    <select id="selectMoney" resultType="java.math.BigDecimal">
+      select money from prescribe where medicalrecordid = #{medicalrecordid,jdbcType=VARCHAR}
+    </select>
 </mapper>

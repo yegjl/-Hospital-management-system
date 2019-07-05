@@ -45,4 +45,6 @@ public interface PrescribeDao {
     int updateTotalmoney(int id, BigDecimal money);
 
     int selectID(String medicinerecordid);
+
+    BigDecimal selectMoney(String medicalrecordid);
 }
