@@ -107,7 +107,7 @@
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
-          <div class="layui-logo" lay-href="">
+          <div class="layui-logo">
             <span>医生医技工作站</span>
           </div>
 
@@ -164,8 +164,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-
-          <iframe src="basic/Department_management.html" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe href="../layer/Department_management.jsp" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
 
