@@ -528,6 +528,7 @@ public Fmeditem getQue(String name,String id) {
                     examcheckInfo.setFmeditemid(examcheckService.findIdByCode(myArray[i]));
                     examcheckInfo.setRequirement(myArray1[i]);
                     examcheckInfo.setGoal(myArray2[i]);
+                    examcheckInfo.setNumber(1);
                     issuccess = examcheckService.addInfo(examcheckInfo);
                 }
                 resultDTO.setStatus(0);

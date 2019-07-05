@@ -75,7 +75,7 @@
 <%--                    <div class="layui-tab-item"><iframe src="fifthpart/index?id=06"--%>
 <%--                            style="height: 700px;width: 100%" frameborder="0"></iframe></div>--%>
 <%--                    <div class="layui-tab-item"><iframe src="login/index12?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>--%>
-                    <div class="layui-tab-item"><iframe src="MedicalRecordPage/indexcost" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
+                    <div class="layui-tab-item"><iframe src="login/index12?medicalRecordNo=${medicalRecordNo}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                     <div class="layui-tab-item"><iframe src="selfstatis/indexselfstatis?doctorid=${sessionScope.doctorid}" style="height: 700px;width: 100%" frameborder="0"></iframe></div>
                 </div>
             </div>

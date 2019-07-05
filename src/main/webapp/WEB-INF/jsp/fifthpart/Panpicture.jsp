@@ -76,7 +76,7 @@
                 legend: {
                     bottom: 10,
                     left: 'center',
-                    data: ['检查费用','检验费用','处置费用','处方费用']
+                    data: ['处置费用','检查费用','检验费用','处方费用']
                 },
                 series : [
                     {
@@ -85,9 +85,9 @@
                         center: ['50%', '50%'],
                         selectedMode: 'single',
                         data:[
-                            {value:m1, name: '检查费用'},
-                            {value:m2, name: '检验费用'},
-                            {value:m3, name: '处置费用'},
+                            {value:m1, name: '处置费用'},
+                            {value:m2, name: '检查费用'},
+                            {value:m3, name: '检验费用'},
                             {value:m4, name: '处方费用'}
                         ],
                         itemStyle: {
