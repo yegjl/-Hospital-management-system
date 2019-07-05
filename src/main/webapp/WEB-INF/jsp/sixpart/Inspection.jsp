@@ -40,29 +40,29 @@
                             </div>
                             <div class="layui-input-inline">
 <%--                                <input class="layui-btn layui-btn-normal" type="button" value="查询">--%>
-                                <button class="layui-btn" data-type="reload">搜索</button>
+                                <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                             </div>
                         </div>
                         <div class="layui-inline">
 
                             <div class="layui-btn-container layadmin-layer-demo" style="margin-top: 2.5%">
                                 <div class="layui-input-inline">
-                                    <input data-method="dengji" class="layui-btn layui-btn-normal" type="button" value="登记">
+                                    <a data-method="dengji" class="layui-btn layui-btn-normal" type="button" value=""><i class="layui-icon">&#xe605;</i>登记</a>
                                 </div>
 
                                 <div class="layui-input-inline">
-                                    <input data-method="bulu" class="layui-btn layui-btn-normal" type="button"
-                                        value="医技项目补录">
+                                    <a data-method="bulu" class="layui-btn layui-btn-normal" type="button"
+                                       value=""><i class="layui-icon">&#xe654;</i>医技项目补录</a>
                                 </div>
 
                                 <div class="layui-input-inline">
-                                    <input data-method="jcjy" class="layui-btn layui-btn-normal" type="button"
-                                        value="检查/检验结果录入">
+                                    <a data-method="jcjy" class="layui-btn layui-btn-normal" type="button"
+                                       value=""><i class="layui-icon">&#xe642;</i>检查/检验结果录入</a>
                                 </div>
 
                                 <div class="layui-input-inline">
-                                    <input data-method="result" class="layui-btn layui-btn-normal" type="button"
-                                           value="查看检查/检验结果">
+                                    <a data-method="result" class="layui-btn layui-btn-normal" type="button"
+                                       value=""><i class="layui-icon">&#xe705;</i>查看检查/检验结果</a>
                                 </div>
                             </div>
 

@@ -47,7 +47,7 @@
                         <div class="layui-input-inline">
 <%--                            <input class="layui-btn layui-btn-normal" type="button" value="统计" data-type="reload">--%>
 <%--                            <button class="layui-btn" data-type="reload" onclick="test()">统计</button>--%>
-                            <button class="layui-btn" data-type="reload" onclick="test()">统计</button>
+                            <button class="layui-btn layui-btn-normal" data-type="reload" onclick="test()"><i class="layui-icon">&#xe62c;</i>统计</button>
                         </div>
                     </div>
 
@@ -143,7 +143,7 @@
                         {
                             field: 'itemname',
                             title: '本科室登记项目',
-                            width: 100,
+                            width: 150,
 
                         },
                         {

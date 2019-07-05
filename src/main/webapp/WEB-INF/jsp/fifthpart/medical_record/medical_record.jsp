@@ -79,7 +79,7 @@
 
                             <div class="layui-colla-item">
                                 <h2 class="layui-colla-title">检查及结果</h2>
-                                <div class="layui-colla-content layui-show" style="height: 250px;">
+                                <div class="layui-colla-content layui-show" style="height: 150px;">
                                     <!-- 中部内容2 -->
 
                                     <div class="layui-col-md12" style="margin-top: 10px;">

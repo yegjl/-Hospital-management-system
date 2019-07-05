@@ -107,12 +107,12 @@
                     }
                     ,cols: [[
                         {checkbox: true, fixed: true}
-                        ,{field:'id', title: 'ID', width:264, sort: true, fixed: true}
-                        ,{field:'numbercode', title: '号别编码', width:264}
-                        ,{field:'numbername', title: '号别名称', width:264, sort: true}
-                        ,{field:'isdefult', title: '是否默认', width:264}
-                        ,{field:'displayorder', title: '显示顺序号',width:264}
-                        ,{field:'fee', title: '挂号费', width:264}
+                        ,{field:'id', title: 'ID', width:120, sort: true, fixed: true}
+                        ,{field:'numbercode', title: '号别编码', width:120}
+                        ,{field:'numbername', title: '号别名称', width:120, sort: true}
+                        ,{field:'isdefult', title: '是否默认', width:120}
+                        ,{field:'displayorder', title: '显示顺序号',width:120}
+                        ,{field:'fee', title: '挂号费'}
                     ]]
                 });
 

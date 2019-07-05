@@ -53,10 +53,10 @@
                                     <div class="layui-btn-container layadmin-layer-demo" >
                                         <div class="layui-inline">
                                             <div class="layui-input-inline" style="float: left">
-                                                <button class="layui-btn" data-type="reload" onclick="test()">统计</button>
+                                                <a class="layui-btn" data-type="suc" onclick="test()"><i class="layui-icon">&#xe62c;</i>统计</a>
                                             </div>
                                             <div class="layui-input-inline">
-                                                <button data-method="pan" class="layui-btn" style="margin-left: 3%">查询</button>
+                                                <button data-method="pan" class="layui-btn" style="margin-left: 3%"><i class="layui-icon">&#xe615;</i>查询</button>
                                             </div>
 
                                         </div>
@@ -125,6 +125,7 @@
         var endDate = document.getElementById("test-laydate-end").value;
         //执行重载
         layui.table.reload('test-table-toolbar', {
+
             page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -226,22 +227,10 @@
             }
         });
 
-        // 搜索函数X
+
         var $ = layui.$, active = {
-            reload: function () {
-                alert("123");
-                var startDate = $('#test-laydate-start');
-                var endDate = $('#test-laydate-end');
-                //执行重载
-                table.reload('test-table-toolbar', {
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                    , where: {
-                        startDate: startDate.val(),
-                        endDate: endDate.val()
-                    }
-                }, 'data');
+            suc: function () {
+                layer.msg('统计成功');
             }
         };
 

@@ -143,8 +143,8 @@
                         <div class="layui-btn-group" style="margin-left: 70%;">
                             <div class="layui-fluid" id="LAY-component-layer-special-demo">
                                 <div class="layui-btn-container layadmin-layer-demo">
-                                    <button data-method="tuiyao" class="layui-btn layui-btn-sm">退药</button>
-                                    <button data-method="quantui" class="layui-btn layui-btn-sm">全退</button>
+                                    <button data-method="tuiyao" class="layui-btn layui-btn-sm layui-btn-normal">退药</button>
+                                    <button data-method="quantui" class="layui-btn layui-btn-sm layui-btn-danger">全退</button>
                                 </div>
                             </div>
                         </div>
@@ -180,34 +180,57 @@
                     </div>
                     <hr class="layui-bg-black">
                     <div class="layui-card layui-form" lay-filter="component-form-element">
-                        <div class="layui-inline" style="margin-top: 1%">
-                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">
-                                发药药房：
+                        <div class="layui-form layui-form-pane" action="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">发药药房</label>
+                                <div class="layui-input-block">
+                                    <select name="" lay-verify="" lay-search>
+                                        <option value="">药房</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="layui-input-inline" style="float: right;width: 64%">
-                                <select name="" lay-verify="" lay-search>
-                                    <option value="">药房</option>
-                                </select>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">病历号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" id="preid" autocomplete="off" placeholder="请输入病历号" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">收费日期</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" id="test-laydate-type-date"
+                                           placeholder="yyyy-MM-dd" style="width: 100%"  autocomplete="off">
+                                </div>
                             </div>
                         </div>
-                        <div class="layui-inline" style="margin-top: 1%">
-                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">
-                                病历号：
-                            </div>
-                            <div class="layui-input-inline" style="float: right">
-                                <input type="text" id="preid" class="layui-input" placeholder="病历号" >
-                            </div>
-                        </div>
+<%--                        <div class="layui-inline" style="margin-top: 1%">--%>
+<%--                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">--%>
+<%--                                发药药房：--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-input-inline" style="float: right;width: 64%">--%>
+<%--                                <select name="" lay-verify="" lay-search>--%>
+<%--                                    <option value="">药房</option>--%>
+<%--                                </select>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <div class="layui-inline" style="margin-top: 1%">--%>
+<%--                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">--%>
+<%--                                病历号：--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-input-inline" style="float: right">--%>
+<%--                                <input type="text" id="preid" class="layui-input" placeholder="病历号" >--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="layui-inline" style="margin-top: 1%">
-                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">
-                                收费日期：
-                            </div>
-                            <div class="layui-input-inline" style="float: right;">
-                                <input type="text" class="layui-input" id="test-laydate-type-date"
-                                       placeholder="yyyy-MM-dd" style="width: 100%">
-                            </div>
-                        </div>
+<%--                        <div class="layui-inline" style="margin-top: 1%">--%>
+<%--                            <div class="layui-input-inline" style="margin-left: 10px;margin-top: 1.5%">--%>
+<%--                                收费日期：--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-input-inline" style="float: right;">--%>
+<%--                                <input type="text" class="layui-input" id="test-laydate-type-date"--%>
+<%--                                       placeholder="yyyy-MM-dd" style="width: 100%">--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                         <form id="dispensestatus">
                             <div class="layui-inline">
                                 <div class="layui-card layui-form" lay-filter="component-form-element"
