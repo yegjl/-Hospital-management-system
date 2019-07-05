@@ -243,38 +243,52 @@
             var tabledata=layui.table.checkStatus('test-table-reload').data;
             var type = othis.data('type'),
               text = othis.text();
-
             layer.open({
               type: 1,
               offset: type,
               title: '${name}编辑',
               id: 'layerDemo' + type,
               area: ['490px', '460px'],
-              content: '<iframe src="user/editUI" frameborder="0" class="layadmin-iframe"></iframe>',
+              content: "<iframe name='myframe' src='user/editUI2?login_name="+tabledata[0].login_name+"&id="+tabledata[0].id+"&real_name="+tabledata[0].real_name+"&category="+tabledata[0].category+"&deptid="+tabledata[0].deptid+"&level="+tabledata[0].level+"&ifwork="+tabledata[0].ifwork+"' frameborder='0' class='layadmin-iframe'></iframe>",
               btn: ['确定', '取消'],
               maxmin: true,
               btnAlign: 'c',
               shade: 0,
-              yes: function (index,layero) {
+              yes: function () {
+                // 写下编辑的提交方法**********************************************************
+                myframe.window.submit();
+                layer.closeAll();
+                layui.table.reload('test-table-reload');
+              },
+              btn2: function () {
+                layer.closeAll();
+              }
+            });
+          }
 
+          // 导入弹窗
+          ,
+        upload: function (othis) {
+            var type = othis.data('type'),
+              text = othis.text();
+
+            layer.open({
+              type: 2,
+              offset: type,
+              title: '文件导入',
+              id: 'layerDemo' + type,
+              area: ['490px', '460px'],
+              content: 'upload.html',
+              btn: ['确定', '取消'],
+              btnAlign: 'c',
+              shade: 0,
+              yes: function () {
+                // 写下导入的提交方法**********************************************************
                 layer.closeAll();
               },
               btn2: function () {
                 layer.closeAll();
-              },
-                success:function(layero, index){
-                    // 方式一  其实就是获取的 子页面的 div
-                    var div = layero.find('iframe').contents().find('#useradmin');  // div.html() div里面的内容,不包含当前这个div
-                    // 方式二
-                    var body = layer.getChildFrame('body', index);  // body.html() body里面的内容
-                    /* ---- 附加内容 看看就好  Begin ---- */
-                    // var iframeWindow = window['layui-layer-iframe'+ index]   // 方式一： 得到iframe页的窗口对象
-                    // var iframeWindow = window[layero.find('iframe')[0]['name']];   // 方式二： 得到iframe页的窗口对象
-                    /* ---- 附加内容 看看就好  End ---- */
-                    // 测试 ：
-                    body.find("#username").val("admin");  // 方式一
-                    div.find("#username").val("admin");  // 方式二
-                }
+              }
             });
           }
 

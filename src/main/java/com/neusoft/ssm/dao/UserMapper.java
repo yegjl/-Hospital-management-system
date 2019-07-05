@@ -53,6 +53,7 @@ public interface UserMapper {
 	 */
 	boolean updateUser(User user);
 
+	int updateUserByID(User user);
 	/**
 	 * 按用户名查找用户信息
 	 * @Param login_name 用户名
