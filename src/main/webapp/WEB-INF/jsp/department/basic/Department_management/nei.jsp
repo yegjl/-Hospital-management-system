@@ -60,7 +60,7 @@
 <%--                      <button data-method="edit" data-type="auto" class="layui-btn" style="margin: 10px;">编辑</button>--%>
                     <!-- 删除部分还没有填充函数 ************************************************************************-->
 <%--                    <button data-method="deltable" datatype="auto" class="layui-btn" style="margin: 10px;">删除</button>--%>
-                      <button data-method="del" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
+                      <button data-method="deltable" datatype="auto" class="layui-btn layui-btn-normal" style="margin: 10px;"><i class="layui-icon">&#xe640;</i>删除</button>
                     <button data-method="upload" data-type="auto" class="layui-btn layui-btn-warm" style="margin: 10px;"><i class="layui-icon">&#xe601;</i> 导入</button>
 
 

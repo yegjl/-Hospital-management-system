@@ -87,7 +87,7 @@
           <!-- 用户信息 -->
           <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-              <cite>毛大佬996</cite>
+              <cite>${sessionScope.user_name}</cite>
             </a>
             <dl class="layui-nav-child">
               <dd><a lay-href="set/user/info.html">基本资料</a></dd>
