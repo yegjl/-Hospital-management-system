@@ -65,4 +65,6 @@ public interface PrescribeService {
     List<Oftendrug> showoften(int doctorid);
 
     int deleteOften(Integer medicalid);
+
+    Integer getMedIdByName(String s,String s1);
 }

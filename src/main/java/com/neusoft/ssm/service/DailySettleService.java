@@ -27,4 +27,5 @@ public interface DailySettleService {
 
     void alterAUTO();
 
+    int findIdByLoginName(String loginName);
 }

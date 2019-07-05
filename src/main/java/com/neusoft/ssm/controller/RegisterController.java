@@ -267,7 +267,7 @@ public class RegisterController {
                     else if(DateTool.NowTime(date).equals("晚上")) {
                         if(DBTool.dbToNoon(list.get(i).getNoon_level()).equals("上午") || DBTool.dbToNoon(list.get(i).getNoon_level()).equals("下午"))
                             list.remove(list.get(i));
-                        if(list.size() > 0)
+                        else if(list.size() > 0)
                             list.get(i).setDoctor_name(doctorService.findNameById(list.get(i).getDoctor_id()));
                     }
                     else

@@ -97,5 +97,15 @@ public class UserServiceImpl implements IUserService {
     public int findDeptIdByName(String login_name) {
         return userMapper.findDeptIdByName(login_name);
     }
+
+    @Override
+    public int findCountByLoginName(String login_name) {
+        return userMapper.findCountByLoginName(login_name);
+    }
+
+    @Override
+    public int findDeptCountByName(String login_name) {
+        return userMapper.findDeptCountByName(login_name);
+    }
 }
 

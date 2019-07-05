@@ -139,4 +139,24 @@ public class ExamcheckServiceImpl implements ExamcheckService {
         examcheckoneMapper.deleteModelById(i);
     }
 
+    @Override
+    public List<Jianchaoften> getOftenPro(String mark) {
+        return examcheckoneMapper.getOftenPro(mark);
+    }
+
+    @Override
+    public List<Fmeditem> getProByType(String mark) {
+        return examcheckoneMapper.getProByType(mark);
+    }
+
+    @Override
+    public int addoften(Jianchaoften jianchaoften) {
+        return examcheckoneMapper.addoften(jianchaoften);
+    }
+
+    @Override
+    public void deleteOften(int id) {
+        examcheckoneMapper.deleteOften(id);
+    }
+
 }

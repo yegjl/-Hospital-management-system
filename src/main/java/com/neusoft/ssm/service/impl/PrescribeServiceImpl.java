@@ -194,5 +194,10 @@ public class PrescribeServiceImpl implements PrescribeService {
         return oftendrugDao.deleteByPrimaryKey(medicalid);
     }
 
+    @Override
+    public Integer getMedIdByName(String s,String s1) {
+        return oftendrugDao.getMedIdByName(s,s1);
+    }
+
 
 }

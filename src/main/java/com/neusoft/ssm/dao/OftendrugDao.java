@@ -30,4 +30,6 @@ public interface OftendrugDao {
     int updateByPrimaryKey(Oftendrug record);
 
     List<Oftendrug> selectByDoctorid(int doctorid);
+
+    Integer getMedIdByName(String s,String s1);
 }

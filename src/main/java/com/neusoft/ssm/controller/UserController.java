@@ -62,13 +62,17 @@ public class UserController {
         request.getSession().setAttribute("lgCate", lgCate);
 
         session.setAttribute("user_name", login_name);
-        int doctorid = userService.findIdByLoginName(login_name);
-        int departid = userService.findDeptIdByName(login_name);
-        String deptcategoryid = departmentService.findById(departid).getDeptcategoryid();
-        session.setAttribute("departid", departid);
-        session.setAttribute("deptcategoryid",deptcategoryid);
-        if(doctorid != 0)
+        if(userService.findCountByLoginName(login_name)!=0) {
+            int doctorid = userService.findIdByLoginName(login_name);
             session.setAttribute("doctorid", doctorid);
+        }
+        if(userService.findDeptCountByName(login_name)!=0) {
+            int departid = userService.findDeptIdByName(login_name);
+            session.setAttribute("departid", departid);
+        String deptcategoryid = departmentService.findById(departid).getDeptcategoryid();
+        session.setAttribute("deptcategoryid",deptcategoryid);}
+//        if(doctorid != 0)
+//            session.setAttribute("doctorid", doctorid);
         int count = userService.login(login_name, passwordByMd5);
         int message = 0;
         String category = userService.selectCategory(login_name);
@@ -135,6 +139,11 @@ public class UserController {
     @RequestMapping(value = "/index06")
     public String index06() { return  "FinancialM_Index"; }
 
+    @RequestMapping(value = "/index12")
+    public String index12(Model model,String medicalRecordNo) {
+        if(medicalRecordNo!=null)
+            model.addAttribute("medicalRecordNo", medicalRecordNo);
+        return  "expense/search_expense"; }
     //实现注册
     @RequestMapping(value = "/implAdd", method = RequestMethod.POST)
     @ResponseBody

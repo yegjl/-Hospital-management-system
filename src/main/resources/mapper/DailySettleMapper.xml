@@ -53,4 +53,9 @@
         alter table daily_settle  AUTO_INCREMENT = 1;
     </select>
 
+    <select id="findIdByLoginName" resultType="java.lang.Integer">
+        select id from user
+        where login_name=#{loginName}
+    </select>
+
 </mapper>

@@ -99,17 +99,19 @@
                   <div class="layui-inline">
 
 
-                    <span class="layui-badge layui-bg-green" style="margin: 20px;">诊断1</span>
-                    <button type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i
-                            class="layui-icon layui-icon-delete"></i></button>
+                    <div class="layui-card-header">
+                      <div class="layui-btn-group" id="often">
+                        <div class="layui-fluid" id="LAY-component-layer-special-demo3">
+                          <input data-method="oftenadd" class="layui-btn layui-btn-sm" type="button" value="增加">
+                          <input data-method="oftendelete" class="layui-btn layui-btn-sm" type="button" value="删除">
+                          <input data-method="oftenuse" class="layui-btn layui-btn-sm" type="button" value="引用">
+                        </div>
+                      </div>
+                    </div>
 
-                    <span class="layui-badge layui-bg-green" style="margin: 20px;">诊断2</span>
-                    <button type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i
-                            class="layui-icon layui-icon-delete"></i></button>
-
-                    <span class="layui-badge layui-bg-green" style="margin: 20px;">诊断3</span>
-                    <button type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i
-                            class="layui-icon layui-icon-delete"></i></button>
+                    <div class="layui-table-body" style="margin-top:1% ">
+                      <table class="layui-hide" id="test-table-checkbox" lay-filter="test-table-toolbar"></table>
+                    </div>
 
 
                   </div>
@@ -185,6 +187,45 @@
     });
   </script>
 
+  <script>
+    layui.config({
+      base: 'department/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function () {
+      var table = layui.table;
+
+      table.render({
+        elem: '#test-table-checkbox',
+        url: 'fifthpart/findoften?id=${id}',
+        method:'get',
+        title: '常用项目表',
+        parseData:function (res) {
+          return {
+            "code":res.status,
+            "msg":res.message,
+            "count":res.total,
+            "data":res.data
+          }
+        },
+        cols: [
+          [{
+            type: 'checkbox'
+          }, {
+            field: 'itemid',
+            title: '编号',
+            sort: true
+          },{
+            field: 'itemname',
+            title: '项目名称',
+            sort: true
+          }]
+        ],
+        page: true
+      });
+
+    });
+  </script>
 
   <!-- 数据表格1 -->
   <script>
@@ -1094,6 +1135,175 @@
         });
       },
 
+      // 常用项目管理
+      oftenadd: function () {
+        layer.open({
+          type: 1,
+          title: '常用项目添加',
+          area: ['390px', '360px'],
+          shade: 0,
+          maxmin: true,
+          offset: [],
+          content: '<iframe src="fifthpart/addoften?id=${id}" frameborder="0" class="layadmin-iframe"></iframe>',
+          btn: ['添加', '关闭'],
+          yes: function (index,layero) {
+            var iframes = $(layero).find("iframe")[0].contentWindow;
+            var fmeditemid = iframes.document.getElementById("fmeditemid");
+            $.ajax({
+              type: "POST",
+              url: "fifthpart/addoftenpro?id=${id}",
+              // data: fmeditemid.val(),
+              data: {
+                'proid': fmeditemid.value,
+              },
+              success: function (res) {
+                if (res.status == 0) {
+                  layer.msg(res.message)
+                } else {
+                  layer.msg(res.message)
+                }
+                setTimeout(function () {
+                  layui.table.reload('test-table-checkbox');
+                }, 100);
+                layer.closeAll();
+              },
+              error: function () {
+                alert("出现错误");
+                return false;
+              }
+            }) //ajax结束
+          },
+          btn2: function () {
+            layer.closeAll();
+          }
+
+          ,
+          zIndex: layer.zIndex,
+          success: function (layero) {
+            layer.setTop(layero);
+          }
+        });
+      },
+
+      oftendelete: function (othis) {
+        var type = othis.data('type'),
+                text = othis.text();
+        var tabledata = layui.table.checkStatus('test-table-checkbox').data;
+        if(tabledata.length==0){
+          layer.msg("请选择需要删除的项目");
+          return;
+        }
+        var myArray = new Array();
+        for (var i = 0; i < tabledata.length; i++) {
+          myArray.push(tabledata[i].itemid);
+        }
+        layer.open({
+          type: 1,
+          offset: type,
+          title: '删除常用药品',
+          id: 'layerDemo' + type,
+          area: ['190px', '160px'],
+          content: '<p style="margin:auto;">您确定要删除选中项吗?</p>',
+          btn: ['确定', '取消'],
+          btnAlign: 'c',
+          shade: 0,
+          yes: function () {
+            // 写下编辑的提交方法**********************************************************
+            $.ajax({
+              type: "POST",
+              url: "fifthpart/deleteoften",
+              traditional: true,
+              data: {
+                'proids': myArray
+              },
+              success: function (res) {
+                if (res.status == 0) {
+                  layer.msg(res.message);
+                } else {
+                  layer.msg(res.message);
+                }
+                setTimeout(function () {
+                  layui.table.reload('test-table-checkbox');
+                }, 100);
+                layer.closeAll();
+              },
+              error: function () {
+                alert("出现错误");
+                return false;
+              }
+            })
+            layer.closeAll();
+          },
+          btn2: function () {
+            layer.closeAll();
+          }
+        });
+      },
+
+      oftenuse: function (othis) {
+        var type = othis.data('type'),
+                text = othis.text();
+        var tabledata = layui.table.checkStatus('test-table-checkbox').data;
+        if(tabledata.length==0){
+          layer.msg("请选择需要引用的项目");
+          return;
+        }
+        var myArray = new Array();
+        for (var i = 0; i < tabledata.length; i++) {
+          myArray.push(tabledata[i].itemid);
+        }
+
+        layer.open({
+          type: 1,
+          title: '常用药引入',
+          area: ['390px', '360px'],
+          shade: 0,
+          maxmin: true,
+          offset: [],
+          // content: '<p style="margin:auto;">您确定要引用选中项吗</p>请输入引用材料的数量：<input class="layui-input"  id="usenumber" autocomplete="off" style="width: 200px;display: inline;margin:10px;"><br>',
+          content: '<p style="margin:auto;">您确定要引用选中项吗</p>',
+          btn: ['引用', '关闭'],
+          yes: function () {
+            // var iframes = $(layero).find("iframe")[0].contentWindow;
+            // var form = iframes.document.getElementById("useoften");
+            $.ajax({
+              type: "POST",
+              url: "fifthpart/useoftenpro?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}",
+              traditional: true,
+              data: {
+                'proids': myArray
+              },
+              success: function (res) {
+                if (res.status == 0) {
+                  layer.msg(res.message)
+                } else {
+                  layer.msg(res.message)
+                }
+                setTimeout(function(){
+                  layui.table.reload('test-table-cellEdit-middle');//修改成功后刷新父界面
+                }, 100);
+                layer.closeAll();
+                $("#prestatus").empty();
+                document.getElementById("prestatus").setAttribute("value", "未暂存");
+              },
+              error: function () {
+                alert("出现错误");
+                return false;
+              }
+            }) //ajax结束
+          },
+          btn2: function () {
+            layer.closeAll();
+          }
+
+          ,
+          zIndex: layer.zIndex,
+          success: function (layero) {
+            layer.setTop(layero);
+          }
+        });
+      }
+
 
     };
 
@@ -1107,6 +1317,11 @@
               method = othis.data('method');
           active[method] ? active[method].call(this, othis) : '';
       });
+    $('#LAY-component-layer-special-demo3 .layui-btn').on('click', function () {
+      var othis = $(this),
+              method = othis.data('method');
+      active[method] ? active[method].call(this, othis) : '';
+    });
   });
 </script>
 

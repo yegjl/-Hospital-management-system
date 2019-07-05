@@ -183,6 +183,51 @@ public class PrescribeController {
         return resultDTO;
     }
 
+    //引用处方模板
+    //新增药品
+    @RequestMapping(value = "/addmedtests",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> addmedtests(String[] myArray,String[] myArray1,BigDecimal[] myArray2,String[] myArray3,String[] myArray4,String[] myArray5,String[] myArray6,String[] myArray7,Integer doctorid,String medicalrecordid,String prestatus,String medicaltype) {
+        if (prescribeService.getPreCount(doctorid, medicalrecordid) == 0) {
+            Prescribe prescribe = new Prescribe();
+            prescribe.setDoctorid(doctorid);
+            prescribe.setMedicalrecordid(medicalrecordid);
+            prescribe.setGetmedicalflag(0);
+            prescribe.setType(prestatus);
+            prescribe.setMedicaltype(medicaltype);
+            prescribe.setIsdone(0);
+            prescribeService.insertPrescribe(prescribe);
+        }
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            for(int i=0;i<myArray.length;i++) {
+                Prescribecategory prescribecategory = new Prescribecategory();
+                prescribecategory.setFormat(myArray1[i]);
+                prescribecategory.setPrice(myArray2[i]);
+                prescribecategory.setUsage(myArray3[i]);
+                prescribecategory.setDosage(myArray4[i]);
+                prescribecategory.setUnit(myArray5[i]);
+                prescribecategory.setTimes(myArray6[i]);
+                prescribecategory.setEntrust(myArray7[i]);
+                prescribecategory.setIstemp(0);
+                prescribecategory.setDays("7");
+                prescribecategory.setNumber("1");
+                prescribecategory.setAmount("1");
+                prescribecategory.setMedicalid(prescribeService.getMedIdByName(myArray[i],myArray1[i]));
+                prescribecategory.setPrescribeid(prescribeService.getNowID(doctorid, medicalrecordid));
+                int issuccess = prescribeService.insertPrescribecategory(prescribecategory);
+                resultDTO.setStatus(0);
+                resultDTO.setMessage("操作成功！");
+                resultDTO.setData(issuccess);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
     //修改药品
     @RequestMapping(value = "/updatemedtest",method = RequestMethod.POST)
     @ResponseBody
