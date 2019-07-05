@@ -16,7 +16,7 @@
         <h1>首页</h1>
     </div>
     <div align="center">
-        <h3><a href="/login/login">登录</a></h3>
+        <h3><a href="login/login">登录</a></h3>
 
     </div>
 </body>
