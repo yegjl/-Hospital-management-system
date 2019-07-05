@@ -120,7 +120,7 @@
 
 <script>
     layui.config({
-        base: 'source/' //静态资源所在路径X
+        base: 'department/' //静态资源所在路径X
     }).extend({
         index: 'lib/index' //主入口模块X
     }).use(['index', 'table'], function() {
