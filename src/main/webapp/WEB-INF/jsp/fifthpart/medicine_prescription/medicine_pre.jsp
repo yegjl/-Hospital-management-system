@@ -27,7 +27,7 @@
 <div class="layui-fluid">
     <div class="layui-row">
 
-        <div class="layui-col-md8" style="overflow: auto;">
+        <div class="layui-col-md9" style="overflow: auto;">
             <!-- 中部折叠面板 -->
             <div class="layui-card">
                 <div class="layui-card-header " style="height: 80px;">
@@ -97,26 +97,26 @@
                     <div class="layui-btn-container">
                         <div class="layui-fluid" id="LAY-component-layer-special-demo">
                             <div class="layui-btn-container layadmin-layer-demo">
-                                <button data-method="add" id="addTable" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">新增药品</button>
-                                <button data-method="deltable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">删除药品</button>
-                                <button data-method="uptable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">修改药品</button>
-                                <button data-method="savetable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">暂存处方</button>
-                                <button data-method="opentable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">删除处方</button>
+                                <button data-method="add" id="addTable" class="layui-btn  layui-btn-sm layui-btn-normal"
+                                        style="margin: 1%"><i class="layui-icon">&#xe654;</i>新增药品</button>
+                                <button data-method="deltable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-danger"
+                                        style="margin: 1%"><i class="layui-icon">&#xe640;</i>删除药品</button>
+                                <button data-method="uptable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-normal"
+                                        style="margin: 1%"><i class="layui-icon">&#xe642;</i>修改药品</button>
+                                <button data-method="savetable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-normal"
+                                        style="margin: 1%"><i class="layui-icon">&#xe60e;</i>暂存处方</button>
+                                <button data-method="opentable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-danger"
+                                        style="margin: 1%"><i class="layui-icon">&#x1006;</i>删除处方</button>&#x1006;
 
 
-                                <button data-method="setpretable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">开立处方</button>
-                                <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">作废处方</button>
-                                <button data-method="add_muban" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">存为组套</button>
+                                <button data-method="setpretable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-normal"
+                                        style="margin: 1%"><i class="layui-icon">&#xe608;</i>开立处方</button>
+                                <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-danger"
+                                        style="margin: 1%"><i class="layui-icon">&#xe64d;</i>作废处方</button>
+                                <button data-method="add_muban" class="layui-btn  layui-btn-sm layui-btn-normal"
+                                        style="margin: 1%"><i class="layui-icon">&#xe605;</i>存为组套</button>
                                 <button data-method="send_expense" class="layui-btn  layui-btn-sm"
-                                        style="margin: 1%">发送</button>
+                                        style="margin: 1%"><i class="layui-icon">&#xe609;</i>发送</button>
 <%--                                发送按钮将存储的--%>
                             </div>
 
@@ -130,7 +130,7 @@
             </div>
 
         </div>
-        <div class="layui-col-md4">
+        <div class="layui-col-md3">
 
 
 
@@ -183,7 +183,7 @@
                                             </div>
                                             </div>
                                         </div>
-
+<hr class="layui-bg-gray">
                                         <div class="layui-table-body" style="margin-top:1% ">
                                             <table class="layui-hide" id="test-table-checkbox" lay-filter="test-table-toolbar"></table>
                                         </div>

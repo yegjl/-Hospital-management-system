@@ -137,7 +137,7 @@
               }, {
                 field: 'category',
                 title: '用户类别',
-                width: 180
+
               }
             ]
           ],

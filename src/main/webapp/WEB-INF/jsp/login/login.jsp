@@ -95,7 +95,7 @@
         label {
             position: relative;
             cursor: pointer;
-
+        }
         input {
             cursor: pointer;
         }
@@ -945,7 +945,7 @@ function delCookie(name) {
                         <p style="color:#B0C4DE;position: relative;bottom: 20px;left: 70px">记住密码</p>
                     </div>
                     <a tabindex="5" class="btn btn-link text-muted" onclick="goto_register()">注册</a>
-                    <input class="btn btn-primary" type="button" tabindex="3" onClick="login()" value="登录" style="color:white;" />
+                    <input id="login_01" class="btn btn-primary" type="button" tabindex="3" onClick="login()" value="登录" style="color:white;" />
                 </div>
             </form>
         </div>

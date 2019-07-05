@@ -160,19 +160,19 @@
                 }
                 ,cols: [[
                   {checkbox: true, fixed: true}
-                  ,{field:'id', title: 'ID', width:264, sort: true, fixed: true}
-                  ,{field:'itemcode', title: '项目编码', width:264,sort: true}
-                  ,{field:'itemname', title: '项目名称', width:264, sort: true}
-                  ,{field:'format', title: '规格', width:264, sort: true}
-                  ,{field:'price', title: '单价',width:264, sort: true}
-                  ,{field:'expclassid', title: '所属费用科目ID', width:264}
-                  ,{field:'deptid', title: '执行科室ID', width:264, sort: true}
-                  ,{field:'mnemoniccode', title: '拼音助记码', width:264, sort: true}
-                  ,{field:'recordtype', title: '项目类型', width:264, sort: true}
+                  ,{field:'id', title: 'ID', width:60, sort: true, fixed: true}
+                  ,{field:'itemcode', title: '项目编码', width:120,sort: true}
+                  ,{field:'itemname', title: '项目名称', width:120, sort: true}
+                  ,{field:'format', title: '规格', width:120, sort: true}
+                  ,{field:'price', title: '单价',width:120, sort: true}
+                  ,{field:'expclassid', title: '所属费用科目ID', width:160}
+                  ,{field:'deptid', title: '执行科室ID', width:120, sort: true}
+                  ,{field:'mnemoniccode', title: '拼音助记码', width:120, sort: true}
+                  ,{field:'recordtype', title: '项目类型', width:120, sort: true}
                   // ,{field:'creationdate', title: '创建时间', width:264, sort: true, templet: function (d) {
                   //   return dateToStr(d.creationdate);
                   //   }}
-                  ,{field:'creationdate', title: '创建时间', width:264, sort: true, templet:"#createTime"}]]
+                  ,{field:'creationdate', title: '创建时间', width:120, sort: true, templet:"#createTime"}]]
                 ,page: true
               });
 

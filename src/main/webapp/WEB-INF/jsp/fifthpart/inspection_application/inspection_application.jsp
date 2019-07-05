@@ -41,16 +41,15 @@
             <div class="layui-btn-container">
               <div class="layui-fluid" id="LAY-component-layer-special-demo">
                 <div class="layui-btn-container layadmin-layer-demo">
-                    <button data-method="add" id="addTable" class="layui-btn  layui-btn-sm"
-                            style="margin: 1%">新增项目</button>
-                  <button data-method="savetable" datatype="auto" class="layui-btn  layui-btn-sm" style="margin: 1%">暂存项目</button>
-                  <button data-method="opentable" datatype="auto" class="layui-btn  layui-btn-sm" style="margin: 1%">开立项目</button>
-                  <button data-method="deltable" datatype="auto" class="layui-btn  layui-btn-sm"
-                          style="margin: 1%">删除项目</button>
-
-                  <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm" style="margin: 1%">作废项目</button>
-                  <button data-method="result" class="layui-btn  layui-btn-sm" style="margin: 1%">查看${name}结果</button>
-                  <button data-method="add_muban" class="layui-btn  layui-btn-sm" style="margin: 1%">存为组套</button>
+                    <button data-method="add" id="addTable" class="layui-btn  layui-btn-sm layui-btn-normal"
+                            style="margin: 1%"><i class="layui-icon">&#xe654;</i>新增项目</button>
+                  <button data-method="savetable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-normal" style="margin: 1%"><i class="layui-icon">&#xe66e;</i>暂存项目</button>
+                  <button data-method="opentable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-normal" style="margin: 1%"><i class="layui-icon">&#xe655;</i>开立项目</button>
+                  <button data-method="deltable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-danger"
+                          style="margin: 1%"><i class="layui-icon">&#xe640;</i>删除项目</button>
+                  <button data-method="canceltable" datatype="auto" class="layui-btn  layui-btn-sm layui-btn-warm" style="margin: 1%"><i class="layui-icon">&#x1006;</i>作废项目</button>
+                  <button data-method="result" class="layui-btn  layui-btn-sm layui-btn-normal" style="margin: 1%"><i class="layui-icon">&#xe63f;</i>查看${name}结果</button>
+                  <button data-method="add_muban" class="layui-btn  layui-btn-sm layui-btn-normal" style="margin: 1%"><i class="layui-icon">&#xe605;</i>存为组套</button>
                 </div>
 
               </div>

@@ -45,23 +45,23 @@
                 <div class="layui-fluid" id="LAY-component-layer-special-demo" style="margin-top: 2%">
                     <div class="layui-btn-container layadmin-layer-demo">
                         <div class="layui-input-inline">
-                            <button data-method="add" class="layui-btn"><i
+                            <button data-method="add" class="layui-btn layui-btn-normal"><i
                                     class="layui-icon layui-icon-add-1"></i>增加</button>
                         </div>
                         <div class="layui-input-inline">
-                            <button data-method="del" class="layui-btn"><i
+                            <button data-method="del" class="layui-btn layui-btn-normal"><i
                                     class="layui-icon layui-icon-delete"></i>删除</button>
                         </div>
                         <div class="layui-input-inline">
-                            <button data-method="edit" class="layui-btn"><i
+                            <button data-method="edit" class="layui-btn layui-btn-normal"><i
                                     class="layui-icon layui-icon-edit"></i>修改</button>
                         </div>
                         <div class="layui-input-inline">
-                            <button data-method="change" class="layui-btn"><i
+                            <button data-method="change" class="layui-btn layui-btn-warm"><i
                                     class="layui-icon layui-icon-list"></i>调价</button>
                         </div>
                         <div class="layui-input-inline">
-                            <button data-method="table" class="layui-btn"><i
+                            <button data-method="table" class="layui-btn layui-btn-warm"><i
                                     class="layui-icon layui-icon-table"></i>调价记录</button>
                         </div>
                     </div>
