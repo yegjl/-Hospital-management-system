@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +75,12 @@ public class FifthPartController {
         return "fifthpart/inspection_application/inspection_application";
     }
     @RequestMapping(value = "/index2")
-    public String index2(String medicalRecordNo,Model model) {
+    public String index2(String medicalRecordNo,Model model,HttpSession session) {
+        if ((session.getAttribute("deptcategoryid").toString()).equals("20")) {
+            model.addAttribute("prescribetype", "草药");
+        } else {
+            model.addAttribute("prescribetype", "成药");
+        }
         model.addAttribute("medicalRecordNo", medicalRecordNo);
         return "fifthpart/ODW_index2";
     }

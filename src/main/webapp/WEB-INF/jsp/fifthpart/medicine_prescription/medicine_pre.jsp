@@ -256,10 +256,11 @@
             },
             cols: [
                 [{
-                    type: 'checkbox'
+                    type: 'checkbox',
                 }, {
                     field: 'medicalname',
                     title: '药品名称',
+                    width: 200,
                     sort: true
                 }]
             ],
@@ -487,7 +488,7 @@
                     money += tabledata[i].price*tabledata[i].amount;
                 }
                 $("#totalmoney").empty();
-                $("#totalmoney").html(money);
+                $("#totalmoney").html(money.toFixed(2));
             },
             page: true
         })
@@ -1421,7 +1422,7 @@
                     shade: 0,
                     maxmin: true,
                     offset: [],
-                    content: '<iframe src="prescribe/indexaddoften?doctorid=${sessionScope.doctorid}" frameborder="0" class="layadmin-iframe"></iframe>',
+                    content: '<iframe src="prescribe/indexaddoften?doctorid=${sessionScope.doctorid}&departmentid=${sessionScope.deptcategoryid}" frameborder="0" class="layadmin-iframe"></iframe>',
                     btn: ['添加', '关闭'],
                     yes: function (index,layero) {
                         var iframes = $(layero).find("iframe")[0].contentWindow;

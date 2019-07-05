@@ -93,7 +93,7 @@
 
 
 </div>
-<div id="zhexiantu" style="width: 300px;height: 400px;"></div>
+
 <script src="department/layui/layui.js"></script>
 <script src="department/echarts/echarts.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>

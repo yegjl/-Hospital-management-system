@@ -515,11 +515,15 @@ public class PrescribeController {
 
 
     @RequestMapping(value = "/indexaddoften")
-    public String indexaddoften(int doctorid,Model model)
+    public String indexaddoften(int doctorid,String departmentid,Model model)
     {
         model.addAttribute("doctorid", doctorid);
         model.addAttribute("drugstpe", "103");
-        model.addAttribute("projects", prescribeService.getAllChengDrugs("103"));//存储成药或者草药，id=103时为草药，其余是成药
+        if (!departmentid.equals("20")) {
+            model.addAttribute("projects", prescribeService.getAllChengDrugs("103"));//存储成药或者草药，id=103时为草药，其余是成药
+        } else {
+            model.addAttribute("projects", prescribeService.getAllCaoDrugs("103"));//存储成药或者草药，id=103时为草药，其余是成药
+        }
         return "fifthpart/medicine_prescription/often";
     }
 
