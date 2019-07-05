@@ -64,4 +64,9 @@ public class DailySettleServiceImpl implements DailySettleService {
     public void alterAUTO() {
         dailySettleMapper.alterAUTO();
     }
+
+    @Override
+    public int findIdByLoginName(String loginName) {
+        return dailySettleMapper.findIdByLoginName(loginName);
+    }
 }

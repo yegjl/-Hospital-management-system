@@ -78,4 +78,12 @@ public interface ExamcheckoneMapper {
     List<Prescribemodellog> findPreLogsById(Integer id);
 
     void deleteModelById(Integer i);
+
+    List<Jianchaoften> getOftenPro(String mark);
+
+    List<Fmeditem> getProByType(String mark);
+
+    int addoften(Jianchaoften jianchaoften);
+
+    void deleteOften(int id);
 }

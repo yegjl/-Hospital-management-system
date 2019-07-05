@@ -87,4 +87,6 @@ public interface DailySettleMapper {
      * 重置MySQL主键自增机制
      */
     void alterAUTO();
+
+    int findIdByLoginName(String loginName);
 }

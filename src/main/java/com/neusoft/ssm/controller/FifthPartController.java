@@ -526,6 +526,103 @@ public Fmeditem getQue(String name,String id) {
             return resultDTO;
         }
 
+
+        //检查检验处置常用项目
+        @RequestMapping(value = "/findoften",method = RequestMethod.GET)
+        @ResponseBody
+        public ResultDTO<JSONArray> findoften(String id) {
+            ResultDTO<JSONArray> resultDTO = new ResultDTO();
+            List<Jianchaoften> list = null;
+            try {
+                String mark;
+                if(id.equals("02"))
+                    mark = "1";
+                else if(id.equals("03"))
+                    mark = "2";
+                else
+                    mark = "3";
+                list = examcheckService.getOftenPro(mark);
+                resultDTO.setStatus(0);
+                resultDTO.setMessage("");
+                resultDTO.setTotal(10);
+                // 将list转为JSON格式传至前端
+                resultDTO.setData(JSONArray.fromObject(list));
+            } catch (Exception e) {
+                e.printStackTrace();
+                resultDTO.setStatus(1);
+                resultDTO.setMessage("操作失败！");
+            }
+            //此方法用于删除未保存状态的项目，可以在页面切换时利用
+//        examcheckService.deleteUnsave();
+            return resultDTO;
+        }
+
+        //添加常用项目
+        @RequestMapping(value = "/addoften")
+        public String addoften(String id,Model model)
+        {
+            String mark;
+            if(id.equals("02"))
+                mark = "1";
+            else if(id.equals("03"))
+                mark = "2";
+            else
+                mark = "3";
+            List<Fmeditem> fmeditems = examcheckService.getProByType(mark);
+            model.addAttribute("fmeditems", fmeditems);
+            //存储成药或者草药，id=103时为草药，其余是成药
+            return "fifthpart/inspection_application/often";
+        }
+
+    @RequestMapping(value = "/addoftenpro",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> addoftenpro(Integer proid,String id){
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            String mark;
+            if(id.equals("02"))
+                mark = "1";
+            else if(id.equals("03"))
+                mark = "2";
+            else
+                mark = "3";
+            Jianchaoften jianchaoften = new Jianchaoften();
+            jianchaoften.setItemid(proid);
+            jianchaoften.setMark(mark);
+            jianchaoften.setItemname(examcheckService.findprobyid(proid).getItemname());
+            int issuccess = examcheckService.addoften(jianchaoften);
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(issuccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    //删除常用项目
+    @RequestMapping(value = "/deleteoften",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> deleteoften(Integer[] proids) {
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            for(int id : proids){
+                examcheckService.deleteOften(id);
+            }
+            resultDTO.setStatus(0);
+            resultDTO.setMessage("操作成功！");
+            resultDTO.setData(1);
+            return resultDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
         //删除组套
         @RequestMapping(value = "/deleteset",method = RequestMethod.POST)
         @ResponseBody
@@ -559,6 +656,51 @@ public Fmeditem getQue(String name,String id) {
             resultDTO.setMessage("操作成功！");
             resultDTO.setData(1);
             return resultDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultDTO.setStatus(1);
+            resultDTO.setMessage("操作失败！");
+        }
+        return resultDTO;
+    }
+
+    @RequestMapping(value = "/useoftenpro",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDTO<Integer> useoftenpro(Integer[] proids,Integer doctorid,Integer medicalid,String id) {
+        String mark;
+        if(id.equals("02"))
+            mark = "1";
+        else if(id.equals("03"))
+            mark = "2";
+        else
+            mark = "3";
+        if(examcheckService.getCount(doctorid,medicalid,mark)==0){
+            Examcheck examcheck=new Examcheck();
+            examcheck.setDoctorid(doctorid);
+            examcheck.setMedicalrecordid(medicalid);
+            examcheck.setMark(mark);
+            examcheckService.addExam(examcheck);
+        }
+        ResultDTO<Integer> resultDTO = new ResultDTO();
+        try {
+            for(int i=0;i<proids.length;i++) {
+                ExamcheckInfo examcheckInfo = new ExamcheckInfo();
+                System.out.println("操作开始！！！");
+                examcheckInfo.setFmeditemid(proids[i]);
+                examcheckInfo.setExamcheckid(examcheckService.getExamId(doctorid, medicalid, mark));
+                examcheckInfo.setStatus("0");
+                examcheckInfo.setNumber(1);
+                examcheckInfo.setIsmed("0");
+                examcheckInfo.setGoal("新引用常用项目");
+                examcheckInfo.setRequirement("新引用常用项目");
+                Date time = new java.sql.Date(new java.util.Date().getTime());
+                examcheckInfo.setDate(time);
+                int issuccess = examcheckService.addInfo(examcheckInfo);
+                System.out.println("添加函数已调用");
+                resultDTO.setStatus(0);
+                resultDTO.setMessage("操作成功！");
+                resultDTO.setData(issuccess);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             resultDTO.setStatus(1);

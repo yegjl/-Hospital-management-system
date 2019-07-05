@@ -187,10 +187,10 @@ public class SettleController {
                     refundService.settle(r.getId());
                 }
             }
-            String id = session.getAttribute("user_name").toString(); //通过session获取登录用户的id
-
+            String loginName = session.getAttribute("user_name").toString(); //通过session获取登录用户的id
+            int id = dailySettleService.findIdByLoginName(loginName);
             dailySettleService.alterAUTO();
-            dailySettleService.addSettle((long) 1, sdf.format(start_date), sdf.format(end_date), expense, "0");
+            dailySettleService.addSettle((long)id, sdf.format(start_date), sdf.format(end_date), expense, "0");
         } catch (Exception e) {
             e.printStackTrace();
         }

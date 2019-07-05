@@ -89,4 +89,8 @@ public interface UserMapper {
     int findIdByLoginName(String login_name);
 
     int findDeptIdByName(String login_name);
+
+    int findCountByLoginName(String login_name);
+
+	int findDeptCountByName(String login_name);
 }

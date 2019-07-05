@@ -76,6 +76,14 @@
         select deptid from user where login_name=#{login_name}
     </select>
 
+    <select id="findCountByLoginName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from doctor where login_name=#{login_name}
+    </select>
+
+    <select id="findDeptCountByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(deptid) from user where login_name=#{login_name}
+    </select>
+
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neusoft.ssm.bean.User" useGeneratedKeys="true">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">

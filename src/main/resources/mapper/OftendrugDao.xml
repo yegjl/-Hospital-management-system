@@ -198,4 +198,9 @@
   <select id="selectByDoctorid" resultMap="BaseResultMap">
     select * from oftendrug where doctorid = #{doctorid}
   </select>
+  <select id="getMedIdByName" resultType="java.lang.Integer">
+    select id from drugs
+      where DrugsName = #{param1}
+      and DrugsFormat = #{param2}
+  </select>
 </mapper>

@@ -706,7 +706,7 @@
             showCheckbox: true,
             click: function (obj) {
                 // layer.msg(JSON.stringify(obj.data));
-                layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data.id));
+                // layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(obj.data.id));
                 if(obj.data.id==0||obj.data.id==1||obj.data.id==2) {
                     layer.msg("请选择二级菜单里面的模板");
                     return;
@@ -718,38 +718,49 @@
                     content: '<iframe src="fifthpart/usePreModel?id='+obj.data.id+'" frameborder="0" class="layadmin-iframe"></iframe>',
                     btn: ['引用组套', '取消'],
                     yes: function (index,layero) {//将组套里面的的项目添加至数据库
-                        <%--var iframes = $(layero).find("iframe")[0].contentWindow;--%>
-                        <%--var form = iframes.document.getElementById("add");--%>
-                        <%--var table = iframes.layui.table;--%>
-                        <%--var tabledata = table.checkStatus('test-table-toolbar').data;--%>
-                        <%--var myArray = new Array();--%>
-                        <%--var myArray1 = new Array();--%>
-                        <%--var myArray2 = new Array();--%>
-                        <%--for (var i = 0; i < tabledata.length; i++) {--%>
-                        <%--    myArray.push(tabledata[i].itemcode);--%>
-                        <%--    myArray1.push(tabledata[i].requirement);--%>
-                        <%--    myArray2.push(tabledata[i].goal);--%>
-                        <%--}--%>
-                        <%--$.ajax({--%>
-                        <%--    type: "POST",--%>
-                        <%--    //todo:连接病历号--%>
-                        <%--    url: "fifthpart/usemubanpros?doctorid=${doctorid}&medicalid=${medicalid}&id=${id}",--%>
-                        <%--    data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,--%>
-                        <%--    success: function (res) {--%>
-                        <%--        if (res.status == 0) {--%>
-                        <%--            layer.msg(res.message)--%>
-                        <%--        } else {--%>
-                        <%--            layer.msg(res.message)--%>
-                        <%--        }--%>
-                        <%--        setTimeout(function(){--%>
-                        <%--            window.parent.location.reload();//修改成功后刷新父界面--%>
-                        <%--        }, 100);--%>
-                        <%--    },--%>
-                        <%--    error: function () {--%>
-                        <%--        alert("出现错误");--%>
-                        <%--        return false;--%>
-                        <%--    }--%>
-                        <%--}) //ajax结束--%>
+                        var iframes = $(layero).find("iframe")[0].contentWindow;
+                        var form = iframes.document.getElementById("add");
+                        var table = iframes.layui.table;
+                        var tabledata = table.checkStatus('test-table-toolbar').data;
+                        var myArray = new Array();
+                        var myArray1 = new Array();
+                        var myArray2 = new Array();
+                        var myArray3 = new Array();
+                        var myArray4 = new Array();
+                        var myArray5 = new Array();
+                        var myArray6 = new Array();
+                        var myArray7 = new Array();
+                        for (var i = 0; i < tabledata.length; i++) {
+                            myArray.push(tabledata[i].drugsname);
+                            myArray1.push(tabledata[i].format);
+                            myArray2.push(tabledata[i].price);
+                            myArray3.push(tabledata[i].usage);
+                            myArray4.push(tabledata[i].dosage);
+                            myArray5.push(tabledata[i].unit);
+                            myArray6.push(tabledata[i].times);
+                            myArray7.push(tabledata[i].entrust);
+                        }
+                        $.ajax({
+                            type: "POST",
+                            //todo:连接病历号
+                            url: "prescribe/addmedtests",
+                            // data:'myArray='+myArray+"&myArray1="+myArray1+"&myArray2="+myArray2,
+                            data:'doctorid=${sessionScope.doctorid}&medicalrecordid=${medicalRecordNo}&prestatus=${prestatus}&medicaltype=${prescribetype}&myArray='+myArray+'&myArray1='+myArray1+'&myArray2='+myArray2+'&myArray3='+myArray3+'&myArray4='+myArray4+'&myArray5='+myArray5+'&myArray6='+myArray6+'&myArray7='+myArray7,
+                            success: function (res) {
+                                if (res.status == 0) {
+                                    layer.msg(res.message)
+                                } else {
+                                    layer.msg(res.message)
+                                }
+                                setTimeout(function () {
+                                    layui.table.reload('test-table-cellEdit-middle');
+                                }, 100);
+                            },
+                            error: function () {
+                                alert("出现错误");
+                                return false;
+                            }
+                        }) //ajax结束
                     },
                     btn2: function () {
                         layer.closeAll();

@@ -178,7 +178,7 @@
                                         <c:forEach items="${CommonDiagnosises}" varStatus="flag" var="CommonDiagnosis">
                                             <div class="layui-btn-group">
                                                 <button type="button" class=" layui-btn layui-btn-primary layui-btn-xs"
-                                                        style="float: left;margin-top: 1%;" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" >${CommonDiagnosis.diseasename}
+                                                        style="float: left;margin-top: 1%;" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" lay-submit lay-filter="dia">${CommonDiagnosis.diseasename}
                                                 </button>
                                                 <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" value="${CommonDiagnosises.indexOf(CommonDiagnosis)}" lay-submit lay-filter="deletedia"><i
                                                         class="layui-icon layui-icon-delete"></i></button>

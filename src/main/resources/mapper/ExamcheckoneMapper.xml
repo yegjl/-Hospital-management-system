@@ -495,4 +495,45 @@
         delete from prescribemodel
         where id=#{i}
     </delete>
+
+    <select id="getOftenPro"   resultType="com.neusoft.ssm.bean.Jianchaoften">
+        select * from jianchaoften
+        where mark=#{mark}
+    </select>
+
+    <select id="getProByType"   resultType="com.neusoft.ssm.bean.Fmeditem">
+        select * from fmeditem
+        where RecordType=#{mark}
+    </select>
+
+    <insert id="addoften" parameterType="com.neusoft.ssm.bean.Jianchaoften" useGeneratedKeys="true" keyProperty="id">
+        insert into jianchaoften
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="itemid != null" >
+                itemId,
+            </if>
+            <if test="itemname != null" >
+                itemName,
+            </if>
+            <if test="mark != null" >
+                mark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="itemid != null" >
+                #{itemid,jdbcType=INTEGER},
+            </if>
+            <if test="itemname != null" >
+                #{itemname,jdbcType=VARCHAR},
+            </if>
+            <if test="mark != null" >
+                #{mark,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteOften" >
+        delete from jianchaoften
+        where itemId = #{id}
+    </delete>
 </mapper>
