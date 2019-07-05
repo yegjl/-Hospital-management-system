@@ -78,22 +78,22 @@ public class UserController {
         String category = userService.selectCategory(login_name);
 
         if (count == 1 && category.equals("01")) {
-            message = 1;
-        }
-        else if(count == 1 && category.equals("02")) {
             message = 2;
         }
-        else if(count == 1 && category.equals("03")) {
+        else if(count == 1 && category.equals("02")) {
             message = 3;
         }
-        else if(count == 1 && category.equals("04")) {
+        else if(count == 1 && category.equals("03")) {
             message = 4;
         }
-        else if(count == 1 && category.equals("05")) {
+        else if(count == 1 && category.equals("04")) {
             message = 5;
         }
-        else if(count == 1 && category.equals("06")) {
+        else if(count == 1 && category.equals("05")) {
             message = 6;
+        }
+        else if(count == 1 && category.equals("06")) {
+            message = 1;
         }
         else {
             message = 0;
