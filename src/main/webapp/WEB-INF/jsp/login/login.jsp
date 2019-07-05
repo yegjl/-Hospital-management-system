@@ -76,7 +76,7 @@
 
             background-color: #00BDDC;
 
-            background-image: url(images/snow.jpg);
+            background-image: url(images/snow1.jpg);
 
             background-size: cover;
 
