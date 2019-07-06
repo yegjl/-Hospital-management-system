@@ -30,7 +30,7 @@ public class MedicalRecordPageController {
 
     @RequestMapping("/index")
     public String index(Model model, HttpSession session,String medicalRecordNo,Integer isSeen) {
-        List<CommonDiagnosis> list = medicalRecordService.findAllCommonDiagnosis(2);
+        List<CommonDiagnosis> list = medicalRecordService.findAllCommonDiagnosis((Integer) session.getAttribute("doctorid"));
         diagnosisList = new ArrayList<>();
         Diagnosis diagnosis = null;
         for (CommonDiagnosis commonDiagnosis : list) {
